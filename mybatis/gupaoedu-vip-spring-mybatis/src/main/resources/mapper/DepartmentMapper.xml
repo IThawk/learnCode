@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gupaoedu.crud.dao.DepartmentMapper">
+    <resultMap id="BaseResultMap" type="com.gupaoedu.crud.bean.Department">
+        <id column="dept_id" jdbcType="INTEGER" property="deptId"/>
+        <result column="dept_name" jdbcType="VARCHAR" property="deptName"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        dept_id, dept_name
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tbl_dept
+        where dept_id = #{deptId,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectByMap" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        FROM tbl_dept e
+        where 1=1
+        <if test="did != null">
+            and d_id = #{did,jdbcType=INTEGER}
+        </if>
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tbl_dept
+    where dept_id = #{deptId,jdbcType=INTEGER}
+  </delete>
+
+    <insert id="insert" parameterType="com.gupaoedu.crud.bean.Department">
+    insert into tbl_dept (dept_id, dept_name)
+    values (#{deptId,jdbcType=INTEGER}, #{deptName,jdbcType=VARCHAR})
+  </insert>
+
+    <insert id="insertSelective" parameterType="com.gupaoedu.crud.bean.Department">
+        insert into tbl_dept
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="deptId != null">
+                dept_id,
+            </if>
+            <if test="deptName != null">
+                dept_name,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="deptId != null">
+                #{deptId,jdbcType=INTEGER},
+            </if>
+            <if test="deptName != null">
+                #{deptName,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.gupaoedu.crud.bean.Department">
+        update tbl_dept
+        <set>
+            <if test="deptName != null">
+                dept_name = #{deptName,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where dept_id = #{deptId,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.gupaoedu.crud.bean.Department">
+    update tbl_dept
+    set dept_name = #{deptName,jdbcType=VARCHAR}
+    where dept_id = #{deptId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,16 @@
+spring:
+  profiles:
+    active: test
+  rabbitmq:
+    virtual-host:
+    listener:
+      direct:
+        missing-queues-fatal:
+
+logging:
+  level:
+    org: ERROR
+
+test:
+  client:
+    duration: 10000

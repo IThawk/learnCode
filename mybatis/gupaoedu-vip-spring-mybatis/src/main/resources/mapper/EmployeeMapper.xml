@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gupaoedu.crud.dao.EmployeeMapper">
+    <resultMap id="BaseResultMap" type="com.gupaoedu.crud.bean.Employee">
+        <id column="emp_id" jdbcType="INTEGER" property="empId"/>
+        <result column="emp_name" jdbcType="VARCHAR" property="empName"/>
+        <result column="gender" jdbcType="CHAR" property="gender"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="d_id" jdbcType="INTEGER" property="dId"/>
+    </resultMap>
+
+    <resultMap id="WithDeptResultMap" type="com.gupaoedu.crud.bean.Employee">
+        <id column="emp_id" jdbcType="INTEGER" property="empId"/>
+        <result column="emp_name" jdbcType="VARCHAR" property="empName"/>
+        <result column="gender" jdbcType="CHAR" property="gender"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="d_id" jdbcType="INTEGER" property="dId"/>
+        <!-- 联合查询，将Department的属性映射到ResultMap -->
+        <association property="department" javaType="com.gupaoedu.crud.bean.Department">
+            <id column="dept_id" property="deptId"/>
+            <result column="dept_name" property="deptName"/>
+        </association>
+    </resultMap>
+
+    <!-- 另一种联合查询  (一对一)的实现，但是这种方式有“N+1”的问题 -->
+    <resultMap id="empResultMap" type="com.gupaoedu.crud.bean.Employee">
+        <id property="empId" column="emp_id"/>
+        <result property="empName" column="emp_name"/>
+        <result property="gender" column="gender"/>
+        <association property="department" javaType="com.gupaoedu.crud.bean.Department"
+                     column="dept_id" select="selectDept"/> <!-- selectDept 定义在下面-->
+    </resultMap>
+    <select id="selectDept" parameterType="int" resultType="com.gupaoedu.crud.bean.Department">
+        select * from tbl_dept where dept_id = #{deptId}
+    </select>
+
+    <sql id="Base_Column_List">
+      emp_id, emp_name, gender, email, d_id
+    </sql>
+
+    <sql id="WithDept_Column_List">
+         e.emp_id, e.emp_name, e.gender, e.email, e.d_id,d.dept_id,d.dept_name
+    </sql>
+
+    <select id="selectByPrimaryKeyWithDept" resultMap="WithDeptResultMap">
+        select
+        <include refid="WithDept_Column_List"/>
+        FROM tbl_emp e
+        Left JOIN tbl_dept d ON e.'d_id'=d.'dept_id'
+        where emp_id = #{empId,jdbcType=INTEGER}
+    </select>
+
+    <!--按主键查询-->
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tbl_emp
+        where emp_id = #{empId,jdbcType=INTEGER}
+    </select>
+
+    <!-- 根据Map查询 -->
+    <select id="selectByMap" parameterType="java.util.Map" resultMap="empResultMap">
+        select
+        <include refid="WithDept_Column_List"/>
+        FROM tbl_emp e
+        Left JOIN tbl_dept d ON e.d_id = d.dept_id
+        where 1=1
+        <if test="did != null">
+            and e.d_id = #{did,jdbcType=INTEGER}
+        </if>
+    </select>
+
+    <!--按主键删除-->
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+      delete from tbl_emp
+      where emp_id = #{empId,jdbcType=INTEGER}
+    </delete>
+
+    <!-- List 批量删除  -->
+    <delete id="deleteByList" parameterType="java.util.List">
+        delete from tbl_emp where emp_id in
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item.empId,jdbcType=VARCHAR}
+        </foreach>
+    </delete>
+
+    <!--插入-->
+    <insert id="insert" parameterType="com.gupaoedu.crud.bean.Employee">
+    insert into tbl_emp (emp_id, emp_name, gender,
+      email, d_id)
+    values (#{empId,jdbcType=INTEGER}, #{empName,jdbcType=VARCHAR}, #{gender,jdbcType=CHAR},
+      #{email,jdbcType=VARCHAR}, #{dId,jdbcType=INTEGER})
+    </insert>
+
+    <!-- 批量插入 -->
+    <insert id="batchInsert" parameterType="java.util.List" useGeneratedKeys="true">
+        <selectKey resultType="long" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into tbl_emp (emp_id, emp_name, gender,email, d_id)
+        values
+        <foreach collection="list" item="emps" index="index" separator=",">
+            ( #{emps.empId},#{emps.empName},#{emps.gender},#{emps.email},#{emps.dId} )
+        </foreach>
+    </insert>
+
+    <!--有选择的插入-->
+    <insert id="insertSelective" parameterType="com.gupaoedu.crud.bean.Employee">
+        insert into tbl_emp
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="empId != null">
+                emp_id,
+            </if>
+            <if test="empName != null">
+                emp_name,
+            </if>
+            <if test="gender != null">
+                gender,
+            </if>
+            <if test="email != null">
+                email,
+            </if>
+            <if test="dId != null">
+                d_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="empId != null">
+                #{empId,jdbcType=INTEGER},
+            </if>
+            <if test="empName != null">
+                #{empName,jdbcType=VARCHAR},
+            </if>
+            <if test="gender != null">
+                #{gender,jdbcType=CHAR},
+            </if>
+            <if test="email != null">
+                #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="dId != null">
+                #{dId,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+
+    <!--按照条件统计-->
+    <select id="countByMap" parameterType="Map" resultType="java.lang.Long">
+        select count(*) from tbl_emp where 1=1
+        <if test="emdId != null">
+            and emp_id = #{emdId,jdbcType=VARCHAR}
+        </if>
+        <if test="empName != null">
+            and emp_name = #{empName,jdbcType=VARCHAR}
+        </if>
+        <if test="gender != null">
+            and gender = #{gender,jdbcType=VARCHAR}
+        </if>
+        <if test="email != null">
+            and email = #{email,jdbcType=VARCHAR}
+        </if>
+        <if test="did != null">
+            and d_id = #{did,jdbcType=VARCHAR}
+        </if>
+    </select>
+
+    <!-- 批量更新 -->
+    <!-- 注意separator 和 open -->
+    <update id="updateBatch">
+        update tbl_emp set
+        emp_name =
+        <foreach collection="list" item="emps" index="index" separator=" " open="case emp_id" close="end">
+            when #{emps.empId} then #{emps.empName}
+        </foreach>
+        ,gender =
+        <foreach collection="list" item="emps" index="index" separator=" " open="case emp_id" close="end">
+            when #{emps.empId} then #{emps.gender}
+        </foreach>
+        ,email =
+        <foreach collection="list" item="emps" index="index" separator=" " open="case emp_id" close="end">
+            when #{emps.empId} then #{emps.email}
+        </foreach>
+        where emp_id in
+        <foreach collection="list" item="emps" index="index" separator="," open="(" close=")">
+            #{emps.empId}
+        </foreach>
+    </update>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.gupaoedu.crud.bean.Employee">
+        update tbl_emp
+        <set>
+            <if test="empName != null">
+                emp_name = #{empName,jdbcType=VARCHAR},
+            </if>
+            <if test="gender != null">
+                gender = #{gender,jdbcType=CHAR},
+            </if>
+            <if test="email != null">
+                email = #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="dId != null">
+                d_id = #{dId,jdbcType=INTEGER},
+            </if>
+        </set>
+        where emp_id = #{empId,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.gupaoedu.crud.bean.Employee">
+        update tbl_emp
+        set emp_name = #{empName,jdbcType=VARCHAR},
+          gender = #{gender,jdbcType=CHAR},
+          email = #{email,jdbcType=VARCHAR},
+          d_id = #{dId,jdbcType=INTEGER}
+        where emp_id = #{empId,jdbcType=INTEGER}
+    </update>
+
+    <!-- choose演示 -->
+    <select id="getEmpList_choose" resultMap="empResultMap" parameterType="com.gupaoedu.crud.bean.Employee">
+        SELECT * FROM tbl_emp e
+        <where>
+            <choose>
+                <when test="empId !=null">
+                    e.emp_id = #{emp_id, jdbcType=INTEGER}
+                </when>
+                <when test="empName != null and empName != ''">
+                    AND e.emp_name LIKE CONCAT(CONCAT('%', #{emp_name, jdbcType=VARCHAR}),'%')
+                </when>
+                <when test="email != null ">
+                    AND e.email = #{email, jdbcType=VARCHAR}
+                </when>
+                <otherwise>
+                </otherwise>
+            </choose>
+        </where>
+    </select>
+<!--
+
+    <select id="getEmpList_bind" resultType="empResultMap" parameterType="com.gupaoedu.crud.bean.Employee">
+        <bind name="pattern1" value="'%' + empName + '%'" />
+        <bind name="pattern2" value="'%' + email + '%'" />
+        SELECT * FROM tbl_emp
+        <where>
+            <if test="empId != null">
+                emp_id = #{empId,jdbcType=INTEGER},
+            </if>
+            <if test="empName != null and empName != ''">
+                AND emp_name LIKE #{pattern1}
+            </if>
+            <if test="email != null and email != ''">
+                AND email LIKE #{pattern2}
+            </if>
+        </where>
+        ORDER BY emp_id
+    </select>
+-->
+
+</mapper>
