@@ -46,7 +46,7 @@
       <param name="rc" type="int"/>
       <param name="path" type="java.lang.String"/>
       <param name="ctx" type="java.lang.Object"/>
-      <param name="acl" type="java.util.List"/>
+      <param name="acl" type="java.com.ithawk.redis.demo.util.List"/>
       <param name="stat" type="org.apache.zookeeper.data.Stat"/>
     </method>
   </interface>
@@ -63,7 +63,7 @@
       <param name="rc" type="int"/>
       <param name="path" type="java.lang.String"/>
       <param name="ctx" type="java.lang.Object"/>
-      <param name="children" type="java.util.List"/>
+      <param name="children" type="java.com.ithawk.redis.demo.util.List"/>
     </method>
   </interface>
   <!-- end interface org.apache.zookeeper.AsyncCallback.ChildrenCallback -->
@@ -241,7 +241,7 @@
   <interface name="ClientWatchManager"    abstract="true"
     static="false" final="false" visibility="public"
     deprecated="not deprecated">
-    <method name="materialize" return="java.util.Set"
+    <method name="materialize" return="java.com.ithawk.redis.demo.util.Set"
       abstract="false" native="false" synchronized="false"
       static="false" final="false" visibility="public"
       deprecated="not deprecated">
@@ -352,7 +352,7 @@
       static="false" final="false" visibility="public"
       deprecated="not deprecated">
     </constructor>
-    <method name="list" return="java.util.List"
+    <method name="list" return="java.com.ithawk.redis.demo.util.List"
       abstract="false" native="false" synchronized="false"
       static="true" final="false" visibility="public"
       deprecated="not deprecated">
@@ -1720,7 +1720,7 @@
  Id's the client authenticated with.]]>
       </doc>
     </field>
-    <field name="OPEN_ACL_UNSAFE" type="java.util.ArrayList"
+    <field name="OPEN_ACL_UNSAFE" type="java.com.ithawk.redis.demo.util.ArrayList"
       transient="false" volatile="false"
       static="true" final="true" visibility="public"
       deprecated="not deprecated">
@@ -1728,7 +1728,7 @@
       <![CDATA[This is a completely open ACL with the exception of ADMIN permission.]]>
       </doc>
     </field>
-    <field name="CREATOR_ALL_ACL" type="java.util.ArrayList"
+    <field name="CREATOR_ALL_ACL" type="java.com.ithawk.redis.demo.util.ArrayList"
       transient="false" volatile="false"
       static="true" final="true" visibility="public"
       deprecated="not deprecated">
@@ -1736,7 +1736,7 @@
       <![CDATA[This ACL gives the creators authentication id's all permissions.]]>
       </doc>
     </field>
-    <field name="READ_ACL_UNSAFE" type="java.util.ArrayList"
+    <field name="READ_ACL_UNSAFE" type="java.com.ithawk.redis.demo.util.ArrayList"
       transient="false" volatile="false"
       static="true" final="true" visibility="public"
       deprecated="not deprecated">
@@ -1993,7 +1993,7 @@
       deprecated="not deprecated">
       <param name="path" type="java.lang.String"/>
       <param name="data" type="byte[]"/>
-      <param name="acl" type="java.util.List"/>
+      <param name="acl" type="java.com.ithawk.redis.demo.util.List"/>
       <param name="createMode" type="org.apache.zookeeper.CreateMode"/>
       <exception name="KeeperException" type="org.apache.zookeeper.KeeperException"/>
       <exception name="InterruptedException" type="java.lang.InterruptedException"/>
@@ -2070,7 +2070,7 @@
       deprecated="not deprecated">
       <param name="path" type="java.lang.String"/>
       <param name="data" type="byte[]"/>
-      <param name="acl" type="java.util.List"/>
+      <param name="acl" type="java.com.ithawk.redis.demo.util.List"/>
       <param name="createMode" type="org.apache.zookeeper.CreateMode"/>
       <param name="cb" type="org.apache.zookeeper.AsyncCallback.StringCallback"/>
       <param name="ctx" type="java.lang.Object"/>
@@ -2355,7 +2355,7 @@
  @see #setData(String, byte[], int)]]>
       </doc>
     </method>
-    <method name="getACL" return="java.util.List"
+    <method name="getACL" return="java.com.ithawk.redis.demo.util.List"
       abstract="false" native="false" synchronized="false"
       static="false" final="false" visibility="public"
       deprecated="not deprecated">
@@ -2399,7 +2399,7 @@
       static="false" final="false" visibility="public"
       deprecated="not deprecated">
       <param name="path" type="java.lang.String"/>
-      <param name="acl" type="java.util.List"/>
+      <param name="acl" type="java.com.ithawk.redis.demo.util.List"/>
       <param name="version" type="int"/>
       <exception name="KeeperException" type="org.apache.zookeeper.KeeperException"/>
       <exception name="InterruptedException" type="java.lang.InterruptedException"/>
@@ -2429,7 +2429,7 @@
       static="false" final="false" visibility="public"
       deprecated="not deprecated">
       <param name="path" type="java.lang.String"/>
-      <param name="acl" type="java.util.List"/>
+      <param name="acl" type="java.com.ithawk.redis.demo.util.List"/>
       <param name="version" type="int"/>
       <param name="cb" type="org.apache.zookeeper.AsyncCallback.StatCallback"/>
       <param name="ctx" type="java.lang.Object"/>
@@ -2440,7 +2440,7 @@
  @see #setACL(String, List, int)]]>
       </doc>
     </method>
-    <method name="getChildren" return="java.util.List"
+    <method name="getChildren" return="java.com.ithawk.redis.demo.util.List"
       abstract="false" native="false" synchronized="false"
       static="false" final="false" visibility="public"
       deprecated="not deprecated">
@@ -2470,7 +2470,7 @@
  @throws IllegalArgumentException if an invalid path is specified]]>
       </doc>
     </method>
-    <method name="getChildren" return="java.util.List"
+    <method name="getChildren" return="java.com.ithawk.redis.demo.util.List"
       abstract="false" native="false" synchronized="false"
       static="false" final="false" visibility="public"
       deprecated="not deprecated">

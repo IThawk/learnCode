@@ -53,7 +53,7 @@
         <module>ejob</module>
         <module>springboot</module>
         <module>gpmall-parent</module>
-        <module>gupao-jedis</module>
+        <module>redis</module>
         <module>kafka</module>
         <module>mq</module>
         <module>mybatis</module>
