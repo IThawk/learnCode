@@ -11,10 +11,10 @@
   <artifactId>netty</artifactId>
   <packaging>pom</packaging>
   <modules>
-    <module>gupaoedu-vip-netty-pattern</module>
-    <module>gupaoedu-vip-netty-rpc</module>
-    <module>gupaoedu-vip-netty-io</module>
-    <module>gupaoedu-vip-netty-tomcat</module>
+    <module>netty-pattern</module>
+    <module>netty-rpc</module>
+    <module>netty-io</module>
+    <module>netty-tomcat</module>
   </modules>
   <name>netty</name>
 </project>

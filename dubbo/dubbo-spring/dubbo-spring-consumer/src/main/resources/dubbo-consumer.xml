@@ -1,9 +1,15 @@
 <beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:dubbo="http://dubbo.apache.org/schema/dubbo"
-       xmlns="http://www.springframework.org/schema/beans"
+       xmlns="http://www.springframework.org/schema/beans" xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://dubbo.apache.org/schema/dubbo http://dubbo.apache.org/schema/dubbo/dubbo.xsd">
+       http://dubbo.apache.org/schema/dubbo http://dubbo.apache.org/schema/dubbo/dubbo.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--    开启自动扫描-->
+    <context:component-scan base-package="com.ithawk.dubbo"/>
+    <context:annotation-config/>
+
     <dubbo:application name="demo-consumer"/>
-    <dubbo:registry id="test" group="aaa" address="zookeeper://127.0.0.1:12181"/>
-    <dubbo:reference id="demoService" check="false" interface="com.ithawk.mybatis.demo.dubbo.spring.api.MemberService" registry="test"/>
+    <dubbo:registry id="test" group="test" address="zookeeper://127.0.0.1:12181"/>
+    <dubbo:reference id="memberService" check="false" interface="com.ithawk.dubbo.demo.spring.api.MemberService"
+                     mock="com.ithawk.dubbo.demo.spring.demo.mock.MemberServiceMock" registry="test"/>
 </beans>

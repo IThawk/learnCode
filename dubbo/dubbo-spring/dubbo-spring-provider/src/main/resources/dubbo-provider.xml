@@ -3,9 +3,11 @@
        xmlns="http://www.springframework.org/schema/beans"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://dubbo.apache.org/schema/dubbo http://dubbo.apache.org/schema/dubbo/dubbo.xsd">
+
     <dubbo:application name="demo-provider"/>
-    <dubbo:registry address="zookeeper://127.0.0.1:12181"/>
+    <dubbo:registry  address="zookeeper://127.0.0.1:12181" group="test"/>
     <dubbo:protocol name="dubbo" port="20890"/>
-    <bean id="memberService" class="com.ithawk.mybatis.demo.dubbo.spring.demo.service.impl.MemberServiceImpl"/>
-    <dubbo:service interface="com.ithawk.mybatis.demo.dubbo.spring.api.MemberService" ref="memberService"/>
+    <!--    注册bean-->
+    <bean id="memberService" class="com.ithawk.dubbo.demo.spring.service.impl.MemberServiceImpl"/>
+    <dubbo:service interface="com.ithawk.dubbo.demo.spring.api.MemberService" ref="memberService"/>
 </beans>

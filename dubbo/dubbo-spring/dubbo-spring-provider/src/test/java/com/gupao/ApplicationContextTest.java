@@ -5,7 +5,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.ClassPathResource;
 
 /**
- * Created by Tom.
+ *
  */
 public class ApplicationContextTest {
     public static void main(String[] args) {
