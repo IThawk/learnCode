@@ -12,7 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.stereotype.Component;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.List;
 
 @Component
 @Aspect
@@ -23,7 +25,8 @@ public class RedisCacheAspect {
     RedisTemple redisTemple;
 
 
-    @Pointcut("@annotation(RedisCache)")
+    //    @Pointcut("@annotation(com.ithawk.redis.demo.aspect.RedisCache)")
+    @Pointcut("execution(* com.ithawk.redis.demo.service..*(..))")
     public void pointCut() {
     }
 
@@ -33,11 +36,13 @@ public class RedisCacheAspect {
         Method s = ((MethodSignature) joinPoint.getSignature()).getMethod();
         Object[] objects = joinPoint.getArgs();
         String key = AnnotationUtils.findAnnotation(s, RedisCache.class).key();
+        Class clazz = AnnotationUtils.findAnnotation(s, RedisCache.class).clazz();
+        int existTime = AnnotationUtils.findAnnotation(s, RedisCache.class).existTime();
         if (objects.length > 0) {
+            //todo
             key += objects[0].toString();
         }
-
-        Object user = redisTemple.get(key);
+        Object user = redisTemple.get(key, clazz);
         if (user != null) {
             return user;
         }
@@ -45,7 +50,7 @@ public class RedisCacheAspect {
             Object object = ((ProceedingJoinPoint) joinPoint).proceed();
             long end = System.currentTimeMillis();
             System.out.println("around " + joinPoint + "\tUse time : " + (end - start) + " ms!");
-            redisTemple.set(key, object);
+            redisTemple.setEx(key, object, existTime);
             return object;
         } catch (Throwable e) {
             long end = System.currentTimeMillis();

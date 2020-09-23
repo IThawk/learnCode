@@ -9,4 +9,6 @@ import java.lang.annotation.*;
 public @interface RedisCache {
 
     String key() default "";
+    Class<?> clazz();
+    int  existTime() default 60;
 }
