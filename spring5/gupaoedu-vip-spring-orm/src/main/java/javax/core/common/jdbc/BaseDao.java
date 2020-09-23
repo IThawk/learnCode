@@ -1,6 +1,6 @@
 package javax.core.common.jdbc;
 
-import com.gupaoedu.vip.orm.framework.QueryRule;
+import com.ithawk.mybatis.demo.vip.orm.framework.QueryRule;
 
 import javax.core.common.Page;
 import java.util.List;

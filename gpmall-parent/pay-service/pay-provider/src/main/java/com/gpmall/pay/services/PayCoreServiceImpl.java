@@ -1,16 +1,10 @@
 package com.gpmall.pay.services;
 
 import com.alibaba.fastjson.JSON;
-import com.gpmall.commons.lock.annotation.CustomerLock;
 import com.gpmall.pay.biz.abs.BasePayment;
 import com.gpmall.pay.utils.ExceptionProcessorUtils;
-import com.gupaoedu.pay.PayCoreService;
-import com.gupaoedu.pay.constants.PayReturnCodeEnum;
-import com.gupaoedu.pay.dto.*;
-import com.gupaoedu.pay.dto.PaymentNotifyRequest;
-import com.gupaoedu.pay.dto.PaymentNotifyResponse;
-import com.gupaoedu.pay.dto.PaymentRequest;
-import com.gupaoedu.pay.dto.PaymentResponse;
+import com.ithawk.mybatis.demo.pay.PayCoreService;
+import com.ithawk.mybatis.demo.pay.dto.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.Service;
 import org.springframework.transaction.annotation.Transactional;

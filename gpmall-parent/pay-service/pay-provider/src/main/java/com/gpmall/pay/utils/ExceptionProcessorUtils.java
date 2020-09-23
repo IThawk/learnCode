@@ -2,7 +2,7 @@ package com.gpmall.pay.utils;
 
 import com.gpmall.commons.result.AbstractResponse;
 import com.gpmall.commons.tool.exception.ExceptionUtil;
-import com.gupaoedu.pay.constants.PayReturnCodeEnum;
+import com.ithawk.mybatis.demo.pay.constants.PayReturnCodeEnum;
 
 /**
  * 腾讯课堂搜索【咕泡学院】

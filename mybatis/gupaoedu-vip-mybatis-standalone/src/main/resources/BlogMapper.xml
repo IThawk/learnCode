@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.gupaoedu.mapper.BlogMapper">
+<mapper namespace="com.ithawk.mybatis.demo.mapper.BlogMapper">
     <!-- 声明这个namespace使用二级缓存 -->
     <cache/>
 
@@ -19,48 +19,48 @@
     <resultMap id="BaseResultMap" type="blog">
         <id column="bid" property="bid" jdbcType="INTEGER"/>
 <!--
-        <result column="name" property="name" jdbcType="VARCHAR" typeHandler="com.gupaoedu.type.MyTypeHandler"/>
+        <result column="name" property="name" jdbcType="VARCHAR" typeHandler="MyTypeHandler"/>
 -->
         <result column="name" property="name" jdbcType="VARCHAR"/>
         <result column="author_id" property="authorId" jdbcType="INTEGER"/>
     </resultMap>
 
     <!-- 根据文章查询作者，一对一查询的结果，嵌套查询 -->
-    <resultMap id="BlogWithAuthorResultMap" type="com.gupaoedu.domain.associate.BlogAndAuthor">
+    <resultMap id="BlogWithAuthorResultMap" type="com.ithawk.mybatis.demo.domain.associate.BlogAndAuthor">
         <id column="bid" property="bid" jdbcType="INTEGER"/>
         <result column="name" property="name" jdbcType="VARCHAR"/>
         <!-- 联合查询，将author的属性映射到ResultMap -->
-        <association property="author" javaType="com.gupaoedu.domain.Author">
+        <association property="author" javaType="com.ithawk.mybatis.demo.domain.Author">
             <id column="author_id" property="authorId"/>
             <result column="author_name" property="authorName"/>
         </association>
     </resultMap>
 
     <!-- 另一种联合查询(一对一)的实现，但是这种方式有“N+1”的问题 -->
-    <resultMap id="BlogWithAuthorQueryMap" type="com.gupaoedu.domain.associate.BlogAndAuthor">
+    <resultMap id="BlogWithAuthorQueryMap" type="com.ithawk.mybatis.demo.domain.associate.BlogAndAuthor">
         <id column="bid" property="bid" jdbcType="INTEGER"/>
         <result column="name" property="name" jdbcType="VARCHAR"/>
-        <association property="author" javaType="com.gupaoedu.domain.Author"
+        <association property="author" javaType="com.ithawk.mybatis.demo.domain.Author"
                      column="author_id" select="selectAuthor"/> <!-- selectAuthor 定义在下面-->
     </resultMap>
 
     <!--  查询文章带评论的结果（一对多） -->
-    <resultMap id="BlogWithCommentMap" type="com.gupaoedu.domain.associate.BlogAndComment" extends="BaseResultMap" >
-        <collection property="comment" ofType="com.gupaoedu.domain.Comment">
+    <resultMap id="BlogWithCommentMap" type="com.ithawk.mybatis.demo.domain.associate.BlogAndComment" extends="BaseResultMap" >
+        <collection property="comment" ofType="com.ithawk.mybatis.demo.domain.Comment">
             <id column="comment_id" property="commentId" />
             <result column="content" property="content" />
         </collection>
     </resultMap>
 
     <!--  按作者查询文章评论的结果（多对多） -->
-    <resultMap id="AuthorWithBlogMap" type="com.gupaoedu.domain.associate.AuthorAndBlog" >
+    <resultMap id="AuthorWithBlogMap" type="com.ithawk.mybatis.demo.domain.associate.AuthorAndBlog" >
         <id column="author_id" property="authorId" jdbcType="INTEGER"/>
         <result column="author_name" property="authorName" jdbcType="VARCHAR"/>
-        <collection property="blog" ofType="com.gupaoedu.domain.associate.BlogAndComment">
+        <collection property="blog" ofType="com.ithawk.mybatis.demo.domain.associate.BlogAndComment">
             <id column="bid" property="bid" />
             <result column="name" property="name" />
             <result column="author_id" property="authorId" />
-            <collection property="comment" ofType="com.gupaoedu.domain.Comment">
+            <collection property="comment" ofType="com.ithawk.mybatis.demo.domain.Comment">
                 <id column="comment_id" property="commentId" />
                 <result column="content" property="content" />
             </collection>
@@ -99,7 +99,7 @@
     </select>
 
     <!-- 嵌套查询 -->
-    <select id="selectAuthor" parameterType="int" resultType="com.gupaoedu.domain.Author">
+    <select id="selectAuthor" parameterType="int" resultType="com.ithawk.mybatis.demo.domain.Author">
         select author_id authorId, author_name authorName
         from author where author_id = #{authorId}
     </select>
@@ -135,7 +135,7 @@
     values (#{bid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{authorId,jdbcType=INTEGER})
 </insert>
     <!--
-    values (#{bid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR,typeHandler=com.gupaoedu.type.MyTypeHandler}, #{authorId,jdbcType=CHAR})
+    values (#{bid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR,typeHandler=MyTypeHandler}, #{authorId,jdbcType=CHAR})
     -->
 
     <!-- 自动生成的Example -->
@@ -171,7 +171,7 @@
             </foreach>
         </where>
     </sql>
-    <select id="selectByExample" parameterType="com.gupaoedu.domain.BlogExample" resultMap="BaseResultMap">
+    <select id="selectByExample" parameterType="com.ithawk.mybatis.demo.domain.BlogExample" resultMap="BaseResultMap">
         select
         <if test="distinct">
             distinct

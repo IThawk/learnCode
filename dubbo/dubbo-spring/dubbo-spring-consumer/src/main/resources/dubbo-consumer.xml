@@ -5,5 +5,5 @@
        http://dubbo.apache.org/schema/dubbo http://dubbo.apache.org/schema/dubbo/dubbo.xsd">
     <dubbo:application name="demo-consumer"/>
     <dubbo:registry id="test" group="aaa" address="zookeeper://127.0.0.1:12181"/>
-    <dubbo:reference id="demoService" check="false" interface="com.gupaoedu.dubbo.spring.api.MemberService" registry="test"/>
+    <dubbo:reference id="demoService" check="false" interface="com.ithawk.mybatis.demo.dubbo.spring.api.MemberService" registry="test"/>
 </beans>

@@ -1,7 +1,7 @@
 package com.gupao;
 
-import com.gupaoedu.vip.spring5.demo.model.Member;
-import com.gupaoedu.dubbo.spring.demo.action.MemberAction;
+import com.ithawk.mybatis.demo.vip.spring5.demo.model.Member;
+import com.ithawk.mybatis.demo.dubbo.spring.demo.action.MemberAction;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import reactor.core.publisher.Mono;

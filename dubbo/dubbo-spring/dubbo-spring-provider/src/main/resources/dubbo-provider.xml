@@ -6,6 +6,6 @@
     <dubbo:application name="demo-provider"/>
     <dubbo:registry address="zookeeper://127.0.0.1:12181"/>
     <dubbo:protocol name="dubbo" port="20890"/>
-    <bean id="memberService" class="com.gupaoedu.dubbo.spring.demo.service.impl.MemberServiceImpl"/>
-    <dubbo:service interface="com.gupaoedu.dubbo.spring.api.MemberService" ref="memberService"/>
+    <bean id="memberService" class="com.ithawk.mybatis.demo.dubbo.spring.demo.service.impl.MemberServiceImpl"/>
+    <dubbo:service interface="com.ithawk.mybatis.demo.dubbo.spring.api.MemberService" ref="memberService"/>
 </beans>

@@ -61,8 +61,9 @@
         <property name="maxOpenPreparedStatements" value="${druid.maxOpenPreparedStatements}" />
 
 <!--        &lt;!&ndash; 配置监控统计拦截的filters &ndash;&gt;-->
-<!--        <property name="filters" value="${druid.filters}" />-->
-<!--        <property name="connectionProperties" value="config.decrypt=true;config.decrypt.key=${druid.public.key}" />-->
+        <property name="filters" value="${druid.filters}" />
+<!--        config.decrypt=false 解决druid生成 -->
+        <property name="connectionProperties" value="config.decrypt=false;config.decrypt.key=${druid.public.key}" />
     </bean>
 
     <!-- 在Spring启动时创建 sqlSessionFactory -->
@@ -87,11 +88,11 @@
     <!-- 接口的普通注册方式 -->
 <!--
     <bean id="employeeMapper" class="org.mybatis.spring.mapper.MapperFactoryBean" autowire="byType">
-        <property name="mapperInterface" value="com.gupaoedu.crud.dao.EmployeeMapper" />
+        <property name="mapperInterface" value="EmployeeMapper" />
     </bean>-->
 
     <!-- DAO层的实现类 -->
-    <bean id="employeeDao" class="com.gupaoedu.crud.daosupport.EmployeeDaoImpl">
+    <bean id="employeeDao" class="com.ithawk.mybatis.demo.crud.daosupport.EmployeeDaoImpl">
         <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
     </bean>
 

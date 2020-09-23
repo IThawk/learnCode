@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -20,6 +20,7 @@ package org.apache.zookeeper.server;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.InetSocketAddress;
 import java.util.concurrent.CountDownLatch;
 
 import javax.management.JMException;
@@ -37,10 +38,10 @@ import org.apache.zookeeper.server.quorum.QuorumPeerConfig.ConfigException;
 @InterfaceAudience.Public
 public class ZooKeeperServerMain {
     private static final Logger LOG =
-        LoggerFactory.getLogger(ZooKeeperServerMain.class);
+            LoggerFactory.getLogger(ZooKeeperServerMain.class);
 
     private static final String USAGE =
-        "Usage: ZooKeeperServerMain configfile | port datadir [ticktime] [maxcnxns]";
+            "Usage: ZooKeeperServerMain configfile | port datadir [ticktime] [maxcnxns]";
 
     private ServerCnxnFactory cnxnFactory;
 
@@ -71,8 +72,7 @@ public class ZooKeeperServerMain {
     }
 
     protected void initializeAndRun(String[] args)
-        throws ConfigException, IOException
-    {
+            throws ConfigException, IOException {
         try {
             ManagedUtil.registerLog4jMBeans();
         } catch (JMException e) {
@@ -80,7 +80,11 @@ public class ZooKeeperServerMain {
         }
 
         ServerConfig config = new ServerConfig();
-        if (args.length == 1) {
+        if (args.length == 0) {
+            config.dataDir = "/test/zookeeper";
+            config.dataLogDir = "/test/zookeeper";
+            config.clientPortAddress = new InetSocketAddress("0.0.0.0", 12181);
+        } else if (args.length == 1) {
             config.parse(args[0]);
         } else {
             config.parse(args);

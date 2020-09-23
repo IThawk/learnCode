@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.gupaoedu.crud.dao.EmployeeMapper">
-    <resultMap id="BaseResultMap" type="com.gupaoedu.crud.bean.Employee">
+<mapper namespace="com.ithawk.mybatis.demo.crud.dao.EmployeeMapper">
+    <resultMap id="BaseResultMap" type="com.ithawk.mybatis.demo.crud.bean.Employee">
         <id column="emp_id" jdbcType="INTEGER" property="empId"/>
         <result column="emp_name" jdbcType="VARCHAR" property="empName"/>
         <result column="gender" jdbcType="CHAR" property="gender"/>
@@ -9,28 +9,28 @@
         <result column="d_id" jdbcType="INTEGER" property="dId"/>
     </resultMap>
 
-    <resultMap id="WithDeptResultMap" type="com.gupaoedu.crud.bean.Employee">
+    <resultMap id="WithDeptResultMap" type="com.ithawk.mybatis.demo.crud.bean.Employee">
         <id column="emp_id" jdbcType="INTEGER" property="empId"/>
         <result column="emp_name" jdbcType="VARCHAR" property="empName"/>
         <result column="gender" jdbcType="CHAR" property="gender"/>
         <result column="email" jdbcType="VARCHAR" property="email"/>
         <result column="d_id" jdbcType="INTEGER" property="dId"/>
         <!-- 联合查询，将Department的属性映射到ResultMap -->
-        <association property="department" javaType="com.gupaoedu.crud.bean.Department">
+        <association property="department" javaType="com.ithawk.mybatis.demo.crud.bean.Department">
             <id column="dept_id" property="deptId"/>
             <result column="dept_name" property="deptName"/>
         </association>
     </resultMap>
 
     <!-- 另一种联合查询  (一对一)的实现，但是这种方式有“N+1”的问题 -->
-    <resultMap id="empResultMap" type="com.gupaoedu.crud.bean.Employee">
+    <resultMap id="empResultMap" type="com.ithawk.mybatis.demo.crud.bean.Employee">
         <id property="empId" column="emp_id"/>
         <result property="empName" column="emp_name"/>
         <result property="gender" column="gender"/>
-        <association property="department" javaType="com.gupaoedu.crud.bean.Department"
+        <association property="department" javaType="com.ithawk.mybatis.demo.crud.bean.Department"
                      column="dept_id" select="selectDept"/> <!-- selectDept 定义在下面-->
     </resultMap>
-    <select id="selectDept" parameterType="int" resultType="com.gupaoedu.crud.bean.Department">
+    <select id="selectDept" parameterType="int" resultType="com.ithawk.mybatis.demo.crud.bean.Department">
         select * from tbl_dept where dept_id = #{deptId}
     </select>
 
@@ -85,7 +85,7 @@
     </delete>
 
     <!--插入-->
-    <insert id="insert" parameterType="com.gupaoedu.crud.bean.Employee">
+    <insert id="insert" parameterType="com.ithawk.mybatis.demo.crud.bean.Employee">
     insert into tbl_emp (emp_id, emp_name, gender,
       email, d_id)
     values (#{empId,jdbcType=INTEGER}, #{empName,jdbcType=VARCHAR}, #{gender,jdbcType=CHAR},
@@ -105,7 +105,7 @@
     </insert>
 
     <!--有选择的插入-->
-    <insert id="insertSelective" parameterType="com.gupaoedu.crud.bean.Employee">
+    <insert id="insertSelective" parameterType="com.ithawk.mybatis.demo.crud.bean.Employee">
         insert into tbl_emp
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="empId != null">
@@ -185,7 +185,7 @@
         </foreach>
     </update>
 
-    <update id="updateByPrimaryKeySelective" parameterType="com.gupaoedu.crud.bean.Employee">
+    <update id="updateByPrimaryKeySelective" parameterType="com.ithawk.mybatis.demo.crud.bean.Employee">
         update tbl_emp
         <set>
             <if test="empName != null">
@@ -204,7 +204,7 @@
         where emp_id = #{empId,jdbcType=INTEGER}
     </update>
 
-    <update id="updateByPrimaryKey" parameterType="com.gupaoedu.crud.bean.Employee">
+    <update id="updateByPrimaryKey" parameterType="com.ithawk.mybatis.demo.crud.bean.Employee">
         update tbl_emp
         set emp_name = #{empName,jdbcType=VARCHAR},
           gender = #{gender,jdbcType=CHAR},
@@ -214,7 +214,7 @@
     </update>
 
     <!-- choose演示 -->
-    <select id="getEmpList_choose" resultMap="empResultMap" parameterType="com.gupaoedu.crud.bean.Employee">
+    <select id="getEmpList_choose" resultMap="empResultMap" parameterType="com.ithawk.mybatis.demo.crud.bean.Employee">
         SELECT * FROM tbl_emp e
         <where>
             <choose>
@@ -234,7 +234,7 @@
     </select>
 <!--
 
-    <select id="getEmpList_bind" resultType="empResultMap" parameterType="com.gupaoedu.crud.bean.Employee">
+    <select id="getEmpList_bind" resultType="empResultMap" parameterType="Employee">
         <bind name="pattern1" value="'%' + empName + '%'" />
         <bind name="pattern2" value="'%' + email + '%'" />
         SELECT * FROM tbl_emp

@@ -3,7 +3,7 @@ package com.gpmall.pay.biz.abs;
 import com.gpmall.commons.result.AbstractRequest;
 import com.gpmall.commons.result.AbstractResponse;
 import com.gpmall.commons.tool.exception.BizException;
-import com.gupaoedu.pay.dto.PaymentNotifyRequest;
+import com.ithawk.mybatis.demo.pay.dto.PaymentNotifyRequest;
 
 /**
  * 腾讯课堂搜索 咕泡学院

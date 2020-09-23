@@ -12,22 +12,22 @@
             <property name="suppressAllComments" value="true"/>  
         </commentGenerator>  
         <!--数据库链接URL，用户名、密码 -->  
-        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://localhost/gp-mybatis" userId="root" password="123456">  
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://localhost/mybatis" userId="root" password="123456">
         </jdbcConnection>  
         <javaTypeResolver>  
             <property name="forceBigDecimals" value="false"/>  
         </javaTypeResolver>  
         <!-- 生成模型的包名和位置-->  
-        <javaModelGenerator targetPackage="com.gupaoedu.entity" targetProject="src">  
+        <javaModelGenerator targetPackage="com.ithawk.mybatis.demo.entity" targetProject="src">
             <property name="enableSubPackages" value="true"/>  
             <property name="trimStrings" value="true"/>  
         </javaModelGenerator>  
         <!-- 生成映射文件的包名和位置-->  
-        <sqlMapGenerator targetPackage="com.gupaoedu.mapper" targetProject="src">  
+        <sqlMapGenerator targetPackage="com.ithawk.mybatis.demo.mapper" targetProject="src">
             <property name="enableSubPackages" value="true"/>  
         </sqlMapGenerator>  
         <!-- 生成DAO的包名和位置-->  
-        <javaClientGenerator type="XMLMAPPER" targetPackage="com.gupaoedu.dao" targetProject="src">  
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.ithawk.mybatis.demo.dao" targetProject="src">
             <property name="enableSubPackages" value="true"/>  
         </javaClientGenerator>  
         <!-- 要生成的表 tableName是数据库中的表名或视图名 domainObjectName是实体类名-->  

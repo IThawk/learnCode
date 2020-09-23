@@ -12,6 +12,9 @@
   <packaging>pom</packaging>
   <modules>
     <module>springboot-aop</module>
+    <module>format-spring-boot-starter</module>
+    <module>springboot-starter-demo</module>
+    <module>springboot-demo-orm-mybatis</module>
   </modules>
   <name>springboot</name>
 </project>

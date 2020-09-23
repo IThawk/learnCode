@@ -28,7 +28,7 @@
     <rabbit:template id="amqpTemplate" connection-factory="connectionFactory" exchange="MY_DIRECT_EXCHANGE" />
 
     <!--消息接收者 -->
-    <bean id="messageReceiver" class="com.gupaoedu.consumer.FirstConsumer"></bean>
+    <bean id="messageReceiver" class="FirstConsumer"></bean>
 
     <!--queue listener 观察 监听模式 当有消息到达时会通知监听在对应的队列上的监听对象 -->
     <rabbit:listener-container connection-factory="connectionFactory">
@@ -46,7 +46,7 @@
     </rabbit:direct-exchange>
 
     <!-- 消息接收者 -->
-    <bean id="receiverSecond" class="com.gupaoedu.consumer.SecondConsumer"></bean>
+    <bean id="receiverSecond" class="SecondConsumer"></bean>
 
     <!-- queue litener 观察 监听模式 当有消息到达时会通知监听在对应的队列上的监听对象 -->
     <rabbit:listener-container connection-factory="connectionFactory">
@@ -68,7 +68,7 @@
     <rabbit:template id="amqpTemplate2" connection-factory="connectionFactory" exchange="MY_TOPIC_EXCHANGE" />
 
     <!-- 消息接收者 -->
-    <bean id="receiverThird" class="com.gupaoedu.consumer.ThirdConsumer"></bean>
+    <bean id="receiverThird" class="ThirdConsumer"></bean>
 
     <!-- queue litener 观察 监听模式 当有消息到达时会通知监听在对应的队列上的监听对象 -->
     <rabbit:listener-container connection-factory="connectionFactory">
@@ -88,7 +88,7 @@
     </rabbit:fanout-exchange>
 
     <!-- 消息接收者 -->
-    <bean id="receiverFourth" class="com.gupaoedu.consumer.FourthConsumer"></bean>
+    <bean id="receiverFourth" class="FourthConsumer"></bean>
 
     <!-- queue litener 观察 监听模式 当有消息到达时会通知监听在对应的队列上的监听对象 -->
     <rabbit:listener-container connection-factory="connectionFactory">

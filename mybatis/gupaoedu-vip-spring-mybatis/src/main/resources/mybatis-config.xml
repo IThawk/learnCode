@@ -21,7 +21,7 @@
 <!--    <typeAliases>
         <package name="com.gupaoedu.crud.bean"/>
 &lt;!&ndash;
-        <typeAlias alias="Department" type="com.gupaoedu.crud.bean.Department" />
+        <typeAlias alias="Department" type="Department" />
 &ndash;&gt;
     </typeAliases>-->
 

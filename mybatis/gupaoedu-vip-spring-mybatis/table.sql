@@ -4,6 +4,10 @@ CREATE TABLE `tbl_dept` (
   PRIMARY KEY (`dept_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
+INSERT INTO `tbl_dept`(`dept_id`, `dept_name`) VALUES (1, '开发部');
+INSERT INTO `tbl_dept`(`dept_id`, `dept_name`) VALUES (2, '设计部');
+
+
 
 CREATE TABLE `tbl_emp` (
   `emp_id` int(16) NOT NULL AUTO_INCREMENT,

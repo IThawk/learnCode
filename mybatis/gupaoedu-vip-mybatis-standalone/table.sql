@@ -20,7 +20,7 @@ CREATE TABLE `comment` (
 
 INSERT INTO `blog` (`bid`, `name`, `author_id`) VALUES (1, 'RabbitMQ延时消息', 1001);
 INSERT INTO `blog` (`bid`, `name`, `author_id`) VALUES (2, 'MyBatis源码分析', 1008);
-INSERT INTO `author` (`author_id`, `author_name`) VALUES (1001, '青山');
+INSERT INTO `author` (`author_id`, `author_name`) VALUES (1001, '测试');
 INSERT INTO `comment` (`comment_id`, `content`, `bid`) VALUES (1, '写得真好，学习了', 1);
 INSERT INTO `comment` (`comment_id`, `content`, `bid`) VALUES (2, '刚好碰到这个问题，谢谢', 1);
 

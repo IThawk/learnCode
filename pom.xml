@@ -5,57 +5,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>org.springframework.cloud</groupId>
-        <artifactId>spring-cloud-build</artifactId>
-        <version>2.0.3.RELEASE</version>
-        <relativePath/>
-    </parent>
 
-    <groupId>org.springframework.cloud</groupId>
-    <artifactId>spring-cloud-alibaba</artifactId>
-    <version>0.2.0.BUILD-SNAPSHOT</version>
+    <groupId>com.ithawk.demo</groupId>
+    <artifactId>demo</artifactId>
+    <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>Spring Cloud Alibaba</name>
-
-
-    <licenses>
-        <license>
-            <name>Apache License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-            <distribution>repo</distribution>
-        </license>
-    </licenses>
-
-    <scm>
-        <url>https://github.com/spring-cloud-incubator/spring-cloud-alibaba</url>
-        <connection>
-            scm:git:git://github.com/spring-cloud-incubator/spring-cloud-alibaba.git
-        </connection>
-        <developerConnection>
-            scm:git:ssh://git@github.com/spring-cloud-incubator/spring-cloud-alibaba.git
-        </developerConnection>
-        <tag>HEAD</tag>
-    </scm>
-
-    <developers>
-        <developer>
-            <name>xiaojing</name>
-            <email>flystar32@163.com</email>
-        </developer>
-        <developer>
-            <name>fangjian</name>
-            <email>fangjian0423@gmail.com</email>
-        </developer>
-        <developer>
-            <name>xiaolongzuo</name>
-            <email>150349407@qq.com</email>
-        </developer>
-        <developer>
-            <name>hengyunabc</name>
-            <email>hengyunabc@gmail.com</email>
-        </developer>
-    </developers>
+    <name>Spring demo</name>
 
     <properties>
         <!-- Dependency Versions -->
@@ -66,75 +21,51 @@
         <junit.version>4.12</junit.version>
         <javax-servlet-api>3.0</javax-servlet-api>
         <slf4j-api.version>1.7.25</slf4j-api.version>
-
-
+        <springboot.version>2.1.6.RELEASE</springboot.version>
+        <spring-boot.version>2.1.6.RELEASE</spring-boot.version>
+        <elastic-job.version>2.1.5</elastic-job.version>
+        <servlet.api.version>2.4</servlet.api.version>
+        <spring.version>5.0.2.RELEASE</spring.version>
+        <servlet.api.version>3.1.0</servlet.api.version>
+        <jackson.version>2.9.5</jackson.version>
+        <curator.version>4.2.0</curator.version>
+        <netty.version>4.1.51.Final</netty.version>
+        <project.version>1.0-SNAPSHOT</project.version>
+        <springboot.dubbo.version>2.7.2</springboot.dubbo.version>
+        <dubbo.version>2.7.2</dubbo.version>
+        <fastjson>1.2.70</fastjson>
+        <mysql.version>8.0.19</mysql.version>
+        <mybatis.version>1.3.2</mybatis.version>
+        <hutool.version>5.2.5</hutool.version>
+        <guava.version>28.1-jre</guava.version>
+        <lombok.version>1.18.12</lombok.version>
+        <postgresql.version>42.2.11</postgresql.version>
         <!-- Maven Plugin Versions -->
         <maven-compiler-plugin.version>3.7.0</maven-compiler-plugin.version>
         <maven-deploy-plugin.version>2.8.2</maven-deploy-plugin.version>
         <maven-surefire-plugin.version>2.21.0</maven-surefire-plugin.version>
         <gmavenplus-plugin.version>1.6</gmavenplus-plugin.version>
+        <project.version>0.1</project.version>
     </properties>
 
     <modules>
-        <module>spring-cloud-alibaba-dependencies</module>
-        <module>spring-cloud-alibaba-sentinel</module>
-        <module>spring-cloud-alibaba-sentinel-datasource</module>
-        <module>spring-cloud-alibaba-nacos-config</module>
-        <module>spring-cloud-alibaba-nacos-discovery</module>
-        <module>spring-cloud-alibaba-examples</module>
-        <module>spring-cloud-alibaba-test</module>
-        <module>spring-cloud-starter-alibaba</module>
-        <module>spring-cloud-starter-alicloud</module>
-        <module>spring-cloud-alicloud-oss</module>
-        <module>spring-cloud-alicloud-context</module>
-        <module>spring-cloud-alicloud-acm</module>
-        <module>spring-cloud-alicloud-ans</module>
+        <module>dubbo</module>
+        <module>ejob</module>
+        <module>springboot</module>
+        <module>gpmall-parent</module>
+        <module>gupao-jedis</module>
+        <module>kafka</module>
+        <module>mq</module>
+        <module>mybatis</module>
+        <module>nacos-demo</module>
+        <module>netty</module>
+        <module>rpc</module>
+        <module>sentinel</module>
+        <module>spring5</module>
+        <module>thread-demo</module>
+        <module>zookeeper</module>
+        <module>others</module>
     </modules>
-
-    <dependencyManagement>
-        <dependencies>
-
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
-                <version>${project.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-commons-dependencies</artifactId>
-                <version>${spring-cloud-commons.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-test-support</artifactId>
-                <scope>test</scope>
-                <version>${spring-cloud-commons.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-netflix</artifactId>
-                <version>${spring-cloud-netflix.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-openfeign-dependencies</artifactId>
-                <version>${spring-cloud-openfeign.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-        </dependencies>
-    </dependencyManagement>
 
     <build>
         <plugins>
@@ -161,69 +92,5 @@
             </plugin>
         </plugins>
     </build>
-
-    <profiles>
-        <profile>
-            <id>spring</id>
-            <repositories>
-                <repository>
-                    <id>spring-snapshots</id>
-                    <name>Spring Snapshots</name>
-                    <url>https://repo.spring.io/libs-snapshot-local</url>
-                    <snapshots>
-                        <enabled>true</enabled>
-                    </snapshots>
-                    <releases>
-                        <enabled>false</enabled>
-                    </releases>
-                </repository>
-                <repository>
-                    <id>spring-milestones</id>
-                    <name>Spring Milestones</name>
-                    <url>https://repo.spring.io/libs-milestone-local</url>
-                    <snapshots>
-                        <enabled>false</enabled>
-                    </snapshots>
-                </repository>
-                <repository>
-                    <id>spring-releases</id>
-                    <name>Spring Releases</name>
-                    <url>https://repo.spring.io/release</url>
-                    <snapshots>
-                        <enabled>false</enabled>
-                    </snapshots>
-                </repository>
-            </repositories>
-            <pluginRepositories>
-                <pluginRepository>
-                    <id>spring-snapshots</id>
-                    <name>Spring Snapshots</name>
-                    <url>https://repo.spring.io/libs-snapshot-local</url>
-                    <snapshots>
-                        <enabled>true</enabled>
-                    </snapshots>
-                    <releases>
-                        <enabled>false</enabled>
-                    </releases>
-                </pluginRepository>
-                <pluginRepository>
-                    <id>spring-milestones</id>
-                    <name>Spring Milestones</name>
-                    <url>https://repo.spring.io/libs-milestone-local</url>
-                    <snapshots>
-                        <enabled>false</enabled>
-                    </snapshots>
-                </pluginRepository>
-                <pluginRepository>
-                    <id>spring-releases</id>
-                    <name>Spring Releases</name>
-                    <url>https://repo.spring.io/libs-release-local</url>
-                    <snapshots>
-                        <enabled>false</enabled>
-                    </snapshots>
-                </pluginRepository>
-            </pluginRepositories>
-        </profile>
-    </profiles>
 
 </project>

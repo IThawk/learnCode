@@ -1,10 +1,7 @@
 package com.springboot.dubbo.dubboprovider;
 
-import com.gupaoedu.dubbo.ISayHelloService;
+import com.ithawk.mybatis.demo.dubbo.ISayHelloService;
 import org.apache.dubbo.config.annotation.Service;
-
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 
 /**
  * 腾讯课堂搜索【咕泡学院】

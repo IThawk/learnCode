@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.ithawk.demo.springboot.starter.autoconfiguration.HelloAutoConfiguration
