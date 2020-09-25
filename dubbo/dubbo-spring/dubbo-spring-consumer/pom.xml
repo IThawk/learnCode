@@ -76,12 +76,19 @@
         </dependency>
         <!-- others end -->
 
-        <!--        dubbo zookeeper-->
+
+
         <dependency>
-            <groupId>com.alibaba</groupId>
+            <groupId>org.apache.dubbo</groupId>
             <artifactId>dubbo</artifactId>
-            <version>2.6.3</version>
+            <version>${dubbo.version}</version>
         </dependency>
+        <!--        dubbo zookeeper-->
+<!--        <dependency>-->
+<!--            <groupId>com.alibaba</groupId>-->
+<!--            <artifactId>dubbo</artifactId>-->
+<!--            <version>2.6.3</version>-->
+<!--        </dependency>-->
 
         <dependency>
             <groupId>org.apache.curator</groupId>

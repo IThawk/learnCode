@@ -1,10 +1,16 @@
 <beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:dubbo="http://dubbo.apache.org/schema/dubbo"
        xmlns="http://www.springframework.org/schema/beans"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
        http://dubbo.apache.org/schema/dubbo http://dubbo.apache.org/schema/dubbo/dubbo.xsd">
 
-    <dubbo:application name="demo-provider"/>
+    <dubbo:application metadata-type="remote" name="demo-provider"/>
+    <dubbo:metadata-report address="zookeeper://127.0.0.1:12181"/>
+
+    <dubbo:registry address="zookeeper://127.0.0.1:12181"/>
+
+    <dubbo:protocol name="dubbo"/>
+
     <dubbo:registry  address="zookeeper://127.0.0.1:12181" group="test"/>
     <dubbo:protocol name="dubbo" port="20890"/>
     <!--    注册bean-->

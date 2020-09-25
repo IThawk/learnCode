@@ -102,6 +102,12 @@
                         <artifactId>mysql-connector-java</artifactId>
                         <version>${mysql.version}</version>
                     </dependency>
+
+                    <dependency>
+                        <groupId>org.postgresql</groupId>
+                        <artifactId>postgresql</artifactId>
+                        <version>${postgresql.version}</version>
+                    </dependency>
                 </dependencies>
             </plugin>
         </plugins>
