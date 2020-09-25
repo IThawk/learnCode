@@ -14,7 +14,7 @@
   <modules>
     <module>dubbo-springboot</module>
     <module>dubbo-spring</module>
-    <module>dubbo-dubbo-2.7.2</module>
+    <module>dubbo-dubbo</module>
     <module>dubbo-spi-extention</module>
   </modules>
   <name>dubbo</name>

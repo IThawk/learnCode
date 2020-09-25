@@ -1,6 +1,6 @@
 package com.ithawk.mybatis.demo.pay;
 
-import com.gupaoedu.pay.dto.*;
+//import com.gupaoedu.pay.dto.*;
 import com.ithawk.mybatis.demo.pay.dto.*;
 
 /**
