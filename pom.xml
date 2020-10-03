@@ -67,6 +67,7 @@
         <module>thread-demo</module>
         <module>zookeeper</module>
         <module>others</module>
+        <module>spi</module>
 <!--        <module>spring-cloud</module>-->
     </modules>
 

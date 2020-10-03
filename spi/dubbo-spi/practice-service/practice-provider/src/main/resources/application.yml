@@ -16,4 +16,4 @@ dubbo:
     cycle-report: false
     group: dubbo-test
   scan:
-    base-packages: com.gupaoedu.dubbo.practice
+    base-packages: com.ithawk.demo.dubbo.spi.practice
