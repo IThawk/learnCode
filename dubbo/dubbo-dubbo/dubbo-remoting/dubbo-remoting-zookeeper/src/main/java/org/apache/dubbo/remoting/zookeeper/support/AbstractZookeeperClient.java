@@ -70,6 +70,7 @@ public abstract class AbstractZookeeperClient<TargetDataListener, TargetChildLis
 
     @Override
     public void create(String path, boolean ephemeral) {
+        logger.info("zk创建节点");
         if (!ephemeral) {
             if(persistentExistNodePath.contains(path)){
                 return;

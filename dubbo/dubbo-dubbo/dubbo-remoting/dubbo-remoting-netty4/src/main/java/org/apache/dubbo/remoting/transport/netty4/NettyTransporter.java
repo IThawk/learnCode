@@ -32,6 +32,7 @@ public class NettyTransporter implements Transporter {
 
     @Override
     public RemotingServer bind(URL url, ChannelHandler handler) throws RemotingException {
+        System.out.println("获取到的自适应扩展点是netty。开始启动netty 服务");
         return new NettyServer(url, handler);
     }
 

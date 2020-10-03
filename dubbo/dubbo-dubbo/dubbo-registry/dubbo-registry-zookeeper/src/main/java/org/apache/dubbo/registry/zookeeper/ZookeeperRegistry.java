@@ -125,6 +125,7 @@ public class ZookeeperRegistry extends FailbackRegistry {
 
     @Override
     public void doRegister(URL url) {
+        logger.info("这个地方使用zk服务的注册");
         try {
             zkClient.create(toUrlPath(url), url.getParameter(DYNAMIC_KEY, true));
         } catch (Throwable e) {

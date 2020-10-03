@@ -130,6 +130,7 @@ public class ServiceClassPostProcessor implements BeanDefinitionRegistryPostProc
 
         Set<String> resolvedPackagesToScan = resolvePackagesToScan(packagesToScan);
 
+        logger.info("spring -dubbo bean 加载完成，开始加载dubbo服务");
         if (!CollectionUtils.isEmpty(resolvedPackagesToScan)) {
             registerServiceBeans(resolvedPackagesToScan, registry);
         } else {

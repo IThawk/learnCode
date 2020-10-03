@@ -228,6 +228,7 @@ public abstract class FailbackRegistry extends AbstractRegistry {
 
     @Override
     public void register(URL url) {
+        logger.info("失败回归的方式注册服务");
         if (!acceptable(url)) {
             logger.info("URL " + url + " will not be registered to Registry. Registry " + url + " does not accept service of this protocol type.");
             return;
@@ -237,6 +238,7 @@ public abstract class FailbackRegistry extends AbstractRegistry {
         removeFailedUnregistered(url);
         try {
             // Sending a registration request to the server side
+
             doRegister(url);
         } catch (Exception e) {
             Throwable t = e;
@@ -326,6 +328,7 @@ public abstract class FailbackRegistry extends AbstractRegistry {
 
     @Override
     public void subscribe(URL url, NotifyListener listener) {
+        logger.info("开始发布节点创建消息");
         super.subscribe(url, listener);
         removeFailedSubscribed(url, listener);
         try {

@@ -307,6 +307,7 @@ public class DubboProtocol extends AbstractProtocol {
     }
 
     private void openServer(URL url) {
+        logger.info("开启dubbo服务");
         // find server.
         String key = url.getAddress();
         //client can export a service which's only for server to invoke
@@ -328,6 +329,7 @@ public class DubboProtocol extends AbstractProtocol {
     }
 
     private ProtocolServer createServer(URL url) {
+        logger.info("创建dubbo服务");
         url = URLBuilder.from(url)
                 // send readonly event when server closes, it's enabled by default
                 .addParameterIfAbsent(CHANNEL_READONLYEVENT_SENT_KEY, Boolean.TRUE.toString())
@@ -341,6 +343,7 @@ public class DubboProtocol extends AbstractProtocol {
             throw new RpcException("Unsupported server type: " + str + ", url: " + url);
         }
 
+        //根据SPI获取到对应的server进行启动服务
         ExchangeServer server;
         try {
             server = Exchangers.bind(url, requestHandler);

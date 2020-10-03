@@ -76,6 +76,7 @@ public class Transporters {
     }
 
     public static Transporter getTransporter() {
+        System.out.println("获取发布的服务的版本。。。");
         return ExtensionLoader.getExtensionLoader(Transporter.class).getAdaptiveExtension();
     }
 
