@@ -27,3 +27,20 @@ To run the consumer '*dubbo-demo-api-consumer*', execute the following command:
 ```bash
 java -Djava.net.preferIPv4Stack=true -jar dubbo-demo-api-consumer-${project.version}.jar
 ```
+
+
+@SPI 扩展点源码加载class的位置
+
+org.apache.dubbo.common.extension.ExtensionLoader.loadResource
+
+```java
+//获取
+ ClassLoader classLoader = findClassLoader();
+```
+
+
+```java
+Class.forName(line, true, classLoader)
+```
+
+org.apache.dubbo.common.extension.ExtensionLoader.loadClass
