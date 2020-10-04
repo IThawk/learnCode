@@ -149,7 +149,7 @@ class SummaryTab extends Tab {
 		if (sunOSMBean != null) {
 		    result.processCpuTime = sunOSMBean.getProcessCpuTime();
 		    float cpuUsedTime=(float)sunOSMBean.getProcessCpuTime()/1000000000;
-		    System.out.println("CPU´¦ÀíÊ±¼ä£º"+cpuUsedTime+"Ãë");                           //CPU´¦ÀíÊ±¼ä
+		    System.out.println("CPUï¿½ï¿½ï¿½ï¿½Ê±ï¿½ä£º"+cpuUsedTime+"ï¿½ï¿½");                           //CPUï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
 		    append("Process CPU time", formatNanoTime(result.processCpuTime));
 		}
 
@@ -173,7 +173,7 @@ class SummaryTab extends Tab {
 		int tdCount = tmBean.getDaemonThreadCount();
 		int tpCount = tmBean.getPeakThreadCount();
 		long ttCount = tmBean.getTotalStartedThreadCount();
-		System.out.println("µ±Ç°Ïß³Ì¸öÊý£º "+tlCount);                //µ±Ç°Ïß³ÌÊý
+		System.out.println("ï¿½ï¿½Ç°ï¿½ß³Ì¸ï¿½ï¿½ï¿½ï¿½ï¿½ "+tlCount);                //ï¿½ï¿½Ç°ï¿½ß³ï¿½ï¿½ï¿½
 		String[] strings1 = formatLongs(tlCount, tpCount,
 						tdCount, ttCount);
 		append("Live Threads",          strings1[0]);
@@ -201,14 +201,14 @@ class SummaryTab extends Tab {
 
 		append(newLeftTable);
 		String[] strings1 = formatKByteStrings(u.getUsed(), u.getMax());
-		//System.out.println("¶ÑÄÚ´æÊ¹ÓÃ´óÐ¡£º"+u.getUsed()/1024+"Kb");                   ///////¶ÑÄÚ´æ£»
+		//System.out.println("ï¿½ï¿½ï¿½Ú´ï¿½Ê¹ï¿½Ã´ï¿½Ð¡ï¿½ï¿½"+u.getUsed()/1024+"Kb");                   ///////ï¿½ï¿½ï¿½Ú´æ£»
 		append("Current heap size", strings1[0]);
 		append("Maximum heap size", strings1[1]);
 		append(endTable);
 
 		append(newRightTable);
 		String[] strings2 = formatKByteStrings(u.getCommitted());
-		System.out.println("·ÖÅäµÄÄÚ´æ£º"+u.getCommitted()/1024+"Kb");                   ////·ÖÅäµÄÄÚ´æ
+		System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú´æ£º"+u.getCommitted()/1024+"Kb");                   ////ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú´ï¿½
 		append("Committed memory",  strings2[0]);
 		
 		append("SummaryTab.pendingFinalization.label",
@@ -274,20 +274,20 @@ class SummaryTab extends Tab {
 		    append("Free swap space",       kbStrings2[3]);
 		    
 		    /*long usedMemorylong=(sunOSMBean.getTotalPhysicalMemorySize()-sunOSMBean.getFreePhysicalMemorySize())/(1024);
-		    System.out.println("VM×ÜÎïÀíÄÚ´æ-¿ÕÏÐÎïÀíÄÚ´æ£º"+usedMemorylong+"Kb");                    // ²»×Åµ÷
+		    System.out.println("VMï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú´ï¿½-ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú´æ£º"+usedMemorylong+"Kb");                    // ï¿½ï¿½ï¿½Åµï¿½
 		    MemoryUsage mu = null;
 		    MemoryUsage nu = null;
 		    mu = proxyClient.getMemoryMXBean().getNonHeapMemoryUsage();
 		    nu = proxyClient.getMemoryMXBean().getHeapMemoryUsage();
 		    //long uptime= proxyClient.getUptime();
 		    //System.out.println(uptime);
-		    System.out.println("ËùÓÃ·Ç¶ÑÕ»ÄÚ´æ£º"+mu.getUsed()/1024+"Kb");
-		    System.out.println("ËùÓÃ¶ÑÕ»ÄÚ´æ£º"+nu.getUsed()/1024+"Kb");
+		    System.out.println("ï¿½ï¿½ï¿½Ã·Ç¶ï¿½Õ»ï¿½Ú´æ£º"+mu.getUsed()/1024+"Kb");
+		    System.out.println("ï¿½ï¿½ï¿½Ã¶ï¿½Õ»ï¿½Ú´æ£º"+nu.getUsed()/1024+"Kb");
 		    long jjjj=mu.getUsed()+nu.getUsed();
-		    System.out.println("¶ÑÕ»ÄÚ´æ+·Ç¶ÑÕ»ÄÚ´æ£º"+jjjj/1024+"Kb");  */
-		    System.out.println("·ÖÅäµÄÐéÄâÄÚ´æ£º"+sunOSMBean.getCommittedVirtualMemorySize()/1024+"Kb"); //·ÖÅäµÄÐéÄâÄÚ´æ
+		    System.out.println("ï¿½ï¿½Õ»ï¿½Ú´ï¿½+ï¿½Ç¶ï¿½Õ»ï¿½Ú´æ£º"+jjjj/1024+"Kb");  */
+		    System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú´æ£º"+sunOSMBean.getCommittedVirtualMemorySize()/1024+"Kb"); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú´ï¿½
 		    long memoryTotalCommited=sunOSMBean.getCommittedVirtualMemorySize()/1024+memoryBean.getHeapMemoryUsage().getCommitted()/1024;
-            System.out.println("ÄÚ´æÊ¹ÓÃ×ÜÁ¿£º"+memoryTotalCommited+"Kb");		    
+            System.out.println("ï¿½Ú´ï¿½Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"+memoryTotalCommited+"Kb");		    
 		}
 
 		append(endTable);
@@ -384,7 +384,7 @@ class SummaryTab extends Tab {
 		float cpuUsage =
 		    Math.min(99F,
 			     elapsedCpu / (elapsedTime * 10000F * result.nCPUs));
-        System.out.println("CPUÊ¹ÓÃÂÊ£º"+cpuUsage+"%");                                ///CPUÊ¹ÓÃÂÊ£»
+        System.out.println("CPUÊ¹ï¿½ï¿½ï¿½Ê£ï¿½"+cpuUsage+"%");                                ///CPUÊ¹ï¿½ï¿½ï¿½Ê£ï¿½
 		System.out.println("--------------------------------------");
         getPlotter().addValues(result.timeStamp,
 				Math.round(cpuUsage * Math.pow(10.0, CPU_DECIMALS)));

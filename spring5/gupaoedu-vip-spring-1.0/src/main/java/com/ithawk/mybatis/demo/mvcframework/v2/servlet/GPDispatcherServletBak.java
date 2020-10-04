@@ -1,6 +1,6 @@
 package com.ithawk.mybatis.demo.mvcframework.v2.servlet;
 
-import com.gupaoedu.mvcframework.annotation.*;
+//import com.gupaoedu.mvcframework.annotation.*;
 import com.ithawk.mybatis.demo.mvcframework.annotation.*;
 
 import javax.servlet.ServletConfig;

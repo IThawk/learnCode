@@ -226,7 +226,7 @@
               <arguments>
                 <argument>-classpath</argument>
                 <classpath />
-                <argument>org.apache.zookeeper.version.com.ithawk.redis.demo.util.VerGen</argument>
+                <argument>org.apache.zookeeper.version.util.VerGen</argument>
                 <argument>${project.version}</argument>
                 <argument>${git.commit.id}</argument>
                 <argument>${build.time}</argument>

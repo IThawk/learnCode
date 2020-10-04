@@ -15,7 +15,7 @@
     <module>ejob-standalone</module>
     <module>ejob-springboot</module>
     <module>elasticjob-spring-boot-starter</module>
-    <module>shardingsphere-elasticjob-master</module>
+<!--    <module>shardingsphere-elasticjob-master</module>-->
   </modules>
   <name>ejob</name>
 </project>
