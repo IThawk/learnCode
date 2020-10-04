@@ -1,4 +1,4 @@
-package com.ithawk.mybatis.demo.config;
+package com.ithawk.demo.ejob.springboot.config;
 
 import com.dangdang.ddframe.job.api.dataflow.DataflowJob;
 import com.dangdang.ddframe.job.api.simple.SimpleJob;
@@ -10,20 +10,21 @@ import com.dangdang.ddframe.job.lite.api.JobScheduler;
 import com.dangdang.ddframe.job.lite.config.LiteJobConfiguration;
 import com.dangdang.ddframe.job.lite.spring.api.SpringJobScheduler;
 import com.dangdang.ddframe.job.reg.zookeeper.ZookeeperRegistryCenter;
-import com.ithawk.mybatis.demo.job.MyDataFlowJob;
-import com.ithawk.mybatis.demo.job.MySimpleJob;
+
+import com.ithawk.demo.ejob.springboot.job.MyDataFlowJob;
+import com.ithawk.demo.ejob.springboot.job.MySimpleJob;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+
 /**
- * @Author: qingshan
- * @Date: 2019/9/7 15:38
- * @Description: 咕泡学院，只为更好的你
+ * 定时任务配置类
  */
 @Configuration
 public class ElasticJobConfig {
+
     @Autowired
     private ZookeeperRegistryCenter regCenter;
 
@@ -35,7 +36,7 @@ public class ElasticJobConfig {
                                            @Value("${gupaoJob.shardingItemParameters}") final String shardingItemParameters,
                                            @Value("${gupaoJob.jobParameter}") final String jobParameter) {
         return new SpringJobScheduler(simpleJob, regCenter,
-                getLiteJobConfiguration(simpleJob.getClass(), cron, shardingTotalCount, shardingItemParameters,jobParameter));
+                getLiteJobConfiguration(simpleJob.getClass(), cron, shardingTotalCount, shardingItemParameters, jobParameter));
     }
 
     // 配置任务详细信息
@@ -55,38 +56,38 @@ public class ElasticJobConfig {
     public JobScheduler dataFlowJobScheduler(final MyDataFlowJob dataFlowJob,
                                              @Value("${gupaoJob.dataflow.cron}") final String cron,
                                              @Value("${gupaoJob.dataflow.shardingTotalCount}") final int shardingTotalCount,
-                                             @Value("${gupaoJob.dataflow.shardingItemParameters}") final String shardingItemParameters ) {
-        return new SpringJobScheduler(dataFlowJob, regCenter,getDataFlowJobConfiguration(dataFlowJob.getClass(),cron,shardingTotalCount,shardingItemParameters,true));
+                                             @Value("${gupaoJob.dataflow.shardingItemParameters}") final String shardingItemParameters) {
+        return new SpringJobScheduler(dataFlowJob, regCenter, getDataFlowJobConfiguration(dataFlowJob.getClass(), cron, shardingTotalCount, shardingItemParameters, true));
     }
 
     private LiteJobConfiguration getDataFlowJobConfiguration(final Class<? extends DataflowJob> jobClass, //任务类
-                                                                   final String cron,    // 运行周期配置
-                                                                   final int shardingTotalCount,  //分片个数
-                                                                   final String shardingItemParameters,
-                                                                   final Boolean streamingProcess   //是否是流式作业
+                                                             final String cron,    // 运行周期配置
+                                                             final int shardingTotalCount,  //分片个数
+                                                             final String shardingItemParameters,
+                                                             final Boolean streamingProcess   //是否是流式作业
     ) {  // 分片参数
         return LiteJobConfiguration.newBuilder(new DataflowJobConfiguration(
                 JobCoreConfiguration.newBuilder(jobClass.getName(), cron, shardingTotalCount)
                         .shardingItemParameters(shardingItemParameters).build()
                 // true为流式作业,除非fetchData返回数据为null或者size为0,否则会一直执行
                 // false非流式,只会按配置时间执行一次
-                , jobClass.getCanonicalName(),streamingProcess)
+                , jobClass.getCanonicalName(), streamingProcess)
         ).overwrite(true).build();
     }
 
     @Bean(initMethod = "init")
     public JobScheduler scriptJobScheduler(@Value("${gupaoJob.script.cron}") final String cron,
                                            @Value("${gupaoJob.script.shardingTotalCount}") final int shardingTotalCount,
-                                           @Value("${gupaoJob.script.shardingItemParameters}") final String shardingItemParameters ) {
+                                           @Value("${gupaoJob.script.shardingItemParameters}") final String shardingItemParameters) {
         return new SpringJobScheduler(null, regCenter,
-                getScriptJobConfiguration("script_job",cron,shardingTotalCount,shardingItemParameters,"D:/1.bat"));
+                getScriptJobConfiguration("script_job", cron, shardingTotalCount, shardingItemParameters, "D:/1.bat"));
     }
 
     private LiteJobConfiguration getScriptJobConfiguration(final String jobName, //任务名字
-                                                                 final String cron,    // 运行周期配置
-                                                                 final int shardingTotalCount,  //分片个数
-                                                                 final String shardingItemParameters,
-                                                                 final String scriptCommandLine   //是脚本路径或者命令
+                                                           final String cron,    // 运行周期配置
+                                                           final int shardingTotalCount,  //分片个数
+                                                           final String shardingItemParameters,
+                                                           final String scriptCommandLine   //是脚本路径或者命令
     ) {  // 分片参数
         return LiteJobConfiguration.newBuilder(new ScriptJobConfiguration(
                 JobCoreConfiguration.newBuilder(jobName, cron, shardingTotalCount)

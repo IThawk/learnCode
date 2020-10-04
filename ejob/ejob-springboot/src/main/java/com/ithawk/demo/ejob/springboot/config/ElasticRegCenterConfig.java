@@ -1,4 +1,4 @@
-package com.ithawk.mybatis.demo.config;
+package com.ithawk.demo.ejob.springboot.config;
 
 import com.dangdang.ddframe.job.reg.zookeeper.ZookeeperConfiguration;
 import com.dangdang.ddframe.job.reg.zookeeper.ZookeeperRegistryCenter;

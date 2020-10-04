@@ -1,4 +1,4 @@
-package com.ithawk.mybatis.demo;
+package com.ithawk.demo.ejob.springboot.demo;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

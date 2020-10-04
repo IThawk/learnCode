@@ -1,4 +1,4 @@
-package com.ithawk.mybatis.demo.job;
+package com.ithawk.demo.ejob.springboot.job;
 
 import com.dangdang.ddframe.job.api.ShardingContext;
 import com.dangdang.ddframe.job.api.simple.SimpleJob;

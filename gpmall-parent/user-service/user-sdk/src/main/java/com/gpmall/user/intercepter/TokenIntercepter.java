@@ -10,7 +10,7 @@ import com.gpmall.user.constants.SysRetCodeConstants;
 import com.gpmall.user.dto.CheckAuthRequest;
 import com.gpmall.user.dto.CheckAuthResponse;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.dubbo.config.annotation.Reference;
+import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
@@ -26,7 +26,7 @@ import java.lang.reflect.Method;
 public class TokenIntercepter extends HandlerInterceptorAdapter {
 
     //注册用户登入服务
-    @Reference(timeout = 3000)
+    @DubboReference(timeout = 3000)
     IUserLoginService iUserLoginService;
 
     public static String ACCESS_TOKEN = "access_token";

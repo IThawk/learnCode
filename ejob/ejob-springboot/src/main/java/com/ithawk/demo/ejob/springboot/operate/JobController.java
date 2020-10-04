@@ -1,6 +1,6 @@
-package com.ithawk.mybatis.demo.operate;
+package com.ithawk.demo.ejob.springboot.operate;
 
-import com.ithawk.mybatis.demo.config.ElasticJobConfig;
+import com.ithawk.demo.ejob.springboot.config.ElasticJobConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 

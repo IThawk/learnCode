@@ -18,12 +18,4 @@
     <module>dubbo-spi-extention</module>
   </modules>
   <name>dubbo</name>
-<!--  <build>-->
-<!--    <plugins>-->
-<!--      <plugin>-->
-<!--        <groupId>org.springframework.boot</groupId>-->
-<!--        <artifactId>spring-boot-maven-plugin</artifactId>-->
-<!--      </plugin>-->
-<!--    </plugins>-->
-<!--  </build>-->
 </project>
