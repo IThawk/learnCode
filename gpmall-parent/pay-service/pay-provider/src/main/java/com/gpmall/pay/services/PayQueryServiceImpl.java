@@ -1,6 +1,6 @@
 package com.gpmall.pay.services;
 
-import com.ithawk.mybatis.demo.pay.PayQueryService;
+import com.ithawk.demo.spring.v1.pay.PayQueryService;
 import org.apache.dubbo.config.annotation.Service;
 
 /**

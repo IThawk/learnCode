@@ -12,8 +12,8 @@
   <packaging>pom</packaging>
   <modules>
     <module>spring-mvc</module>
-    <module>gupaoedu-vip-spring-1.0</module>
-    <module>gupaoedu-vip-spring-2.0</module>
+    <module>spring-1.0</module>
+    <module>spring-2.0</module>
     <module>gupaoedu-vip-spring-aop</module>
     <module>gupaoedu-vip-spring-orm</module>
     <module>gupaoedu-vip-spring-tx</module>

@@ -12,7 +12,7 @@
 	<!-- 注解驱动加上这句话 -->
 	<aop:aspectj-autoproxy proxy-target-class="true"/>
 
-	<bean id="xmlAspect" class="com.ithawk.mybatis.demo.vip.aop.aspect.XmlAspect"></bean>
+	<bean id="xmlAspect" class="com.ithawk.demo.spring.v1.vip.aop.aspect.XmlAspect"></bean>
 
 	 <!--AOP配置 -->
 	<aop:config>

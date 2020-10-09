@@ -1,1 +1,1 @@
-com.ithawk.mybatis.demo.sentinel.sentinelprovider.NacosDataSourceInitFunc
+com.ithawk.demo.spring.v1.sentinel.sentinelprovider.NacosDataSourceInitFunc

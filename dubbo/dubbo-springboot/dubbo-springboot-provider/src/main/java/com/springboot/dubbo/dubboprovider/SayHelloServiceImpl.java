@@ -1,6 +1,6 @@
 package com.springboot.dubbo.dubboprovider;
 
-import com.ithawk.mybatis.demo.dubbo.ISayHelloService;
+import com.ithawk.demo.spring.v1.dubbo.ISayHelloService;
 import org.apache.dubbo.config.annotation.Service;
 
 /**

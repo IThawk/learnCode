@@ -92,7 +92,7 @@
     </bean>-->
 
     <!-- DAO层的实现类 -->
-    <bean id="employeeDao" class="com.ithawk.mybatis.demo.crud.daosupport.EmployeeDaoImpl">
+    <bean id="employeeDao" class="com.ithawk.demo.spring.v1.crud.daosupport.EmployeeDaoImpl">
         <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
     </bean>
 

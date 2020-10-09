@@ -1,6 +1,6 @@
 package com.gpmall.pay.biz.payment.constants;
 
-import com.ithawk.mybatis.demo.pay.IEnum;
+import com.ithawk.demo.spring.v1.pay.IEnum;
 
 /**
  * 腾讯课堂搜索 咕泡学院

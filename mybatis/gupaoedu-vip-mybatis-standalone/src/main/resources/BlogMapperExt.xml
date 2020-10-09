@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ithawk.mybatis.demo.mapper.BlogMapperExt">
+<mapper namespace="com.ithawk.demo.spring.v1.mapper.BlogMapperExt">
     <!-- 只能继承statement，不能继承sql、resultMap等标签 -->
     <resultMap id="BaseResultMap" type="blog">
         <id column="bid" property="bid" jdbcType="INTEGER"/>

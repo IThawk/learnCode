@@ -2,7 +2,7 @@ package com.gpmall.pay.utils;
 
 import com.gpmall.commons.tool.exception.BizException;
 import com.gpmall.commons.tool.exception.ValidateException;
-import com.ithawk.mybatis.demo.pay.constants.PayReturnCodeEnum;
+import com.ithawk.demo.spring.v1.pay.constants.PayReturnCodeEnum;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;

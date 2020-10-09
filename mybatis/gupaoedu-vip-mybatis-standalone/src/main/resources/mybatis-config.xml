@@ -24,7 +24,7 @@
     </settings>
 
     <typeAliases>
-        <typeAlias alias="blog" type="com.ithawk.mybatis.demo.domain.Blog" />
+        <typeAlias alias="blog" type="com.ithawk.demo.spring.v1.domain.Blog" />
     </typeAliases>
 
 <!--    <typeHandlers>

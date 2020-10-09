@@ -7,10 +7,10 @@ import com.gpmall.order.OrderQueryService;
 import com.gpmall.order.dto.OrderDetailRequest;
 import com.gpmall.order.dto.OrderDetailResponse;
 import com.gpmall.pay.utils.ParamValidatorUtils;
-import com.ithawk.mybatis.demo.pay.constants.PayReturnCodeEnum;
-import com.ithawk.mybatis.demo.pay.constants.RefundCodeEnum;
-import com.ithawk.mybatis.demo.pay.dto.PaymentRequest;
-import com.ithawk.mybatis.demo.pay.dto.RefundRequest;
+import com.ithawk.demo.spring.v1.pay.constants.PayReturnCodeEnum;
+import com.ithawk.demo.spring.v1.pay.constants.RefundCodeEnum;
+import com.ithawk.demo.spring.v1.pay.dto.PaymentRequest;
+import com.ithawk.demo.spring.v1.pay.dto.RefundRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

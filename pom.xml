@@ -59,7 +59,7 @@
         <module>kafka</module>
         <module>mq</module>
         <module>mybatis</module>
-        <module>nacos-demo</module>
+        <module>nacos</module>
         <module>netty</module>
         <module>rpc</module>
         <module>sentinel</module>
@@ -68,6 +68,9 @@
         <module>zookeeper</module>
         <module>others</module>
         <module>spi</module>
+        <module>pattern</module>
+        <module>javaStructures</module>
+        <module>tomcat</module>
 <!--        <module>spring-cloud</module>-->
     </modules>
 
