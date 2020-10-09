@@ -1,0 +1,2 @@
+red=org.apache.dubbo.demo.spi.RedColor
+blue=org.apache.dubbo.demo.spi.BlueColor
