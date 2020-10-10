@@ -17,7 +17,14 @@
     <name>jdkconsole demo</name>
 
     <dependencies>
-
+    <!--解决加载tools的jar包问题-->
+        <dependency>
+            <groupId>com.sun</groupId>
+            <artifactId>dingding</artifactId>
+            <version>2.8</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/tools.jar</systemPath>
+        </dependency>
     </dependencies>
     <build>
         <plugins>

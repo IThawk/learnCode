@@ -596,6 +596,10 @@ public class MemoryUserDatabase implements UserDatabase {
             fileOrig =
                 new File(System.getProperty(Globals.CATALINA_BASE_PROP), pathname);
         }
+        if (!fileOrig.exists()) {
+            fileOrig =
+                    new File("D:\\workspace\\language\\Java\\learnCode\\tomcat\\apache-tomcat-8.0.11-src\\", pathname);
+        }
         if (fileOrig.exists()) {
             fileOld.delete();
             if (!fileOrig.renameTo(fileOld)) {

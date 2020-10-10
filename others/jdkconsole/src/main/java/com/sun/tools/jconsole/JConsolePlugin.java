@@ -44,7 +44,7 @@ import javax.swing.SwingWorker;
  * an instance of each {@code JConsolePlugin} will be created. 
  * The {@code JConsoleContext} object is not available at its
  * construction time.
- * JConsole will set the {@link JConsoleContext} object for 
+ * JConsole will set the {@link  \JConsoleContext} object for 
  * a plugin after the plugin object is created.  It will then
  * call its {@link #getTabs getTabs} method and add the returned
  * tabs to the JConsole window.
@@ -65,11 +65,11 @@ public abstract class JConsolePlugin {
     }
 
     /**
-     * Sets the {@link JConsoleContext JConsoleContext} object representing 
+     * Sets the {@link /JConsoleContext JConsoleContext} object representing 
      * the connection to an application.  This method will be called
      * only once after the plugin is created and before the {@link #getTabs}
      * is called. The given {@code context} can be in any
-     * {@link JConsoleContext#getConnectionState connection state} when
+     * {@link /JConsoleContext#getConnectionState connection state} when
      * this method is called.
      *
      * @param context a {@code JConsoleContext} object
@@ -86,11 +86,11 @@ public abstract class JConsolePlugin {
     } 
 
     /**
-     * Returns the {@link JConsoleContext JConsoleContext} object representing
+     * Returns the {@link /JConsoleContext JConsoleContext} object representing
      * the connection to an application.  This method may return <tt>null</tt>
      * if it is called before the {@link #setContext context} is initialized.
      *
-     * @return the {@link JConsoleContext JConsoleContext} object representing
+     * @return the {@link /JConsoleContext JConsoleContext} object representing
      *         the connection to an application.
      */
     public final JConsoleContext getContext() {
@@ -153,7 +153,7 @@ public abstract class JConsolePlugin {
      * that this plugin will be discarded and that it should free
      * any resources that it has allocated.
      * The {@link #getContext JConsoleContext} can be in any
-     * {@link JConsoleContext#getConnectionState connection state} when
+     * {@link /JConsoleContext#getConnectionState connection state} when
      * this method is called.
      */
     public void dispose() {
@@ -169,9 +169,9 @@ public abstract class JConsolePlugin {
      *
      * <p>For example, a plugin constructor can 
      * call this method to register a listener to listen to the
-     * {@link JConsoleContext.ConnectionState connectionState}
+     * {@link /JConsoleContext.ConnectionState connectionState}
      * property changes and the listener will be added to the
-     * {@link JConsoleContext#addPropertyChangeListener JConsoleContext} 
+     * {@link /JConsoleContext#addPropertyChangeListener JConsoleContext} 
      * object when it is available.
      *
      * @param listener  The {@code PropertyChangeListener} to be added

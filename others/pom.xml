@@ -15,7 +15,8 @@
     <packaging>pom</packaging>
     <name>others demo</name>
     <modules>
-<!--        <module>jdkconsole</module>-->
+        <module>jdkconsole</module>
+        <module>gp-jvm</module>
     </modules>
 
     <build>
