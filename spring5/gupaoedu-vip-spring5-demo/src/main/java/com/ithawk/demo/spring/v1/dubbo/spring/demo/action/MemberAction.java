@@ -1,7 +1,7 @@
 package com.ithawk.demo.spring.v1.dubbo.spring.demo.action;
 
 
-import com.ithawk.demo.spring.v1.vip.spring5.demo.model.Member;
+import com.ithawk.demo.thread.spring5.demo.model.Member;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;

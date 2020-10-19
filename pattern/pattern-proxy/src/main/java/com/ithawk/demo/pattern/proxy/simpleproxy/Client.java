@@ -1,7 +1,7 @@
 package com.ithawk.demo.pattern.proxy.simpleproxy;
 
 /**
- * Created by Tom.
+ * 静态代理
  */
 public class Client {
 

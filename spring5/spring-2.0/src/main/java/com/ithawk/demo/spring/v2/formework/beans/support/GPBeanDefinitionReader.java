@@ -11,10 +11,13 @@ import java.util.List;
 import java.util.Properties;
 
 /**
- * Created by Tom.
+ * 类定义
  */
 public class GPBeanDefinitionReader {
 
+    /**
+     * 扫描的所有类
+     */
     private List<String> registyBeanClasses = new ArrayList<String>();
 
     private Properties config = new Properties();
@@ -38,7 +41,7 @@ public class GPBeanDefinitionReader {
                 }
             }
         }
-        
+        //扫描所有的class类文件
         doScanner(config.getProperty(SCAN_PACKAGE));
     }
 
@@ -69,6 +72,7 @@ public class GPBeanDefinitionReader {
         List<GPBeanDefinition> result = new ArrayList<GPBeanDefinition>();
         try {
             for (String className : registyBeanClasses) {
+                //初始化类
                 Class<?> beanClass = Class.forName(className);
                 //如果是一个接口，是不能实例化的
                 //用它实现类来实例化
@@ -112,7 +116,7 @@ public class GPBeanDefinitionReader {
 
     //为了简化程序逻辑，就不做其他判断了，大家了解就OK
     //其实用写注释的时间都能够把逻辑写完了
-    private String toLowerFirstCase(String simpleName) {
+    public static String toLowerFirstCase(String simpleName) {
         char [] chars = simpleName.toCharArray();
         //之所以加，是因为大小写字母的ASCII码相差32，
         // 而且大写字母的ASCII码要小于小写字母的ASCII码

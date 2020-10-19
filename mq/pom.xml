@@ -16,6 +16,8 @@
     <module>gupaoedu-vip-springboot-amqp</module>
     <module>gupaoedu-vip-springboot-demo</module>
     <module>gupaoedu-vip-springboot-project</module>
+    <module>rocketmq-demo</module>
+    <module>course-pub</module>
   </modules>
-  <name>netty</name>
+  <name>mq</name>
 </project>

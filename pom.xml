@@ -71,7 +71,7 @@
         <module>pattern</module>
         <module>javaStructures</module>
         <module>tomcat</module>
-<!--        <module>spring-cloud</module>-->
+        <module>spring-cloud</module>
     </modules>
 
     <build>

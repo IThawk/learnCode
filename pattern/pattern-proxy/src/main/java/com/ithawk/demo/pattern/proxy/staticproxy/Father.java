@@ -3,7 +3,7 @@ package com.ithawk.demo.pattern.proxy.staticproxy;
 import com.ithawk.demo.pattern.proxy.Person;
 
 /**
- * Created by Tom on 2019/3/10.
+ * 静态代理
  */
 public class Father implements Person {
     private Son person;

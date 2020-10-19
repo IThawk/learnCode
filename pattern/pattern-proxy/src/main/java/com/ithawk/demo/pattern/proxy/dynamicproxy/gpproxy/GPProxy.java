@@ -57,8 +57,8 @@ public class GPProxy {
 
     private static String generateSrc(Class<?>[] interfaces){
             StringBuffer sb = new StringBuffer();
-            sb.append("package com.gupaoedu.vip.pattern.proxy.dynamicproxy.gpproxy;" + ln);
-            sb.append("import com.gupaoedu.vip.pattern.proxy.Person;" + ln);
+            sb.append("package com.ithawk.demo.pattern.proxy.dynamicproxy.gpproxy;" + ln);
+            sb.append("import com.ithawk.demo.pattern.proxy.Person;" + ln);
             sb.append("import java.lang.reflect.*;" + ln);
             sb.append("public class $Proxy0 implements " + interfaces[0].getName() + "{" + ln);
                 sb.append("GPInvocationHandler h;" + ln);

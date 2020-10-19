@@ -11,6 +11,7 @@
     </parent>
     <artifactId>spring-2.0</artifactId>
     <name>spring-2.0</name>
+    <packaging>war</packaging>
     <properties>
         <!-- dependency versions -->
         <servlet.api.version>2.4</servlet.api.version>
