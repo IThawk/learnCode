@@ -21,11 +21,33 @@ public class Test {
 
 //        Map<String,String> s = stringList.stream().collect(Collectors.toMap(String::toLowerCase,String::toString));
 //        System.out.println(s.toString());
-        ConcurrentHashMap<String,String> concurrentHashMap= new ConcurrentHashMap<>();
-        concurrentHashMap.put("test","test");
+        ConcurrentHashMap<String, String> concurrentHashMap = new ConcurrentHashMap<>();
+        concurrentHashMap.put("test", "test");
         ReentrantLock lock = new ReentrantLock();
         lock.lock();
         lock.unlock();
+
+        Map<String, String> map = new HashMap<>();
+        map.put("test", "test0001");
+        map.put("test2", "test0002");
+        map.put("test3", "test0003");
+        Map<String, String> map1 = new HashMap<>();
+        map1.put("test", "test1");
+        map1.put("test4", "test2");
+        map1.put("test5", "test3");
+
+        map.forEach((key, value) -> {
+            if (map1.containsKey(key)) {
+//                value = ;
+
+                map.put(key, map1.get(key));
+                map1.remove(key);
+            }
+        });
+
+        map.putAll(map1);
+
+        System.out.println(map.toString());
 
     }
 }
