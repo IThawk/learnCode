@@ -42,7 +42,12 @@ public class Test {
 
                 map.put(key, map1.get(key));
                 map1.remove(key);
+
             }
+            if (key.equals("test")){
+                return;
+            }
+            System.out.println("shuc---"+key);
         });
 
         map.putAll(map1);

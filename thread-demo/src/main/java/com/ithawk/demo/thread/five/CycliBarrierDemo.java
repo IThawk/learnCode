@@ -3,9 +3,7 @@ package com.ithawk.demo.thread.five;
 import java.util.concurrent.CyclicBarrier;
 
 /**
- * 腾讯课堂搜索 咕泡学院
- * 加群获取视频：608583947
- * 风骚的Michael 老师
+ *
  */
 public class CycliBarrierDemo extends Thread {
     @Override

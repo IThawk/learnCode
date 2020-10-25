@@ -11,8 +11,8 @@
   <artifactId>mq</artifactId>
   <packaging>pom</packaging>
   <modules>
-    <module>gupaoedu-vip-rabbitmq-javaapi</module>
-    <module>gupaoedu-vip-spring-rabbitmq</module>
+    <module>rabbitmq-java-api</module>
+    <module>spring-rabbitmq</module>
     <module>gupaoedu-vip-springboot-amqp</module>
     <module>gupaoedu-vip-springboot-demo</module>
     <module>gupaoedu-vip-springboot-project</module>
