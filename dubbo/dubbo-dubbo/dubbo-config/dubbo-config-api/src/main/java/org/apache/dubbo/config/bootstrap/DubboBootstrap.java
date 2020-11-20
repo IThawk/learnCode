@@ -181,6 +181,7 @@ public class DubboBootstrap extends GenericEventListener {
     private List<CompletableFuture<Object>> asyncReferringFutures = new ArrayList<>();
 
     /**
+     * 懒汉式单例模式
      * See {@link ApplicationModel} and {@link ExtensionLoader} for why DubboBootstrap is designed to be singleton.
      */
     public static DubboBootstrap getInstance() {
@@ -194,7 +195,11 @@ public class DubboBootstrap extends GenericEventListener {
         return instance;
     }
 
+    /**
+     * dubbo启动类的构造方法
+     */
     private DubboBootstrap() {
+        //初始化配置管理中心
         configManager = ApplicationModel.getConfigManager();
         environment = ApplicationModel.getEnvironment();
 
@@ -596,6 +601,9 @@ public class DubboBootstrap extends GenericEventListener {
         ConfigValidationUtils.validateSslConfig(getSsl());
     }
 
+    /**
+     * 启动配置中心
+     */
     private void startConfigCenter() {
 
         useRegistryAsConfigCenterIfNecessary();
@@ -888,12 +896,14 @@ public class DubboBootstrap extends GenericEventListener {
     }
 
     /**
+     * 启动dubbo
      * Start the bootstrap
      */
     public DubboBootstrap start() {
         logger.info("启动dubbo 暴露服务开始");
         if (started.compareAndSet(false, true)) {
             ready.set(false);
+            //进行初始化
             initialize();
             if (logger.isInfoEnabled()) {
                 logger.info(NAME + " is starting...");
@@ -1087,6 +1097,9 @@ public class DubboBootstrap extends GenericEventListener {
         return exporter.supports(getMetadataType());
     }
 
+    /**
+     * 发布服务
+     */
     private void exportServices() {
         logger.info("开始发布服务");
         configManager.getServices().forEach(sc -> {

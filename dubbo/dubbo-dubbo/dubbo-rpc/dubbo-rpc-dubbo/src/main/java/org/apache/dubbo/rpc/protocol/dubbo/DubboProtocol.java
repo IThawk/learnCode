@@ -277,6 +277,13 @@ public class DubboProtocol extends AbstractProtocol {
         return DEFAULT_PORT;
     }
 
+    /**
+     * 注册服务的同时，启动dubbo服务
+     * @param invoker Service invoker
+     * @param <T>
+     * @return
+     * @throws RpcException
+     */
     @Override
     public <T> Exporter<T> export(Invoker<T> invoker) throws RpcException {
         URL url = invoker.getUrl();
@@ -328,6 +335,11 @@ public class DubboProtocol extends AbstractProtocol {
         }
     }
 
+    /**
+     * 启动服务
+     * @param url
+     * @return
+     */
     private ProtocolServer createServer(URL url) {
         logger.info("创建dubbo服务");
         url = URLBuilder.from(url)

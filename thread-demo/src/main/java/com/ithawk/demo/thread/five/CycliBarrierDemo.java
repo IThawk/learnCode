@@ -8,7 +8,7 @@ import java.util.concurrent.CyclicBarrier;
 public class CycliBarrierDemo extends Thread {
     @Override
     public void run() {
-        System.out.println("开始进行数据分析");
+        System.out.println("所有准备完成开始进行数据分析");
     }
 
     //循环屏障

@@ -288,6 +288,9 @@ public class ServiceConfig<T> extends ServiceConfigBase<T> {
     }
 
 
+    /**
+     * 发布服务
+     */
     protected synchronized void doExport() {
         if (unexported) {
             throw new IllegalStateException("The service " + interfaceClass.getName() + " has already unexported!");

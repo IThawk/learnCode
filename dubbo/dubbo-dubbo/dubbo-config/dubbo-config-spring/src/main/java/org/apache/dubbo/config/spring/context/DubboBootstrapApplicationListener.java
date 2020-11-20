@@ -50,6 +50,7 @@ public class DubboBootstrapApplicationListener extends OneTimeExecutionApplicati
     public void onApplicationContextEvent(ApplicationContextEvent event) {
         System.out.println("监听到spring的refreshde 操作");
         if (event instanceof ContextRefreshedEvent) {
+            //监听到spring容器的
             onContextRefreshedEvent((ContextRefreshedEvent) event);
         } else if (event instanceof ContextClosedEvent) {
             onContextClosedEvent((ContextClosedEvent) event);

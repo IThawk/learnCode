@@ -11,7 +11,8 @@
 
     <packaging>pom</packaging>
     <modules>
-<!--        <module>spring-cloud-alibaba</module>-->
+<!--        <module>spring-cloud-alibaba-master</module>-->
+<!--        <module>spring-cloud-alibaba-demo</module>-->
     </modules>
     <artifactId>spring-cloud</artifactId>
     <name>spring-cloud-all</name>

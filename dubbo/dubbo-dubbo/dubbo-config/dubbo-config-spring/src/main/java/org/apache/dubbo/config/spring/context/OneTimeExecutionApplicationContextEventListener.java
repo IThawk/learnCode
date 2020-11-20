@@ -28,7 +28,7 @@ import java.util.Objects;
 /**
  * The abstract class {@link ApplicationListener} for {@link ApplicationContextEvent} guarantees just one-time execution
  * and prevents the event propagation in the hierarchical {@link ApplicationContext ApplicationContexts}
- *
+ * dubbo 集成spring是在spring加载过程中
  * @since 2.7.5
  */
 abstract class OneTimeExecutionApplicationContextEventListener implements ApplicationListener, ApplicationContextAware {
