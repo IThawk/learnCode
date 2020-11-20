@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<project version="4" relativePaths="false"> 
+  <component name="ProjectRootManager" version="2" assert-keyword="true" project-jdk-name="1.8" jdk-15="true"/>  
+  <component name="CodeStyleManager"> 
+    <option name="USE_DEFAULT_CODE_STYLE_SCHEME" value="true"/>  
+    <option name="CODE_STYLE_SCHEME" value=""/> 
+  </component>  
+  <component name="libraryTable"/>  
+  <component name="CompilerConfiguration"> 
+    <option name="DEFAULT_COMPILER" value="Javac"/>  
+    <option name="CLEAR_OUTPUT_DIRECTORY" value="false"/>  
+    <!--
+    <wildcardResourcePatterns>
+      <entry name="${wildcardResourcePattern}"/>
+    </wildcardResourcePatterns>
+    -->  
+    <wildcardResourcePatterns>
+      <entry name="!?*.java"/>
+    </wildcardResourcePatterns>
+  </component>  
+  <component name="JavacSettings"> 
+    <option name="DEBUGGING_INFO" value="true"/>  
+    <option name="GENERATE_NO_WARNINGS" value="false"/>  
+    <option name="DEPRECATION" value="true"/>  
+    <option name="ADDITIONAL_OPTIONS_STRING" value=""/>  
+    <option name="MAXIMUM_HEAP_SIZE" value="128"/>  
+    <option name="USE_GENERICS_COMPILER" value="false"/> 
+  </component>  
+  <component name="JikesSettings"> 
+    <option name="DEBUGGING_INFO" value="true"/>  
+    <option name="DEPRECATION" value="true"/>  
+    <option name="GENERATE_NO_WARNINGS" value="false"/>  
+    <option name="GENERATE_MAKE_FILE_DEPENDENCIES" value="false"/>  
+    <option name="DO_FULL_DEPENDENCE_CHECK" value="false"/>  
+    <option name="IS_INCREMENTAL_MODE" value="false"/>  
+    <option name="IS_EMACS_ERRORS_MODE" value="true"/>  
+    <option name="ADDITIONAL_OPTIONS_STRING" value=""/>  
+    <option name="MAXIMUM_HEAP_SIZE" value="128"/> 
+  </component>  
+  <component name="AntConfiguration"> 
+    <option name="IS_AUTOSCROLL_TO_SOURCE" value="false"/>  
+    <option name="FILTER_TARGETS" value="false"/> 
+  </component>  
+  <component name="JavadocGenerationManager"> 
+    <option name="OUTPUT_DIRECTORY"/>  
+    <option name="OPTION_SCOPE" value="protected"/>  
+    <option name="OPTION_HIERARCHY" value="false"/>  
+    <option name="OPTION_NAVIGATOR" value="false"/>  
+    <option name="OPTION_INDEX" value="false"/>  
+    <option name="OPTION_SEPARATE_INDEX" value="false"/>  
+    <option name="OPTION_USE_1_1" value="false"/>  
+    <option name="OPTION_DOCUMENT_TAG_USE" value="false"/>  
+    <option name="OPTION_DOCUMENT_TAG_AUTHOR" value="false"/>  
+    <option name="OPTION_DOCUMENT_TAG_VERSION" value="false"/>  
+    <option name="OPTION_DOCUMENT_TAG_DEPRECATED" value="false"/>  
+    <option name="OPTION_DEPRECATED_LIST" value="false"/>  
+    <option name="OTHER_OPTIONS"/>  
+    <option name="HEAP_SIZE"/>  
+    <option name="OPEN_IN_BROWSER" value="false"/> 
+  </component>  
+  <component name="JUnitProjectSettings"> 
+    <option name="TEST_RUNNER" value="UI"/> 
+  </component>  
+  <component name="EntryPointsManager"> 
+    <entry_points/> 
+  </component>  
+  <component name="DataSourceManager"/>  
+  <component name="ExportToHTMLSettings"> 
+    <option name="PRINT_LINE_NUMBERS" value="false"/>  
+    <option name="OPEN_IN_BROWSER" value="false"/>  
+    <option name="OUTPUT_DIRECTORY"/> 
+  </component>  
+  <component name="ImportConfiguration"> 
+    <option name="VENDOR"/>  
+    <option name="RELEASE_TAG"/>  
+    <option name="LOG_MESSAGE"/>  
+    <option name="CHECKOUT_AFTER_IMPORT" value="true"/> 
+  </component>  
+  <component name="ProjectModuleManager"> 
+    <modules> 
+      <!-- module filepath="$$PROJECT_DIR$$/${pom.artifactId}.iml"/ -->  
+      <module filepath="$PROJECT_DIR$/demo.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-springboot/dubbo-springboot-api/dubbo-springboot-api.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-springboot/dubbo-springboot-consumer/dubbo-springboot-consumer.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-springboot/dubbo-springboot-provider/dubbo-springboot-provider.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-springboot/practice-client/practice-client.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-springboot/practice-service/practice-api/practice-api.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-springboot/practice-service/practice-provider/practice-provider.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-springboot/practice-service/practice-service.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-springboot/dubbo-springboot.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-spring/dubbo-spring-api/dubbo-spring-demo-api.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-spring/dubbo-spring-provider/dubbo-spring-provider.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-spring/dubbo-spring-consumer/dubbo-spring-consumer.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-spring/dubbo-spring.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-common/dubbo-common.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-container/dubbo-container-api/dubbo-container-api.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-container/dubbo-container-spring/dubbo-container-spring.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-container/dubbo-container-log4j/dubbo-container-log4j.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-container/dubbo-container-logback/dubbo-container-logback.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-container/dubbo-container.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-remoting/dubbo-remoting-api/dubbo-remoting-api.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-remoting/dubbo-remoting-netty/dubbo-remoting-netty.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-remoting/dubbo-remoting-mina/dubbo-remoting-mina.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-remoting/dubbo-remoting-grizzly/dubbo-remoting-grizzly.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-remoting/dubbo-remoting-p2p/dubbo-remoting-p2p.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-remoting/dubbo-remoting-http/dubbo-remoting-http.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-remoting/dubbo-remoting-zookeeper/dubbo-remoting-zookeeper.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-remoting/dubbo-remoting-netty4/dubbo-remoting-netty4.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-remoting/dubbo-remoting-etcd3/dubbo-remoting-etcd3.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-remoting/dubbo-remoting.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-rpc/dubbo-rpc-api/dubbo-rpc-api.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-rpc/dubbo-rpc-dubbo/dubbo-rpc-dubbo.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-rpc/dubbo-rpc-injvm/dubbo-rpc-injvm.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-rpc/dubbo-rpc-http/dubbo-rpc-http.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-rpc/dubbo-rpc-rmi/dubbo-rpc-rmi.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-rpc/dubbo-rpc-hessian/dubbo-rpc-hessian.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-rpc/dubbo-rpc-webservice/dubbo-rpc-webservice.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-rpc/dubbo-rpc-native-thrift/dubbo-rpc-native-thrift.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-rpc/dubbo-rpc-thrift/dubbo-rpc-thrift.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-rpc/dubbo-rpc-memcached/dubbo-rpc-memcached.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-rpc/dubbo-rpc-redis/dubbo-rpc-redis.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-rpc/dubbo-rpc-rest/dubbo-rpc-rest.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-rpc/dubbo-rpc-xml/dubbo-rpc-xml.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-rpc/dubbo-rpc-grpc/dubbo-rpc-grpc.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-rpc/dubbo-rpc.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-filter/dubbo-filter-cache/dubbo-filter-cache.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-filter/dubbo-filter-validation/dubbo-filter-validation.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-filter/dubbo-filter.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-cluster/dubbo-cluster.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-registry/dubbo-registry-api/dubbo-registry-api.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-registry/dubbo-registry-default/dubbo-registry-default.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-registry/dubbo-registry-multicast/dubbo-registry-multicast.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-registry/dubbo-registry-zookeeper/dubbo-registry-zookeeper.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-registry/dubbo-registry-redis/dubbo-registry-redis.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-registry/dubbo-registry-consul/dubbo-registry-consul.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-registry/dubbo-registry-etcd3/dubbo-registry-etcd3.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-registry/dubbo-registry-nacos/dubbo-registry-nacos.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-registry/dubbo-registry-multiple/dubbo-registry-multiple.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-registry/dubbo-registry-sofa/dubbo-registry-sofa.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-registry/dubbo-registry-eureka/dubbo-registry-eureka.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-registry/dubbo-registry.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-monitor/dubbo-monitor-api/dubbo-monitor-api.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-monitor/dubbo-monitor-default/dubbo-monitor-default.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-monitor/dubbo-monitor.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-config/dubbo-config-api/dubbo-config-api.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-config/dubbo-config-spring/dubbo-config-spring.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-config/dubbo-config.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-demo/dubbo-demo-interface/dubbo-demo-interface.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-demo/dubbo-demo-xml/dubbo-demo-xml-provider/dubbo-demo-xml-provider.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-demo/dubbo-demo-xml/dubbo-demo-xml-consumer/dubbo-demo-xml-consumer.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-demo/dubbo-demo-xml/dubbo-demo-xml.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-demo/dubbo-demo-annotation/dubbo-demo-annotation-provider/dubbo-demo-annotation-provider.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-demo/dubbo-demo-annotation/dubbo-demo-annotation-consumer/dubbo-demo-annotation-consumer.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-demo/dubbo-demo-annotation/dubbo-demo-annotation.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-demo/dubbo-demo-api/dubbo-demo-api-provider/dubbo-demo-api-provider.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-demo/dubbo-demo-api/dubbo-demo-api-consumer/dubbo-demo-api-consumer.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-demo/dubbo-demo-api/dubbo-demo-api.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-demo/dubbo-demo-spi/dubbo-demo-spi.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-demo/dubbo-demo.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-plugin/dubbo-qos/dubbo-qos.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-plugin/dubbo-auth/dubbo-auth.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-plugin/dubbo-plugin.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-serialization/dubbo-serialization-api/dubbo-serialization-api.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-serialization/dubbo-serialization-hessian2/dubbo-serialization-hessian2.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-serialization/dubbo-serialization-fastjson/dubbo-serialization-fastjson.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-serialization/dubbo-serialization-kryo/dubbo-serialization-kryo.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-serialization/dubbo-serialization-fst/dubbo-serialization-fst.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-serialization/dubbo-serialization-jdk/dubbo-serialization-jdk.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-serialization/dubbo-serialization-protostuff/dubbo-serialization-protostuff.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-serialization/dubbo-serialization-avro/dubbo-serialization-avro.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-serialization/dubbo-serialization-test/dubbo-serialization-test.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-serialization/dubbo-serialization-gson/dubbo-serialization-gson.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-serialization/dubbo-serialization-protobuf/dubbo-serialization-protobuf.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-serialization/dubbo-serialization-native-hession/dubbo-serialization-native-hession.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-serialization/dubbo-serialization.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-compatible/dubbo-compatible.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-dependencies-bom/dubbo-dependencies-bom.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-bom/dubbo-bom.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-all/dubbo.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-distribution/dubbo-distribution.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-configcenter/dubbo-configcenter-zookeeper/dubbo-configcenter-zookeeper.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-configcenter/dubbo-configcenter-apollo/dubbo-configcenter-apollo.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-configcenter/dubbo-configcenter-consul/dubbo-configcenter-consul.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-configcenter/dubbo-configcenter-etcd/dubbo-configcenter-etcd.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-configcenter/dubbo-configcenter-nacos/dubbo-configcenter-nacos.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-configcenter/dubbo-configcenter.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-dependencies/dubbo-dependencies-zookeeper/dubbo-dependencies-zookeeper.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-dependencies/dubbo-dependencies.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-metadata/dubbo-metadata-api/dubbo-metadata-api.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-metadata/dubbo-metadata-definition-protobuf/dubbo-metadata-definition-protobuf.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-metadata/dubbo-metadata-report-zookeeper/dubbo-metadata-report-zookeeper.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-metadata/dubbo-metadata-report-redis/dubbo-metadata-report-redis.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-metadata/dubbo-metadata-report-consul/dubbo-metadata-report-consul.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-metadata/dubbo-metadata-report-etcd/dubbo-metadata-report-etcd.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-metadata/dubbo-metadata-report-nacos/dubbo-metadata-report-nacos.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-metadata/dubbo-metadata-processor/dubbo-metadata-processor.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-metadata/dubbo-metadata.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-build-tools/dubbo-build-tools.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-dubbo/dubbo-parent.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-spi-extention/dubbo-spi-client/dubbo-spi-client.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-spi-extention/dubbo-spi-service/dubbo-spi-provider/dubbo-spi-provider.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-spi-extention/dubbo-spi-service/dubbo-spi-api/dubbo-spi-api.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-spi-extention/dubbo-spi-service/dubbo-spi-service.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo-spi-extention/dubbo-spi-extention.iml"/>
+      <module filepath="$PROJECT_DIR$/dubbo/dubbo.iml"/>
+      <module filepath="$PROJECT_DIR$/ejob/ejob-standalone/ejob-standalone.iml"/>
+      <module filepath="$PROJECT_DIR$/ejob/ejob-springboot/ejob-springboot.iml"/>
+      <module filepath="$PROJECT_DIR$/ejob/elasticjob-spring-boot-starter/elasticjob-spring-boot-starter.iml"/>
+      <module filepath="$PROJECT_DIR$/ejob/ejob.iml"/>
+      <module filepath="$PROJECT_DIR$/springboot/springboot-aop/springboot-aop.iml"/>
+      <module filepath="$PROJECT_DIR$/springboot/format-spring-boot-starter/format-spring-boot-starter.iml"/>
+      <module filepath="$PROJECT_DIR$/springboot/springboot-starter-demo/springboot-starter-demo.iml"/>
+      <module filepath="$PROJECT_DIR$/springboot/springboot-demo-orm-mybatis/springboot-demo-orm-mybatis.iml"/>
+      <module filepath="$PROJECT_DIR$/springboot/springboot.iml"/>
+      <module filepath="$PROJECT_DIR$/gpmall-parent/comment-service/comment-api/comment-api.iml"/>
+      <module filepath="$PROJECT_DIR$/gpmall-parent/comment-service/comment-provider/comment-provider.iml"/>
+      <module filepath="$PROJECT_DIR$/gpmall-parent/comment-service/comment-service.iml"/>
+      <module filepath="$PROJECT_DIR$/gpmall-parent/coupon-service/coupon-api/coupon-api.iml"/>
+      <module filepath="$PROJECT_DIR$/gpmall-parent/coupon-service/coupon-provider/coupon-provider.iml"/>
+      <module filepath="$PROJECT_DIR$/gpmall-parent/coupon-service/coupon-service.iml"/>
+      <module filepath="$PROJECT_DIR$/gpmall-parent/gpmall-commons/commons-tool/commons-tool.iml"/>
+      <module filepath="$PROJECT_DIR$/gpmall-parent/gpmall-commons/commons-core/commons-core.iml"/>
+      <module filepath="$PROJECT_DIR$/gpmall-parent/gpmall-commons/commons-lock/commons-lock.iml"/>
+      <module filepath="$PROJECT_DIR$/gpmall-parent/gpmall-commons/commons-mq/commons-mq.iml"/>
+      <module filepath="$PROJECT_DIR$/gpmall-parent/gpmall-commons/gpmall-commons.iml"/>
+      <module filepath="$PROJECT_DIR$/gpmall-parent/gpmall-shopping/gpmall-shopping.iml"/>
+      <module filepath="$PROJECT_DIR$/gpmall-parent/gpmall-user/gpmall-user.iml"/>
+      <module filepath="$PROJECT_DIR$/gpmall-parent/market-service/market-api/market-api.iml"/>
+      <module filepath="$PROJECT_DIR$/gpmall-parent/market-service/market-provider/market-provider.iml"/>
+      <module filepath="$PROJECT_DIR$/gpmall-parent/market-service/market-service.iml"/>
+      <module filepath="$PROJECT_DIR$/gpmall-parent/order-services/order-api/order-api.iml"/>
+      <module filepath="$PROJECT_DIR$/gpmall-parent/order-services/order-provider/order-provider.iml"/>
+      <module filepath="$PROJECT_DIR$/gpmall-parent/order-services/order-services.iml"/>
+      <module filepath="$PROJECT_DIR$/gpmall-parent/pay-service/pay-api/pay-api.iml"/>
+      <module filepath="$PROJECT_DIR$/gpmall-parent/pay-service/pay-provider/pay-provider.iml"/>
+      <module filepath="$PROJECT_DIR$/gpmall-parent/pay-service/pay-service.iml"/>
+      <module filepath="$PROJECT_DIR$/gpmall-parent/search-service/search-api/search-api.iml"/>
+      <module filepath="$PROJECT_DIR$/gpmall-parent/search-service/search-provider/search-provider.iml"/>
+      <module filepath="$PROJECT_DIR$/gpmall-parent/search-service/search-service.iml"/>
+      <module filepath="$PROJECT_DIR$/gpmall-parent/shopping-service/shopping-api/shopping-api.iml"/>
+      <module filepath="$PROJECT_DIR$/gpmall-parent/shopping-service/shopping-provider/shopping-provider.iml"/>
+      <module filepath="$PROJECT_DIR$/gpmall-parent/shopping-service/shopping-service.iml"/>
+      <module filepath="$PROJECT_DIR$/gpmall-parent/user-service/user-api/user-api.iml"/>
+      <module filepath="$PROJECT_DIR$/gpmall-parent/user-service/user-provider/user-provider.iml"/>
+      <module filepath="$PROJECT_DIR$/gpmall-parent/user-service/user-sdk/user-sdk.iml"/>
+      <module filepath="$PROJECT_DIR$/gpmall-parent/user-service/user-service.iml"/>
+      <module filepath="$PROJECT_DIR$/gpmall-parent/gpmall-parent.iml"/>
+      <module filepath="$PROJECT_DIR$/redis/jedis/jedis.iml"/>
+      <module filepath="$PROJECT_DIR$/redis/redis-spring/redis-spring.iml"/>
+      <module filepath="$PROJECT_DIR$/redis/redis.iml"/>
+      <module filepath="$PROJECT_DIR$/kafka/kafka-demo/kafka-demo.iml"/>
+      <module filepath="$PROJECT_DIR$/kafka/kafka-practice/kafka-practice.iml"/>
+      <module filepath="$PROJECT_DIR$/kafka/kafka.iml"/>
+      <module filepath="$PROJECT_DIR$/mq/rabbitmq-java-api/rabbitmq-java-api.iml"/>
+      <module filepath="$PROJECT_DIR$/mq/spring-rabbitmq/spring-rabbitmq.iml"/>
+      <module filepath="$PROJECT_DIR$/mq/gupaoedu-vip-springboot-amqp/gupaoedu-vip-springboot-amqp.iml"/>
+      <module filepath="$PROJECT_DIR$/mq/gupaoedu-vip-springboot-demo/gupaoedu-vip-springboot-demo.iml"/>
+      <module filepath="$PROJECT_DIR$/mq/rabbitmq-springboot-project/springboot-rabbit-consumer/springboot-rabbit-consumer.iml"/>
+      <module filepath="$PROJECT_DIR$/mq/rabbitmq-springboot-project/springboot-rabbit-producer/springboot-rabbit-producer.iml"/>
+      <module filepath="$PROJECT_DIR$/mq/rabbitmq-springboot-project/rabbitmq-springboot-project.iml"/>
+      <module filepath="$PROJECT_DIR$/mq/rocketmq-demo/rocketmq-demo.iml"/>
+      <module filepath="$PROJECT_DIR$/mq/course-pub/course-pub.iml"/>
+      <module filepath="$PROJECT_DIR$/mq/mq.iml"/>
+      <module filepath="$PROJECT_DIR$/mybatis/gupaoedu-vip-mybatis-standalone/gupaoedu-vip-mybatis-standalone.iml"/>
+      <module filepath="$PROJECT_DIR$/mybatis/spring-mybatis/spring-mybatis.iml"/>
+      <module filepath="$PROJECT_DIR$/mybatis/mybatis-3-master/mybatis.iml"/>
+      <module filepath="$PROJECT_DIR$/mybatis/mybatis.iml"/>
+      <module filepath="$PROJECT_DIR$/nacos/nacos-1.3.2/config/nacos-config.iml"/>
+      <module filepath="$PROJECT_DIR$/nacos/nacos-1.3.2/core/nacos-core.iml"/>
+      <module filepath="$PROJECT_DIR$/nacos/nacos-1.3.2/naming/nacos-naming.iml"/>
+      <module filepath="$PROJECT_DIR$/nacos/nacos-1.3.2/address/nacos-address.iml"/>
+      <module filepath="$PROJECT_DIR$/nacos/nacos-1.3.2/test/nacos-test.iml"/>
+      <module filepath="$PROJECT_DIR$/nacos/nacos-1.3.2/api/nacos-api.iml"/>
+      <module filepath="$PROJECT_DIR$/nacos/nacos-1.3.2/client/nacos-client.iml"/>
+      <module filepath="$PROJECT_DIR$/nacos/nacos-1.3.2/example/nacos-example.iml"/>
+      <module filepath="$PROJECT_DIR$/nacos/nacos-1.3.2/common/nacos-common.iml"/>
+      <module filepath="$PROJECT_DIR$/nacos/nacos-1.3.2/distribution/nacos-distribution.iml"/>
+      <module filepath="$PROJECT_DIR$/nacos/nacos-1.3.2/console/nacos-console.iml"/>
+      <module filepath="$PROJECT_DIR$/nacos/nacos-1.3.2/cmdb/nacos-cmdb.iml"/>
+      <module filepath="$PROJECT_DIR$/nacos/nacos-1.3.2/istio/nacos-istio.iml"/>
+      <module filepath="$PROJECT_DIR$/nacos/nacos-1.3.2/consistency/nacos-consistency.iml"/>
+      <module filepath="$PROJECT_DIR$/nacos/nacos-1.3.2/nacos-all.iml"/>
+      <module filepath="$PROJECT_DIR$/nacos/nacos-demo/nacos-demo.iml"/>
+      <module filepath="$PROJECT_DIR$/nacos/nacos.iml"/>
+      <module filepath="$PROJECT_DIR$/netty/netty-pattern/netty-pattern.iml"/>
+      <module filepath="$PROJECT_DIR$/netty/netty-rpc/netty-rpc.iml"/>
+      <module filepath="$PROJECT_DIR$/netty/netty-io/netty-io.iml"/>
+      <module filepath="$PROJECT_DIR$/netty/netty-tomcat/netty-tomcat.iml"/>
+      <module filepath="$PROJECT_DIR$/netty/netty.iml"/>
+      <module filepath="$PROJECT_DIR$/rpc/rpc-client/rpc-client.iml"/>
+      <module filepath="$PROJECT_DIR$/rpc/rpc-server/rpc-server-api/rpc-server-api.iml"/>
+      <module filepath="$PROJECT_DIR$/rpc/rpc-server/rpc-server-provider/rpc-server-provider.iml"/>
+      <module filepath="$PROJECT_DIR$/rpc/rpc-server/rpc-server.iml"/>
+      <module filepath="$PROJECT_DIR$/rpc/rpc.iml"/>
+      <module filepath="$PROJECT_DIR$/sentinel/sentinel-dubbo/sentinel-api/sentinel-api.iml"/>
+      <module filepath="$PROJECT_DIR$/sentinel/sentinel-dubbo/sentinel-provider/sentinel-provider.iml"/>
+      <module filepath="$PROJECT_DIR$/sentinel/sentinel-dubbo/sentinel-dubbo.iml"/>
+      <module filepath="$PROJECT_DIR$/sentinel/sentinel-token-server/sentinel-token-server.iml"/>
+      <module filepath="$PROJECT_DIR$/sentinel/sentinel-web/sentinel-web.iml"/>
+      <module filepath="$PROJECT_DIR$/sentinel/sentinel.iml"/>
+      <module filepath="$PROJECT_DIR$/spring5/spring-mvc/spring-mvc.iml"/>
+      <module filepath="$PROJECT_DIR$/spring5/spring-1.0/spring-1.0.iml"/>
+      <module filepath="$PROJECT_DIR$/spring5/spring-2.0/spring-2.0.iml"/>
+      <module filepath="$PROJECT_DIR$/spring5/gupaoedu-vip-spring-aop/gupaoedu-vip-spring-aop.iml"/>
+      <module filepath="$PROJECT_DIR$/spring5/gupaoedu-vip-spring-orm/gupaoedu-vip-spring-orm.iml"/>
+      <module filepath="$PROJECT_DIR$/spring5/gupaoedu-vip-spring-tx/gupaoedu-vip-spring-tx.iml"/>
+      <module filepath="$PROJECT_DIR$/spring5/gupaoedu-vip-spring5-demo/gupaoedu-vip-spring5-demo.iml"/>
+      <module filepath="$PROJECT_DIR$/spring5/spring5.iml"/>
+      <module filepath="$PROJECT_DIR$/thread-demo/thread-demo.iml"/>
+      <module filepath="$PROJECT_DIR$/zookeeper/zookeeper-master/zookeeper-docs/zookeeper-docs.iml"/>
+      <module filepath="$PROJECT_DIR$/zookeeper/zookeeper-master/zookeeper-jute/zookeeper-jute.iml"/>
+      <module filepath="$PROJECT_DIR$/zookeeper/zookeeper-master/zookeeper-server/zookeeper-server.iml"/>
+      <module filepath="$PROJECT_DIR$/zookeeper/zookeeper-master/zookeeper-client/zookeeper-client.iml"/>
+      <module filepath="$PROJECT_DIR$/zookeeper/zookeeper-master/zookeeper-recipes/zookeeper-recipes-election/zookeeper-recipes-election.iml"/>
+      <module filepath="$PROJECT_DIR$/zookeeper/zookeeper-master/zookeeper-recipes/zookeeper-recipes-lock/zookeeper-recipes-lock.iml"/>
+      <module filepath="$PROJECT_DIR$/zookeeper/zookeeper-master/zookeeper-recipes/zookeeper-recipes-queue/zookeeper-recipes-queue.iml"/>
+      <module filepath="$PROJECT_DIR$/zookeeper/zookeeper-master/zookeeper-recipes/zookeeper-recipes.iml"/>
+      <module filepath="$PROJECT_DIR$/zookeeper/zookeeper-master/zookeeper.iml"/>
+      <module filepath="$PROJECT_DIR$/zookeeper/curator-demo/curator-demo.iml"/>
+      <module filepath="$PROJECT_DIR$/zookeeper/register-demo/order-service/order-service.iml"/>
+      <module filepath="$PROJECT_DIR$/zookeeper/register-demo/repo-service/repo-service.iml"/>
+      <module filepath="$PROJECT_DIR$/zookeeper/register-demo/register-demo.iml"/>
+      <module filepath="$PROJECT_DIR$/zookeeper/ZooViewer/zooviewer.iml"/>
+      <module filepath="$PROJECT_DIR$/zookeeper/zookeeper.iml"/>
+      <module filepath="$PROJECT_DIR$/others/jdkconsole/jdkconsole.iml"/>
+      <module filepath="$PROJECT_DIR$/others/others.iml"/>
+      <module filepath="$PROJECT_DIR$/spi/dubbo-spi/practice-service/practice-api/spi-practice-api.iml"/>
+      <module filepath="$PROJECT_DIR$/spi/dubbo-spi/practice-service/practice-provider/spi-practice-provider.iml"/>
+      <module filepath="$PROJECT_DIR$/spi/dubbo-spi/practice-service/spi-practice-service.iml"/>
+      <module filepath="$PROJECT_DIR$/spi/dubbo-spi/practice-client/spi-practice-client.iml"/>
+      <module filepath="$PROJECT_DIR$/spi/dubbo-spi/dubbo-spi.iml"/>
+      <module filepath="$PROJECT_DIR$/spi/java-spi/derver-project/derver-project.iml"/>
+      <module filepath="$PROJECT_DIR$/spi/java-spi/oracle-driver/oracle-driver.iml"/>
+      <module filepath="$PROJECT_DIR$/spi/java-spi/java-spi.iml"/>
+      <module filepath="$PROJECT_DIR$/spi/spi.iml"/>
+      <module filepath="$PROJECT_DIR$/pattern/pattern-adapter/pattern-adapter.iml"/>
+      <module filepath="$PROJECT_DIR$/pattern/pattern-decorator/pattern-decorator.iml"/>
+      <module filepath="$PROJECT_DIR$/pattern/pattern-delegate/pattern-delegate.iml"/>
+      <module filepath="$PROJECT_DIR$/pattern/pattern-factory/pattern-factory.iml"/>
+      <module filepath="$PROJECT_DIR$/pattern/pattern-observer/pattern-observer.iml"/>
+      <module filepath="$PROJECT_DIR$/pattern/pattern-prototype/pattern-protype.iml"/>
+      <module filepath="$PROJECT_DIR$/pattern/pattern-proxy/pattern-proxy.iml"/>
+      <module filepath="$PROJECT_DIR$/pattern/pattern-singleton/pattern-singleton.iml"/>
+      <module filepath="$PROJECT_DIR$/pattern/pattern-spring/pattern-spring.iml"/>
+      <module filepath="$PROJECT_DIR$/pattern/pattern-strategy/pattern-strategy.iml"/>
+      <module filepath="$PROJECT_DIR$/pattern/pattern-template/pattern-template.iml"/>
+      <module filepath="$PROJECT_DIR$/pattern/pattern.iml"/>
+      <module filepath="$PROJECT_DIR$/javaStructures/leecode-learn/leecode-learn.iml"/>
+      <module filepath="$PROJECT_DIR$/javaStructures/java-structures-learn/java-structures-learn.iml"/>
+      <module filepath="$PROJECT_DIR$/javaStructures/javaStructures.iml"/>
+      <module filepath="$PROJECT_DIR$/tomcat/apache-tomcat-8.0.11-src/Tomcat8.0.iml"/>
+      <module filepath="$PROJECT_DIR$/tomcat/tomcat.iml"/>
+      <module filepath="$PROJECT_DIR$/spring-cloud/spring-cloud.iml"/>
+    </modules> 
+  </component>  
+  <UsedPathMacros> 
+    <!--<macro name="cargo"></macro>--> 
+  </UsedPathMacros> 
+</project>
