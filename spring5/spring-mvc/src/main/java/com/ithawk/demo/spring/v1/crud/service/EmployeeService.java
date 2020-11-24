@@ -47,6 +47,8 @@ public class EmployeeService {
 
     public void deleteEmp(Integer id) {
         employeeMapper.deleteByPrimaryKey(id);
+        String d = null;
+        d.length();
     }
 
     public void deleteBatch(List<Integer> ids) {

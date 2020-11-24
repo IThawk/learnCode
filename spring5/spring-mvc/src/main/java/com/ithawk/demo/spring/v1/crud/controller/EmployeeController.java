@@ -2,6 +2,7 @@ package com.ithawk.demo.spring.v1.crud.controller;
 
 import com.ithawk.demo.spring.v1.crud.bean.Employee;
 import com.ithawk.demo.spring.v1.crud.bean.Msg;
+import com.ithawk.demo.spring.v1.crud.config.MyThreadPoolExecutor;
 import com.ithawk.demo.spring.v1.crud.service.EmployeeService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 /**
  * 员工信息管理
@@ -21,6 +23,9 @@ import java.util.List;
 public class EmployeeController {
     @Autowired
     EmployeeService employeeService;
+
+    @Autowired
+    MyThreadPoolExecutor myThreadPoolExecutor;
 
     /*
      * 单个 或批量删除
@@ -63,16 +68,23 @@ public class EmployeeController {
     }
 
     /**
-     *
      * @param pn
      * @return
      */
     @RequestMapping("/emps")
     @ResponseBody
-    public Msg getEmpsWithJson(@RequestParam(value = "pn", defaultValue = "1") Integer pn) {
+    public Msg getEmpsWithJson(@RequestParam(value = "pn", defaultValue = "1") Integer pn)  {
         PageHelper.startPage(pn, 10); //pageNumber, pageSize，第几页，每页几条
         List<Employee> emps = employeeService.getAll();
         PageInfo page = new PageInfo(emps, 10);
+        myThreadPoolExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("删除数据");
+                employeeService.deleteEmp(2);
+                System.out.println("eeeee 线程执行");
+            }
+        });
         return Msg.success().add("pageInfo", page);
     }
 
