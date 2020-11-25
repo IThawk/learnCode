@@ -31,7 +31,7 @@ public class ThreadPoolExecutorDemo {
 
     static ExecutorService executorService1 = new ThreadPoolExecutor(2, 4,
             60L, TimeUnit.SECONDS,
-            new LinkedBlockingQueue<Runnable>(), Executors.defaultThreadFactory(), new RejectedExecutionHandler() {
+            new LinkedBlockingQueue<Runnable>(4), Executors.defaultThreadFactory(), new RejectedExecutionHandler() {
 
         @Override
         public void rejectedExecution(Runnable r, ThreadPoolExecutor executor) {
