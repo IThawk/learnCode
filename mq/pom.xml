@@ -13,7 +13,6 @@
   <modules>
     <module>rabbitmq-java-api</module>
     <module>spring-rabbitmq</module>
-    <module>gupaoedu-vip-springboot-amqp</module>
     <module>gupaoedu-vip-springboot-demo</module>
     <module>rabbitmq-springboot-project</module>
     <module>rocketmq-demo</module>

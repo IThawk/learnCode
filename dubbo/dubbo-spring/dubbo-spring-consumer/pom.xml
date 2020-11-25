@@ -71,7 +71,7 @@
         </dependency>
         <dependency>
             <groupId>com.ithawk.demo</groupId>
-            <artifactId>dubbo-spring-api</artifactId>
+            <artifactId>dubbo-spring-demo-api</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <!-- others end -->
