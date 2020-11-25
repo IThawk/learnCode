@@ -6,13 +6,9 @@
 
 　　2、Spring集成MyBatis的示例
 
-
-
-使用说明：
-
-　　测试类主要在 test/java/com.gupaoedu.com中。
-
-　　需要部署到tomcat中启动，访问：http://localhost:8080/
+    3、spring线程程
+    com.ithawk.demo.spring.v1.crud.config.SpringPool
+    com.ithawk.demo.spring.v1.crud.config.MyThreadPoolExecutor
 
 
 

@@ -3,10 +3,12 @@ package com.ithawk.demo.spring.v1.crud.controller;
 import com.ithawk.demo.spring.v1.crud.bean.Employee;
 import com.ithawk.demo.spring.v1.crud.bean.Msg;
 import com.ithawk.demo.spring.v1.crud.config.MyThreadPoolExecutor;
+import com.ithawk.demo.spring.v1.crud.config.SpringPool;
 import com.ithawk.demo.spring.v1.crud.service.EmployeeService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -26,6 +28,9 @@ public class EmployeeController {
 
     @Autowired
     MyThreadPoolExecutor myThreadPoolExecutor;
+
+    @Autowired
+    ThreadPoolTaskExecutor threadPoolTaskExecutor;
 
     /*
      * 单个 或批量删除
@@ -83,6 +88,13 @@ public class EmployeeController {
                 System.out.println("删除数据");
                 employeeService.deleteEmp(2);
                 System.out.println("eeeee 线程执行");
+            }
+        });
+
+        threadPoolTaskExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("删除数据");
             }
         });
         return Msg.success().add("pageInfo", page);
