@@ -1,0 +1,51 @@
+2020-07-21 11:34:44 [INFO]-[com.gupaoedu.vip.aop.aspect.XmlAspect] before execution(void com.gupaoedu.vip.aop.service.MemberService.save(Member))
+  2020-07-21 11:34:44 [INFO]-[com.gupaoedu.vip.aop.aspect.AnnotaionAspect] save member method . . .
+  2020-07-21 11:34:44 [INFO]-[com.gupaoedu.vip.aop.aspect.XmlAspect] around execution(void com.gupaoedu.vip.aop.service.MemberService.save(Member))	Use time : 12 ms!
+  2020-07-21 11:34:44 [INFO]-[com.gupaoedu.vip.aop.aspect.XmlAspect] afterReturn execution(void com.gupaoedu.vip.aop.service.MemberService.save(Member))
+  2020-07-21 11:34:44 [INFO]-[com.gupaoedu.vip.aop.aspect.XmlAspect] after execution(void com.gupaoedu.vip.aop.service.MemberService.save(Member))
+  2020-07-21 11:34:44 [INFO]-[com.gupaoedu.vip.aop.aspect.XmlAspect] before execution(boolean com.gupaoedu.vip.aop.service.MemberService.delete(long))
+  2020-07-21 11:34:44 [INFO]-[com.gupaoedu.vip.aop.aspect.AnnotaionAspect] delete method . . .
+  2020-07-21 11:34:44 [INFO]-[com.gupaoedu.vip.aop.aspect.XmlAspect] around execution(boolean com.gupaoedu.vip.aop.service.MemberService.delete(long))	Use time : 0 ms with exception : spring aop ThrowAdviceÑÝÊ¾
+  2020-07-21 11:34:44 [INFO]-[com.gupaoedu.vip.aop.aspect.XmlAspect] afterReturn execution(boolean com.gupaoedu.vip.aop.service.MemberService.delete(long))
+  2020-07-21 11:34:44 [INFO]-[com.gupaoedu.vip.aop.aspect.XmlAspect] after execution(boolean com.gupaoedu.vip.aop.service.MemberService.delete(long))
+  2020-07-21 11:34:44 [INFO]-[com.gupaoedu.vip.aop.aspect.XmlAspect] before execution(void com.gupaoedu.vip.aop.service.MemberService.save(Member))
+  2020-07-21 11:34:44 [INFO]-[com.gupaoedu.vip.aop.aspect.AnnotaionAspect] save member method . . .
+  2020-07-21 11:34:44 [INFO]-[com.gupaoedu.vip.aop.aspect.XmlAspect] around execution(void com.gupaoedu.vip.aop.service.MemberService.save(Member))	Use time : 0 ms!
+  2020-07-21 11:34:44 [INFO]-[com.gupaoedu.vip.aop.aspect.XmlAspect] afterReturn execution(void com.gupaoedu.vip.aop.service.MemberService.save(Member))
+  2020-07-21 11:34:44 [INFO]-[com.gupaoedu.vip.aop.aspect.XmlAspect] after execution(void com.gupaoedu.vip.aop.service.MemberService.save(Member))
+  2020-07-21 11:34:44 [INFO]-[com.gupaoedu.vip.aop.aspect.XmlAspect] before execution(Member com.gupaoedu.vip.aop.service.MemberService.get())
+  2020-07-21 11:34:44 [INFO]-[com.gupaoedu.vip.aop.aspect.AnnotaionAspect] getMember method . . .
+  2020-07-21 11:34:44 [INFO]-[com.gupaoedu.vip.aop.aspect.XmlAspect] around execution(Member com.gupaoedu.vip.aop.service.MemberService.get())	Use time : 0 ms!
+  2020-07-21 11:34:44 [INFO]-[com.gupaoedu.vip.aop.aspect.XmlAspect] afterReturn execution(Member com.gupaoedu.vip.aop.service.MemberService.get())
+  2020-07-21 11:34:44 [INFO]-[com.gupaoedu.vip.aop.aspect.XmlAspect] after execution(Member com.gupaoedu.vip.aop.service.MemberService.get())
+  2020-07-21 11:34:44 [INFO]-[com.gupaoedu.vip.aop.aspect.XmlAspect] before execution(void com.gupaoedu.vip.aop.service.MemberService.save(Member))
+  2020-07-21 11:34:44 [INFO]-[com.gupaoedu.vip.aop.aspect.AnnotaionAspect] save member method . . .
+  2020-07-21 11:34:44 [INFO]-[com.gupaoedu.vip.aop.aspect.XmlAspect] around execution(void com.gupaoedu.vip.aop.service.MemberService.save(Member))	Use time : 0 ms!
+  2020-07-21 11:34:44 [INFO]-[com.gupaoedu.vip.aop.aspect.XmlAspect] afterReturn execution(void com.gupaoedu.vip.aop.service.MemberService.save(Member))
+  2020-07-21 11:34:44 [INFO]-[com.gupaoedu.vip.aop.aspect.XmlAspect] after execution(void com.gupaoedu.vip.aop.service.MemberService.save(Member))
+  2020-07-21 11:34:44 [INFO]-[com.gupaoedu.vip.aop.aspect.XmlAspect] before execution(boolean com.gupaoedu.vip.aop.service.MemberService.delete(long))
+  2020-07-21 11:34:44 [INFO]-[com.gupaoedu.vip.aop.aspect.AnnotaionAspect] delete method . . .
+  2020-07-21 11:34:44 [INFO]-[com.gupaoedu.vip.aop.aspect.XmlAspect] around execution(boolean com.gupaoedu.vip.aop.service.MemberService.delete(long))	Use time : 0 ms with exception : spring aop ThrowAdviceÑÝÊ¾
+  2020-07-21 11:34:44 [INFO]-[com.gupaoedu.vip.aop.aspect.XmlAspect] afterReturn execution(boolean com.gupaoedu.vip.aop.service.MemberService.delete(long))
+  2020-07-21 11:34:44 [INFO]-[com.gupaoedu.vip.aop.aspect.XmlAspect] after execution(boolean com.gupaoedu.vip.aop.service.MemberService.delete(long))
+  2020-07-21 11:52:49 [INFO]-[com.gupaoedu.vip.aop.aspect.XmlAspect] before execution(void com.gupaoedu.vip.aop.service.MemberService.save(Member))
+  2020-07-21 11:52:49 [INFO]-[com.gupaoedu.vip.aop.aspect.AnnotaionAspect] save member method . . .
+  2020-07-21 11:52:49 [INFO]-[com.gupaoedu.vip.aop.aspect.XmlAspect] around execution(void com.gupaoedu.vip.aop.service.MemberService.save(Member))	Use time : 15 ms!
+  2020-07-21 11:52:49 [INFO]-[com.gupaoedu.vip.aop.aspect.XmlAspect] afterReturn execution(void com.gupaoedu.vip.aop.service.MemberService.save(Member))
+  2020-07-21 11:52:49 [INFO]-[com.gupaoedu.vip.aop.aspect.XmlAspect] after execution(void com.gupaoedu.vip.aop.service.MemberService.save(Member))
+  2020-07-21 11:52:49 [INFO]-[com.gupaoedu.vip.aop.aspect.XmlAspect] before execution(boolean com.gupaoedu.vip.aop.service.MemberService.delete(long))
+  2020-07-21 11:52:49 [INFO]-[com.gupaoedu.vip.aop.aspect.AnnotaionAspect] delete method . . .
+  2020-07-21 11:52:49 [INFO]-[com.gupaoedu.vip.aop.aspect.XmlAspect] around execution(boolean com.gupaoedu.vip.aop.service.MemberService.delete(long))	Use time : 1 ms with exception : spring aop ThrowAdviceæ¼”ç¤º
+  2020-07-21 11:52:49 [INFO]-[com.gupaoedu.vip.aop.aspect.XmlAspect] afterReturn execution(boolean com.gupaoedu.vip.aop.service.MemberService.delete(long))
+  2020-07-21 11:52:49 [INFO]-[com.gupaoedu.vip.aop.aspect.XmlAspect] after execution(boolean com.gupaoedu.vip.aop.service.MemberService.delete(long))
+  2020-07-21 13:33:15 [INFO]-[com.gupaoedu.vip.aop.aspect.XmlAspect] before execution(void com.gupaoedu.vip.aop.service.MemberService.save(Member))
+  2020-07-21 13:33:15 [INFO]-[com.gupaoedu.vip.aop.aspect.AnnotaionAspect] save member method . . .
+  2020-07-21 13:33:15 [INFO]-[com.gupaoedu.vip.aop.aspect.XmlAspect] around execution(void com.gupaoedu.vip.aop.service.MemberService.save(Member))	Use time : 14 ms!
+  2020-07-21 13:33:15 [INFO]-[com.gupaoedu.vip.aop.aspect.XmlAspect] afterReturn execution(void com.gupaoedu.vip.aop.service.MemberService.save(Member))
+  2020-07-21 13:33:15 [INFO]-[com.gupaoedu.vip.aop.aspect.XmlAspect] after execution(void com.gupaoedu.vip.aop.service.MemberService.save(Member))
+  2020-07-21 13:33:15 [INFO]-[com.gupaoedu.vip.aop.aspect.XmlAspect] before execution(Member com.gupaoedu.vip.aop.service.MemberService.get())
+  2020-07-21 13:33:15 [INFO]-[com.gupaoedu.vip.aop.aspect.AnnotaionAspect] getMember method . . .
+  2020-07-21 13:33:15 [INFO]-[com.gupaoedu.vip.aop.aspect.XmlAspect] around execution(Member com.gupaoedu.vip.aop.service.MemberService.get())	Use time : 0 ms!
+  2020-07-21 13:33:15 [INFO]-[com.gupaoedu.vip.aop.aspect.XmlAspect] afterReturn execution(Member com.gupaoedu.vip.aop.service.MemberService.get())
+  2020-07-21 13:33:15 [INFO]-[com.gupaoedu.vip.aop.aspect.XmlAspect] after execution(Member com.gupaoedu.vip.aop.service.MemberService.get())
+  
