@@ -45,6 +45,51 @@ public class MemberServiceTest {
 
     @Test
 //    @Ignore
+    public void testRemoves(){
+        try{
+            boolean r = memberService.removes(1L);
+            System.out.println(r);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+//    @Ignore
+    public void testRemovets(){
+        try{
+            boolean r = memberService.removets(1L);
+            System.out.println(r);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+
+    @Test
+//    @Ignore
+    public void removetpropagations(){
+        try{
+            boolean r = memberService.removetpropagations(1L);
+            System.out.println(r);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+//    @Ignore
+    public void removetpropagationsREQUIRES_NEW(){
+        try{
+            boolean r = memberService.removetpropagationsREQUIRES_NEW(1L);
+            System.out.println(r);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+//    @Ignore
     public void testLogin(){
         try{
             memberService.login(15L, "tom");

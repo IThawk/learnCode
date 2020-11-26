@@ -8,9 +8,9 @@
 		<artifactId>spring5</artifactId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
-	<artifactId>gupaoedu-vip-spring-tx</artifactId>
+	<artifactId>spring-tx</artifactId>
 	<packaging>jar</packaging>
-	<name>gupaoedu-vip-spring-tx</name>
+	<name>spring-tx</name>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<!-- dependency versions -->
