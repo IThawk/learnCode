@@ -4,7 +4,7 @@
 	xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
 	version="2.4">
-	<display-name>Gupao Web Application</display-name>
+	<display-name>ItHawk Web Application</display-name>
 	<servlet>
 		<servlet-name>mvc</servlet-name>
 		<servlet-class>com.ithawk.demo.spring.v1.mvcframework.v3.servlet.DemoDispatcherServlet</servlet-class>

@@ -1,8 +1,8 @@
 package com.ithawk.demo.spring.v1.mvcframework.v1.servlet;
-import com.ithawk.demo.spring.v1.mvcframework.annotation.GPAutowired;
-import com.ithawk.demo.spring.v1.mvcframework.annotation.GPController;
-import com.ithawk.demo.spring.v1.mvcframework.annotation.GPRequestMapping;
-import com.ithawk.demo.spring.v1.mvcframework.annotation.GPService;
+import com.ithawk.demo.spring.v1.mvcframework.annotation.HawkAutowired;
+import com.ithawk.demo.spring.v1.mvcframework.annotation.HawkController;
+import com.ithawk.demo.spring.v1.mvcframework.annotation.HawkRequestMapping;
+import com.ithawk.demo.spring.v1.mvcframework.annotation.HawkService;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -17,11 +17,16 @@ import java.lang.reflect.Method;
 import java.net.URL;
 import java.util.*;
 
-//1.web.xml中定义servlet入口类
-//2.继承HttpServlet
-//3.实现init初始化servlet
-//4.实现请求的方法
-public class GPDispatcherServlet extends HttpServlet {
+
+
+/**
+ * 对应作用是spring中的 DispatcherServlet
+ * 1.web.xml中定义servlet入口类
+ * 2.继承HttpServlet
+ * 3.实现init初始化servlet
+ * 4.实现请求的方法
+ */
+public class HawkDispatcherServlet extends HttpServlet {
 
     private Map<String,Object> mapping = new HashMap<String, Object>();
     @Override
@@ -63,24 +68,24 @@ public class GPDispatcherServlet extends HttpServlet {
                 if(!className.contains(".")){continue;}
                 //根据类名方法生成对象
                 Class<?> clazz = Class.forName(className);
-                if(clazz.isAnnotationPresent(GPController.class)){
+                if(clazz.isAnnotationPresent(HawkController.class)){
                     //clazz.newInstance()创建实例
                     mapping.put(className,clazz.newInstance());
                     String baseUrl = "";
-                    if (clazz.isAnnotationPresent(GPRequestMapping.class)) {
-                        GPRequestMapping requestMapping = clazz.getAnnotation(GPRequestMapping.class);
+                    if (clazz.isAnnotationPresent(HawkRequestMapping.class)) {
+                        HawkRequestMapping requestMapping = clazz.getAnnotation(HawkRequestMapping.class);
                         baseUrl = requestMapping.value();
                     }
                     Method[] methods = clazz.getMethods();
                     for (Method method : methods) {
-                        if (!method.isAnnotationPresent(GPRequestMapping.class)) {  continue; }
-                        GPRequestMapping requestMapping = method.getAnnotation(GPRequestMapping.class);
+                        if (!method.isAnnotationPresent(HawkRequestMapping.class)) {  continue; }
+                        HawkRequestMapping requestMapping = method.getAnnotation(HawkRequestMapping.class);
                         String url = (baseUrl + "/" + requestMapping.value()).replaceAll("/+", "/");
                         mapping.put(url, method);
                         System.out.println("Mapped " + url + "," + method);
                     }
-                }else if(clazz.isAnnotationPresent(GPService.class)){
-                        GPService service = clazz.getAnnotation(GPService.class);
+                }else if(clazz.isAnnotationPresent(HawkService.class)){
+                        HawkService service = clazz.getAnnotation(HawkService.class);
                         String beanName = service.value();
                         if("".equals(beanName)){beanName = clazz.getName();}
                         Object instance = clazz.newInstance();
@@ -93,11 +98,11 @@ public class GPDispatcherServlet extends HttpServlet {
             for (Object object : mapping.values()) {
                 if(object == null){continue;}
                 Class clazz = object.getClass();
-                if(clazz.isAnnotationPresent(GPController.class)){
+                if(clazz.isAnnotationPresent(HawkController.class)){
                     Field [] fields = clazz.getDeclaredFields();
                     for (Field field : fields) {
-                        if(!field.isAnnotationPresent(GPAutowired.class)){continue; }
-                        GPAutowired autowired = field.getAnnotation(GPAutowired.class);
+                        if(!field.isAnnotationPresent(HawkAutowired.class)){continue; }
+                        HawkAutowired autowired = field.getAnnotation(HawkAutowired.class);
                         String beanName = autowired.value();
                         if("".equals(beanName)){beanName = field.getType().getName();}
                         field.setAccessible(true);
@@ -117,7 +122,7 @@ public class GPDispatcherServlet extends HttpServlet {
                 }
             }
         }
-        System.out.print("GP MVC Framework is init");
+        System.out.print("Hawk MVC Framework is init");
     }
     private void doScanner(String scanPackage) {
         URL url = this.getClass().getClassLoader().getResource("/" + scanPackage.replaceAll("\\.","/"));

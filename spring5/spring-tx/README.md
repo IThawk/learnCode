@@ -189,3 +189,60 @@
     另一方面, PROPAGATION_NESTED 开始一个 “嵌套的” 事务, 它是已经存在事务的一个真正的子事务. 潜套事务开始执行时, 它将取得一个 savepoint. 如果这个嵌套事务失败, 我们将回滚到此 savepoint. 潜套事务是外部事务的一部分, 只有外部事务结束后它才会被提交。
     
     由此可见, PROPAGATION_REQUIRES_NEW 和 PROPAGATION_NESTED 的最大区别在于, PROPAGATION_REQUIRES_NEW 完全是一个新的事务, 而 PROPAGATION_NESTED 则是外部事务的子事务, 如果外部事务 commit, 嵌套事务也会被 commit, 这个规则同样适用于 roll back.
+    
+### 脏读：
+    一个事务对数据进行了增、删、改，但未提交，另一个事务可以读取到未提交的数据。
+    如果第一个事务这时候回滚了，那么第二个事务就读到了脏数据。
+### 不可重复读：
+    一个事务中发生了两次读操作，在第一次读操作和第二次读操作之间， 另外一
+    个事务对数据进行了修改，这时候两次读取的数据是不一致的。
+### 幻读：
+    第一个事务对一定范围的数据进行了批量修改，第二个事务在这个范围内增加了一条
+    数据，这时候第一个事务就会丢失对新增数据的修改。
+    数据库事务隔离级别越高，越能保证数据的完整性和一致性，但是对井发性能的影响也越大。
+    大多数数据库（比如SQLServer和Oracle）事务默认隔离级别为Read-Commited，少数数据库（比
+    如MySQLInnoDB） 事务默认隔离级别为Repeatable-Read。
+### 事务的嵌套
+    假设外部事务ServiceA的MethodA（）调用内部事务ServiceB的MethodB（）。
+#### 1. PROPAGATION_REQUIRED (Spring默认事务属性）
+    如果ServiceB.MethodB（）的事务属性定义为PROPAGATION_REQUIRED， 那么执行
+    ServiceA.MethodA（）的时候Spring已经发起了事务，这时调用ServiceB.MethodB(),ServiceB.MethodB() 
+    看到自己已经运行在ServiceA.MethodA（）的事务内部， 就不再发起新的事务。
+    假如ServiceB.MethodB（）运行的时候发现自己没有在事务中，它就会为自己分配一个事务。
+    这样，在ServiceA.MetbodA（）或者ServiceB.MethodB（）内的任何地方出现异常， 事务都会被
+    回滚。
+#### 2. PROPAGATION_REQUIRES_NEW 
+    如果设计ServiceA.MethodAQ的事务属性为PROPAGATION_REQUIRED, ServiceB.MethodBQ的
+    事务属性为PROPAGATION＿REQUIRES_NEW，那么当执行到ServiceB.MethodB（）的时候，
+    ServiceA.MethodA（）所在的事务就会挂起，ServiceB.MethodB（）会发起一个新的事务，等待
+    ServiceB.MethodB（）的事务完成以后，挂起的事务才会继续执行。
+    它与PROPAGATION_REQUIRED的区别在于事务的回滚程度。因为ServiceB.MethodB（）新发
+    起一个事务，存在两个不同的事务。 如果ServiceB.MethodBQ已经提交，那么ServiceA.MethodA()
+    回滚失败时’ ServiceB.MethodB（）是不会回滚的。如果ServiceB.MethodB（）回滚失败，它抛出的异常
+    被ServiceA.MethodA（）捕获， ServiceA.MethodA（）的事务仍然可能提交（主要看ServiceBMethodB() 
+    抛出的异常是不是ServiceA.MethodA（）会回滚的异常〉。
+#### 3. PROPAGATION_SUPPORTS 
+    假设ServiceB.MethodB（）的事务属性为PROPAGATION_SUPPORTS，那么当执行到
+    ServiceB.MethodB（）时，如果发现ServiceA.MethodA（）己经开启了一个事务，则加入当前的事务。
+    如果发现ServiceA.MethodA（）没有开启事务，则自己也不开启事务。 对于这种事务属性， 内部方法
+    的事务完全依赖于最外部的事务。
+#### 4. PROPAGATION_NESTED 
+    这种情况比较复杂，ServiceB.MethodB（）的事务属性被配置为PROPAGATION＿阳STED，此
+    时两者之间将如何协作呢？ ServiceB.MethodB（）如果回滚，那么内部事务（即ServiceB.MethodB())
+    将回滚到它执行前的SavePoint， 而外部事务（即ServiceA.MethodA（））可以有以下两种处理方式。
+    (1） 捕获异常，执行异常分支逻辑
+    void MethodA() { 
+        try  { 
+            ServiceB.methodB();
+        } catch  (SomeException)  { 
+            ／／ 执行其他事务，如ServiceC.MethodC();
+        }
+    这种方式也是嵌套事务最有价值的地方，它起到了分支执行的效果，如果ServiceB.MethodB() 
+    失败，那么执行ServiceC.MethodC（）， 而ServiceB.MethodB（）己经回滚到它执行之前的SavePoint,
+    所以不会产生脏数据（相当于此方法从未执行过），这种特性可以用在某些特殊的业务中， 而
+    PROPAGATION_REQUIRED和PROPAGATION_REQUIRES_NEW都没有办法做到这一点。
+    (2） 外部事务回滚／提交
+    代码不做任何修改，如果内部事务（ServiceB .MethodB（））回滚， 首先ServiceB.MethodB（）回
+    滚到它执行之前的SavePoint （在任何情况下都会如此），外部事务（即ServiceA.MethodA（））将
+    根据具体的配置决定自己是提交还是回滚。
+另外三种事务传播属性基本用不到， 在此不做分析。    

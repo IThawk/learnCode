@@ -130,13 +130,13 @@ public class GPDispatcherServletBak extends HttpServlet{
 		try{
 			for (String className : classNames) {
 				Class<?> clazz = Class.forName(className);
-				if(clazz.isAnnotationPresent(GPController.class)){
+				if(clazz.isAnnotationPresent(HawkController.class)){
 					//默认将首字母小写作为beanName
 					String beanName = lowerFirst(clazz.getSimpleName());
 					ioc.put(beanName, clazz.newInstance());
-				}else if(clazz.isAnnotationPresent(GPService.class)){
+				}else if(clazz.isAnnotationPresent(HawkService.class)){
 					
-					GPService service = clazz.getAnnotation(GPService.class);
+					HawkService service = clazz.getAnnotation(HawkService.class);
 					String beanName = service.value();
 					//如果用户设置了名字，就用用户自己设置
 					if(!"".equals(beanName.trim())){
@@ -170,9 +170,9 @@ public class GPDispatcherServletBak extends HttpServlet{
 			Field [] fields = entry.getValue().getClass().getDeclaredFields();
 			for (Field field : fields) {
 				
-				if(!field.isAnnotationPresent(GPAutowired.class)){ continue; }
+				if(!field.isAnnotationPresent(HawkAutowired.class)){ continue; }
 				
-				GPAutowired autowired = field.getAnnotation(GPAutowired.class);
+				HawkAutowired autowired = field.getAnnotation(HawkAutowired.class);
 				String beanName = autowired.value().trim();
 				if("".equals(beanName)){
 					beanName = field.getType().getName();
@@ -195,12 +195,12 @@ public class GPDispatcherServletBak extends HttpServlet{
 		
 		for (Entry<String, Object> entry : ioc.entrySet()) {
 			Class<?> clazz = entry.getValue().getClass();
-			if(!clazz.isAnnotationPresent(GPController.class)){ continue; }
+			if(!clazz.isAnnotationPresent(HawkController.class)){ continue; }
 			
 			String url = "";
 			//获取Controller的url配置
-			if(clazz.isAnnotationPresent(GPRequestMapping.class)){
-				GPRequestMapping requestMapping = clazz.getAnnotation(GPRequestMapping.class);
+			if(clazz.isAnnotationPresent(HawkRequestMapping.class)){
+				HawkRequestMapping requestMapping = clazz.getAnnotation(HawkRequestMapping.class);
 				url = requestMapping.value();
 			}
 			
@@ -209,10 +209,10 @@ public class GPDispatcherServletBak extends HttpServlet{
 			for (Method method : methods) {
 				
 				//没有加RequestMapping注解的直接忽略
-				if(!method.isAnnotationPresent(GPRequestMapping.class)){ continue; }
+				if(!method.isAnnotationPresent(HawkRequestMapping.class)){ continue; }
 				
 				//映射URL
-				GPRequestMapping requestMapping = method.getAnnotation(GPRequestMapping.class);
+				HawkRequestMapping requestMapping = method.getAnnotation(HawkRequestMapping.class);
 				String regex = ("/" + url + requestMapping.value()).replaceAll("/+", "/");
 				Pattern pattern = Pattern.compile(regex);
 				handlerMapping.add(new Handler(pattern,entry.getValue(),method));
@@ -348,8 +348,8 @@ public class GPDispatcherServletBak extends HttpServlet{
 			Annotation [] [] pa = method.getParameterAnnotations();
 			for (int i = 0; i < pa.length ; i ++) {
 				for(Annotation a : pa[i]){
-					if(a instanceof GPRequestParam){
-						String paramName = ((GPRequestParam) a).value();
+					if(a instanceof HawkRequestParam){
+						String paramName = ((HawkRequestParam) a).value();
 						if(!"".equals(paramName.trim())){
 							paramIndexMapping.put(paramName, i);
 						}

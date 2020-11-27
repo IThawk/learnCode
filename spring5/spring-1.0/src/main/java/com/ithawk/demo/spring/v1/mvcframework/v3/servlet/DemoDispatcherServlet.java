@@ -1,6 +1,5 @@
 package com.ithawk.demo.spring.v1.mvcframework.v3.servlet;
 
-//import com.gupaoedu.mvcframework.annotation.*;
 import com.ithawk.demo.spring.v1.mvcframework.annotation.*;
 
 
@@ -22,7 +21,7 @@ import java.net.URL;
 import java.util.*;
 
 /**
- * Created by Tom on 2019/3/24.
+ * 测试类启动的
  */
 public class DemoDispatcherServlet extends HttpServlet{
 
@@ -31,6 +30,15 @@ public class DemoDispatcherServlet extends HttpServlet{
 
     //保存扫描的所有的类名
     private List<String> classNames = new ArrayList<String>();
+
+    //获取IOC 容器
+    public Map<String, Object> getIoc() {
+        return ioc;
+    }
+
+    public void setIoc(Map<String, Object> ioc) {
+        this.ioc = ioc;
+    }
 
     //传说中的IOC容器，我们来揭开它的神秘面纱
     //为了简化程序，暂时不考虑ConcurrentHashMap
@@ -170,21 +178,21 @@ public class DemoDispatcherServlet extends HttpServlet{
         for (Map.Entry<String, Object> entry : ioc.entrySet()) {
             Class<?> clazz = entry.getValue().getClass();
 
-            if(!clazz.isAnnotationPresent(GPController.class)){continue;}
+            if(!clazz.isAnnotationPresent(HawkController.class)){continue;}
 
 
             //保存写在类上面的@GPRequestMapping("/demo")
             String baseUrl = "";
-            if(clazz.isAnnotationPresent(GPRequestMapping.class)){
-                GPRequestMapping requestMapping = clazz.getAnnotation(GPRequestMapping.class);
+            if(clazz.isAnnotationPresent(HawkRequestMapping.class)){
+                HawkRequestMapping requestMapping = clazz.getAnnotation(HawkRequestMapping.class);
                 baseUrl = requestMapping.value();
             }
 
             //默认获取所有的public方法
             for (Method method : clazz.getMethods()) {
-                if(!method.isAnnotationPresent(GPRequestMapping.class)){continue;}
+                if(!method.isAnnotationPresent(HawkRequestMapping.class)){continue;}
 
-                GPRequestMapping requestMapping = method.getAnnotation(GPRequestMapping.class);
+                HawkRequestMapping requestMapping = method.getAnnotation(HawkRequestMapping.class);
                 //优化
                 // //demo///query
                 String regex = ("/" + baseUrl + "/" + requestMapping.value())
@@ -211,8 +219,8 @@ public class DemoDispatcherServlet extends HttpServlet{
             //正常来说，普通的OOP编程只能拿到public的属性
             Field[] fields = entry.getValue().getClass().getDeclaredFields();
             for (Field field : fields) {
-                if(!field.isAnnotationPresent(GPAutowired.class)){continue;}
-                GPAutowired autowired = field.getAnnotation(GPAutowired.class);
+                if(!field.isAnnotationPresent(HawkAutowired.class)){continue;}
+                HawkAutowired autowired = field.getAnnotation(HawkAutowired.class);
 
                 //如果用户没有自定义beanName，默认就根据类型注入
                 //这个地方省去了对类名首字母小写的情况的判断，这个作为课后作业
@@ -254,14 +262,14 @@ public class DemoDispatcherServlet extends HttpServlet{
                 //加了注解的类，才初始化，怎么判断？
                 //为了简化代码逻辑，主要体会设计思想，只举例 @Controller和@Service,
                 // @Componment...就一一举例了
-                if(clazz.isAnnotationPresent(GPController.class)){
+                if(clazz.isAnnotationPresent(HawkController.class)){
                     Object instance = clazz.newInstance();
                     //Spring默认类名首字母小写
                     String beanName = toLowerFirstCase(clazz.getSimpleName());
                     ioc.put(beanName,instance);
-                }else if(clazz.isAnnotationPresent(GPService.class)){
+                }else if(clazz.isAnnotationPresent(HawkService.class)){
                     //1、自定义的beanName
-                    GPService service = clazz.getAnnotation(GPService.class);
+                    HawkService service = clazz.getAnnotation(HawkService.class);
                     String beanName = service.value();
                     //2、默认类名首字母小写
                     if("".equals(beanName.trim())){
@@ -394,8 +402,8 @@ public class DemoDispatcherServlet extends HttpServlet{
             Annotation [] [] pa = method.getParameterAnnotations();
             for (int i = 0; i < pa.length ; i ++) {
                 for(Annotation a : pa[i]){
-                    if(a instanceof GPRequestParam){
-                        String paramName = ((GPRequestParam) a).value();
+                    if(a instanceof HawkRequestParam){
+                        String paramName = ((HawkRequestParam) a).value();
                         if(!"".equals(paramName.trim())){
                             paramIndexMapping.put(paramName, i);
                         }

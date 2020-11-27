@@ -1,186 +1,67 @@
-package com.ithawk.demo.spring.v1.mvcframework.v2.servlet;
+package com.ithawk.demo.spring.v1.mvcframework.v3.servlet;
 
-//import com.gupaoedu.mvcframework.annotation.*;
-import com.ithawk.demo.spring.v1.mvcframework.annotation.*;
+import com.ithawk.demo.spring.v1.mvcframework.annotation.HawkAutowired;
+import com.ithawk.demo.spring.v1.mvcframework.annotation.HawkController;
+import com.ithawk.demo.spring.v1.mvcframework.annotation.HawkRequestMapping;
+import com.ithawk.demo.spring.v1.mvcframework.annotation.HawkService;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.util.*;
-import java.io.File;
+import java.util.regex.Pattern;
 
-/**
- * Created by Tom.
- */
-public class GPDispatcherServlet extends HttpServlet{
+public class HawkApplication {
+
 
     //保存application.properties配置文件中的内容
     private Properties contextConfig = new Properties();
-
     //保存扫描的所有的类名
     private List<String> classNames = new ArrayList<String>();
+
+
+    public Map<String, Object> getIoc() {
+        return ioc;
+    }
+
+    public void setIoc(Map<String, Object> ioc) {
+        this.ioc = ioc;
+    }
 
     //传说中的IOC容器，我们来揭开它的神秘面纱
     //为了简化程序，暂时不考虑ConcurrentHashMap
     // 主要还是关注设计思想和原理
     private Map<String,Object> ioc = new HashMap<String,Object>();
 
-    //保存url和Method的对应关系
-    private Map<String,Method> handlerMapping = new HashMap<String,Method>();
-
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        this.doPost(req,resp);
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        //6、调用，运行阶段
-        try {
-            doDispatch(req,resp);
-        } catch (Exception e) {
-            e.printStackTrace();
-            resp.getWriter().write("500 Exection,Detail : " + Arrays.toString(e.getStackTrace()));
-        }
-
-
-    }
-
-    private void doDispatch(HttpServletRequest req, HttpServletResponse resp) throws Exception {
-        //绝对路径
-        String url = req.getRequestURI();
-        //处理成相对路径
-        String contextPath = req.getContextPath();
-        url = url.replaceAll(contextPath,"").replaceAll("/+","/");
-
-        if(!this.handlerMapping.containsKey(url)){
-            resp.getWriter().write("404 Not Found!!!");
-            return;
-        }
-
-
-        Method method = this.handlerMapping.get(url);
-
-
-        //从reqest中拿到url传过来的参数
-        Map<String,String[]> params = req.getParameterMap();
-
-        //获取方法的形参列表
-        Class<?> [] parameterTypes = method.getParameterTypes();
-
-        Object [] paramValues = new Object[parameterTypes.length];
-
-        for (int i = 0; i < parameterTypes.length; i ++) {
-            Class parameterType = parameterTypes[i];
-            //不能用instanceof，parameterType它不是实参，而是形参
-            if(parameterType == HttpServletRequest.class){
-                paramValues[i] = req;
-                continue;
-            }else if(parameterType == HttpServletResponse.class){
-                paramValues[i] = resp;
-                continue;
-            }else if(parameterType == String.class){
-                HawkRequestParam requestParam = (HawkRequestParam)parameterType.getAnnotation(HawkRequestParam.class);
-                if(params.containsKey(requestParam.value())) {
-                    for (Map.Entry<String,String[]> param : params.entrySet()){
-                        String value = Arrays.toString(param.getValue())
-                                .replaceAll("\\[|\\]","")
-                                .replaceAll("\\s",",");
-                        paramValues[i] = value;
-                    }
-                }
-            }
-        }
-
-        //投机取巧的方式
-        //通过反射拿到method所在class，拿到class之后还是拿到class的名称
-        //再调用toLowerFirstCase获得beanName
-        String beanName  = toLowerFirstCase(method.getDeclaringClass().getSimpleName());
-        method.invoke(ioc.get(beanName),paramValues);
-    }
-
-    //url传过来的参数都是String类型的，HTTP是基于字符串协议
-    //只需要把String转换为任意类型就好
-    private Object convert(Class<?> type,String value){
-        //如果是int
-        if(Integer.class == type){
-            return Integer.valueOf(value);
-        }
-        //如果还有double或者其他类型，继续加if
-        //这时候，我们应该想到策略模式了
-        //在这里暂时不实现，希望小伙伴自己来实现
-        return value;
-    }
-
-
-    //初始化阶段
-    @Override
-    public void init(ServletConfig config) throws ServletException {
+    public HawkApplication(String configPath){
 
         //1、加载配置文件
-        doLoadConfig(config.getInitParameter("contextConfigLocation"));
+        doLoadConfig(configPath);
 
         //2、扫描相关的类
         doScanner(contextConfig.getProperty("scanPackage"));
-        
+
         //3、初始化扫描到的类，并且将它们放入到ICO容器之中
         doInstance();
-        
+
         //4、完成依赖注入
         doAutowired();
 
         //5、初始化HandlerMapping
-        initHandlerMapping();
+//        initHandlerMapping();
 
         System.out.println("GP Spring framework is init.");
 
     }
 
+//    public HawkApplication() {
+//    }
 
-    //初始化url和Method的一对一对应关系
-    private void initHandlerMapping() {
-        if(ioc.isEmpty()){ return; }
-
-        for (Map.Entry<String, Object> entry : ioc.entrySet()) {
-            Class<?> clazz = entry.getValue().getClass();
-
-            if(!clazz.isAnnotationPresent(HawkController.class)){continue;}
-
-
-            //保存写在类上面的@GPRequestMapping("/demo")
-            String baseUrl = "";
-            if(clazz.isAnnotationPresent(HawkRequestMapping.class)){
-                HawkRequestMapping requestMapping = clazz.getAnnotation(HawkRequestMapping.class);
-                baseUrl = requestMapping.value();
-            }
-
-            //默认获取所有的public方法
-            for (Method method : clazz.getMethods()) {
-                if(!method.isAnnotationPresent(HawkRequestMapping.class)){continue;}
-
-                HawkRequestMapping requestMapping = method.getAnnotation(HawkRequestMapping.class);
-                //优化
-                // //demo///query
-                String url = ("/" + baseUrl + "/" + requestMapping.value())
-                            .replaceAll("/+","/");
-                handlerMapping.put(url,method);
-                System.out.println("Mapped :" + url + "," + method);
-
-            }
-
-
-        }
-
-
-    }
 
     //自动依赖注入
     private void doAutowired() {
@@ -291,7 +172,8 @@ public class GPDispatcherServlet extends HttpServlet{
         //scanPackage = com.gupaoedu.demo ，存储的是包路径
         //转换为文件路径，实际上就是把.替换为/就OK了
         //classpath
-        URL url = this.getClass().getClassLoader().getResource("/" + scanPackage.replaceAll("\\.","/"));
+       URL url1 = this.getClass().getClassLoader().getResource("com/ithawk/demo/spring/v1/demo");
+        URL url = this.getClass().getClassLoader().getResource(  scanPackage.replaceAll("\\.","/"));
         File classPath = new File(url.getFile());
         for (File file : classPath.listFiles()) {
             if(file.isDirectory()){
