@@ -3,6 +3,7 @@ package com.ithawk.demo.spring.v1.crud.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 
 import java.util.concurrent.RejectedExecutionHandler;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -59,5 +60,19 @@ public class SpringPool {
             }
         });
         return threadPoolTaskExecutor;
+    }
+
+
+    @Bean(value = "threadPoolTaskScheduler")
+    public ThreadPoolTaskScheduler makeThreadPoolTaskScheduler() {
+        ThreadPoolTaskScheduler threadPoolTaskScheduler = new ThreadPoolTaskScheduler();
+        threadPoolTaskScheduler.setPoolSize(5);
+        threadPoolTaskScheduler.setRejectedExecutionHandler(new RejectedExecutionHandler() {
+            @Override
+            public void rejectedExecution(Runnable r, ThreadPoolExecutor executor) {
+
+            }
+        });
+        return threadPoolTaskScheduler;
     }
 }
