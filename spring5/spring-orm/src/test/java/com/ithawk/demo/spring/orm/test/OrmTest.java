@@ -2,8 +2,8 @@ package com.ithawk.demo.spring.orm.test;
 
 import com.ithawk.demo.spring.orm.demo.dao.MemberDao;
 import com.ithawk.demo.spring.orm.demo.dao.OrderDao;
-import com.ithawk.demo.thread.orm.demo.entity.Member;
-import com.ithawk.demo.thread.orm.demo.entity.Order;
+import com.ithawk.demo.spring.orm.demo.entity.Member;
+import com.ithawk.demo.spring.orm.demo.entity.Order;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;

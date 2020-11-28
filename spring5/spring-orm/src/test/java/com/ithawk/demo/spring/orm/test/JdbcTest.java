@@ -1,6 +1,6 @@
 package com.ithawk.demo.spring.orm.test;
 
-import com.ithawk.demo.thread.orm.demo.entity.Member;
+import com.ithawk.demo.spring.orm.demo.entity.Member;
 
 import javax.persistence.Column;
 import javax.persistence.Table;

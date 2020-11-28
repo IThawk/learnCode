@@ -1,8 +1,9 @@
 package com.ithawk.demo.spring.orm.demo.dao;
 
+import com.ithawk.demo.spring.orm.demo.entity.Member;
 import com.ithawk.demo.spring.orm.framework.BaseDaoSupport;
 import com.ithawk.demo.spring.orm.framework.QueryRule;
-import com.ithawk.demo.thread.orm.demo.entity.Member;
+
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;

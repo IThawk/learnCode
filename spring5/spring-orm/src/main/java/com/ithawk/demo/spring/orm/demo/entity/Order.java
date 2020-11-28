@@ -1,4 +1,4 @@
-package com.ithawk.demo.thread.orm.demo.entity;
+package com.ithawk.demo.spring.orm.demo.entity;
 
 import lombok.Data;
 
