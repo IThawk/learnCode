@@ -30,6 +30,23 @@
         <association property="department" javaType="com.ithawk.demo.mybatis.v1.crud.bean.Department"
                      column="dept_id" select="selectDept"/> <!-- selectDept 定义在下面-->
     </resultMap>
+
+    <!-- 一对多查询 -->
+    <resultMap id="WithDeptResultMap1" type="com.ithawk.demo.mybatis.v1.crud.bean.Employee1">
+        <id column="emp_id" jdbcType="INTEGER" property="empId"/>
+        <result column="emp_name" jdbcType="VARCHAR" property="empName"/>
+        <result column="gender" jdbcType="CHAR" property="gender"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="d_id" jdbcType="INTEGER" property="dId"/>
+        <!-- 联合查询，将Department的属性映射到ResultMap -->
+        <collection property="department" ofType="com.ithawk.demo.mybatis.v1.crud.bean.Department">
+            <id column="dept_id" property="deptId"/>
+            <result column="dept_name" property="deptName"/>
+        </collection>
+    </resultMap>
+
+
+
     <select id="selectDept" parameterType="int" resultType="com.ithawk.demo.mybatis.v1.crud.bean.Department">
         select * from tbl_dept where dept_id = #{deptId}
     </select>
