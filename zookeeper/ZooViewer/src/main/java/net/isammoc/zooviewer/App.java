@@ -48,7 +48,7 @@ import net.isammoc.zooviewer.tree.JZVTree;
 import org.apache.log4j.lf5.viewer.categoryexplorer.TreeModelAdapter;
 
 public class App {
-    private static final String DEFAULT_CONNECTION_STRING = "127.0.0.1:12181";
+    private static final String DEFAULT_CONNECTION_STRING = "127.0.0.1:22181";
     private static ResourceBundle bundle = ResourceBundle.getBundle(App.class
             .getCanonicalName());
 

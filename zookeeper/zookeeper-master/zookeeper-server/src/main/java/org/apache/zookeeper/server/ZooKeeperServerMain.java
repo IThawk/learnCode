@@ -51,6 +51,7 @@ public class ZooKeeperServerMain {
      * @param args the configfile or the port datadir [ticktime]
      */
     public static void main(String[] args) {
+        System.out.println("zookeeper 启动");
         ZooKeeperServerMain main = new ZooKeeperServerMain();
         try {
             main.initializeAndRun(args);
@@ -83,7 +84,8 @@ public class ZooKeeperServerMain {
         if (args.length == 0) {
             config.dataDir = "/test/zookeeper";
             config.dataLogDir = "/test/zookeeper";
-            config.clientPortAddress = new InetSocketAddress("0.0.0.0", 12181);
+            config.clientPortAddress = new InetSocketAddress("0.0.0.0", 22181);
+            System.out.println("zookeeper hostname :0.0.0.0 ;port : 22181");
         } else if (args.length == 1) {
             config.parse(args[0]);
         } else {
@@ -100,6 +102,7 @@ public class ZooKeeperServerMain {
      */
     public void runFromConfig(ServerConfig config) throws IOException {
         LOG.info("Starting server");
+        System.out.println("Starting server");
         FileTxnSnapLog txnLog = null;
         try {
             // Note that this thread isn't going to be doing anything else,
@@ -125,6 +128,7 @@ public class ZooKeeperServerMain {
             cnxnFactory.configure(config.getClientPortAddress(),
                     config.getMaxClientCnxns());
             //启动zk服务
+            System.out.println("cnxnFactory.startup(zkServer)");
             cnxnFactory.startup(zkServer);
             // Watch status of ZooKeeper server. It will do a graceful shutdown
             // if the server is not running or hits an internal error.

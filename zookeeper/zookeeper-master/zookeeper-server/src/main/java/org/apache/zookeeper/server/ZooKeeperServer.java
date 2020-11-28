@@ -379,6 +379,7 @@ public class ZooKeeperServer implements SessionExpirer, ServerStats.Provider {
     }
 
     protected void registerJMX() {
+        System.out.println("org.apache.zookeeper.server.ZooKeeperServer.registerJMX");
         // register with JMX
         try {
             jmxServerBean = new ZooKeeperServerBean(this);
@@ -409,6 +410,7 @@ public class ZooKeeperServer implements SessionExpirer, ServerStats.Provider {
     }
     
     public synchronized void startup() {
+        System.out.println("org.apache.zookeeper.server.ZooKeeperServer.startup");
         if (sessionTracker == null) {
             createSessionTracker();
         }
@@ -417,6 +419,7 @@ public class ZooKeeperServer implements SessionExpirer, ServerStats.Provider {
         setupRequestProcessors();
 
         //JMX远程管理
+        System.out.println("JMX远程管理");
         registerJMX();
 
         setState(State.RUNNING);

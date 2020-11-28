@@ -32,6 +32,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.alibaba.fastjson.JSON;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -106,6 +107,8 @@ public class NIOServerCnxnFactory extends ServerCnxnFactory implements Runnable 
     public void start() {
         // ensure thread is started once and only once
         if (thread.getState() == Thread.State.NEW) {
+            System.out.println("线程启动");
+            System.out.println("org.apache.zookeeper.server.NIOServerCnxnFactory.run");
             thread.start();
         }
     }
@@ -113,7 +116,9 @@ public class NIOServerCnxnFactory extends ServerCnxnFactory implements Runnable 
     @Override
     public void startup(ZooKeeperServer zks) throws IOException,
             InterruptedException {
+        System.out.println("org.apache.zookeeper.server.NIOServerCnxnFactory.startup");
         start();
+        System.out.println("JSON.toJSONString(zks)");
         setZooKeeperServer(zks);
         zks.startdata();
         //服务启动
@@ -203,7 +208,9 @@ public class NIOServerCnxnFactory extends ServerCnxnFactory implements Runnable 
      */
     //当收到客户端的请求时，会需要从这个方法里面来看-> create/delete/setdata
     public void run() {
+        System.out.println("服务启动的方法 暴露2181端口");
         while (!ss.socket().isClosed()) {
+//            System.out.println("到客户端的请求时，会需要从这个方法里面来看-> create/delete/setdata");
             try {
                 selector.select(1000);
                 Set<SelectionKey> selected;
@@ -222,6 +229,7 @@ public class NIOServerCnxnFactory extends ServerCnxnFactory implements Runnable 
                         if (maxClientCnxns > 0 && cnxncount >= maxClientCnxns){
                             LOG.warn("Too many connections from " + ia
                                      + " - max is " + maxClientCnxns );
+                            System.out.println("Too many connections from " + ia + " - max is " + maxClientCnxns );
                             sc.close();
                         } else {
                             LOG.info("Accepted socket connection from "
