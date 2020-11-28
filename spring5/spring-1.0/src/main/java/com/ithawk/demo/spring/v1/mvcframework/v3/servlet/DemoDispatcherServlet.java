@@ -151,22 +151,27 @@ public class DemoDispatcherServlet extends HttpServlet{
     @Override
     public void init(ServletConfig config) throws ServletException {
 
-        //1、加载配置文件
-        doLoadConfig(config.getInitParameter("contextConfigLocation"));
+//        //1、加载配置文件
+//        doLoadConfig(config.getInitParameter("contextConfigLocation"));
+//
+//        //2、扫描相关的类
+//        doScanner(contextConfig.getProperty("scanPackage"));
+//
+//        //3、初始化扫描到的类，并且将它们放入到ICO容器之中
+//        doInstance();
+//
+//        //4、完成依赖注入
+//        doAutowired();
 
-        //2、扫描相关的类
-        doScanner(contextConfig.getProperty("scanPackage"));
-        
-        //3、初始化扫描到的类，并且将它们放入到ICO容器之中
-        doInstance();
-        
-        //4、完成依赖注入
-        doAutowired();
+        HawkApplication hawkApplication = new HawkApplication(config.getInitParameter("contextConfigLocation"));
+
+        this.classNames = hawkApplication.getClassNames();
+        this.ioc = hawkApplication.getIoc();
 
         //5、初始化HandlerMapping
         initHandlerMapping();
 
-        System.out.println("GP Spring framework is init.");
+        System.out.println("HAWK Spring framework is init.");
 
     }
 

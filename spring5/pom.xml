@@ -14,7 +14,7 @@
     <module>spring-mvc</module>
     <module>spring-1.0</module>
     <module>spring-2.0</module>
-    <module>gupaoedu-vip-spring-aop</module>
+    <module>spring-aop</module>
     <module>gupaoedu-vip-spring-orm</module>
     <module>spring-tx</module>
     <module>gupaoedu-vip-spring5-demo</module>

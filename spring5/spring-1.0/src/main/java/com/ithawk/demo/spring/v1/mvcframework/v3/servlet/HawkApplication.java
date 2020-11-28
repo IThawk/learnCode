@@ -2,25 +2,36 @@ package com.ithawk.demo.spring.v1.mvcframework.v3.servlet;
 
 import com.ithawk.demo.spring.v1.mvcframework.annotation.HawkAutowired;
 import com.ithawk.demo.spring.v1.mvcframework.annotation.HawkController;
-import com.ithawk.demo.spring.v1.mvcframework.annotation.HawkRequestMapping;
 import com.ithawk.demo.spring.v1.mvcframework.annotation.HawkService;
-
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletException;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.net.URL;
 import java.util.*;
-import java.util.regex.Pattern;
 
 public class HawkApplication {
 
 
     //保存application.properties配置文件中的内容
     private Properties contextConfig = new Properties();
+
+    public Properties getContextConfig() {
+        return contextConfig;
+    }
+
+    public void setContextConfig(Properties contextConfig) {
+        this.contextConfig = contextConfig;
+    }
+
+    public List<String> getClassNames() {
+        return classNames;
+    }
+
+    public void setClassNames(List<String> classNames) {
+        this.classNames = classNames;
+    }
+
     //保存扫描的所有的类名
     private List<String> classNames = new ArrayList<String>();
 
