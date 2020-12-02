@@ -1,8 +1,11 @@
 package com.ithawk.demo.mybatis.v1;
 
+import com.alibaba.fastjson.JSON;
 import com.ithawk.demo.mybatis.v1.crud.bean.Employee;
+import com.ithawk.demo.mybatis.v1.crud.bean.HawkObject;
 import com.ithawk.demo.mybatis.v1.crud.dao.DepartmentMapper;
 import com.ithawk.demo.mybatis.v1.crud.dao.EmployeeMapper;
+import com.ithawk.demo.mybatis.v1.crud.dao.HawkObjectMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +32,8 @@ public class MapperTest {
     @Autowired
     EmployeeMapper employeeMapper;
 
-//    @Autowired
-//    SqlSession sqlSession;
+    @Autowired
+    HawkObjectMapper hawkObjectMapper;
 
     /**
      * 循环插入
@@ -89,5 +92,18 @@ public class MapperTest {
         long end = System.currentTimeMillis();
         System.out.println("批量更新"+count+"条，耗时：" + (end -start )+"毫秒");
     }
+
+    /**
+     * 批量更新
+     */
+    @Test
+    public void selectById() {
+
+
+        List<HawkObject> start =  hawkObjectMapper.selectById("4");
+        System.out.println("JSON");
+    }
+
+
 
 }
