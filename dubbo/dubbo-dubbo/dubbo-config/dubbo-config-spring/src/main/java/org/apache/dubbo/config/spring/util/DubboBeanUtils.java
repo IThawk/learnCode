@@ -44,7 +44,6 @@ public interface DubboBeanUtils {
      * @see DubboBootstrapApplicationListener
      */
     static void registerCommonBeans(BeanDefinitionRegistry registry) {
-
         // Since 2.5.7 Register @Reference Annotation Bean Processor as an infrastructure Bean
         registerInfrastructureBean(registry, ReferenceAnnotationBeanPostProcessor.BEAN_NAME,
                 ReferenceAnnotationBeanPostProcessor.class);

@@ -40,6 +40,7 @@ public class ServiceNameMappingListener implements EventListener<ServiceConfigEx
 
     @Override
     public void onEvent(ServiceConfigExportedEvent event) {
+        System.out.println("ServiceNameMappingListener 事件监听到 发布服务。。。");
         ServiceConfig serviceConfig = event.getServiceConfig();
         List<URL> exportedURLs = serviceConfig.getExportedUrls();
         exportedURLs.forEach(url -> {

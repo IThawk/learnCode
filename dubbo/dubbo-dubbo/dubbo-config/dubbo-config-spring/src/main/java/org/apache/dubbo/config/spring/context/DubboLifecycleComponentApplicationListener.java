@@ -52,6 +52,7 @@ public class DubboLifecycleComponentApplicationListener extends OneTimeExecution
 
     @Override
     protected void onApplicationContextEvent(ApplicationContextEvent event) {
+        System.out.println("dubbo 加载之后 -》DubboLifecycleComponentApplicationListener");
         if (event instanceof ContextRefreshedEvent) {
             onContextRefreshedEvent((ContextRefreshedEvent) event);
         } else if (event instanceof ContextClosedEvent) {
