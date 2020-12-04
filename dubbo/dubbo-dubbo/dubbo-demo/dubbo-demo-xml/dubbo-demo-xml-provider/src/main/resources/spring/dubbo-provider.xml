@@ -25,6 +25,7 @@
     <dubbo:metadata-report address="zookeeper://127.0.0.1:12181"/>
 
     <dubbo:registry address="zookeeper://127.0.0.1:12181"/>
+    <dubbo:monitor address="127.0.0.1:17077" />
 <!--    <dubbo:monitor address="127.0.0.1:7070" />-->
     <dubbo:protocol name="dubbo" port="20881"/>
 
