@@ -16,6 +16,7 @@
  */
 package org.apache.dubbo.common.extension;
 
+import com.alibaba.fastjson.JSON;
 import org.apache.dubbo.common.URL;
 import org.apache.dubbo.common.context.Lifecycle;
 import org.apache.dubbo.common.extension.support.ActivateComparator;
@@ -585,6 +586,8 @@ public class ExtensionLoader<T> {
                 instance = cachedAdaptiveInstance.get();
                 if (instance == null) {
                     try {
+                        //获取扩展点
+                        System.out.println("在EXTENSION_LOADERS未获取到 获取扩展点");
                         instance = createAdaptiveExtension();
                         cachedAdaptiveInstance.set(instance);
                     } catch (Throwable t) {
@@ -670,6 +673,11 @@ public class ExtensionLoader<T> {
         return getExtensionClasses().containsKey(name);
     }
 
+    /**
+     * 实例化扩展点
+     * @param instance
+     * @return
+     */
     private T injectExtension(T instance) {
 
         if (objectFactory == null) {
@@ -694,6 +702,7 @@ public class ExtensionLoader<T> {
 
                 try {
                     String property = getSetterProperty(method);
+                    System.out.println("扩展点获取： " + property);
                     Object object = objectFactory.getExtension(pt, property);
                     if (object != null) {
                         method.invoke(instance, object);
@@ -757,6 +766,7 @@ public class ExtensionLoader<T> {
             synchronized (cachedClasses) {
                 classes = cachedClasses.get();
                 if (classes == null) {
+                    System.out.println("getExtensionClasses");
                     classes = loadExtensionClasses();
                     cachedClasses.set(classes);
                 }
@@ -772,8 +782,9 @@ public class ExtensionLoader<T> {
         cacheDefaultExtensionName();
 
         Map<String, Class<?>> extensionClasses = new HashMap<>();
-
+        System.out.println(JSON.toJSONString(strategies));
         for (LoadingStrategy strategy : strategies) {
+            System.out.println(JSON.toJSONString(strategy));
             loadDirectory(extensionClasses, strategy.directory(), type.getName(), strategy.preferExtensionClassLoader(), strategy.overridden(), strategy.excludedPackages());
             loadDirectory(extensionClasses, strategy.directory(), type.getName().replace("org.apache", "com.alibaba"), strategy.preferExtensionClassLoader(), strategy.overridden(), strategy.excludedPackages());
         }
@@ -845,6 +856,7 @@ public class ExtensionLoader<T> {
     private void loadResource(Map<String, Class<?>> extensionClasses, ClassLoader classLoader,
                               java.net.URL resourceURL, boolean overridden, String... excludedPackages) {
         try {
+            System.out.println("获取的文件为" + JSON.toJSONString(resourceURL));
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(resourceURL.openStream(), StandardCharsets.UTF_8))) {
                 String line;
                 while ((line = reader.readLine()) != null) {
@@ -888,8 +900,18 @@ public class ExtensionLoader<T> {
         return false;
     }
 
+    /**
+     * 加载class文件的内容
+     * @param extensionClasses
+     * @param resourceURL
+     * @param clazz
+     * @param name
+     * @param overridden
+     * @throws NoSuchMethodException
+     */
     private void loadClass(Map<String, Class<?>> extensionClasses, java.net.URL resourceURL, Class<?> clazz, String name,
                            boolean overridden) throws NoSuchMethodException {
+        System.out.println("loadClass"+JSON.toJSONString(clazz.getName()));
         if (!type.isAssignableFrom(clazz)) {
             throw new IllegalStateException("Error occurred when loading extension class (interface: " +
                     type + ", class line: " + clazz.getName() + "), class "
@@ -900,6 +922,7 @@ public class ExtensionLoader<T> {
         } else if (isWrapperClass(clazz)) {
             cacheWrapperClass(clazz);
         } else {
+            System.out.println("SPI load");
             clazz.getConstructor();
             if (StringUtils.isEmpty(name)) {
                 name = findAnnotationName(clazz);
@@ -929,6 +952,7 @@ public class ExtensionLoader<T> {
     }
 
     /**
+     * 将加载的class 加入内存extensionClasses中
      * put clazz in extensionClasses
      */
     private void saveInExtensionClass(Map<String, Class<?>> extensionClasses, Class<?> clazz, String name, boolean overridden) {
@@ -1023,6 +1047,7 @@ public class ExtensionLoader<T> {
     }
 
     private Class<?> getAdaptiveExtensionClass() {
+        System.out.println("getAdaptiveExtensionClass");
         getExtensionClasses();
         if (cachedAdaptiveClass != null) {
             return cachedAdaptiveClass;

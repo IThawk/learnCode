@@ -14,28 +14,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.dubbo.demo.consumer;
-
-import org.apache.dubbo.demo.DemoService;
+package org.apache.dubbo.demo.monitor;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import java.util.concurrent.CompletableFuture;
-
 public class Application {
-    /**
-     * In order to make sure multicast registry works, need to specify '-Djava.net.preferIPv4Stack=true' before
-     * launch the application
-     */
     public static void main(String[] args) throws Exception {
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring/dubbo-consumer.xml");
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring/dubbo-monitor.xml");
         context.start();
-        DemoService demoService = context.getBean("demoService", DemoService.class);
-
-        CompletableFuture<String> hello = demoService.sayHelloAsync("world");
-        System.out.println("sayHelloAsync result: " + hello.get());
-
-        String hello1 = demoService.sayHello("world");
-        System.out.println("sayHello result: " + hello1);
+        System.in.read();
     }
 }

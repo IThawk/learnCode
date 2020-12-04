@@ -14,29 +14,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.dubbo.demo.provider;
+package org.apache.dubbo.demo.consumer;
 
 import org.apache.dubbo.demo.DemoService;
 import org.apache.dubbo.rpc.RpcContext;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.CompletableFuture;
 
-public class DemoServiceImpl implements DemoService {
-    private static final Logger logger = LoggerFactory.getLogger(DemoServiceImpl.class);
+public class DemoServiceImplMock implements DemoService {
+    private static final Logger logger = LoggerFactory.getLogger(DemoServiceImplMock.class);
 
     @Override
     public String sayHello(String name) {
-        System.out.println("sayHello");
+        System.out.println("DemoServiceImplMock");
         logger.info("Hello " + name + ", request from consumer: " + RpcContext.getContext().getRemoteAddress());
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        return "Hello " + name + ", response from provider: " + RpcContext.getContext().getLocalAddress();
+        return "DemoServiceImplMock Hello " + name + ", response from provider: " + RpcContext.getContext().getLocalAddress();
     }
 
     @Override
@@ -47,7 +46,7 @@ public class DemoServiceImpl implements DemoService {
 //            } catch (InterruptedException e) {
 //                e.printStackTrace();
 //            }
-            return "async result";
+            return "DemoServiceImplMock async result";
         });
         return cf;
     }

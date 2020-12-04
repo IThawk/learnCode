@@ -8,6 +8,7 @@
         <result column="des" jdbcType="VARCHAR" property="des"/>
         <!-- 一对多关联映射 -->
         <collection property="hawkTreeList" ofType="com.ithawk.demo.mybatis.v1.crud.bean.HawkObject">
+            <!-- id 与父级的关系-->
             <id property="id" column="relate_id"/>
             <result property="id" column="t1id"/>
             <result property="name" column="t1name"/>
@@ -25,7 +26,9 @@
 
 
     <select id="selectById"  resultMap="WithDeptResultMap1">
-        select t.id id, t.name name , t3.des des ,t1.id t1id, t1.name t1name , t4.des t1des, t2.id t2id, t2.name t2name ,t5.des t2des
+        select t.id id, t.name name , t3.des des ,
+        t1.id t1id, t1.name t1name , t4.des t1des,
+         t2.id t2id, t2.name t2name ,t5.des t2des
         from hawk_object t
         left join hawk_object t1 on t1.relate_id = t.id
         left join hawk_object t2 on t2.relate_id = t1.id

@@ -64,6 +64,10 @@ import static org.apache.dubbo.common.constants.FilterConstants.CACHE_KEY;
  * @see org.apache.dubbo.cache.support.expiring.ExpiringCache
  *
  */
+
+/**
+ * 自适应扩展
+ */
 @Activate(group = {CONSUMER, PROVIDER}, value = CACHE_KEY)
 public class CacheFilter implements Filter {
 
