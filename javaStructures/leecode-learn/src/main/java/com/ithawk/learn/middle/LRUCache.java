@@ -4,6 +4,10 @@ import java.util.*;
 
 public class LRUCache {
 
+    /**
+     * LRU缓存
+     * @param args
+     */
     public static void main(String[] args) {
         LRUCache s = new LRUCache(2);
         s.put(2,2);

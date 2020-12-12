@@ -35,6 +35,7 @@ public class ThreeSum {
 
 
             int n = nums.length;
+            //将数据进行排序
             Arrays.sort(nums);
             List<List<Integer>> ans = new ArrayList<List<Integer>>();
             // 枚举 a
@@ -43,6 +44,7 @@ public class ThreeSum {
                 if (first > 0 && nums[first] == nums[first - 1]) {
                     continue;
                 }
+                //双指针发   这个是后面的那个指针
                 // c 对应的指针初始指向数组的最右端
                 int third = n - 1;
                 int target = -nums[first];
@@ -52,7 +54,7 @@ public class ThreeSum {
                     if (second > first + 1 && nums[second] == nums[second - 1]) {
                         continue;
                     }
-                    // 需要保证 b 的指针在 c 的指针的左侧
+                    // 需要保证 b 的指针在 c 的指针的左侧，开始移动C指针
                     while (second < third && nums[second] + nums[third] > target) {
                         --third;
                     }

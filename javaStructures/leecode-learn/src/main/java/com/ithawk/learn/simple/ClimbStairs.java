@@ -39,7 +39,7 @@ import java.util.Map;
  */
 public class ClimbStairs {
     public static void main(String[] args) {
-        int test = new Solution().climbStairs(5);
+        int test = new Solution().climbStairs1(5);
         System.out.println("TEST RESULT IS : " + test);
     }
 
@@ -61,6 +61,14 @@ public class ClimbStairs {
                 r = p + q;
             }
             return r;
+        }
+
+        public int climbStairs1(int n) {
+            if (n==1||n==0){
+                return 1;
+            }
+
+            return climbStairs1(n-1) + climbStairs1(n-2);
         }
 
 

@@ -34,13 +34,16 @@ public class SwapPairs {
             ListNode prev = null;
             ListNode next;
             while (temp != null) {
+                //获取到下一个节点
                 next = temp.next;
                 if (next == null) {
                     break; //if odd no of nodes, then next would be null
                 }
+                //设置前一个节点
                 if (prev != null) {
                     prev.next = next;
                 }
+                //设置当前节点的
                 temp.next = next.next;
                 next.next = temp;
                 if (head == temp) {

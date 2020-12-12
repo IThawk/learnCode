@@ -1,4 +1,4 @@
-package concurrency;
+package com.ithawk.demo.thread.five;
 
 import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.ExecutorService;
@@ -14,7 +14,7 @@ public class CyclicBarrierTest {
         int count = 10;
         CyclicBarrier cyclicBarrier = new CyclicBarrier(count);
         ExecutorService executorService = Executors.newFixedThreadPool(count);
-        for (int i = 0; i < count; i++)
+        for (int i = 0; i < count-1; i++)
             executorService.execute(new CyclicBarrierTest().new Task(cyclicBarrier));
         executorService.shutdown();
         while (!executorService.isTerminated()) {

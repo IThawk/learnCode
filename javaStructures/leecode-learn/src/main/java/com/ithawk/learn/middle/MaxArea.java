@@ -31,6 +31,29 @@ public class MaxArea {
      * </p>
      */
     static class Solution {
+        /**
+         * 双指针算法
+         * @param height
+         * @return
+         */
+
+        public int maxArea1(int[] height) {
+            int l = 0, r = height.length - 1;
+            int ans = 0;
+            while (l < r) {
+                int area = Math.min(height[l], height[r]) * (r - l);
+                ans = Math.max(ans, area);
+                if (height[l] <= height[r]) {
+                    ++l;
+                }
+                else {
+                    --r;
+                }
+            }
+            return ans;
+        }
+
+
         public int maxArea(int[] height) {
             if (height.length <= 1) {
                 return 0;

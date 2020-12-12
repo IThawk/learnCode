@@ -33,6 +33,7 @@ public class MoveZeroes {
             if (nums == null || (length = nums.length) == 0) {
                 return;
             }
+            //用于记录不为零的位置
             int j = 0;
             for (int i = 0; i < length; i++) {
                 if (nums[i] != 0) {
