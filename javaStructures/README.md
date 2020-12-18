@@ -43,5 +43,11 @@
     com.ithawk.learn.middle.SwapPairs
 # 环形链表
     https://leetcode-cn.com/problems/linked-list-cycle/   
-    com.ithawk.learn.leetCode.array.HasCycle   
+    com.ithawk.learn.leetCode.array.HasCycle  
+# 环形链表 II
+    https://leetcode-cn.com/problems/linked-list-cycle-ii/
+    com.ithawk.learn.leetCode.array.DetectCycle 
+# 有效的括号 
+    https://leetcode-cn.com/problems/valid-parentheses/
+    com.ithawk.learn.simple.IsValid         
                   
