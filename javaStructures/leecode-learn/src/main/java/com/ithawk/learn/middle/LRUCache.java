@@ -6,26 +6,34 @@ public class LRUCache {
 
     /**
      * LRU缓存
+     *
      * @param args
      */
     public static void main(String[] args) {
         LRUCache s = new LRUCache(2);
-        s.put(2,2);
+        s.put(2, 2);
         s.get(1);
         System.out.println(s.get(1));
         System.out.println(s.get(2));
-        s.put(1,2);
-        s.put(3,2);
+        s.put(1, 2);
+        s.put(3, 2);
         System.out.println(s.get(2));
         System.out.println(s.get(3));
     }
+
     class DLinkedNode {
         int key;
         int value;
         DLinkedNode prev;
         DLinkedNode next;
-        public DLinkedNode() {}
-        public DLinkedNode(int _key, int _value) {key = _key; value = _value;}
+
+        public DLinkedNode() {
+        }
+
+        public DLinkedNode(int _key, int _value) {
+            key = _key;
+            value = _value;
+        }
     }
 
     private Map<Integer, DLinkedNode> cache = new HashMap<Integer, DLinkedNode>();
@@ -70,8 +78,7 @@ public class LRUCache {
                 cache.remove(tail.key);
                 --size;
             }
-        }
-        else {
+        } else {
             // 如果 key 存在，先通过哈希表定位，再修改 value，并移到头部
             node.value = value;
             moveToHead(node);
