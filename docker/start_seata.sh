@@ -1,0 +1,1 @@
+docker run --name seata-server -it -d  -p 8091:8091 -e SEATA_CONFIG_NAME=file:/root/seata/config/registry -e SEATA_IP=192.168.2.248 -v d:/config/seata/:/root/seata/config --net=bridge --restart=always docker.io/seataio/seata-server

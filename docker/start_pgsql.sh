@@ -1,0 +1,1 @@
+docker run --name pgsql -v /mnt/d/data/pgdata:/var/lib/postgresql/data -e POSTGRES_PASSWORD=123456 -p 5432:5432 -d postgres:9.4

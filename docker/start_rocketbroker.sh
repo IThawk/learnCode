@@ -1,0 +1,1 @@
+docker run -d -p 10911:10911 -p 10909:10909 --name rmqbroker --link rmqnamesrv:namesrv -e "NAMESRV_ADDR=namesrv:9876" -v d:/conf/rocketMq/broker.conf:/etc/rocketmq/broker.conf foxiswho/rocketmq:broker

@@ -1,0 +1,1 @@
+docker run -d -p 10023:22 centos7:v1 /usr/sbin/sshd -D -name mycentos1

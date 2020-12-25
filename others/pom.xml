@@ -16,7 +16,7 @@
     <name>others demo</name>
     <modules>
         <module>jdkconsole</module>
-<!--        <module>gp-jvm</module>-->
+        <module>distribute-demo</module>
     </modules>
 
     <build>
