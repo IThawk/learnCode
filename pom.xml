@@ -54,7 +54,6 @@
         <module>dubbo</module>
         <module>ejob</module>
         <module>springboot</module>
-        <module>gpmall-parent</module>
         <module>redis</module>
         <module>kafka</module>
         <module>mq</module>

@@ -12,7 +12,7 @@
 
     <packaging>pom</packaging>
     <modules>
-        <module>gupaoedu-vip-mybatis-standalone</module>
+        <module>mybatis-standalone</module>
         <module>spring-mybatis</module>
         <module>mybatis-3-master</module>
         <module>mybatis-plugs</module>

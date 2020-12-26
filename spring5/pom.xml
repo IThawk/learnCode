@@ -17,7 +17,7 @@
     <module>spring-aop</module>
     <module>spring-orm</module>
     <module>spring-tx</module>
-    <module>gupaoedu-vip-spring5-demo</module>
+    <module>spring5-demo</module>
   </modules>
   <name>spring5</name>
 
