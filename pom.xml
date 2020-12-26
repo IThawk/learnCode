@@ -72,7 +72,7 @@
         <module>tomcat</module>
         <module>gulimall</module>
         <module>arthas-web</module>
-        <module>spring-cloud-alibaba-me</module>
+        <module>spring-cloud</module>
     </modules>
 
     <build>

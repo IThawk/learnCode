@@ -7,9 +7,9 @@
         <artifactId>register-demo</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <artifactId>order-service</artifactId>
+    <artifactId>zk-order-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>order-service</name>
+    <name>zk-order-service</name>
 
 
     <dependencies>
