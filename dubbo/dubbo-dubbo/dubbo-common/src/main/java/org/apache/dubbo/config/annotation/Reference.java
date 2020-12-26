@@ -33,7 +33,7 @@ import java.lang.annotation.Target;
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.FIELD, ElementType.METHOD, ElementType.ANNOTATION_TYPE})
-@Deprecated
+//@Deprecated
 public @interface Reference {
     /**
      * Interface class, default value is void.class
