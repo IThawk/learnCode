@@ -11,10 +11,20 @@
 
     <artifactId>gulimall-common</artifactId>
     <description>每一个微服务公共的依赖，bean，工具类等</description>
-<properties>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
-</properties>
+<!--    <properties>-->
+<!--        <maven.compiler.source>1.8</maven.compiler.source>-->
+<!--        <maven.compiler.target>1.8</maven.compiler.target>-->
+<!--        <knife4j.version>2.0.4</knife4j.version>3-->
+<!--    </properties>-->
+
+    <properties>
+
+        <java.version>1.8</java.version>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <knife4j.version>2.0.4</knife4j.version>
+        <spring-cloud.version>Greenwich.SR3</spring-cloud.version>
+    </properties>
     <dependencies>
         <!--        mybatis-plus-->
         <dependency>
@@ -76,7 +86,17 @@
             <artifactId>validation-api</artifactId>
             <version>2.0.1.Final</version>
         </dependency>
-
+        <!--Knife4j API文档生产工具-->
+        <dependency>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>knife4j-micro-spring-boot-starter</artifactId>
+            <version>2.0.4</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>knife4j-spring-boot-starter</artifactId>
+            <version>2.0.4</version>
+        </dependency>
 
     </dependencies>
 
