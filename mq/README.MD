@@ -13,7 +13,7 @@ service rocketmq startbroker
 
 service rocketmq startconsole
 
-http://192.168.56.101:19876/
+http://192.168.56.101:19876/   admin admin 
 ```
 #!/bin/bash
 #chkconfig:2345 20 90
