@@ -1,22 +1,24 @@
 package com.atguigu.gulimall.monitor.config;
 
-//import de.codecentric.boot.admin.server.config.AdminServerProperties;
+import de.codecentric.boot.admin.server.config.AdminServerProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
+
+
 /**
- * Created by macro on 2019/9/30.
+ * 配置admin 类
  */
 @Configuration
 public class SecuritySecureConfig extends WebSecurityConfigurerAdapter {
     private final String adminContextPath;
 
-//    public SecuritySecureConfig(AdminServerProperties adminServerProperties) {
-//        this.adminContextPath = adminServerProperties.getContextPath();
-//    }
+    public SecuritySecureConfig(AdminServerProperties adminServerProperties) {
+        this.adminContextPath = adminServerProperties.getContextPath();
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {

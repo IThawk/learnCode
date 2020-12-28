@@ -1,6 +1,6 @@
 spring:
   application:
-    name: mall-monitor
+    name: gulimall-monitor
   security: # 配置登录用户名和密码
     user:
       name: admin
@@ -11,3 +11,12 @@ spring:
         ignored-services: ${spring.application.name}
 server:
   port: 8101
+# monitor管理面配置
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: ALWAYS

@@ -43,6 +43,12 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <!-- 加入monitor 服务中-->
+        <dependency>
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-starter-client</artifactId>
+            <version>2.1.5</version>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>
