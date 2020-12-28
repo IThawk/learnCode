@@ -20,4 +20,4 @@ docker cp testtomcat：/usr/local/tomcat/webapps/test/js/test.js /opt
 
        答案：在宿主机上面执行如下命令     
 
-docker cp /opt/test.js testtomcat：/usr/local/tomcat/webapps/test/js
+docker cp /mydata/test elasticsearch:/usr/share/
