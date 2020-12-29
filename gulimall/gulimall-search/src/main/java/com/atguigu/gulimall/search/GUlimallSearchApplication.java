@@ -13,10 +13,10 @@ import org.springframework.context.annotation.ComponentScan;
             MongoAutoConfiguration.class
         })
 @EnableDiscoveryClient
-public class Application {
+public class GUlimallSearchApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
+        SpringApplication.run(GUlimallSearchApplication.class, args);
     }
 
 }

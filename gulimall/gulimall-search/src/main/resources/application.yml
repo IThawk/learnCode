@@ -10,3 +10,8 @@ spring:
     rest:
       uris:
         - http://192.168.56.101:9200
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

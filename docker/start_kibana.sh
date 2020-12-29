@@ -1,1 +1,1 @@
-docker run --name kibana -e ELASTICSEARCH_HOSTS=http://172.21.128.1:19200 -p 5601:5601 -d kibana:7.6.2
+docker run --name kibana -e ELASTICSEARCH_HOSTS=http://192.168.56.101:9200 -p 5601:5601 -d kibana:7.6.2

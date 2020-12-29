@@ -1,7 +1,7 @@
 package com.atguigu.gulimall.search.test;
 
 
-import com.atguigu.gulimall.search.Application;
+import com.atguigu.gulimall.search.GUlimallSearchApplication;
 import com.atguigu.gulimall.search.pojo.Car;
 import org.elasticsearch.common.geo.GeoDistance;
 import org.elasticsearch.common.geo.GeoPoint;
@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.Map;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = Application.class)
+@SpringBootTest(classes = GUlimallSearchApplication.class)
 public class ESGEOTest {
 
     @Autowired
