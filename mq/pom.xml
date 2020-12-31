@@ -17,7 +17,7 @@
     <module>springboot-amqp</module>
     <module>rabbitmq-springboot-project</module>
     <module>rocketmq-demo</module>
-    <module>course-pub</module>
+    <module>rocketmq-springboot</module>
   </modules>
   <name>mq</name>
 </project>

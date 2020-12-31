@@ -1,4 +1,4 @@
-package com.gupaoedu.demo;
+package com.gupaoedu.example;
 
 import org.apache.rocketmq.client.exception.MQClientException;
 import org.apache.rocketmq.client.producer.TransactionMQProducer;

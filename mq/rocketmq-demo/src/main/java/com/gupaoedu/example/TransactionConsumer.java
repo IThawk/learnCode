@@ -1,4 +1,4 @@
-package com.gupaoedu.demo;
+package com.gupaoedu.example;
 
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
 import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyContext;

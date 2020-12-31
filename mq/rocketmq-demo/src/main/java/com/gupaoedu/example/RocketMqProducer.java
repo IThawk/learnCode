@@ -26,7 +26,8 @@ public class RocketMqProducer {
     public static void main(String[] args) throws MQClientException, RemotingException, InterruptedException, MQBrokerException, UnsupportedEncodingException {
         //事务消息的时候会用到
         DefaultMQProducer producer=new DefaultMQProducer("gp_producer_group");
-        producer.setNamesrvAddr("127.0.0.1:9876"); //它会从命名服务器上拿到broker的地址
+        producer.setSendMsgTimeout(6000);
+        producer.setNamesrvAddr("192.168.56.101:9876"); //它会从命名服务器上拿到broker的地址
         producer.start();
         for (int i = 0; i < 100; i++) {
             //Create a message instance, specifying topic, tag and message body.

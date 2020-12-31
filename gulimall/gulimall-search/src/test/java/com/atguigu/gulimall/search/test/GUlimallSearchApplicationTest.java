@@ -1,11 +1,20 @@
 package com.atguigu.gulimall.search.test;
 
 
+import com.alibaba.fastjson.JSON;
 import com.atguigu.gulimall.search.GUlimallSearchApplication;
+import com.atguigu.gulimall.search.config.GuliMallElasticSearchConfig;
 import com.atguigu.gulimall.search.pojo.Car;
+import org.elasticsearch.action.index.IndexRequest;
+import org.elasticsearch.action.index.IndexResponse;
+import org.elasticsearch.action.search.SearchRequest;
+import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.common.geo.GeoDistance;
 import org.elasticsearch.common.geo.GeoPoint;
 import org.elasticsearch.common.unit.DistanceUnit;
+import org.elasticsearch.common.xcontent.XContentType;
+import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.aggregations.Aggregation;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
 import org.elasticsearch.search.aggregations.Aggregations;
@@ -14,6 +23,7 @@ import org.elasticsearch.search.aggregations.bucket.range.InternalGeoDistance;
 import org.elasticsearch.search.aggregations.bucket.range.InternalRange;
 import org.elasticsearch.search.aggregations.bucket.range.ParsedGeoDistance;
 import org.elasticsearch.search.aggregations.metrics.ParsedGeoBounds;
+import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,16 +35,52 @@ import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = GUlimallSearchApplication.class)
-public class ESGEOTest {
+public class GUlimallSearchApplicationTest {
 
     @Autowired
     private ElasticsearchRestTemplate esTemplate;
+    @Autowired
+    private RestHighLevelClient restHighLevelClient;
+    @Test
+    public void search() throws IOException {
+        //创建检索请求
+        SearchRequest searchRequest = new SearchRequest();
+        searchRequest.indices("user");
+        //设置检索条件
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+//        searchSourceBuilder.query(QueryBuilders.matchAllQuery());
+        searchSourceBuilder.query(QueryBuilders.matchQuery("address","ss"));
+        searchRequest.source(searchSourceBuilder);
+        SearchResponse response = restHighLevelClient.search(searchRequest,GuliMallElasticSearchConfig.COMMON_OPTIONS);
+        System.out.println(response);
+    }
+    @Test
+    public void addIndex() throws IOException {
+        IndexRequest indexRequest = new IndexRequest("user");
+        indexRequest.id("1");
+        User user = new User();
+        user.setUsername("test");
+        indexRequest.source(JSON.toJSONString(user), XContentType.JSON);
+        IndexResponse indexResponse = restHighLevelClient.index(indexRequest, GuliMallElasticSearchConfig.COMMON_OPTIONS);
+        System.out.println(indexResponse);
+    }
+    class User{
+        public String getUsername() {
+            return username;
+        }
 
+        public void setUsername(String username) {
+            this.username = username;
+        }
+
+        private  String username;
+    }
     /**
      * 统计一定范围内坐标点的个数
      */
