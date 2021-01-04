@@ -1,6 +1,6 @@
 mkdir -p /mydata/nginx/www /mydata/nginx/logs /mydata/nginx/conf
 chmod -R 777 /mydata/nginx/
-vi /mydata/nginx/config/nginx.conf
+vi /mydata/nginx/conf/nginx.conf
 #  kencery 注释说明Nginx文件
 #  时间：2016-1-19
 #  学习内容，只是来自互联网，有版权问题请联系我删除。
@@ -184,4 +184,4 @@ http {
     #}
 
 }
-docker run -d -p 80:80 --name nginx -v /mydata/nginx/www:/usr/share/nginx/html -v /mydata/nginx/conf/nginx.conf:/etc/nginx/nginx.conf -v /mydata/nginx/logs:/var/log/nginx nginx:1.10
+docker run -d -p 80:80 --name nginx --privileged=true -v /mydata/nginx/www:/usr/share/nginx/html -v /mydata/nginx/conf/nginx.conf:/etc/nginx/nginx.conf -v /mydata/nginx/logs:/var/log/nginx nginx:1.10
