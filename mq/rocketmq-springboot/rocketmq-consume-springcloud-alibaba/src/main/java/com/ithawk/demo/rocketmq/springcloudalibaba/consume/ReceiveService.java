@@ -21,7 +21,7 @@ import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Service;
 
 /**
- * @author <a href="mailto:fangjian0423@gmail.com">Jim</a>
+ * rocketmq 服务订阅服务
  */
 @Service
 public class ReceiveService {
