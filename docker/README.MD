@@ -35,9 +35,12 @@ ccagy 2019-01-05 16:51:53  11296  收藏 1
 
 docker run --rm -v /data/kube1.13.1.tar.gz:/data/kube1.13.1.tar.gz --privileged=true -it -w /etc/ansible fanux/sealos:v1.13.0 bash
 
-
+#VirtualBox 网络配置
+## 网卡1： 配置仅主机（Host-Only）网络
+## 网卡2： 网络地址转换(NAT)
 网络配置：
 [root@localhost config]# cat /etc/sysconfig/network-scripts/ifcfg-enp0s3
+```
 TYPE=Ethernet
 PROXY_METHOD=none
 BROWSER_ONLY=no
@@ -58,8 +61,10 @@ IPADDR=192.168.56.101
 #GATEWAY=192.168.56.1
 #DNS1=114.114.114.114
 #DNS2=8.8.8.8
-
+```
 [root@localhost config]# cat /etc/sysconfig/network-scripts/ifcfg-enp0s8
+```
+
 TYPE=Ethernet
 PROXY_METHOD=none
 BROWSER_ONLY=no
@@ -75,6 +80,7 @@ NAME=enp0s3
 UUID=2ed1642j-bdc0-439e-909b-92063b67ae70
 DEVICE=enp0s8
 ONBOOT=yes
+```
 
 
 mkdir -p /mydata/nginx/www /mydata/nginx/logs /mydata/nginx/conf
