@@ -14,6 +14,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.ByteArrayInputStream;
@@ -43,6 +44,9 @@ public class GulimallProductApplicationTests {
     @Autowired
     CategoryService categoryService;
 
+    @Autowired
+    StringRedisTemplate redisTemplate;
+
     @Test
     public void testFindPath(){
         Long[] catelogPath = categoryService.findCatelogPath(225L);
@@ -68,6 +72,15 @@ public class GulimallProductApplicationTests {
 // 关闭OSSClient。
         ossClient.shutdown();
     }
+
+    @Test
+    public void testRedisPut(){
+        redisTemplate.opsForValue().set("test","test");
+
+       String string = redisTemplate.opsForValue().get("test");
+        System.out.println(string);
+    }
+
 
 
     @Test
