@@ -12,6 +12,7 @@
   <packaging>pom</packaging>
   <modules>
     <module>jedis</module>
+    <module>redisson</module>
     <module>redis-spring</module>
   </modules>
   <name>redis</name>
