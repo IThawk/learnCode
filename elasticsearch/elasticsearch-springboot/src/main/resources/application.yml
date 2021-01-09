@@ -1,0 +1,11 @@
+server:
+  port: 18090
+  tomcat:
+    uri-encoding: UTF-8
+spring:
+  application:
+    name: elasticsearch
+  elasticsearch:
+    rest:
+      uris:
+        - http://192.168.56.101:9200
