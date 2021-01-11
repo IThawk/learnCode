@@ -14,10 +14,12 @@ public class Test {
                 .setAddress("redis://192.168.56.101:6379");
         RedissonClient redisson = Redisson.create(config);
         RLock lock = redisson.getLock("myLock");
+        System.out.println("获取到锁");
         lock.lock();
         Thread.sleep(50000);
         lock.unlock();
-
+        System.out.println("释放锁");
+        redisson.shutdown();
 
     }
 }
