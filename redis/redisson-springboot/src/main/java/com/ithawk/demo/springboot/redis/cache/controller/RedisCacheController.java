@@ -35,7 +35,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class RedisCacheController {
 
     @GetMapping("/get")
-    @Cacheable(cacheNames="user",key = "#root.methodName")
+    @Cacheable(cacheNames={"user"},key = "#root.methodName")
     public User getRedisCache() {
         User user = new  User();
         System.out.println("开始生成缓存数据");
