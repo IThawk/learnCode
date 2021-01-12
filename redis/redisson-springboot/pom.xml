@@ -28,6 +28,12 @@
             <version>3.14.0</version>
         </dependency>
 
+<!--        <dependency>-->
+<!--            <groupId>org.redisson</groupId>-->
+<!--            <artifactId>redisson</artifactId>-->
+<!--            <version>3.14.1</version>-->
+<!--        </dependency>-->
+
         <!-- https://mvnrepository.com/artifact/io.netty/netty-all -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -57,8 +63,12 @@
             <artifactId>guava</artifactId>
             <version>21.0</version>
         </dependency>
-
-
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.16</version>
+            <scope>compile</scope>
+        </dependency>
 
     </dependencies>
 

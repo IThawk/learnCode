@@ -30,4 +30,37 @@ public class SpringBootRedisCacheApplicationTest {
                 .andExpect(status().isOk())
                 .andExpect(content().string("OK"));
     }
+
+    @Test
+    public void cacheGetTest() throws Exception {
+        mvc.perform(get("/cache/get"))
+                .andExpect(status().isOk());
+        mvc.perform(get("/cache/get1"))
+                .andExpect(status().isOk());
+        mvc.perform(get("/cache/get2"))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void cacheUpdateTest() throws Exception {
+        mvc.perform(get("/cache/up"))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void cacheDelTest() throws Exception {
+        mvc.perform(get("/cache/del"))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void cacheDelAllUserTest() throws Exception {
+        mvc.perform(get("/cache/delUser"))
+                .andExpect(status().isOk());
+    }
+    @Test
+    public void cacheDelAllTest() throws Exception {
+        mvc.perform(get("/cache/delAll"))
+                .andExpect(status().isOk());
+    }
 }

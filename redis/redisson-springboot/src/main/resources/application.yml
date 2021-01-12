@@ -7,10 +7,12 @@ spring:
     name: redis-cache
   cache:
     redis:
-      time-to-live: 100000
+      time-to-live: 3600000
       cache-null-values: true
       key-prefix: Cache_
       use-key-prefix: true
+#    cache-names: user
+    type: redis
   redis:
     host: 192.168.56.101
     port: 6379

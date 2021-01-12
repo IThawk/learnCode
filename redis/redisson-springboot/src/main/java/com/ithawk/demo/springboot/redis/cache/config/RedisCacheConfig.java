@@ -1,5 +1,6 @@
 package com.ithawk.demo.springboot.redis.cache.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.cache.CacheProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cache.annotation.EnableCaching;
@@ -17,27 +18,55 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 /**
  * CacheManager->RedisCacheManager->RedisCache
  */
-@EnableCaching()
-@EnableConfigurationProperties(CacheProperties.class)
+@EnableConfigurationProperties(CacheProperties.class) //开启属性配置绑定功能
+@EnableCaching  //开启缓存启动类的注解从启动类移到这里
 @Configuration
 public class RedisCacheConfig {
 
+    @Autowired
+    public CacheProperties cacheProperties;
+    /**
+     * 自定义缓存配置
+     *
+     * @param cacheProperties
+     * @return
+     */
     @Bean
-    RedisCacheConfiguration redisCacheConfiguration(CacheProperties cacheProperties){
+    public RedisCacheConfiguration redisCacheConfiguration(CacheProperties cacheProperties) {
 
-        RedisCacheConfiguration redisCacheConfiguration = RedisCacheConfiguration.defaultCacheConfig();
-        redisCacheConfiguration = redisCacheConfiguration.serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()));
-        redisCacheConfiguration = redisCacheConfiguration.serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer()));
-        CacheProperties.Redis redis =cacheProperties.getRedis();
-        if (redis.getTimeToLive()!=null){
-            redisCacheConfiguration=redisCacheConfiguration.entryTtl(redis.getTimeToLive());
+        RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig();
+        // config = config.entryTtl();
+
+        //key的序列化 string
+        config = config.serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()));
+        //value的序列化  json
+        config = config.serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer()));
+
+        CacheProperties.Redis redisProperties = cacheProperties.getRedis();
+        //将配置文件中所有的配置都生效
+        if (redisProperties.getTimeToLive() != null) {
+            config = config.entryTtl(redisProperties.getTimeToLive());
         }
-        if (!redis.isCacheNullValues()){
-            redisCacheConfiguration=redisCacheConfiguration.disableCachingNullValues();
+        if (redisProperties.getKeyPrefix() != null) {
+            config = config.prefixKeysWith(redisProperties.getKeyPrefix());
         }
-        if (redis.getKeyPrefix()!=null){
-            redisCacheConfiguration=redisCacheConfiguration.prefixCacheNameWith(redis.getKeyPrefix());
+        if (!redisProperties.isCacheNullValues()) {
+            config = config.disableCachingNullValues();
         }
-        return redisCacheConfiguration;
+        if (!redisProperties.isUseKeyPrefix()) {
+            config = config.disableKeyPrefix();
+        }
+        return config;
+
     }
+
+//    @Bean
+//    public RedisCacheManagerBuilderCustomizer myRedisCacheManagerBuilderCustomizer() {
+//        return (builder) -> builder
+//                .withCacheConfiguration("cache1",
+//                        RedisCacheConfiguration.defaultCacheConfig().entryTtl(Duration.ofSeconds(10)))
+//                .withCacheConfiguration("cache2",
+//                        RedisCacheConfiguration.defaultCacheConfig().entryTtl(Duration.ofMinutes(1)));
+//
+//    }
 }
