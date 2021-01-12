@@ -14,6 +14,7 @@
     <module>jedis</module>
     <module>redisson</module>
     <module>redis-spring</module>
+    <module>redisson-springboot</module>
   </modules>
   <name>redis</name>
 </project>

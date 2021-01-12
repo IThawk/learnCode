@@ -1,0 +1,16 @@
+server:
+  port: 18090
+  tomcat:
+    uri-encoding: UTF-8
+spring:
+  application:
+    name: redis-cache
+  cache:
+    redis:
+      time-to-live: 100000
+      cache-null-values: true
+      key-prefix: Cache_
+      use-key-prefix: true
+  redis:
+    host: 192.168.56.101
+    port: 6379
