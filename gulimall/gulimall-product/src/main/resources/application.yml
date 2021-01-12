@@ -2,11 +2,18 @@ spring:
   datasource:
     username: root
     password: 123456
-    url: jdbc:mysql://127.0.0.1:3306/gulimall_pms
+    url: jdbc:mysql://192.168.56.101:3306/gulimall_pms
     driver-class-name: com.mysql.jdbc.Driver
   redis:
     host: 192.168.56.101
     port: 6379
+  cache:
+    type: redis
+    redis:
+      time-to-live: 3600000
+      cache-null-values: true
+      key-prefix: Cache_
+      use-key-prefix: true
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
   boot:
