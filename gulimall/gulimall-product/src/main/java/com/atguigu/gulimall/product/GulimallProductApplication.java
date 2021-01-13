@@ -52,6 +52,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  * @ControllerAdvice
  *  1）、编写异常处理类，使用@ControllerAdvice。
  *  2）、使用@ExceptionHandler标注方法可以处理的异常。
+ *  5、m
  */
 @EnableFeignClients(basePackages = "com.atguigu.gulimall.product.feign")
 @EnableDiscoveryClient

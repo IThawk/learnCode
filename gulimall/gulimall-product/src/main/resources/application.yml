@@ -20,6 +20,8 @@ spring:
     admin:
       client:
         url: http://localhost:8101/monitor
+  thymeleaf:
+    cache: true
 management:
   endpoints:
     web:
@@ -33,7 +35,7 @@ mybatis-plus:
       logic-delete-value: 1
       logic-not-delete-value: 0
 server:
-  port: 18089
+  port: 18888
 logging:
   level:
     com.atguigu.gulimall: debug
