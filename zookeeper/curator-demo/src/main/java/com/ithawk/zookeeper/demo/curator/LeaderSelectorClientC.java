@@ -8,15 +8,16 @@ import org.apache.curator.retry.ExponentialBackoffRetry;
 
 import java.io.Closeable;
 import java.io.IOException;
+import java.util.Date;
 import java.util.concurrent.CountDownLatch;
 
 public class LeaderSelectorClientC extends LeaderSelectorListenerAdapter implements Closeable {
 
-    private  String name;  //表示当前的进程
-    private  LeaderSelector leaderSelector;  //leader选举的API
-    private CountDownLatch countDownLatch=new CountDownLatch(1);
+    private String name;  //表示当前的进程
+    private LeaderSelector leaderSelector;  //leader选举的API
+    private CountDownLatch countDownLatch = new CountDownLatch(1);
 
-    public LeaderSelectorClientC(){
+    public LeaderSelectorClientC() {
 
     }
 
@@ -32,7 +33,7 @@ public class LeaderSelectorClientC extends LeaderSelectorListenerAdapter impleme
         this.leaderSelector = leaderSelector;
     }
 
-    public void start(){
+    public void start() {
         leaderSelector.start(); //开始竞争leader
     }
 
@@ -40,25 +41,29 @@ public class LeaderSelectorClientC extends LeaderSelectorListenerAdapter impleme
     public void takeLeadership(CuratorFramework client) throws Exception {
         //如果进入当前的方法，意味着当前的进程获得了锁。获得锁以后，这个方法会被回调
         //这个方法执行结束之后，表示释放锁
-        System.out.println(name+"->现在是leader了");
+        System.out.println(name + "->现在是leader了"+ new Date());
 //        countDownLatch.await(); //阻塞当前的进程防止leader丢失
+        Thread.sleep(10000);
+
+        System.out.println(name + "->现在开始释放leader了"+ new Date());
     }
 
     @Override
     public void close() throws IOException {
         leaderSelector.close();
     }
-    private static String CONNECTION_STR="192.168.13.102:2181,192.168.13.103:2181,192.168.13.104:2181";
 
-    public static void main(String[] args) throws IOException {
+    private static String CONNECTION_STR = "127.0.0.1:12181,127.0.0.1:12182,127.0.0.1:12183";
+
+    public static void main(String[] args) throws Exception {
         CuratorFramework curatorFramework = CuratorFrameworkFactory.builder().
                 connectString(CONNECTION_STR).sessionTimeoutMs(5000).
                 retryPolicy(new ExponentialBackoffRetry(1000, 3)).build();
         curatorFramework.start();
-        LeaderSelectorClientC leaderSelectorClient=new LeaderSelectorClientC("ClientC");
-        LeaderSelector leaderSelector=new LeaderSelector(curatorFramework,"/leader",leaderSelectorClient);
+        LeaderSelectorClientC leaderSelectorClient = new LeaderSelectorClientC("ClientC");
+        LeaderSelector leaderSelector = new LeaderSelector(curatorFramework, "/leader", leaderSelectorClient);
         leaderSelectorClient.setLeaderSelector(leaderSelector);
         leaderSelectorClient.start(); //开始选举
-        System.in.read();//
+        Thread.sleep(1000000);
     }
 }

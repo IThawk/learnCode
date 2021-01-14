@@ -637,6 +637,9 @@ public class QuorumPeer extends ZooKeeperThread implements QuorumStats.Provider 
         return quorumStats;
     }
 
+    /**
+     * 选举的代码
+     */
     @Override
     public synchronized void start() {
         loadDataBase(); //加载数据()
@@ -985,7 +988,7 @@ public class QuorumPeer extends ZooKeeperThread implements QuorumStats.Provider 
                         break;
                     case OBSERVING:
                         try {
-                            LOG.info("OBSERVING");
+                            LOG.info("my role is : OBSERVING");
                             setObserver(makeObserver(logFactory));
                             observer.observeLeader();
                         } catch (Exception e) {
@@ -998,7 +1001,7 @@ public class QuorumPeer extends ZooKeeperThread implements QuorumStats.Provider 
                         break;
                     case FOLLOWING:
                         try {
-                            LOG.info("FOLLOWING");
+                            LOG.info("my role is : FOLLOWING");
                             setFollower(makeFollower(logFactory));
                             follower.followLeader(); //连接到leader
                         } catch (Exception e) {
@@ -1010,7 +1013,7 @@ public class QuorumPeer extends ZooKeeperThread implements QuorumStats.Provider 
                         }
                         break;
                     case LEADING:
-                        LOG.info("LEADING");
+                        LOG.info("my role is : LEADING");
                         try {
                             setLeader(makeLeader(logFactory));
                             leader.lead(); //lead 状态

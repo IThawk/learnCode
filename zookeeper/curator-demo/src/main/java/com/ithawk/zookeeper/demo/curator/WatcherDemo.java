@@ -10,7 +10,7 @@ import org.apache.curator.retry.ExponentialBackoffRetry;
 
 public class WatcherDemo {
 
-    private static String CONNECTION_STR="192.168.13.102:2181,192.168.13.103:2181,192.168.13.104:2181";
+    private static String CONNECTION_STR="127.0.0.1:12181,127.0.0.1:12182,127.0.0.1:12183";
 
     public static void main(String[] args) throws Exception {
         //PathChildCache  --针对于子节点的创建、删除和更新 触发事件

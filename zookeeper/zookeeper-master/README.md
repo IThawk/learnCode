@@ -42,8 +42,20 @@ are deployed to the Apache Maven repository after the release has been accepted
 by Apache:
   http://people.apache.org/repo/m2-ibiblio-rsync-repository/
   
-# 代码解读：
-服务端代码启动：入口org.apache.zookeeper.server.quorum.QuorumPeerMain
+#代碼 
+##  install
+    先install zookeeper-jute 
+    然後才能install其他的
+## 导入idea 启动
+    1：启动server服务的时候，org.apache.zookeeper.server.quorum.QuorumPeerMain 添加到启动类中，在启动args中添加配置文件的路径
+    2：将resource mark  as resource 就可以开启
+    日志中：
+        Starting quorum peer
+        LOOKING 服务启动，开始进入looking,投票选举阶段
+        LEADING  这个服务成为leader
+
+## 代码解读：
+    服务端代码启动：入口org.apache.zookeeper.server.quorum.QuorumPeerMain
 
     * 根据配置启动服务：org.apache.zookeeper.server.ZooKeeperServerMain.runFromConfig
 
@@ -65,3 +77,9 @@ by Apache:
 leader选举
 
     * org.apache.zookeeper.server.quorum.FastLeaderElection.lookForLeader
+
+##集群启动：
+    conf 中的配置文件：zoo1.cfg，zoo2.cfg，zoo3.cfg，
+    在data( /test/zookeeper1...)路径中添加 myid 文件，内容就是服务的编号：例如：1
+### 集群连接：
+    D:\ProgramFiles\zookeeper-3.4.13\bin\zkCli.cmd -timeout 5000 -r -server 127.0.0.1:12181,127.0.0.1:12182,127.0.0.1:12183

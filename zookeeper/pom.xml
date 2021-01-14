@@ -9,6 +9,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
     <artifactId>zookeeper</artifactId>
+    <name>zookeeper</name>
     <packaging>pom</packaging>
     <modules>
         <module>zookeeper-master</module>
@@ -16,6 +17,6 @@
         <module>register-demo</module>
         <module>ZooViewer</module>
     </modules>
-    <name>zookeeper</name>
+
 
 </project>

@@ -6,10 +6,13 @@ import org.apache.curator.retry.ExponentialBackoffRetry;
 import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.data.Stat;
 
+/**
+ *
+ */
 public class CuratorDemo {
 
-    private static String CONNECTION_STR="127.0.0.1:12181";
-
+//    private static String CONNECTION_STR="127.0.0.1:12181";
+    private static String CONNECTION_STR="127.0.0.1:12181,127.0.0.1:12182,127.0.0.1:12183";
 
 
     public static void main(String[] args) throws Exception {
@@ -23,10 +26,11 @@ public class CuratorDemo {
         //RetryUntilElapsed
         //RetryNTimes
 
-        curatorFramework.start(); //启动
-//        createData(curatorFramework);
+        //启动
+        curatorFramework.start();
+        createData(curatorFramework);
 //        updateData(curatorFramework);
-        deleteData(curatorFramework);
+//        deleteData(curatorFramework);
         //CRUD
 //        curatorFramework.create();
 //        curatorFramework.setData(); //修改
@@ -34,9 +38,15 @@ public class CuratorDemo {
 //        curatorFramework.getData(); //查询
     }
 
+    /**
+     * 创建节点
+     * @param curatorFramework
+     * @throws Exception
+     */
     private static void createData(CuratorFramework curatorFramework) throws Exception {
         curatorFramework.create().creatingParentsIfNeeded().withMode(CreateMode.PERSISTENT).
                 forPath("/data/program","test".getBytes());
+        System.out.println("OK");
 
     }
 
