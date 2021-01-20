@@ -10,7 +10,7 @@ import org.apache.curator.retry.ExponentialBackoffRetry;
 
 public class WatcherDemo {
 
-    private static String CONNECTION_STR="127.0.0.1:12181,127.0.0.1:12182,127.0.0.1:12183";
+    private static String CONNECTION_STR = "127.0.0.1:12181,127.0.0.1:12182,127.0.0.1:12183";
 
     public static void main(String[] args) throws Exception {
         //PathChildCache  --针对于子节点的创建、删除和更新 触发事件
@@ -30,10 +30,12 @@ public class WatcherDemo {
     //配置中心
     //创建、修改、删除
     private static void addListenerWithNode(CuratorFramework curatorFramework) throws Exception {
-        NodeCache nodeCache=new NodeCache(curatorFramework,"/watch",false);
-        NodeCacheListener nodeCacheListener= () -> {
+        //节点添加监听操作
+        NodeCache nodeCache = new NodeCache(curatorFramework, "/watch", false);
+        NodeCacheListener nodeCacheListener = () -> {
             System.out.println("receive Node Changed");
-            System.out.println(nodeCache.getCurrentData().getPath()+"---"+new String(nodeCache.getCurrentData().getData()));
+            System.out.println(nodeCache.getCurrentData().getPath() + "---"
+                    + new String(nodeCache.getCurrentData().getData()));
         };
         nodeCache.getListenable().addListener(nodeCacheListener);
         nodeCache.start();
@@ -41,9 +43,10 @@ public class WatcherDemo {
 
     //实现服务注册中心的时候，可以针对服务做动态感知 子节点通知事件
     private static void addListenerWithChild(CuratorFramework curatorFramework) throws Exception {
-        PathChildrenCache nodeCache=new PathChildrenCache(curatorFramework,"/watch",true);
-        PathChildrenCacheListener nodeCacheListener= (curatorFramework1,pathChildrenCacheEvent) -> {
-            System.out.println(pathChildrenCacheEvent.getType()+"->"+new String(pathChildrenCacheEvent.getData().getData()));
+        PathChildrenCache nodeCache = new PathChildrenCache(curatorFramework, "/watch", true);
+        PathChildrenCacheListener nodeCacheListener = (curatorFramework1, pathChildrenCacheEvent) -> {
+            System.out.println(pathChildrenCacheEvent.getType() + "->"
+                    + new String(pathChildrenCacheEvent.getData().getData()));
         };
         nodeCache.getListenable().addListener(nodeCacheListener);
         nodeCache.start(PathChildrenCache.StartMode.NORMAL);

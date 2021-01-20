@@ -14,7 +14,7 @@
     <modules>
         <module>zookeeper-master</module>
         <module>curator-demo</module>
-        <module>register-demo</module>
+        <module>zk-register-demo</module>
         <module>ZooViewer</module>
     </modules>
 

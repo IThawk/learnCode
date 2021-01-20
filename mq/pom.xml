@@ -18,6 +18,7 @@
     <module>rabbitmq-springboot-project</module>
     <module>rocketmq-demo</module>
     <module>rocketmq-springboot</module>
+    <module>rocketmq-master</module>
   </modules>
   <name>mq</name>
 </project>

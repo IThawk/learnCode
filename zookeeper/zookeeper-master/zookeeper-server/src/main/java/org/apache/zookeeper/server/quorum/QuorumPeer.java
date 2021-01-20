@@ -1067,7 +1067,7 @@ public class QuorumPeer extends ZooKeeperThread implements QuorumStats.Provider 
     }
 
     /**
-     * A 'view' is a node's current opinion of the membership of the entire
+     * A 'view' is a node's current opinion of the membership of the entire（整个的）
      * ensemble.
      */
     public Map<Long, QuorumPeer.QuorumServer> getView() {
