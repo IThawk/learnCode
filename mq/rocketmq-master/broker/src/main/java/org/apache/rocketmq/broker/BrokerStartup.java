@@ -54,6 +54,7 @@ public class BrokerStartup {
     public static String configFile = null;
     public static InternalLogger log;
 
+    //启动
     public static void main(String[] args) {
         start(createBrokerController(args));
     }
