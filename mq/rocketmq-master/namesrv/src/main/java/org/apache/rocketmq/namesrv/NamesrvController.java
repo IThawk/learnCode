@@ -39,6 +39,7 @@ import org.apache.rocketmq.remoting.netty.TlsSystemConfig;
 import org.apache.rocketmq.srvutil.FileWatchService;
 
 
+//
 public class NamesrvController {
     private static final InternalLogger log = InternalLoggerFactory.getLogger(LoggerName.NAMESRV_LOGGER_NAME);
 
@@ -74,24 +75,29 @@ public class NamesrvController {
     }
 
     public boolean initialize() {
-
+        // 加载`kvConfig.json`配置⽂件中的`KV`配置，然后将这些配置放到`KVConfigManager#configTable`属性中
         this.kvConfigManager.load();
 
+        // 根据`NettyServerConfig`启动⼀个`Netty`服务器
         this.remotingServer = new NettyRemotingServer(this.nettyServerConfig, this.brokerHousekeepingService);
-
+        // 初始化负责处理`Netty`⽹络交互数据的线程池
         this.remotingExecutor =
-            Executors.newFixedThreadPool(nettyServerConfig.getServerWorkerThreads(), new ThreadFactoryImpl("RemotingExecutorThread_"));
+            Executors.newFixedThreadPool(
+                    nettyServerConfig.getServerWorkerThreads(),
+                    new ThreadFactoryImpl("RemotingExecutorThread_")
+            );
 
         this.registerProcessor();
 
+        // 注册⼼跳机制线程池（定时任务）
         this.scheduledExecutorService.scheduleAtFixedRate(new Runnable() {
-
+            //在初始化NamesrvController过程中，会注册⼀个⼼跳机制的线程池，它会在启动后5秒开始每隔10秒扫描⼀次不活跃的broker。
             @Override
             public void run() {
                 NamesrvController.this.routeInfoManager.scanNotActiveBroker();
             }
         }, 5, 10, TimeUnit.SECONDS);
-
+        // 注册打印KV配置线程池
         this.scheduledExecutorService.scheduleAtFixedRate(new Runnable() {
 
             @Override

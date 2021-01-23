@@ -50,6 +50,10 @@ public class NamesrvStartup {
     private static Properties properties = null;
     private static CommandLine commandLine = null;
 
+    /**
+     * nameserver 启动入口
+     * @param args
+     */
     public static void main(String[] args) {
         main0(args);
     }
@@ -82,9 +86,11 @@ public class NamesrvStartup {
             return null;
         }
 
+        //启动配置信息
         final NamesrvConfig namesrvConfig = new NamesrvConfig();
         final NettyServerConfig nettyServerConfig = new NettyServerConfig();
         nettyServerConfig.setListenPort(9876);
+        //获取启动参数中的配置文件
         if (commandLine.hasOption('c')) {
             String file = commandLine.getOptionValue('c');
             if (file != null) {
@@ -119,8 +125,11 @@ public class NamesrvStartup {
         JoranConfigurator configurator = new JoranConfigurator();
         configurator.setContext(lc);
         lc.reset();
-        configurator.doConfigure(namesrvConfig.getRocketmqHome() + "/conf/logback_namesrv.xml");
+//        configurator.doConfigure(namesrvConfig.getRocketmqHome() + "/conf/logback_namesrv.xml");
 
+        System.out.println("默认日志文件位置"+namesrvConfig.getRocketmqHome() + "/conf/logback_namesrv.xml");
+        //这个地方为了启动
+        configurator.doConfigure( "D:/workspace/language/Java/learnCode/mq/rocketmq-master/namesrv/src/main/resources/logback_namesrv.xml");
         log = InternalLoggerFactory.getLogger(LoggerName.NAMESRV_LOGGER_NAME);
 
         MixAll.printObjectProperties(log, namesrvConfig);
@@ -134,6 +143,7 @@ public class NamesrvStartup {
         return controller;
     }
 
+    //启动nameserver
     public static NamesrvController start(final NamesrvController controller) throws Exception {
 
         if (null == controller) {
@@ -141,6 +151,7 @@ public class NamesrvStartup {
         }
 
         boolean initResult = controller.initialize();
+        System.out.println("NamesrvController.initialize()");
         if (!initResult) {
             controller.shutdown();
             System.exit(-3);
