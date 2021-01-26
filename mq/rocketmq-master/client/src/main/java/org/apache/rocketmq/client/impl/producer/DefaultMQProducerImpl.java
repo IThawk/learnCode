@@ -542,6 +542,18 @@ public class DefaultMQProducerImpl implements MQProducerInner {
 
     }
 
+    /**
+     * 发送。。。。。
+     * @param msg
+     * @param communicationMode
+     * @param sendCallback
+     * @param timeout
+     * @return
+     * @throws MQClientException
+     * @throws RemotingException
+     * @throws MQBrokerException
+     * @throws InterruptedException
+     */
     private SendResult sendDefaultImpl(
         Message msg,
         final CommunicationMode communicationMode,
@@ -686,6 +698,11 @@ public class DefaultMQProducerImpl implements MQProducerInner {
             null).setResponseCode(ClientErrorCode.NOT_FOUND_TOPIC_EXCEPTION);
     }
 
+    /**
+     * 获取路由
+     * @param topic
+     * @return
+     */
     private TopicPublishInfo tryToFindTopicPublishInfo(final String topic) {
         TopicPublishInfo topicPublishInfo = this.topicPublishInfoTable.get(topic);
         if (null == topicPublishInfo || !topicPublishInfo.ok()) {
@@ -703,6 +720,36 @@ public class DefaultMQProducerImpl implements MQProducerInner {
         }
     }
 
+    /**
+     * 发送消息
+     * <p>
+     *     参数详解：
+     * Message msg：待发送消息
+     * MessageQueue mq：消息将发送到消息队列上
+     * CommunicationMode communicationMode：消息发送模式，SYNC、ASYNC、ONEWAY
+     * SendCallback sendCallback：异步消息回调函数
+     * TopicPublishInfo topicPublishInfo：主题路由消息
+     * long timeout：消息发送超时时间
+     * 发送步骤：
+     * 1. 根据MessageQueue获取Broker的⽹络地址
+     * 2. 为消息分配全局唯⼀ID
+     * 3. 如果注册了消息发送钩⼦函数，则执⾏消息发送之前的增强逻辑
+     * 4. 构建消息发送请求包
+     * 5. 根据消息发送⽅式，同步、异步、单向⽅式进⾏⽹络传输
+     * 6. 如果注册了消息发送钩⼦函数，执⾏after逻辑
+     * </p>
+     * @param msg
+     * @param mq
+     * @param communicationMode
+     * @param sendCallback
+     * @param topicPublishInfo
+     * @param timeout
+     * @return
+     * @throws MQClientException
+     * @throws RemotingException
+     * @throws MQBrokerException
+     * @throws InterruptedException
+     */
     private SendResult sendKernelImpl(final Message msg,
         final MessageQueue mq,
         final CommunicationMode communicationMode,

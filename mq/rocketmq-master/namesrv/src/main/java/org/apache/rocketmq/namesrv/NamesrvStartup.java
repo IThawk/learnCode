@@ -156,7 +156,7 @@ public class NamesrvStartup {
             controller.shutdown();
             System.exit(-3);
         }
-
+        //NameServer启动的最后⼀步，是注册了⼀个`JVM`的钩⼦函数，它会在`JVM`关闭之前执⾏。这个钩⼦函数的作⽤是释放资源，如关闭`Netty`服务器，关闭线程池等。
         Runtime.getRuntime().addShutdownHook(new ShutdownHookThread(log, new Callable<Void>() {
             @Override
             public Void call() throws Exception {
@@ -165,6 +165,7 @@ public class NamesrvStartup {
             }
         }));
 
+        //nameServer 启动
         controller.start();
 
         return controller;

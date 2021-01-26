@@ -1231,6 +1231,9 @@ public class CommitLog {
         return diff;
     }
 
+    /**
+     * 刷盘
+     */
     abstract class FlushCommitLogService extends ServiceThread {
         protected static final int RETRY_TIMES_OVER = 10;
     }
