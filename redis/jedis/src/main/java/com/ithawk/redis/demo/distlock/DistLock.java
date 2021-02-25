@@ -1,6 +1,7 @@
 package com.ithawk.redis.demo.distlock;
 
 import redis.clients.jedis.Jedis;
+import redis.clients.jedis.params.SetParams;
 
 import java.util.Collections;
 
@@ -24,7 +25,10 @@ public class DistLock {
      */
     public static boolean tryGetDistributedLock(Jedis jedis, String lockKey, String requestId, int expireTime) {
         // set支持多个参数 NX（not exist） XX（exist） EX（seconds） PX（million seconds）
-        String result = jedis.set(lockKey, requestId, SET_IF_NOT_EXIST, SET_WITH_EXPIRE_TIME, expireTime);
+        SetParams setParams = new SetParams();
+        setParams.ex(expireTime);
+        setParams.nx();
+        String result = jedis.set(lockKey, requestId, setParams);
         if (LOCK_SUCCESS.equals(result)) {
             return true;
         }
@@ -32,7 +36,7 @@ public class DistLock {
     }
 
     /**
-     * 释放分布式锁
+     * lua释放分布式锁
      * @param jedis Redis客户端
      * @param lockKey 锁
      * @param requestId 请求标识

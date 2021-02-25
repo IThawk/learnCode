@@ -11,9 +11,10 @@
 
     <dubbo:protocol name="dubbo"/>
 
-    <dubbo:registry  address="zookeeper://127.0.0.1:12181" group="test"/>
+    <dubbo:registry  id ="test" address="zookeeper://127.0.0.1:12181" group="test"/>
+    <dubbo:registry  id ="test1" address="zookeeper://127.0.0.1:12182" group="test"/>
     <dubbo:protocol name="dubbo" port="20890"/>
     <!--    注册bean-->
     <bean id="memberService" class="com.ithawk.dubbo.demo.spring.service.impl.MemberServiceImpl"/>
-    <dubbo:service interface="com.ithawk.dubbo.demo.spring.api.MemberService" ref="memberService"/>
+    <dubbo:service interface="com.ithawk.dubbo.demo.spring.api.MemberService" ref="memberService" registry="test,test1"/>
 </beans>

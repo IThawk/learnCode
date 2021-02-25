@@ -15,8 +15,8 @@ public class SpringDubboProviderStarter {
 
     public static void main(String[] args) throws InterruptedException {
         //启动dubbo发布服务
-//        ClassPathXmlApplicationContext app = new ClassPathXmlApplicationContext("dubbo-provider.xml");
-        AnnotationConfigApplicationContext app = new AnnotationConfigApplicationContext(ProviderConfiguration.class);
+        ClassPathXmlApplicationContext app = new ClassPathXmlApplicationContext("dubbo-provider.xml");
+//        AnnotationConfigApplicationContext app = new AnnotationConfigApplicationContext(ProviderConfiguration.class);
 
         app.start();
         try {

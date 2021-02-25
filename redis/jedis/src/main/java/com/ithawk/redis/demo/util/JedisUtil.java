@@ -1,18 +1,13 @@
 package com.ithawk.redis.demo.util;
 
-import redis.clients.jedis.BinaryClient;
-import redis.clients.jedis.Jedis;
-import redis.clients.jedis.JedisPool;
-import redis.clients.jedis.JedisPoolConfig;
+import redis.clients.jedis.*;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 /**
- * @Author: qingshan
- * @Date: 2019/9/17 19:36
- * @Description: 咕泡学院，只为更好的你
+ *
  */
 public class JedisUtil {
     private JedisPool pool = null;
@@ -23,6 +18,10 @@ public class JedisUtil {
             int port = Integer.valueOf(ResourceUtil.getKey("redis.port"));
             String password = ResourceUtil.getKey("redis.password");
             JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
+            // 1.1 最大连接数
+            jedisPoolConfig.setMaxTotal(30);
+            //1.2 最大空闲连接数
+            jedisPoolConfig.setMaxIdle(10);
             if (password != null && !"".equals(password)) {
                 // redis 设置了密码
                 pool = new JedisPool(jedisPoolConfig, ip, port, 10000, password);
@@ -433,7 +432,7 @@ public class JedisUtil {
      * @param value 添加的value
      * @return
      */
-    public Long linsert(String key, BinaryClient.LIST_POSITION where,
+    public Long linsert(String key, ListPosition where,
                         String pivot, String value) {
         Jedis jedis = getJedis();
         return jedis.linsert(key, where, pivot, value);
@@ -898,6 +897,21 @@ public class JedisUtil {
         return jedis.keys(pattern);
     }
 
+
+    //将数据传入stream
+    public StreamEntryID setStream(String key, Map content) {
+        Jedis jedis = getJedis();
+        //new StreamEntryID().NEW_ENTR = * ，代表id由redis生成
+        //也可以指定stream最多存储多少条记录。--自己查api
+        return jedis.xadd(key, new StreamEntryID().NEW_ENTRY, content);
+    }
+
+    //获取stream
+    public List<Map.Entry<String, List<StreamEntry>>> getStream(int count, int block, Map.Entry<String, StreamEntryID>... streams) {
+        Jedis jedis = getJedis();
+        return jedis.xread(count, block, streams);
+    }
+
     /**
      * 通过key判断值得类型
      *
@@ -916,7 +930,7 @@ public class JedisUtil {
         }
     }
 
-    private Jedis getJedis() {
+    public Jedis getJedis() {
         return pool.getResource();
     }
 
