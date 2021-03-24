@@ -250,6 +250,7 @@ public class ExtensionLoader<T> {
     }
 
     /**
+     * 获取自适应扩展点
      * Get activate extensions.
      *
      * @param url    url
@@ -414,6 +415,12 @@ public class ExtensionLoader<T> {
         return getExtension(name, true);
     }
 
+    /**
+     * 获取扩展点
+     * @param name
+     * @param wrap
+     * @return
+     */
     public T getExtension(String name, boolean wrap) {
         if (StringUtils.isEmpty(name)) {
             throw new IllegalArgumentException("Extension name == null");
@@ -853,6 +860,14 @@ public class ExtensionLoader<T> {
         }
     }
 
+    /**
+     * 获取资源信息
+     * @param extensionClasses
+     * @param classLoader
+     * @param resourceURL
+     * @param overridden
+     * @param excludedPackages
+     */
     private void loadResource(Map<String, Class<?>> extensionClasses, ClassLoader classLoader,
                               java.net.URL resourceURL, boolean overridden, String... excludedPackages) {
         try {
@@ -1055,8 +1070,13 @@ public class ExtensionLoader<T> {
         return cachedAdaptiveClass = createAdaptiveExtensionClass();
     }
 
+    /**
+     * 生成代码
+     * @return
+     */
     private Class<?> createAdaptiveExtensionClass() {
         String code = new AdaptiveClassCodeGenerator(type, cachedDefaultName).generate();
+        System.out.println("自定义生成代码："+code);
         ClassLoader classLoader = findClassLoader();
         org.apache.dubbo.common.compiler.Compiler compiler = ExtensionLoader.getExtensionLoader(org.apache.dubbo.common.compiler.Compiler.class).getAdaptiveExtension();
         return compiler.compile(code, classLoader);

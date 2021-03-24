@@ -2,7 +2,7 @@ package org.apache.dubbo.demo.spi;
 
 import org.apache.dubbo.common.extension.Activate;
 
-@Activate(value = "blue")
+@Activate(value = "blue",group = "blue")
 public class BlueColor implements Color {
 
 

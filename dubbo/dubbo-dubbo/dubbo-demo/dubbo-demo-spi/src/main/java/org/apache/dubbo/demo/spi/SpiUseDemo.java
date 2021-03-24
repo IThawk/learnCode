@@ -30,15 +30,20 @@ public class SpiUseDemo {
         Color color = ExtensionLoader.getExtensionLoader(Color.class).getExtension("red");
         color.sayMy();
         //激活自适应扩展点  可以参考Filter.class 的实现类CacheFilter
+        System.out.println("开始自适应扩展点");
         URL url = new URL("", "", 0);
         url = url.addParameter("blue", "blue");//添加这段代码 size未11
-        List<Color> list =  ExtensionLoader.getExtensionLoader(Color.class).getActivateExtension(url, "blue");
+        url = url.addParameter("red", "red");//添加这段代码 size未11
+        //自适应扩展点的group
+        List<Color> list =  ExtensionLoader.getExtensionLoader(Color.class).getActivateExtension(url, "","blue");
         System.out.println(list.size());
         for (Color color1 :list){
             color1.sayHello();
         }
 
+        System.out.println("获取blue");
         Color color2 = ExtensionLoader.getExtensionLoader(Color.class).getExtension("blue");
         color2.sayMy();
+        color2.sayHello();
     }
 }

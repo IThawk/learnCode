@@ -1,6 +1,8 @@
 package org.apache.dubbo.demo.spi;
 
+import org.apache.dubbo.common.extension.Activate;
 
+@Activate(value = "red")
 public class RedColor implements Color {
 
 
