@@ -18,6 +18,7 @@
     <module>spring-orm</module>
     <module>spring-tx</module>
     <module>spring5-demo</module>
+    <module>spring-framework</module>
   </modules>
   <name>spring5</name>
 
