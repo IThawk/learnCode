@@ -27,6 +27,7 @@
 	  </parent>
 	<artifactId>spring-demo</artifactId>
 	<name>spring-demo</name>
+	<packaging>war</packaging>
 	<properties>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
@@ -94,6 +95,25 @@
 			<artifactId>druid</artifactId>
 			<version>1.1.19</version>
 		</dependency>
+<!--		分页查询-->
+		<dependency>
+			<groupId>com.github.pagehelper</groupId>
+			<artifactId>pagehelper</artifactId>
+			<version>5.0.0</version>
+		</dependency>
+
+
+		<!--		&lt;!&ndash;结局tomcat的JSP问题&ndash;&gt;-->
+<!--		<dependency>-->
+<!--			<groupId>org.glassfish.web</groupId>-->
+<!--			<artifactId>javax.servlet.jsp.jstl</artifactId>-->
+<!--			<version>1.2.4</version>-->
+<!--		</dependency>-->
+<!--		<dependency>-->
+<!--			<groupId>javax.servlet.jsp.jstl</groupId>-->
+<!--			<artifactId>javax.servlet.jsp.jstl-api</artifactId>-->
+<!--			<version>1.2.1</version>-->
+<!--		</dependency>-->
 
 	</dependencies>
 	<!-- postgresql driver is required to run the refcursor tests -->

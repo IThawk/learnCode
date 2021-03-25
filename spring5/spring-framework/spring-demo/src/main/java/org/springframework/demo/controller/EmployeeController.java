@@ -1,6 +1,8 @@
 package org.springframework.demo.controller;
 
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.demo.bean.Employee;
 import org.springframework.demo.bean.Msg;
@@ -61,39 +63,39 @@ public class EmployeeController {
         return Msg.success().add("emp", employee);
     }
 
-//    /**
-//     *
-//     * @param pn
-//     * @return
-//     */
-//    @RequestMapping("/emps")
-//    @ResponseBody
-//    public Msg getEmpsWithJson(@RequestParam(value = "pn", defaultValue = "1") Integer pn) {
-//        PageHelper.startPage(pn, 10); //pageNumber, pageSize，第几页，每页几条
-//        List<Employee> emps = employeeService.getAll();
-//        PageInfo page = new PageInfo(emps, 10);
-//        return Msg.success().add("pageInfo", page);
-//    }
+    /**
+     *
+     * @param pn
+     * @return
+     */
+    @RequestMapping("/emps")
+    @ResponseBody
+    public Msg getEmpsWithJson(@RequestParam(value = "pn", defaultValue = "1") Integer pn) {
+        PageHelper.startPage(pn, 10); //pageNumber, pageSize，第几页，每页几条
+        List<Employee> emps = employeeService.getAll();
+        PageInfo page = new PageInfo(emps, 10);
+        return Msg.success().add("pageInfo", page);
+    }
 
-//    /**
-//     * 查询员工数据 分页
-//     *
-//     * @param pn
-//     * @param model
-//     * @return
-//     * @RequestMapping("/emps")
-//     */
-//    public String getEmps(@RequestParam(value = "pn", defaultValue = "1") Integer pn, Model model) {
-//        PageHelper.startPage(pn, 10);
-//        List<Employee> emps = employeeService.getAll();
-//        PageInfo page = new PageInfo(emps, 10);
-//        //连续显示的页数是10页
-//        //包装查出来的结果，只需要将pageInfo交给页面，封装了详细的分页信息
-//        //包括查询出来的数据
-//        model.addAttribute("pageInfo", page);
-//
-//        return "list";
-//    }
+    /**
+     * 查询员工数据 分页
+     *
+     * @param pn
+     * @param model
+     * @return
+     * @RequestMapping("/emps")
+     */
+    public String getEmps(@RequestParam(value = "pn", defaultValue = "1") Integer pn, Model model) {
+        PageHelper.startPage(pn, 10);
+        List<Employee> emps = employeeService.getAll();
+        PageInfo page = new PageInfo(emps, 10);
+        //连续显示的页数是10页
+        //包装查出来的结果，只需要将pageInfo交给页面，封装了详细的分页信息
+        //包括查询出来的数据
+        model.addAttribute("pageInfo", page);
+
+        return "list";
+    }
 
     @RequestMapping(value = "/emp", method = RequestMethod.POST)
     @ResponseBody
