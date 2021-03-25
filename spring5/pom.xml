@@ -14,9 +14,9 @@
     <module>spring-mvc</module>
     <module>spring-1.0</module>
     <module>spring-2.0</module>
-    <module>spring-aop</module>
-    <module>spring-orm</module>
-    <module>spring-tx</module>
+    <module>spring-aop1</module>
+    <module>spring-orm1</module>
+    <module>spring-tx1</module>
     <module>spring5-demo</module>
     <module>spring-framework</module>
   </modules>

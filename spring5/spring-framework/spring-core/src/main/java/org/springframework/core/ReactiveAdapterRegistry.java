@@ -18,18 +18,17 @@ package org.springframework.core;
 
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
-//import kotlinx.coroutines.CompletableDeferredKt;
-//import kotlinx.coroutines.Deferred;
+import kotlinx.coroutines.CompletableDeferredKt;
+import kotlinx.coroutines.Deferred;
 import org.reactivestreams.Publisher;
 import org.springframework.lang.Nullable;
 import org.springframework.util.ClassUtils;
 import org.springframework.util.ConcurrentReferenceHashMap;
 import org.springframework.util.ReflectionUtils;
-//import reactor.blockhound.BlockHound;
-//import reactor.blockhound.integration.BlockHoundIntegration;
+import reactor.blockhound.BlockHound;
+import reactor.blockhound.integration.BlockHoundIntegration;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-import rx.RxReactiveStreams;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -343,12 +342,13 @@ public class ReactiveAdapterRegistry {
 
 		@SuppressWarnings("KotlinInternalInJava")
 		void registerAdapters(ReactiveAdapterRegistry registry) {
-//			registry.registerReactiveType(
-//					ReactiveTypeDescriptor.singleOptionalValue(Deferred.class,
-//							() -> CompletableDeferredKt.CompletableDeferred(null)),
-//					source -> CoroutinesUtils.deferredToMono((Deferred<?>) source),
-//					source -> CoroutinesUtils.monoToDeferred(Mono.from(source)));
-//
+			registry.registerReactiveType(
+					ReactiveTypeDescriptor.singleOptionalValue(Deferred.class,
+							() -> CompletableDeferredKt.CompletableDeferred(null)),
+					source -> CoroutinesUtils.deferredToMono((Deferred<?>) source),
+					source -> CoroutinesUtils.monoToDeferred(Mono.from(source)));
+
+			//todo
 //			registry.registerReactiveType(
 //					ReactiveTypeDescriptor.multiValue(kotlinx.coroutines.flow.Flow.class, kotlinx.coroutines.flow.FlowKt::emptyFlow),
 //					source -> kotlinx.coroutines.reactor.ReactorFlowKt.asFlux((kotlinx.coroutines.flow.Flow<?>) source),
@@ -367,21 +367,21 @@ public class ReactiveAdapterRegistry {
 	 * </ul>
 	 * @since 5.2.4
 	 */
-//	public static class SpringCoreBlockHoundIntegration implements BlockHoundIntegration {
-//
-////		@Override
-////		public void applyTo(BlockHound.Builder builder) {
-////
-////			// Avoid hard references potentially anywhere in spring-core (no need for structural dependency)
-////
-////			builder.allowBlockingCallsInside(
-////					"org.springframework.core.LocalVariableTableParameterNameDiscoverer", "inspectClass");
-////
-////			String className = "org.springframework.util.ConcurrentReferenceHashMap$Segment";
-////			builder.allowBlockingCallsInside(className, "doTask");
-////			builder.allowBlockingCallsInside(className, "clear");
-////			builder.allowBlockingCallsInside(className, "restructure");
-////		}
-//	}
+	public static class SpringCoreBlockHoundIntegration implements BlockHoundIntegration {
+
+		@Override
+		public void applyTo(BlockHound.Builder builder) {
+
+			// Avoid hard references potentially anywhere in spring-core (no need for structural dependency)
+
+			builder.allowBlockingCallsInside(
+					"org.springframework.core.LocalVariableTableParameterNameDiscoverer", "inspectClass");
+
+			String className = "org.springframework.util.ConcurrentReferenceHashMap$Segment";
+			builder.allowBlockingCallsInside(className, "doTask");
+			builder.allowBlockingCallsInside(className, "clear");
+			builder.allowBlockingCallsInside(className, "restructure");
+		}
+	}
 
 }
