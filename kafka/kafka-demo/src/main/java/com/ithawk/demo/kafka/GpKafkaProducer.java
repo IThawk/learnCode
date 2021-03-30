@@ -19,10 +19,13 @@ public class GpKafkaProducer extends Thread {
     public GpKafkaProducer(String topic) {
         //kafka 配置
         Properties properties = new Properties();
-        //配置
-        properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "127.0.0.1:9092");
-        properties.put(ProducerConfig.CLIENT_ID_CONFIG, "gp-producer");
+        //配置kafka的地址
+        properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "192.168.56.101:9092");
+        //设置clientId
+        properties.put(ProducerConfig.CLIENT_ID_CONFIG, "test-producer");
+        //设置分区策略配置
         properties.put(ProducerConfig.PARTITIONER_CLASS_CONFIG, "com.ithawk.demo.kafka.MyPartition");
+        //设置序列化配置
         properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, IntegerSerializer.class.getName());
         properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         //连接的字符串
@@ -37,14 +40,15 @@ public class GpKafkaProducer extends Thread {
         int num = 0;
         while (num < 20) {
             try {
-                String msg = "gp kafka practice msg:" + num;
+                String msg = " kafka practice msg:" + num;
                 //get 会拿到发送的结果
                 //同步 get() -> Future()
-
                 //异步发送消息
                 producer.send(new ProducerRecord<>(topic, msg), (metadata, exception) -> {
 
-                    System.out.println(metadata.offset() + "->" + metadata.partition() + "->" + metadata.topic());
+                    //设置回调函数
+                    //metadata : offset:消息的偏移 partition:分区 topic：主题
+                    System.out.println("offset:"+metadata.offset() + "->partition:" + metadata.partition() + "->topic:" + metadata.topic());
                 });
                 TimeUnit.SECONDS.sleep(2);
                 ++num;

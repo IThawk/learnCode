@@ -7,16 +7,15 @@
         <artifactId>kafka</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <groupId>com.gupaoedu.kafka</groupId>
-    <artifactId>kafka-practice</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>kafka-practice</name>
-    <description>Demo project for Spring Boot</description>
-
+    <artifactId>kafka-springboot</artifactId>
+    <name>kafka-springboot</name>
+    <description>Demo kafka project for Spring Boot</description>
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
         <java.version>1.8</java.version>
     </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -38,7 +37,14 @@
         <dependency>
             <groupId>org.springframework.kafka</groupId>
             <artifactId>spring-kafka</artifactId>
-            <version>2.2.0.RELEASE</version>
+            <version>2.3.7.RELEASE</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <version>${spring-boot.version}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
