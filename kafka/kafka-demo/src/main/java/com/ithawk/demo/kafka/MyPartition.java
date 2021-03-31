@@ -9,23 +9,30 @@ import java.util.Map;
 import java.util.Random;
 
 /**
- * 腾讯课堂搜索【咕泡学院】
- * 官网：www.gupaoedu.com
- * 风骚的Mic 老师
- * create-date: 2019/8/17-21:50
+ * 自定义kafka分区实现
  */
 public class MyPartition implements Partitioner {
 
+    /**
+     * 自定义实现：随机分配分区
+     * @param topic
+     * @param key
+     * @param keyBytes
+     * @param value
+     * @param valueBytes
+     * @param cluster
+     * @return
+     */
     @Override
     public int partition(String topic, Object key, byte[] keyBytes, Object value, byte[] valueBytes, Cluster cluster) {
-        System.out.println("enter");
-        List<PartitionInfo> list=cluster.partitionsForTopic(topic);
-        int leng=list.size();
-        if(key==null){
-            Random random=new Random();
+        System.out.println("partition enter");
+        List<PartitionInfo> list = cluster.partitionsForTopic(topic);
+        int leng = list.size();
+        if (key == null) {
+            Random random = new Random();
             return random.nextInt(leng);
         }
-        return Math.abs(key.hashCode())%leng;
+        return Math.abs(key.hashCode()) % leng;
     }
 
     @Override
@@ -39,6 +46,6 @@ public class MyPartition implements Partitioner {
     }
 
     public static void main(String[] args) {
-        System.out.println(Math.abs("gp-gid1".hashCode())%50);
+        System.out.println(Math.abs("my-gid1".hashCode()) % 50);
     }
 }

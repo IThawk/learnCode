@@ -24,8 +24,8 @@ public class GpKafkaConsumer3 extends Thread{
     public GpKafkaConsumer3(String topic) {
         Properties properties=new Properties();
         properties.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG,"127.0.0.1:9092");
-        properties.put(ConsumerConfig.CLIENT_ID_CONFIG,"gp-consumer");
-        properties.put(ConsumerConfig.GROUP_ID_CONFIG,"gp-gid1");
+        properties.put(ConsumerConfig.CLIENT_ID_CONFIG,"my-consumer");
+        properties.put(ConsumerConfig.GROUP_ID_CONFIG,"my-gid1");
         properties.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG,"30000");
         properties.put(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG,"1000"); //自动提交(批量确认)
         properties.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, IntegerDeserializer.class.getName());
