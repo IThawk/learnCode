@@ -12,7 +12,7 @@
   <packaging>pom</packaging>
   <modules>
     <module>kafka-demo</module>
-    <module>kafka-practice</module>
+    <module>kafka-springboot</module>
   </modules>
   <name>netty</name>
 </project>
