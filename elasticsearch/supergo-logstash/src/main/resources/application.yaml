@@ -1,0 +1,5 @@
+server:
+  port: 8080 # 端口
+# 加载日志文件
+logging:
+  config: classpath:log/logback-spring.xml
