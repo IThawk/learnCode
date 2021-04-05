@@ -14,5 +14,5 @@
     <module>kafka-demo</module>
     <module>kafka-springboot</module>
   </modules>
-  <name>netty</name>
+  <name>kafka</name>
 </project>
