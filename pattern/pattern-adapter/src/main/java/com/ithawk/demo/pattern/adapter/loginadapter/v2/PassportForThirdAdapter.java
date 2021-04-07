@@ -31,6 +31,16 @@ public class PassportForThirdAdapter extends SiginService implements IPassportFo
         return super.login(username, passport);
     }
 
+    @Override
+    public ResultMsg loginByWay(String id, String way) {
+        switch (way){
+            case "QQ":
+                return loginForQQ(id);
+            default:
+                return loginForWechat(id);
+        }
+    }
+
     private ResultMsg processLogin(String key, Class<? extends LoginAdapter> clazz) {
         try {
             //适配器不一定要实现接口

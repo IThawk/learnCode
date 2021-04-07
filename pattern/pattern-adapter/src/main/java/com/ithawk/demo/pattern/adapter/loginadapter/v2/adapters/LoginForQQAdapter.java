@@ -10,6 +10,7 @@ public class LoginForQQAdapter implements LoginAdapter {
     }
 
     public ResultMsg login(String id, Object adapter) {
+        System.out.println(id + ":qq登入成功");
         return null;
     }
 }

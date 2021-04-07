@@ -48,4 +48,6 @@ public interface IPassportForThird {
      * @return
      */
     ResultMsg loginForRegist(String username, String passport);
+
+    ResultMsg loginByWay(String id,String way);
 }

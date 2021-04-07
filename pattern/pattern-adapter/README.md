@@ -1,0 +1,1 @@
+# pattern-adapter 适配器模式
