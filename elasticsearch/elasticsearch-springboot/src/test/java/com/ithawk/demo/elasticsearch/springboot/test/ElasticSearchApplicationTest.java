@@ -35,7 +35,7 @@ import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = ElasticSearchApplication.class)
-public class GUlimallSearchApplicationTest {
+public class ElasticSearchApplicationTest {
 
     @Autowired
     private ElasticsearchRestTemplate esTemplate;

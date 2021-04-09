@@ -3,7 +3,6 @@ package com.ithawk.demo.pattern.prototype.simple;
 import java.util.List;
 
 /**
- * Created by Tom.
  */
 public class ConcretePrototypeA implements Prototype {
 
