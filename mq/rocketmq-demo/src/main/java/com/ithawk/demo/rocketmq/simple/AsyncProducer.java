@@ -9,12 +9,15 @@ import org.apache.rocketmq.remoting.common.RemotingHelper;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * 异步发送消息
+ */
 public class AsyncProducer {
     public static void main(String[] args) throws Exception {
         //Instantiate with a producer group name.
         DefaultMQProducer producer = new DefaultMQProducer("please_rename_unique_group_name");
         // Specify name server addresses.
-        producer.setNamesrvAddr("localhost:9876");
+        producer.setNamesrvAddr("192.168.56.101:9876");
         //Launch the instance.
         producer.start();
 
@@ -29,6 +32,7 @@ public class AsyncProducer {
                         "TagA",
                         "OrderID188",
                         ("Hello world "+i).getBytes(RemotingHelper.DEFAULT_CHARSET));
+                //设置异步发送mq消息
                 producer.send(msg, new SendCallback() {
                     @Override
                     public void onSuccess(SendResult sendResult) {

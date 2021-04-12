@@ -8,12 +8,15 @@ import org.apache.rocketmq.remoting.common.RemotingHelper;
 
 import java.util.concurrent.TimeUnit;
 
+/**
+ * 创建事务消息
+ */
 public class TransactionProducer {
     public static void main(String[] args) throws Exception {
         //1.创建消息生产者producer，并制定生产者组名
         TransactionMQProducer producer = new TransactionMQProducer("GroupTransaction");
         //2.指定nameserver地址
-        producer.setNamesrvAddr("localhost:9876");
+        producer.setNamesrvAddr("192.168.56.101:9876");
         //3.添加事务监听器
         producer.setTransactionListener(new TransactionListener() {
             /**

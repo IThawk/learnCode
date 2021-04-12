@@ -14,7 +14,7 @@ public class MessageTest {
         DefaultMQProducer producer = new
                 DefaultMQProducer("please_rename_unique_group_name");
         // Specify name server addresses.
-        producer.setNamesrvAddr("localhost:9876");
+        producer.setNamesrvAddr("192.168.56.101:9876");
         //Launch the instance.
         producer.start();
         //根据UniqueKey查询
