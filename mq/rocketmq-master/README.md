@@ -109,24 +109,31 @@ public class U {
 ```
 
 ## 启动
+
 ### 启动NameServer
+
     org.apache.rocketmq.namesrv.NamesrvStartup main
     NameServer：整个消息系统的状态服务器，例如选举、同步等。NameServer 本身是⽆状态的，
     可以部署多个，相互之间没有数据交互。它主要⽤于管理 Broker 集群信息（提供⼼跳检查，检查是否
     有 Broker 下线） 和 Topic 路由信息（⽤于客户端查询）。
+
 ### 启动broker
 
     org.apache.rocketmq.broker.BrokerStartup.main
-    添加参数：
+    添加启动参数：
     读取配置文件位置：
     -c D:\workspace\language\Java\learnCode\mq\rocketmq-master\broker\src\main\resources\broker.conf
+
+    broker 启动netty org.apache.rocketmq.remoting.netty.NettyRemotingServer.start
 
 ### producer
 
     消息发送： org.apache.rocketmq.client.impl.producer.DefaultMQProducerImpl
 
 ### 消息存储
+
 #### ⽂件进⾏逐⼀介绍：
+
     1.commitlog: 消息存储⽬录；
     2.config: 运⾏期间⼀些配置信息，主要包括如下信息：
     2.1 consumerFilter.json : 主题消息过滤信息
@@ -140,7 +147,9 @@ public class U {
     除
     6.checkpoint : ⽂件检测点，存储commitlog⽂件最后⼀次刷盘时间戳、consumequeue最后⼀次
     刷盘时间、index索引⽂件最后⼀次刷盘时间戳。
+
 #### 整体步骤
+
     1. 要发送的消息，会按顺序写⼊commitlog中，这⾥所有topic和queue共享⼀个⽂件
     2. 存⼊commitlog后，由于消息会按照topic维度来消费，会异步构建consumeQueue（逻辑队列）
        和index（索引⽂件），consumeQueue存储消息的commitlogOffset、messageSize、

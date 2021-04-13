@@ -222,6 +222,7 @@ public class DefaultMessageStore implements MessageStore {
      */
     public void start() throws Exception {
 
+        System.out.println("使用默认消息存储系统：DefaultMessageStore");
         lock = lockFile.getChannel().tryLock(0, 1, false);
         if (lock == null || lock.isShared() || !lock.isValid()) {
             throw new RuntimeException("Lock failed,MQ already started");

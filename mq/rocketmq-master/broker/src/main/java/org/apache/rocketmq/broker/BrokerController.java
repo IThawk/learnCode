@@ -33,6 +33,8 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+
+import com.alibaba.fastjson.JSON;
 import org.apache.rocketmq.acl.AccessValidator;
 import org.apache.rocketmq.broker.client.ClientHousekeepingService;
 import org.apache.rocketmq.broker.client.ConsumerIdsChangeListener;
@@ -231,7 +233,9 @@ public class BrokerController {
         return queryThreadPoolQueue;
     }
 
+    //这个地方初始化可以找到 DefaultMessageStore
     public boolean initialize() throws CloneNotSupportedException {
+        System.out.println("初始化启动：BrokerController，包括各种线程池：");
         boolean result = this.topicConfigManager.load();
 
         result = result && this.consumerOffsetManager.load();
@@ -240,6 +244,7 @@ public class BrokerController {
 
         if (result) {
             try {
+                System.out.println("初始化启动：创建对象：DefaultMessageStore");
                 this.messageStore =
                     new DefaultMessageStore(this.messageStoreConfig, this.brokerStatsManager, this.messageArrivingListener,
                         this.brokerConfig);
@@ -261,9 +266,12 @@ public class BrokerController {
         result = result && this.messageStore.load();
 
         if (result) {
+            //启动端口服务
+            System.out.println("启动：remotingServer ："+ JSON.toJSONString(this.nettyServerConfig,true));
             this.remotingServer = new NettyRemotingServer(this.nettyServerConfig, this.clientHousekeepingService);
             NettyServerConfig fastConfig = (NettyServerConfig) this.nettyServerConfig.clone();
             fastConfig.setListenPort(nettyServerConfig.getListenPort() - 2);
+            System.out.println("启动：fastRemotingServer ："+ JSON.toJSONString(fastConfig,true));
             this.fastRemotingServer = new NettyRemotingServer(fastConfig, this.clientHousekeepingService);
             this.sendMessageExecutor = new BrokerFixedThreadPoolExecutor(
                 this.brokerConfig.getSendMessageThreadPoolNums(),
@@ -848,6 +856,10 @@ public class BrokerController {
         return this.brokerConfig.getBrokerIP1() + ":" + this.nettyServerConfig.getListenPort();
     }
 
+    /**
+     * 启动brokerController
+     * @throws Exception
+     */
     public void start() throws Exception {
         if (this.messageStore != null) {
             this.messageStore.start();
