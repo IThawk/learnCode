@@ -24,6 +24,9 @@
     <module>06-netty-webchat</module>
     <module>07-netty-idle</module>
     <module>08-netty-heartbeat</module>
+    <module>08-netty-heartbeat2</module>
+    <module>09-netty-tomcat</module>
+    <module>12-netty-springboot-dubbo</module>
   </modules>
   <name>netty-ex</name>
 </project>

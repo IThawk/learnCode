@@ -1,4 +1,4 @@
-package com.ithawk.demo.netty.heartbeat.server;
+package com.ithawk.demo.netty.heartbeat2.server;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
@@ -12,7 +12,7 @@ import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
 import io.netty.handler.timeout.IdleStateHandler;
 
-public class HeartbeatServer {
+public class Heartbeat2Server {
     public static void main(String[] args) throws InterruptedException {
         EventLoopGroup parentGroup = new NioEventLoopGroup();
         EventLoopGroup childGroup = new NioEventLoopGroup();
@@ -27,8 +27,8 @@ public class HeartbeatServer {
                             ChannelPipeline pipeline = ch.pipeline();
                             pipeline.addLast(new StringDecoder());
                             pipeline.addLast(new StringEncoder());
-                            pipeline.addLast(new IdleStateHandler(8, 0, 0));
-                            pipeline.addLast(new HeartbeatServerHandler());
+                            pipeline.addLast(new IdleStateHandler(5, 0, 0));
+                            pipeline.addLast(new Heartbeat2ServerHandler());
                         }
                     });
             ChannelFuture future = bootstrap.bind(8888).sync();

@@ -1,4 +1,4 @@
-package com.ithawk.demo.netty.heartbeat.client;
+package com.ithawk.demo.netty.heartbeat2.client;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
@@ -10,7 +10,7 @@ import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
 
-public class HeartbeatClient {
+public class Heartbeat2Client {
     public static void main(String[] args) throws Exception {
         NioEventLoopGroup group = new NioEventLoopGroup();
         Bootstrap bootstrap = new Bootstrap();
@@ -22,11 +22,10 @@ public class HeartbeatClient {
                         ChannelPipeline pipeline = ch.pipeline();
                         pipeline.addLast(new StringDecoder());
                         pipeline.addLast(new StringEncoder());
-                        pipeline.addLast(new HeartbeatClientHandler());
+                        pipeline.addLast(new Heartbeat2ClientHandler2(bootstrap));
                     }
                 });
 
         ChannelFuture future = bootstrap.connect("localhost", 8888).sync();
-        future.channel().closeFuture().sync();
     }
 }
