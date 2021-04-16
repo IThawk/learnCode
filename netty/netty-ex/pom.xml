@@ -27,6 +27,9 @@
     <module>08-netty-heartbeat2</module>
     <module>09-netty-tomcat</module>
     <module>12-netty-springboot-dubbo</module>
+    <module>13-netty-multiports</module>
+    <module>14-netty-niosocket</module>
+    <module>15-netty-niochat</module>
   </modules>
   <name>netty-ex</name>
 </project>
