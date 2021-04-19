@@ -3,17 +3,16 @@ package com.ithawk.demo.mybatis.v1.crud.daosupport;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
 import java.util.List;
 import java.util.Map;
 
 /**
- * @Author: qingshan
- * @Date: 2019/3/9 14:55
- * @Description: 咕泡学院，只为更好的你
- *  通过继承SqlSessionDaoSupport 获得一个 SqlSessionTemplate
+ *
  */
+@Repository
 public  class BaseDao extends SqlSessionDaoSupport {
     //使用sqlSessionFactory
     @Autowired

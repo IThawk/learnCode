@@ -13,9 +13,7 @@ import java.util.regex.Pattern;
 import org.springframework.jdbc.core.RowMapper;
 
 /**
- * @Author: qingshan
- * @Date: 2019/3/31 15:57
- * @Description: 咕泡学院，只为更好的你
+ * RowMapper 解决查询映射问题
  */
 public class BaseRowMapper<T> implements RowMapper<T> {
 

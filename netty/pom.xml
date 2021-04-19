@@ -16,6 +16,8 @@
     <module>netty-io</module>
     <module>netty-tomcat</module>
     <module>netty-ex</module>
+    <module>netty-netty-4.1.36.Final</module>
+    <module>netty-netty-4.1.36.Final/03-socket</module>
   </modules>
   <name>netty</name>
 </project>
