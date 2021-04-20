@@ -270,3 +270,11 @@ docker run --name mysql -p 3306:3306 -v /mydata/mysql:/var/lib/mysql --privilege
     lock table 表名称 read(write),表名称2 read(write)，其他;
         1 show open tables; 
         1 unlock tables;
+    1、session1: lock table mylock read; -- 给mylock表加读锁
+    2、session1: select * from mylock; -- 可以查询
+    3、session1：select * from tdep; --不能访问非锁定表
+    4、session2：select * from mylock; -- 可以查询 没有锁
+    5、session2：update mylock set name='x' where id=2; -- 修改阻塞,自动加行写锁
+    6、session1：unlock tables; -- 释放表锁
+    7、session2：Rows matched: 1 Changed: 1 Warnings: 0 -- 修改执行完成
+    8、session1：select * from tdep; --可以访问
