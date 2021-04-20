@@ -255,6 +255,18 @@ docker run --name mysql -p 3306:3306 -v /mydata/mysql:/var/lib/mysql --privilege
     8. 字符串太长时，如何创建索引？
        在保证区分度的情况下，被索引的字段不要太长，可以使用前缀索引。怎么选择长度。
 ### 锁：
-    - 全局锁：锁的是整个database。由MySQL的SQL layer层实现的
-    - 表级锁：锁的是某个table。由MySQL的SQL layer层实现的
+
+    - 全局锁：锁的是整个database。由MySQL的SQL layer层实现的：Flush tables with read lock 可以添加全局锁
+    - 表级锁：锁的是某个table。由MySQL的SQL layer层实现的 show status like 'table%'; 查看表状态
     - 行级锁：锁的是某行数据，也可能锁定行之间的间隙。由某些存储引擎实现，比如InnoDB。
+#### 按照锁的功能来说分为：共享读锁和排他写锁。
+#### 按照锁的实现方式分为：悲观锁和乐观锁（使用某一版本列或者唯一列进行逻辑控制）
+#### 表级锁和行级锁的区别：
+    表级锁：开销小，加锁快；不会出现死锁；锁定粒度大，发生锁冲突的概率最高，并发度最低；
+    行级锁：开销大，加锁慢；会出现死锁；锁定粒度最小，发生锁冲突的概率最低，并发度也最高；
+##### 表级锁
+    表共享读锁（Table Read Lock）
+    表独占写锁（Table Write Lock）
+    lock table 表名称 read(write),表名称2 read(write)，其他;
+        1 show open tables; 
+        1 unlock tables;
