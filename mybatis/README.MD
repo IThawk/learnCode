@@ -278,3 +278,92 @@ docker run --name mysql -p 3306:3306 -v /mydata/mysql:/var/lib/mysql --privilege
     6、session1：unlock tables; -- 释放表锁
     7、session2：Rows matched: 1 Changed: 1 Warnings: 0 -- 修改执行完成
     8、session1：select * from tdep; --可以访问
+
+    1、session1: lock table mylock write; -- 给mylock表加写锁
+    2、session1: select * from mylock; -- 可以查询
+    3、session1：select * from tdep; --不能访问非锁定表
+    4、session1：update mylock set name='y' where id=2; --可以执行
+    5、session2：select * from mylock; -- 查询阻塞
+    6、session1：unlock tables; -- 释放表锁
+    7、session2：4 rows in set (22.57 sec) -- 查询执行完成
+    8、session1：select * from tdep; --可以访问
+##### 行级锁
+    show status like 'innodb_row_lock%';
+    - Innodb_row_lock_current_waits：当前正在等待锁定的数量；
+    - Innodb_row_lock_time：从系统启动到现在锁定总时间长度；
+    - Innodb_row_lock_time_avg：每次等待所花平均时间；
+    - Innodb_row_lock_time_max：从系统启动到现在等待最常的一次所花的时间；
+    - Innodb_row_lock_waits：系统启动后到现在总共等待的次数；
+    - 记录锁（Record Locks）:锁定索引中一条记录。
+    - 间隙锁（Gap Locks）:锁住的是两个索引之间的区间（缝隙），是一个左开右开区间。
+    - Next-Key Locks:间隙锁+紧邻间隙锁的下一个记录锁，左开右闭区间。
+### 事务和MVCC底层原理
+    事务的隔离性由多版本控制机制和锁实现，而原子性、一致性和持久性通过InnoDB的redo log、undo log和Force Log at Commit机制来实现。
+    原子性，持久性和一致性主要是通过redo log、undo log、Force Log at Commit和Double Write机制来完成的。
+    redo log用于在崩溃时恢复数据，
+    undo log用于对事务回滚时进行撤销，也会用于隔离性的多版本控制。
+    Force Log at Commit机制保证事务提交后redo log日志都已经持久化。
+    Double Write机制用来提高数据库的可靠性，用来解决脏页落盘时部分写失效问题。
+#### 事务四大特性(ACID)
+##### 原子性(Atomicity)：
+    事务是可以提交或回滚的工作的原子单位。当一个事务对数据库进行多次更改时，要么所有更改
+    在事务提交时成功，要么所有更改在事务回滚时撤消。
+    它的意思就是在事务中发生的一系列操作是一个不可分割单元，事务里面的一系列更新操作，它们
+    要么在事务提交全部是成功执行，要么在事务回滚时全部撤销。我们在程序中使用事务如果发生了
+    异常的话，一定要进行事务回滚，如果进行了回滚的话，那么我们前面进行的数据库更新操作就像
+    都没有执行过。
+##### 一致性(Consistent)：
+    数据库在任何时候都保持一致的状态——在每次提交或回滚之后，以及在事务进行期间。如果是
+    跨多个表更新相关数据，在事务外查询时将看到所有旧值或所有新值，而不是新旧值的混合。
+    事务开始和结束之间的数据的中间状态不会被其他事务看到，事务的原子性保证了数据的一致性。
+##### 隔离性(Isolation)：
+    事务在进行过程中相互隔离，它们不能相互干扰或查看彼此未提交的数据。
+    不同的客户端在操作相同数据的时候，就可能会产生相互干扰，就会影响到数据操作结果。所以我
+    们必须要依靠事务提供的隔离性，让我们在不同的事务中进行更新操作更新数据的时候，他们之前
+    互相不干扰。
+    事务的隔离性是通过锁定机制实现的，有经验的开发人员可以通过调整隔离级别，提高性能和并发
+    性，这样他们就可以确保事务之间不会相互干扰。
+    由锁机制和MVCC机制来实现的
+    MVCC(多版本并发控制)：优化读写性能（读不加锁、读写不冲突）
+##### 持久性(Durable)：
+    事务的结果是持久的，事务执行成功后必须全部写入磁盘：一旦提交操作成功，该事务所做的更
+    改就不会受到电源故障、系统崩溃等其他潜在危险的影响。数据库的数据通常是保存在磁盘上的，
+    对数据的修改涉及对磁盘存储的写操作，其中包含一定数量的冗余，以防止在写操作期间出现电源
+    故障或软件崩溃。
+#####
+    原子性：redo log、undo log、Force Log at Commit和Double Write机制。
+    持久性：redo log，Double Write。
+##### redo log
+![1547170701855](./images/redoLog.jpg)
+
+    redo log主要用于崩溃恢复。数据库崩溃重启后需要从redo log中把未落盘的脏页数据恢复出来，重新写入磁盘，保证用户的数据不丢失。
+    redo log写入磁盘时，先写入操作系统缓冲区，然后使用参数innodb_flush_log_at_trx_commit可以控制redo log日志刷新到磁盘的策略和频率。
+##### UndoLog
+    崩溃恢复时除了需要使用redo log对已经提交的事务。在崩溃恢复中还需要回滚没有提交的事务。
+    回滚操作需要undo日志的支持，undo日志的完整性和可靠性需要redo日志来保证，所以崩溃恢复先做redo恢复数据，然后做undo回滚。
+    在事务执行的过程中，除了记录redo log，还会记录一定量的undo log。undo log记录了数据在每个操作前的状态，如果事务执行过程中需要回滚，就可以根据undo log进行回滚操作。
+    undo log的存储不同于redo log，它存放在数据库内部的一个特殊的段(segment)中，这个段称为回滚段。
+    回滚段位于共享表空间中。undo段中的以undo page为更小的组织单位。undo page和存储数
+    据库数据和索引的页类似。因为redo log是物理日志，记录的是数据库页的物理修改操作。所以
+    undo log（也看成数据库数据）的写入也会产生redo log，也就是undo log的产生会伴随着redo
+    log的产生，这是因为undo log也需要持久性的保护。
+####
+    在事务的并发操作中可能会出现一些问题：
+    丢失更新：两个事务针对同一数据都发生修改操作时，会存在丢失更新问题。
+    脏读：一个事务读取到另一个事务未提交的数据。
+    不可重复读：一个事务因读取到另一个事务已提交的update或者delete数据。导致对同一条记录读取两次以上的结果不一致。
+    幻读：一个事务因读取到另一个事务已提交的insert数据。导致对同一张表读取两次以上的结果不一致。
+#### 事务隔离级别
+    四种隔离级别（SQL92标准）：
+    现在来看看MySQL数据库为我们提供的四种隔离级别（由低到高）：
+    ① Read uncommitted (读未提交)：最低级别，任何情况都无法保证。
+    ② Read committed (RC，读已提交)：可避免脏读的发生。
+    ③ Repeatable read (RR，可重复读)：可避免脏读、不可重复读的发生。
+    （注意事项：InnoDB的RR还可以解决幻读，主要原因是Next-Key（Gap）锁，只有RR才能使用
+    Next-Key锁）
+    ④ Serializable (串行化)：可避免脏读、不可重复读、幻读的发生。
+    （由MVCC降级为Locking-Base CC）
+#### InnoDB的MVCC实现
+    MVCC并发控制中，读操作可以分成两类：快照读 (snapshot read)与当前读 (current read)。
+    - 快照读，读取的是记录的可见版本 (有可能是历史版本)，不用加锁。(select)
+    - 当前读，读取的是记录的最新版本，并且当前读返回的记录，都会加上锁，保证其他事务不会再并发修改这条记录。
