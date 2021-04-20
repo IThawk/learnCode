@@ -4,6 +4,7 @@ import com.ithawk.demo.mybatis.v1.crud.bean.Employee;
 import com.ithawk.demo.mybatis.v1.crud.service.DepartmentService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -26,6 +27,8 @@ public class JdbcTemplteBatchInsertTest {
     JdbcTemplate jdbcTemplate;
     @Autowired
     DepartmentService departmentService;
+    @Autowired
+    SqlSessionTemplate sqlSessionTemplate;
 
     List<Employee> list;
 

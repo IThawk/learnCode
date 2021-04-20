@@ -5,6 +5,7 @@ import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.jws.soap.SOAPBinding;
 import java.sql.Connection;
 import java.util.List;
 import java.util.Map;
@@ -110,5 +111,15 @@ public  class BaseDao extends SqlSessionDaoSupport {
      */
     public Connection getConnection() {
         return getSqlSession().getConnection();
+    }
+
+    public static void main(String[] args) {
+        Integer a = Integer.MAX_VALUE;
+        int MAXIMUM_CAPACITY = -8 >>> 1;
+        System.out.println(MAXIMUM_CAPACITY);
+//        a= a+1;
+        System.out.println(a);
+        a= a*31;
+        System.out.println(a);
     }
 }
