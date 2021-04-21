@@ -146,6 +146,117 @@ docker run --name mysql -p 3306:3306 -v /mydata/mysql:/var/lib/mysql --privilege
     使用辅助索引需要检索两遍索引:首先检索辅助索引获得主键，然后使用主键到主索引中检索获得记录。
 #### 内存系统
 ![1547170701855](./images/innoDb1.jpg)
+buffer pool
+Buffer Pool空间不够用时，Buffer Pool会使用LRU算法淘汰最近最少使用的页。Buffer Pool中页的大小和数据文件上页大小是一样的，都是16K。
+Change Buffer
+Change Buffer是buffer pool是一部分，可以通过innodb_change_buffer_max_size参数控制
+Change Buffer的最大大小，占缓冲池总大小的百分比，默认25%，最大50%。
+Log Buffer（Redo Log）
+Log Buffer写入磁盘的时机，由参数 innodb_flush_log_at_trx_commit 控制，默认是1，表示事
+务提交后立即落盘。
+InnoDB存储引擎对数据做修改的时候，会先把数据页从磁盘中读到内存中(buffer pool)中，然
+后在buffer pool中进行修改，那么这个时候buffer pool中的数据页就与磁盘上的数据页内容
+不一致，称这个页为dirty page 脏页。
+Log Buffer写入磁盘的时机，由参数 innodb_flush_log_at_trx_commit 控制，默认是1，表示事
+务提交后立即落盘。
+0：MySQL每秒一次将数据从log buffer写入日志文件并同时fsync刷新到磁盘中。
+每次事务提交时，不会立即把 log buffer 里的数据写入到redo log日志文件的。如果MySQL崩
+溃或者服务器宕机，此时内存里的数据会全部丢失，最多会丢失1秒的事务。
+1：每次事务提交时，MySQL将数据从log buffer写入日志文件并同时fsync刷新到磁盘中。
+该模式为系统默认，MySQL崩溃已经提交的事务不会丢失，要完全符合ACID，必须使用默认设置
+1。
+    #16777216,默认16M
+show VARIABLES like 'innodb_log_buffer_size';
+
+1 show VARIABLES like 'innodb_flush_log_at_trx_commit'
+2：每次事务提交时，MySQL将数据从log buffer写入日志文件，MySQL每秒执行一次fsync操作
+将数据同步到磁盘中。
+每次事务提交时，都会将数据刷新到操作系统缓冲区，可以认为已经持久化磁盘，如果MySQL崩溃
+已经提交的事务不会丢失。但是如果服务器宕机或者意外断电，操作系统缓存内的数据会丢失，所
+以最多丢失1秒的事务。
+只有设置为1是最安全但是性能消耗的方式，可以真正地保证事务的持久性，但是由于MySQL执行刷新操
+作 fsync() 是阻塞的，直到完成后才会返回，我们知道写磁盘的速度是很慢的，因此 MySQL 的性能
+会明显地下降。
+
+
+脏页落盘
+InnoDB存储引擎对数据做修改的时候，会先把数据页从磁盘中读到内存中(buffer pool)中，然
+后在buffer pool中进行修改，那么这个时候buffer pool中的数据页就与磁盘上的数据页内容
+不一致，称这个页为dirty page 脏页。
+在数据库中进行读取操作，将从磁盘中读到的页放在缓冲池中，下次再读相同的页时，首先判断
+该页是否在缓冲池中。若在缓冲池中，称该页在缓冲池中被命中，直接读取该页。否则，读取磁
+盘上的页。
+对于数据库中页的修改操作，则首先修改在缓冲池中的页，然后再以一定的频率刷新到磁盘上。
+页从缓冲池刷新回磁盘的操作并不是在每次页发生更新时触发，而是通过一种称为CheckPoint的
+机制刷新回磁盘。
+sharp checkpoint：在关闭数据库的时候，将buffer pool中的脏页全部刷新到磁盘中。
+fuzzy checkpoint：数据库正常运行时，在不同的时机，将部分脏页写入磁盘。仅刷新部分脏
+页到磁盘，也是为了避免一次刷新全部的脏页造成的性能问题。
+Master Thread Checkpoint（脏页）
+在Master Thread中，会以每秒或者每10秒一次的频率，将部分脏页从内存中刷新到磁盘，这个
+过程是异步的。正常的用户线程对数据的操作不会被阻塞。
+FLUSH_LRU_LIST Checkpoint（脏页）
+FLUSH_LRU_LIST checkpoint是在单独的page cleaner线程中执行的。
+MySQL对缓存的管理是通过buffer pool中的LRU列表实现的，LRU 空闲列表中要保留一定数量的
+空闲页面，来保证buffer pool中有足够的空闲页面来相应外界对数据库的请求。
+当这个空间页面数量不足的时候，发生FLUSH_LRU_LIST checkpoint。
+
+Async/Sync Flush Checkpoint（重做日志）
+Async/Sync Flush checkpoint是在单独的page cleaner线程中执行的。
+Async/Sync Flush checkpoint 发生在重做日志不可用的时候，将buffer pool中的一部分脏
+页刷新到磁盘中，在脏页写入磁盘之后，事务对应的重做日志也就可以释放了。
+由于磁盘是一种相对较慢的存储设备，内存与磁盘的交互是一个相对较慢的过程
+由于innodb_log_file_size定义的是一个相对较大的值，正常情况下，由前面两种checkpoint
+刷新脏页到磁盘，在前面两种checkpoint刷新脏页到磁盘之后，脏页对应的redo log空间随即
+释放，一般不会发生Async/Sync Flush checkpoint。
+同时也要意识到，为了避免频繁低发生Async/Sync Flush checkpoint，也应该将
+innodb_log_file_size配置的相对较大一些。
+1. 当checkpoint_age<async_water_mark的时候，无需执行Flush checkpoint。也就说，
+   redo log剩余空间超过25%的时候，无需执行Async/Sync Flush checkpoint。
+2. 当async_water_mark<checkpoint_age<sync_water_mark的时候，执行Async Flush
+   checkpoint，也就说，redo log剩余空间不足25%，但是大于10%的时候，执行Async
+   Flush checkpoint，刷新到满足条件1
+3. 当checkpoint_age>sync_water_mark的时候，执行sync Flush checkpoint。也就说，
+   redo log剩余空间不足10%的时候，执行Sync Flush checkpoint，刷新到满足条件1。
+Dirty Page too much（脏页）
+   Dirty Page too much Checkpoint是在Master Thread 线程中每秒一次的频率实现的。
+   Dirty Page too much 意味着buffer pool中的脏页过多，执行checkpoint脏页刷入磁盘，保
+   证buffer pool中有足够的可用页面。
+   Dirty Page 由innodb_max_dirty_pages_pct配置，innodb_max_dirty_pages_pct的默认值
+   在innodb 1.0之前是90%，之后是75%。
+Double Write双写
+   ![1547170701855](./images/dubbleWriteBuffer.jpg)  
+为什么需要双写缓冲区？
+数据库数据页大小是16K，操作系统IO的最小单位一般是4K，也就是说Buffer Pool中一个脏页写入数
+据文件时需要分4次写入。如果数据页在写入的过程中，服务器断电或者宕机，数据页就有可能只写入
+了一部分（比如只写入了8k），还有一半的数据没有写入，这种现象称为“部分写失效”（partial
+page write）。就会导致数据文件中的数据页被损坏，在MySQL重启后，就无法使用redo log恢复这
+个损坏的数据页，所以这个页的数据就丢失了，可能会造成数据不一致。
+InnoDB为了提高的可靠性，引入了Double Write机制，用来解决部分写失效。
+   先写到双写缓冲区中，然后写入系统表空间，最后写入用户表空间中。这样保证数据页不损坏
+双写缓冲是InnoDB的一个关键特性，可以使用参数innodb_doublewrite控制是否启用双写缓冲区，默
+认开启，建议开启。
+如果开启了双写缓冲，在 InnoDB将脏页写入数据文件之前，会先从缓冲池中刷新页面到双写缓冲区
+，然后再将脏页从双写缓冲刷新到数据文件中。
+Double Write由两部分组成，一部分是内存中的double write buffer，大小为
+2MB，另一部分是物理磁盘上共享表空间连续的128个页，大小也为2MB。
+   ![1547170701855](./images/writeProcess.jpg)   
+
+bin log什么
+binlog记录了数据库执行更改的操作（所有的ddl语句和dml语句），但不包括select和show这类操
+作。
+事务未提交前,所有未提交的二进制日志会被记录到一个缓存中去，等该事务提交时直接将缓冲中的二
+进制日志写人二进制日志文件。
+作用
+binlog主要用于实现mysql主从复制、数据恢复。
+redo log和bin log区别
+1. redo log 是InnoDB存储引擎层产生的，而bin log是数据服务层产生的。
+2. redo log 空间固定，用完后循环写；binlog 采用“追加写”的方式，一个文件达到一定大小后
+   会切换到下一个。
+3. redo log主要用于崩溃恢复；binlog主要用于主从复制和数据恢复。
+   sync_binlog>0，表示每sync_binlog次事务提交，MySQL调用文件系统的刷新操作将缓存刷下
+   去。最安全的就是sync_binlog=1了，表示每次事务提交，MySQL都会把binlog刷下去，是最安全但是
+   性能损耗最大的设置。
     简单逻辑图
 ![1547170701855](./images/innoDb2.jpg)
 ### 索引分类：
@@ -298,6 +409,8 @@ docker run --name mysql -p 3306:3306 -v /mydata/mysql:/var/lib/mysql --privilege
     - 间隙锁（Gap Locks）:锁住的是两个索引之间的区间（缝隙），是一个左开右开区间。
     - Next-Key Locks:间隙锁+紧邻间隙锁的下一个记录锁，左开右闭区间。
 ### 事务和MVCC底层原理
+![1547170701855](./images/insertProcess.jpg)
+
     事务的隔离性由多版本控制机制和锁实现，而原子性、一致性和持久性通过InnoDB的redo log、undo log和Force Log at Commit机制来实现。
     原子性，持久性和一致性主要是通过redo log、undo log、Force Log at Commit和Double Write机制来完成的。
     redo log用于在崩溃时恢复数据，
@@ -337,6 +450,10 @@ docker run --name mysql -p 3306:3306 -v /mydata/mysql:/var/lib/mysql --privilege
 ![1547170701855](./images/redoLog.jpg)
 
     redo log主要用于崩溃恢复。数据库崩溃重启后需要从redo log中把未落盘的脏页数据恢复出来，重新写入磁盘，保证用户的数据不丢失。
+    redo log文件是在磁盘中一块连续的区域，事务提交时，写入redo log时，我们只要找到找到第一
+    块扇区，只需要依次向后写入就行，也就是说只需要执行一次磁盘IO操作，这就是顺序IO。
+    脏页落盘是随机IO，记录日志是顺序IO，通过使用WAL技术，先将更改操作记录在日志文件中，延迟落
+    盘，可以提高系统性能。
     redo log写入磁盘时，先写入操作系统缓冲区，然后使用参数innodb_flush_log_at_trx_commit可以控制redo log日志刷新到磁盘的策略和频率。
 ##### UndoLog
     崩溃恢复时除了需要使用redo log对已经提交的事务。在崩溃恢复中还需要回滚没有提交的事务。
@@ -367,3 +484,4 @@ docker run --name mysql -p 3306:3306 -v /mydata/mysql:/var/lib/mysql --privilege
     MVCC并发控制中，读操作可以分成两类：快照读 (snapshot read)与当前读 (current read)。
     - 快照读，读取的是记录的可见版本 (有可能是历史版本)，不用加锁。(select)
     - 当前读，读取的是记录的最新版本，并且当前读返回的记录，都会加上锁，保证其他事务不会再并发修改这条记录。
+#### InnoDB的LBCC实现

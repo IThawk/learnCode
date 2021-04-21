@@ -4,6 +4,10 @@ docker run --restart=always -d --name elasticsearch -p 9200:9200 -p 9300:9300 -e
 
 
 docker run --name kibana -e ELASTICSEARCH_HOSTS=http://192.168.56.101:9200 -p 5601:5601 -d kibana:7.6.2
+
+# log
+docker run --rm -it --name logstash --link elasticsearch -d -v ~/mydata/logstash/logstash.conf:/usr/share/logstash/pipeline/logstash.conf logstash:7.6.2
+
 ## 使用kibana界面操作dev_tools 修改elasticsearch数据
 
 
