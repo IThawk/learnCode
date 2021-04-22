@@ -6,8 +6,58 @@ docker run --restart=always -d --name elasticsearch -p 9200:9200 -p 9300:9300 -e
 docker run --name kibana -e ELASTICSEARCH_HOSTS=http://192.168.56.101:9200 -p 5601:5601 -d kibana:7.6.2
 
 # log
-docker run --rm -it --name logstash --link elasticsearch -d -v ~/mydata/logstash/logstash.conf:/usr/share/logstash/pipeline/logstash.conf logstash:7.6.2
+docker run --rm -it --name logstash --link elasticsearch -d -v /mydata/logstash/logstash.conf:/usr/share/logstash/pipeline/logstash.conf logstash:7.6.2
+## logstash.conf
+```json
+input {
+  beats {
+    host => "localhost"
+    port => "5043"
+  }
+}
+filter {
+   if [fields][doc_type] == 'order' {
+    grok {
+            match => { "message" => "%{TIMESTAMP_ISO8601:timestamp} %{LOGLEVEL:level} %{JAVALOGMESSAGE:msg}" }
+        }
+   }
 
+   if [fields][doc_type] == 'customer' { # 这里写两个一样的grok，实际上可能出现多种不同的日志格式，这里做个提示而已,当然如果是相同的格式，这里可以不写的
+    grok {
+            match => { "message" => "%{TIMESTAMP_ISO8601:timestamp} %{LOGLEVEL:level} %{JAVALOGMESSAGE:msg}" }
+        }
+   }
+}
+
+output {
+  stdout { codec => rubydebug }
+  elasticsearch {
+        hosts => [ "localhost:9200" ]
+        index => "%{[fields][doc_type]}-%{+YYYY.MM.dd}"
+    }
+}
+
+```
+
+### filebeat.yml
+```json
+# 日志输入配置
+filebeat.inputs:
+- type: log
+  enabled: true
+  paths:
+  # 需要收集的日志所在的位置，可使用通配符进行配置
+  #- /data/elk/*.log
+    - /logs/*/*.log
+
+#日志输出配置(采用 logstash 收集日志，5044为logstash端口)
+output.logstash:
+hosts: ['192.168.56.101:5044']
+
+
+```
+
+docker run --name filebeat -d --link logstash -v /mydata/logs:/logs  -v /mydata/filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml elastic/filebeat:7.6.2
 ## 使用kibana界面操作dev_tools 修改elasticsearch数据
 
 
