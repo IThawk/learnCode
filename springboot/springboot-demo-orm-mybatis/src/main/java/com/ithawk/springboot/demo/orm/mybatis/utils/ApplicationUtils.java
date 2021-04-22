@@ -6,7 +6,7 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
 /**
- * ApplicationContextAware
+ * 实现 ApplicationContextAware 可以获取 applicationContext
  */
 @Component
 public class ApplicationUtils implements ApplicationContextAware {

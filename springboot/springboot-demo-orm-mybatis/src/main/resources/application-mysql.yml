@@ -34,4 +34,18 @@ mybatis:
     map-underscore-to-camel-case: true
   mapper-locations: classpath:mappers/*.xml
   type-aliases-package: com.ithawk.springboot.demo.orm.mybatis.entity
-
+# actuator 监控
+management:
+  server:
+    port: 9999
+    servlet:
+      context-path: /audit
+  endpoints:
+    web:
+      exposure:
+        # 开启所有监控端口
+        include: '*'
+      base-path: /a # 不添加默认是/actuator
+# 添加Info信息 http://localhost:9999/audit/a/info 可以查看到
+info:
+  company: lll
