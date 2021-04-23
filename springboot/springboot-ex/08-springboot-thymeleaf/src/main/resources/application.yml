@@ -1,0 +1,7 @@
+spring:
+  thymeleaf:
+    cache: false   # 关闭thymeleaf缓存
+
+server:
+  servlet:
+    context-path: /xxx

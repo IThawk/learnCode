@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ithawk.demo.springboot.ex.dubbo.dao.StudentDao">
+    <insert id="insertStudent">
+        insert into employee(name, age) values(#{name}, #{age})
+    </insert>
+
+    <select id="selectStudentById" resultType="com.ithawk.demo.springboot.ex.dubbo.bean.Student">
+        select id,name,age from employee where id=#{id}
+    </select>
+
+    <select id="selectStudentsCount" resultType="int">
+        select count(id) from employee
+    </select>
+</mapper>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.ithawk.demo</groupId>
+    <artifactId>springboot</artifactId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+  <artifactId>springboot-ex</artifactId>
+  <packaging>pom</packaging>
+  <modules>
+    <module>01-springboot-actuator</module>
+    <module>01-springboot-primary</module>
+    <module>01-springboot-war</module>
+    <module>02-springboot-mutienv</module>
+    <module>02-springboot-mutienv2</module>
+    <module>03-springboot-readcustomconfig</module>
+    <module>04-springboot-mybatis-tx-logback-redis</module>
+    <module>05-springboot-dubbo</module>
+    <module>06-springboot-interceptor</module>
+    <module>07-springboot-servlet</module>
+    <module>07-springboot-servlet2</module>
+    <module>08-springboot-path</module>
+    <module>08-springboot-thymeleaf</module>
+    <module>08-springboot-thymeleaf-ssrm</module>
+    <module>09-springboot-usecustomstarter</module>
+    <module>10-springboot-wraptest</module>
+    <module>11-springboot-wrap-spring-boot-starter</module>
+  </modules>
+  <name>springboot-ex</name>
+
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-dependencies</artifactId>
+        <version>${springboot.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>mysql</groupId>
+        <artifactId>mysql-connector-java</artifactId>
+        <version>${mysql.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.postgresql</groupId>
+        <artifactId>postgresql</artifactId>
+        <version>42.1.1</version>
+      </dependency>
+      <!-- hutool工具类 -->
+      <dependency>
+        <groupId>cn.hutool</groupId>
+        <artifactId>hutool-all</artifactId>
+        <version>${hutool.version}</version>
+      </dependency>
+      <!-- guava工具类 -->
+      <dependency>
+        <groupId>com.google.guava</groupId>
+        <artifactId>guava</artifactId>
+        <version>${guava.version}</version>
+      </dependency>
+      <!-- 解析 UserAgent 信息 -->
+      <dependency>
+        <groupId>eu.bitwalker</groupId>
+        <artifactId>UserAgentUtils</artifactId>
+        <version>${user.agent.version}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+</project>

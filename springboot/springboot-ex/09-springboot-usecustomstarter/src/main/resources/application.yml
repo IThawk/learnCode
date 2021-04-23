@@ -1,0 +1,6 @@
+some:
+  service:
+    # enable: true    # 前后辍的开关
+    before: $$$--   # 指定前辍
+    after: --+++    # 指定后辍
+

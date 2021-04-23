@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://wwww.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>index</title>
+</head>
+<body>
+    <p th:text="${welcome}">这里将要显示数据，但这些文字不显示</p>
+    <div th:text="${welcome}">这里将要显示数据，但这些文字不显示</div>
+    <span th:text="${welcome}">这里将要显示数据，但这些文字不显示</span>
+
+    <hr>
+    <p th:text="${student}">这里将要显示数据，但这些文字不显示</p>
+    <p th:text="${student.name}">这里将要显示数据，但这些文字不显示</p>
+    <p th:text="${student.age}">这里将要显示数据，但这些文字不显示</p>
+
+    <hr>
+    <div th:object="${student}">
+        <p th:text="*{name}">这里将要显示数据，但这些文字不显示</p>
+        <p th:text="*{age}">这里将要显示数据，但这些文字不显示</p>
+    </div>
+
+    <hr>
+    <a th:href="@{'http://localhost:9999/xxx/find/' + ${student.name}}">查询</a>
+    <a th:href="@{|http://localhost:9999/xxx/find/${student.name}|}">查询2</a>
+    <a th:href="@{|/xxx/find/${student.name}|}">查询3</a>
+    <a th:href="@{|find/${student.name}|}">查询4（这个形成的路径是有问题的）</a>
+
+    <hr>
+    <p th:if="${gender} == 'male'">
+        男
+    </p>
+    <p th:if="${gender} != 'male'">
+        女
+    </p>
+
+    <hr>
+    <div th:switch="${age/10}">
+        <p th:case="0">儿童</p>
+        <p th:case="1">少年</p>
+        <p th:case="2">青年</p>
+        <p th:case="3">中年</p>
+        <p th:case="4">中年</p>
+        <p th:case="5">中年</p>
+        <p th:case="*">老年</p>
+    </div>
+
+    <hr>
+    <div th:each="stu, xxx : ${students}">
+        <!--显示当前遍历对象是第几个，即序号（从1开始计数）-->
+        <div th:text="${xxx.count}"></div>
+        <!--显示当前遍历对象的索引（从0开始计数）-->
+        <div th:text="${xxx.index}"></div>
+        <!--布尔值，显示当前遍历对象是否是第一个-->
+        <div th:text="${xxx.first}"></div>
+        <!--布尔值，显示当前遍历对象是否是最后一个-->
+        <div th:text="${xxx.last}"></div>
+        <!--布尔值，显示当前遍历对象的序号是否是偶数-->
+        <div th:text="${xxx.even}"></div>
+        <!--布尔值，显示当前遍历对象的序号是否是奇数-->
+        <div th:text="${xxx.odd}"></div>
+        <div th:text="${stu.name}"></div>
+        <div th:text="${stu.age}"></div>
+    </div>
+
+    <hr>
+    <div th:each="stu : ${students}">
+        <!--显示当前遍历对象是第几个，即序号（从1开始计数）-->
+        <div th:text="${stuStat.count}"></div>
+        <!--显示当前遍历对象的索引（从0开始计数）-->
+        <div th:text="${stuStat.index}"></div>
+        <!--布尔值，显示当前遍历对象是否是第一个-->
+        <div th:text="${stuStat.first}"></div>
+        <!--布尔值，显示当前遍历对象是否是最后一个-->
+        <div th:text="${stuStat.last}"></div>
+        <!--布尔值，显示当前遍历对象的序号是否是偶数-->
+        <div th:text="${stuStat.even}"></div>
+        <!--布尔值，显示当前遍历对象的序号是否是奇数-->
+        <div th:text="${stuStat.odd}"></div>
+        <div th:text="${stu.name}"></div>
+        <div th:text="${stu.age}"></div>
+    </div>
+
+    <hr>
+    <div th:each="entry : ${map}">
+        <p th:text="${entryStat.count}"></p>
+        <p th:text="${entry.key}"></p>
+        <p th:text="${entry.value}"></p>
+        <p th:text="${entry.value.name}"></p>
+        <p th:text="${entry.value.age}"></p>
+    </div>
+
+    <hr>
+    <div th:text="${welcome}"></div>
+    <hr>
+    <div th:utext="${welcome}"></div>
+
+    <hr>
+    <input type="text" name="age" value="0"/>
+    <hr>
+    <input type="text" th:name="${attrName}" th:value="${attrValue}"/>
+
+    <hr>
+    <!--<img src="/images/jianshen4.jpg"/>-->
+    <hr>
+    <!--<img th:src="|/images/${photo}|"/>-->
+
+    <hr>
+    th:inline的取值可以有四种：<br>
+    1)text：内嵌文本，标签体中需要嵌入动态内容，默认值  <br>
+    2)javascript：内嵌脚本，js中需要嵌入动态内容<br>
+    3)css：内嵌样式，css中需要嵌入动态内容<br>
+    4)non：不解析内嵌动态内容<br>
+
+    <p th:inline="text">
+        他的姓名是：[[${student.name}]]
+    </p>
+    <hr>
+    <p>
+        她的姓名是：[[${student.name}]]
+    </p>
+
+    <hr>
+    <!--<script th:inline="javascript" type="text/javascript">-->
+        <!--alert([[${student.name}]]);-->
+    <!--</script>-->
+
+    <hr>
+    <div id="reddiv">
+        我的背景颜色为红色
+    </div>
+    <style>
+        #[[${elementId}]] {
+            width: 500px;
+            height: 100px;
+            background: [[${bgColor}]];
+        }
+    </style>
+
+    <hr>
+    Thymeleaf包含四种字面常量：文本、数字、布尔值，及null。<br>
+
+    <div>
+        我爱你，<span th:text="'中国'"></span>
+    </div>
+    <div>
+        3.14 + 6 = <span th:text="3.14+6"></span>
+    </div>
+    <div>
+        Thymeleaf中的布尔常量为：true、false及其大小写任意变化形式  <br>
+        <span th:if="${isClose} == false">欢迎光临</span>
+        <span th:if="${isClose == False}">欢迎光临2</span>
+    </div>
+    <div>
+        关于null值需要注意：<br>
+        1)若对象未定义，则其值为null <br>
+        2)若对象定义了，但其值被指定为null，则值为null <br>
+        3)若集合已经被定义（不为null），但其长度为0，此时的集合是不为null的<br>
+        school：<span th:if="${school} == null">对象值为null</span> <br>
+        cities：<span th:if="${cities} != null">集合不为空</span> <br>
+        country：<span th:if="${country} == null">对象未定义</span> <br>
+    </div>
+
+    <hr>
+    <div th:text="|我的姓名是：${student.name}|"></div>
+
+    <hr>
+    req =<div th:text="${#request.getAttribute('req')}"></div>
+    ses = <div th:text="${#session.getAttribute('ses')}"></div>
+    app = <div th:text="${#servletContext.getAttribute('app')}"></div>
+    contextPath = <div th:text="${#request.getContextPath()}"></div>
+    name = <div th:text="${#request.getParameter('name')}"></div>
+
+    <hr>
+    <div th:text="${#aggregates.sum(nums)}"></div>
+    <hr>
+    <div th:text="${today}"></div>
+    <div th:text="${#dates.format(today, 'yyyy-MM-dd')}"></div>
+    <hr>
+    <div th:text="${#strings.substring(cardId, 6, 14)}"></div>
+
+</body>
+</html>

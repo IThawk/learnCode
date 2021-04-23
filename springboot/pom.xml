@@ -14,6 +14,7 @@
     <module>springboot-aop</module>
     <module>springboot-demo-orm-mybatis</module>
     <module>springboot-starter</module>
+    <module>springboot-ex</module>
 
 <!--    <module>spring-boot-demo-helloworld</module>-->
 <!--    <module>spring-boot-demo-properties</module>-->
