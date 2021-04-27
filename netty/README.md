@@ -1,3 +1,9 @@
+# I/O
+## 用户空间(User space)和内核空间(Kernel space)
+    Kernel space 是 Linux 内核的运行空间，User space 是用户程序的运行空间
+    Kernel space 可以执行任意命令，调用系统的一切资源；User space 只能执行简单的运算，不能直接调用系统资源，必须通过系统接口（又称 system call），才能向内核发出指令。通过系统接口，进程可以从用户空间切换到内核空间。
+### top 
+
 # netty 是一个高性能的成熟的NIO框架
 * netty-io： 各类IO编程的比较：
     * bio：同步阻塞io
