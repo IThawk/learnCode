@@ -78,55 +78,83 @@
     ⼀些⼯具类，基于它们可以写⼀些 sh ⼯具来管理、查看MQ系统的⼀些信息
 
 ### 代码总结：
-
+#### 获取启动参数代码：
+```xml
+        <dependency>
+            <groupId>commons-cli</groupId>
+            <artifactId>commons-cli</artifactId>
+            <version>1.4</version>
+        </dependency>
+```
 ```java
-import org.apache.commons.cli.Options;
+import org.apache.commons.cli.*;
 
-public class U {
+public class CommandLineUtil {
 
 
     //从启动命令中获取 启动参数。
-    public static Options buildCommandlineOptions(final Options options) {
-        Option opt = new Option("h", "help", false, "Print help");
+    public static CommandLine buildCommandlineOptions(final Options options, String[] args) {
+        //添加一个option hasArg:是否从启动中获取
+        Option opt = new Option("h", "help", true, "Print help");
         opt.setRequired(false);
         options.addOption(opt);
 
-        opt =
-                new Option("n", "namesrvAddr", true,
-                        "Name server address list, eg: 192.168.0.1:9876;192.168.0.2:9876");
+        opt = new Option("n", "name", true,
+                "Name ");
         opt.setRequired(false);
         options.addOption(opt);
+        CommandLineParser parser = new PosixParser();
+        CommandLine commandLine = null;
+        try {
+            commandLine = parser.parse(options, args);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return commandLine;
+    }
 
 
-        //加载配置文件中的数据
-        InputStream in = new BufferedInputStream(new FileInputStream(file));
-        Properties properties = new Properties();
-        properties.load(in);
-        return options;
+    public static void main(String[] args) {
+        Options options = new Options();
+        options.addOption(new Option("c", "help", true, "Print help"));
+        CommandLine commandLine = buildCommandlineOptions(options, args);
+        if (commandLine.hasOption('h')) {
+            String file = commandLine.getOptionValue('h');
+            System.out.println(file);
+        }
+
+
     }
 }
 
 ```
 
 ## 启动
+
 ### 启动NameServer
+
     org.apache.rocketmq.namesrv.NamesrvStartup main
     NameServer：整个消息系统的状态服务器，例如选举、同步等。NameServer 本身是⽆状态的，
     可以部署多个，相互之间没有数据交互。它主要⽤于管理 Broker 集群信息（提供⼼跳检查，检查是否
     有 Broker 下线） 和 Topic 路由信息（⽤于客户端查询）。
+
 ### 启动broker
 
     org.apache.rocketmq.broker.BrokerStartup.main
-    添加参数：
+    添加启动参数：
     读取配置文件位置：
     -c D:\workspace\language\Java\learnCode\mq\rocketmq-master\broker\src\main\resources\broker.conf
+
+    broker 启动netty org.apache.rocketmq.remoting.netty.NettyRemotingServer.start
 
 ### producer
 
     消息发送： org.apache.rocketmq.client.impl.producer.DefaultMQProducerImpl
 
 ### 消息存储
+
 #### ⽂件进⾏逐⼀介绍：
+
     1.commitlog: 消息存储⽬录；
     2.config: 运⾏期间⼀些配置信息，主要包括如下信息：
     2.1 consumerFilter.json : 主题消息过滤信息
@@ -140,7 +168,9 @@ public class U {
     除
     6.checkpoint : ⽂件检测点，存储commitlog⽂件最后⼀次刷盘时间戳、consumequeue最后⼀次
     刷盘时间、index索引⽂件最后⼀次刷盘时间戳。
+
 #### 整体步骤
+
     1. 要发送的消息，会按顺序写⼊commitlog中，这⾥所有topic和queue共享⼀个⽂件
     2. 存⼊commitlog后，由于消息会按照topic维度来消费，会异步构建consumeQueue（逻辑队列）
        和index（索引⽂件），consumeQueue存储消息的commitlogOffset、messageSize、

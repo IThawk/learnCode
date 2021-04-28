@@ -1,10 +1,9 @@
-//package com.ithawk.demo.elaticsearch.springboot.controller;
+//package com.ithawk.demo.elasticsearch.springboot.controller;
 //
 //
-//import com.atguigu.gulimall.search.pojo.Car;
-//import com.atguigu.gulimall.search.pojo.es.GeoBoundingBoxEntity;
-//import com.atguigu.gulimall.search.utils.IMOOCJSONResult;
-//import com.atguigu.gulimall.search.utils.JsonUtils;
+//import com.ithawk.demo.elasticsearch.springboot.pojo.Car;
+//import com.ithawk.demo.elasticsearch.springboot.utils.IMOOCJSONResult;
+//import com.ithawk.demo.elasticsearch.springboot.utils.JsonUtils;
 //import org.elasticsearch.common.geo.GeoPoint;
 //import org.elasticsearch.common.unit.DistanceUnit;
 //import org.elasticsearch.index.query.*;

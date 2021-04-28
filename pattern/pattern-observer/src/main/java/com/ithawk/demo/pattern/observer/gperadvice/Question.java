@@ -1,7 +1,7 @@
 package com.ithawk.demo.pattern.observer.gperadvice;
 
 /**
- *
+ * 监听事件信息
  */
 public class Question {
 

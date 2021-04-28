@@ -1,0 +1,35 @@
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: 123456
+    driver-class-name: org.postgresql.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+    initialization-mode: always
+    continue-on-error: true
+    schema:
+    - "classpath:db/schema.sql"
+    data:
+    - "classpath:db/data.sql"
+    hikari:
+      minimum-idle: 5
+#      connection-test-query: SELECT 1 FROM ORM_USER
+      maximum-pool-size: 20
+      auto-commit: true
+      idle-timeout: 30000
+      pool-name: SpringBootDemoHikariCP
+      max-lifetime: 60000
+      connection-timeout: 30000
+logging:
+  level:
+    com.xkcoding: debug
+    com.xkcoding.orm.mybatis.mapper: trace
+mybatis:
+  configuration:
+    # 下划线转驼峰
+    map-underscore-to-camel-case: true
+  mapper-locations: classpath:mappers/*.xml
+  type-aliases-package: com.xkcoding.orm.mybatis.entity
+server:
+  port: 9099

@@ -1,7 +1,7 @@
 package com.ithawk.demo.pattern.adapter.poweradapter;
 
 /**
- * Created by Tom on 2019/3/16.
+ *
  */
 public class PowerAdapterTest {
     public static void main(String[] args) {

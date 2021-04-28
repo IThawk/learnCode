@@ -23,7 +23,8 @@ public class RpcRegistry {
     public RpcRegistry(int port){  
         this.port = port;  
     }  
-    public void start(){  
+    public void start(){
+        // 开启两个线程
         EventLoopGroup bossGroup = new NioEventLoopGroup();  
         EventLoopGroup workerGroup = new NioEventLoopGroup();  
           
@@ -55,7 +56,8 @@ public class RpcRegistry {
                         }  
                     })
                     .option(ChannelOption.SO_BACKLOG, 128)       
-                    .childOption(ChannelOption.SO_KEEPALIVE, true);  
+                    .childOption(ChannelOption.SO_KEEPALIVE, true);
+            //绑定端口地址
             ChannelFuture future = b.bind(port).sync();      
             System.out.println(" RPC Registry start listen at " + port );
             future.channel().closeFuture().sync();    

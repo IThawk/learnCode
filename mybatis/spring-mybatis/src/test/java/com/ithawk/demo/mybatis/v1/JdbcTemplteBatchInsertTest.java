@@ -1,8 +1,10 @@
 package com.ithawk.demo.mybatis.v1;
 
 import com.ithawk.demo.mybatis.v1.crud.bean.Employee;
+import com.ithawk.demo.mybatis.v1.crud.service.DepartmentService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -15,9 +17,7 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * @Author: qingshan
- * @Date: 2018/11/9 17:31
- * @Description: 咕泡学院，只为更好的你
+ *
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:applicationContext.xml"})
@@ -25,11 +25,26 @@ public class JdbcTemplteBatchInsertTest {
 
     @Autowired
     JdbcTemplate jdbcTemplate;
+    @Autowired
+    DepartmentService departmentService;
+    @Autowired
+    SqlSessionTemplate sqlSessionTemplate;
 
     List<Employee> list;
 
     private static final int USER_COUNT = 100000; // 数量过大可能导致内存溢出，多运行几次
 
+    @Test
+    public void testGetDeptsBysql() {
+        departmentService.getDeptsBysql();
+
+    }
+
+    @Test
+    public void testInsertDeptsBysql() {
+        departmentService.insertDeptsBysql();
+
+    }
     @Test
     public void testBatchInsert() {
         long start = System.currentTimeMillis();

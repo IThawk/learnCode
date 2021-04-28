@@ -1,0 +1,41 @@
+server:
+  servlet:
+    context-path: /xxx
+
+mybatis:
+  # 注册映射文件
+  mapper-locations: classpath:/mapper/*.xml
+  # 注册实体类别名
+  type-aliases-package: com.ithawk.demo.springboot.ex.bean
+
+# 注册数据源
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://192.168.56.101:3306/test?useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: 123456
+
+  redis:
+    # 配置单机版Redis
+    host: 192.168.56.101
+    port: 6379
+    # 配置Redis高可用集群
+    # sentinel:
+    # master: mymaster
+    # nodes: sentinelOS1:26379,sentinelOS2:26379,sentinelOS3:26379
+
+  cache:
+    type: redis                 # 指定缓存类型
+    cache-names: realTimeCache  # 指定缓存空间名称，随意
+
+# 配置logback日志控制
+logging:
+  pattern:
+    # 指定日志在控制台显示的格式
+    console: level-%-5level - %msg%n
+
+  # 设置日志显示级别
+  level:
+    com.abc.dao: debug   # 指定包中代码运行的日志级别

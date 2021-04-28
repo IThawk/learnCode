@@ -5,7 +5,6 @@ import java.io.*;
 import java.util.Date;
 
 /**
- * Created by Tom.
  */
 public class QiTianDaSheng extends Monkey implements Cloneable,Serializable {
 
@@ -23,6 +22,10 @@ public class QiTianDaSheng extends Monkey implements Cloneable,Serializable {
     }
 
 
+    /**
+     * 深克隆
+     * @return
+     */
     public Object deepClone(){
         try{
 

@@ -10,6 +10,10 @@ import org.apache.rocketmq.remoting.common.RemotingHelper;
 
 import java.util.List;
 
+/**
+ * 顺序发送消息
+ *      原理将同一类消息发送到同一个broker中
+ */
 public class OrderedProducer {
     public static void main(String[] args) throws Exception {
         //Instantiate with a producer group name.

@@ -1,7 +1,6 @@
-package com.ithawk.demo.elaticsearch.springboot.controller;
+package com.ithawk.demo.elasticsearch.springboot.controller;
 
-
-
+import com.alibaba.fastjson.JSON;
 import com.ithawk.demo.elasticsearch.springboot.pojo.Stu;
 import com.ithawk.demo.elasticsearch.springboot.utils.JsonUtils;
 import org.elasticsearch.index.query.QueryBuilders;
@@ -21,6 +20,7 @@ import org.springframework.data.elasticsearch.core.document.Document;
 import org.springframework.data.elasticsearch.core.mapping.IndexCoordinates;
 import org.springframework.data.elasticsearch.core.query.*;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.*;
@@ -93,10 +93,14 @@ public class HelloController {
 
     /**
      * 查询文档数据
+     * http://localhost:18090/getDoc?docId=10010
      */
     @RequestMapping("getDoc")
-    public Object getDoc(String docId) {
-        return esTemplate.get(docId, Stu.class);
+    public Object getDoc(@RequestParam("docId") String docId) {
+
+        Object o = esTemplate.get(docId, Stu.class);
+        System.out.println(JSON.toJSONString(o));
+        return o;
     }
 
     /**
@@ -112,9 +116,9 @@ public class HelloController {
         Document doc = Document.from(map);
 
         UpdateQuery updateQuery = UpdateQuery
-                                .builder("10012")
-                                .withDocument(doc)
-                                .build();
+                .builder("10012")
+                .withDocument(doc)
+                .build();
 
         IndexCoordinates indexCoordinates = IndexCoordinates.of("stu");
         esTemplate.update(updateQuery, indexCoordinates);
@@ -158,11 +162,13 @@ public class HelloController {
      */
     @RequestMapping("searchStu")
     public Object searchStu(String name) {
+        //分页查询数据
         Pageable pageable = PageRequest.of(0, 10);
-
+        //排序
         SortBuilder sortBuilder = new FieldSortBuilder("money")
                 .order(SortOrder.DESC);
 
+        //搜索添加
         NativeSearchQuery query = new NativeSearchQueryBuilder()
                 .withQuery(QueryBuilders.matchQuery("name", name))
                 .withPageable(pageable)
@@ -196,7 +202,7 @@ public class HelloController {
 
             String originalJson = JsonUtils.objectToJson(h.getContent());
             JsonParser jj = new GsonJsonParser();
-            Map<String, Object>  myHighLight = jj.parseMap(originalJson);
+            Map<String, Object> myHighLight = jj.parseMap(originalJson);
             // 用高亮的搜索结果覆盖原字段值
             myHighLight.put("name", nameValue);
             System.out.println(myHighLight);

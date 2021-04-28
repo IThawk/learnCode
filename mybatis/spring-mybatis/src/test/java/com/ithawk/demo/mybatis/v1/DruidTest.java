@@ -3,9 +3,7 @@ package com.ithawk.demo.mybatis.v1;
 import com.alibaba.druid.filter.config.ConfigTools;
 
 /**
- * @Author: qingshan
- * @Date: 2019/3/14 20:08
- * @Description: 咕泡学院，只为更好的你
+ *
  */
 public class DruidTest {
     public static void main(String[] args) throws Exception {

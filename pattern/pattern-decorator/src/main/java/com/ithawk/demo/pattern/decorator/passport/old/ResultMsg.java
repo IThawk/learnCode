@@ -1,7 +1,6 @@
 package com.ithawk.demo.pattern.decorator.passport.old;
 
 /**
- * Created by Tom.
  */
 public class ResultMsg {
 

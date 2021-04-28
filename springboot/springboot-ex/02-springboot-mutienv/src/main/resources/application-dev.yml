@@ -1,0 +1,5 @@
+# 配置生产环境下当前应用的端口号与上下文路径
+server:
+  port: 9999
+  servlet:
+    context-path: /ddd

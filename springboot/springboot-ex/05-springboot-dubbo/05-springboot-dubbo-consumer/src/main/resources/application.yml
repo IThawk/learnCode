@@ -1,0 +1,6 @@
+# 注册数据源
+spring:
+  application:
+    name: 05-springboot-dubbo-consumer
+  dubbo:
+    registry: zookeeper://192.168.56.101:2181

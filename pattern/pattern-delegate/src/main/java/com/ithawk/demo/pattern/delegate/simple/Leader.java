@@ -8,6 +8,7 @@ import java.util.Map;
  */
 public class Leader implements IEmployee {
 
+    //初始化委派的人员
     private Map<String,IEmployee> targets = new HashMap<String,IEmployee>();
 
     public Leader() {

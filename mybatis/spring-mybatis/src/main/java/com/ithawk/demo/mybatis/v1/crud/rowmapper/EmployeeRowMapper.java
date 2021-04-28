@@ -7,9 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * @Author: qingshan
- * @Date: 2019/3/31 15:50
- * @Description: 咕泡学院，只为更好的你
  * 实现RowMapper接口
  */
 public class EmployeeRowMapper implements RowMapper {

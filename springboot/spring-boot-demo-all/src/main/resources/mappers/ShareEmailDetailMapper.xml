@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ithawk.learn.springboot.mapper.ShareEmailDetailMapper">
+  <resultMap id="BaseResultMap" type="com.ithawk.learn.springboot.entity.ShareEmailDetail">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="create_time" jdbcType="DATE" property="createTime" />
+    <result column="email_data" jdbcType="VARCHAR" property="emailData" />
+    <result column="receivers" jdbcType="VARCHAR" property="receivers" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="subject" jdbcType="VARCHAR" property="subject" />
+    <result column="status" jdbcType="SMALLINT" property="status" />
+    <result column="last_update_time" jdbcType="DATE" property="lastUpdateTime" />
+    <result column="send_type" jdbcType="VARCHAR" property="sendType" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, creator, create_time, email_data, receivers, content, subject, status, 
+    last_update_time, send_type
+  </sql>
+  <insert id="insertSelective" parameterType="com.ithawk.learn.springboot.entity.ShareEmailDetail">
+    insert into share_email_detail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="creator != null">
+        creator,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="emailData != null">
+        email_data,
+      </if>
+      <if test="receivers != null">
+        receivers,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="subject != null">
+        subject,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="lastUpdateTime != null">
+        last_update_time,
+      </if>
+      <if test="sendType != null">
+        send_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=DATE},
+      </if>
+      <if test="emailData != null">
+        #{emailData,jdbcType=VARCHAR},
+      </if>
+      <if test="receivers != null">
+        #{receivers,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="subject != null">
+        #{subject,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=SMALLINT},
+      </if>
+      <if test="lastUpdateTime != null">
+        #{lastUpdateTime,jdbcType=DATE},
+      </if>
+      <if test="sendType != null">
+        #{sendType,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ithawk.learn.springboot.entity.ShareEmailDetail">
+    update share_email_detail
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null">
+        creator = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=DATE},
+      </if>
+      <if test="emailData != null">
+        email_data = #{emailData,jdbcType=VARCHAR},
+      </if>
+      <if test="receivers != null">
+        receivers = #{receivers,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="subject != null">
+        subject = #{subject,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=SMALLINT},
+      </if>
+      <if test="lastUpdateTime != null">
+        last_update_time = #{lastUpdateTime,jdbcType=DATE},
+      </if>
+      <if test="sendType != null">
+        send_type = #{sendType,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>index</title>
+</head>
+<script type="text/javascript">
+
+    // 当前页面一打开就会执行的代码
+    var socket;
+
+    if(window.WebSocket) {
+        // 创建一个WebSocket连接
+        socket = new WebSocket("ws://localhost:8888/some");
+
+        // 当与服务端的ws连接创建成功后会触发onopen的执行
+        socket.onopen = function (ev) {
+            // 在右侧文本域中显示连接建立提示
+            var ta = document.getElementById("responseText");
+            ta.value = "连接已建立";
+        }
+
+        // 当接收到服务端发送的消息时会触发onmessage的执行
+        socket.onmessage = function (ev) {
+            // 将服务端发送来的消息在右侧文本域中显示，在原有内容基础上进行拼接
+            var ta = document.getElementById("responseText");
+            ta.value = ta.value + "\n" + ev.data;
+        }
+
+        // 当与服务端的ws连接断开时会触发onclose的执行
+        socket.onclose = function (ev) {
+            // 将连接关闭消息在右侧文本域中显示，在原有内容基础上进行拼接
+            var ta = document.getElementById("responseText");
+            ta.value = ta.value + "\n连接已关闭";
+        }
+    } else {
+        alert("浏览器不支持WebSocket");
+    }
+
+    // 定义发送按钮的发送方法
+    function send(msg) {
+        // 若当前浏览器不支持WebSocket，则直接结束
+        if(!window.WebSocket) return;
+
+        // 若ws连接已打开，则向服务器发送消息
+        if(socket.readyState == WebSocket.OPEN) {
+            // 通过ws连接向服务器发送消息
+            socket.send(msg);
+        }
+    }
+</script>
+<body>
+    <form>
+        <textarea id="message" style="width: 150px; height: 150px"></textarea>
+        <input type="button" value="发送" onclick="send(this.form.message.value)">
+        <textarea id="responseText" style="width: 150px; height: 150px"></textarea>
+    </form>
+</body>
+</html>

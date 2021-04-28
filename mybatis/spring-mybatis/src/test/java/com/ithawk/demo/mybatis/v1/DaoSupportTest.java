@@ -8,9 +8,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
- * @Author: qingshan
- * @Date: 2019/3/9 15:04
- * @Description:
+ *
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:applicationContext.xml"})
@@ -22,5 +20,8 @@ public class DaoSupportTest {
     public void EmployeeDaoSupportTest() {
         System.out.println(employeeDao.selectByPrimaryKey(1));
     }
+
+
+
 
 }

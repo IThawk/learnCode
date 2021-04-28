@@ -1,7 +1,6 @@
 package com.ithawk.demo.pattern.delegate.simple;
 
 /**
- * Created by Tom.
  */
 public class EmployeeA implements IEmployee {
     @Override

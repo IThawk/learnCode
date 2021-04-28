@@ -8,7 +8,7 @@ import java.util.Observable;
  */
 public class GPer extends Observable{
 
-    private String name = "GPer生态圈";
+    private String name = "被观察生态圈";
     private static GPer gper = null;
     private GPer(){}
 

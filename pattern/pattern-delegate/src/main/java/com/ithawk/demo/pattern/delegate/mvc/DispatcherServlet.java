@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 相当于是项目经理的角色
  *
  */
 public class DispatcherServlet extends HttpServlet{

@@ -1,0 +1,8 @@
+server:
+  port: 8088
+spring:
+  application:
+    name: springboot2_elasticjob
+regCenter:
+  serverList: 192.168.101.33:2181
+  namespace: springboot2_elasticjob

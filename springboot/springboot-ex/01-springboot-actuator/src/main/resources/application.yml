@@ -1,0 +1,28 @@
+server:
+  port: 9999
+  servlet:
+    context-path: /xxx
+# 自定义info信息
+info:
+  author:
+    name: 张三
+    age: 23
+  company:
+    name: 中国海洋xxx公司
+    address: http://www.xxx.com
+  app:
+    group-id: @project.groupId@
+    artifact-id: @project.artifactId@
+    version: @project.version@
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"   # 开启所有监控终端
+        #exclude: env,info # 排除
+      base-path: /base   # 指定监控器的基本路径，一般不改，均采用默认路径/actuator
+  server:
+    port: 7777   # 指定监控器的端口号
+    servlet:
+      context-path: /ooo  # 指定监控器的上下文路径

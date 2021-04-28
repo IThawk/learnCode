@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://wwww.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>index</title>
+</head>
+<body>
+
+    <!--页面中的非杠路径的参照路径是请求路径的资源路径
+        当前请求路径  http://localhost:8080/xxx/test/index
+        资源路径：http://localhost:8080/xxx/test
+        资源名称：index
+
+        当前表单提交的路径为test/register是一个非杠路径，
+        其参照路径为http://localhost:8080/xxx/test，
+        故，其所形成的绝对路径是http://localhost:8080/xxx/test/test/register
+    -->
+
+    <form action="test/register" method="post">
+        姓名:<input type="text" name="name"> <br>
+        年龄:<input type="text" name="age"> <br>
+        <input type="submit" value="注册"> <br>
+    </form>
+
+    <hr>
+    <form action="test/find" method="get">
+        id:<input type="text" name="id"> <br>
+        <input type="submit" value="查询"> <br>
+    </form>
+
+
+    <!--这是一个前台路径，前台路径的参照路径是  当前web服务器的根   http://localhost:8080
+        根据  绝对路径 = 参照路径 + 相对路径
+        路径解析器解析的绝对路径   http://localhost:8080/test/count
+        这个绝对路径是一个  资源请求路径
+        其请求的资源定义路径为   http://localhost:8080/xxx/test/count
+        很明显  这个资源请求路径   不等于  资源定义路径
+        故，该请求访问不到指定资源
+    -->
+    <hr>
+    <a href="/test/count">查询学生总数1</a>
+
+    <!--这是一个非杠路径，非杠路径的参照路径是  当前请求路径的资源路径  http://localhost:8080/xxx/test
+        根据  绝对路径 = 参照路径 + 相对路径
+        路径解析器解析的绝对路径   http://localhost:8080/xxx/test/test/count
+        这个绝对路径是一个  资源请求路径
+        其请求的资源定义路径为   http://localhost:8080/xxx/test/count
+        很明显  这个资源请求路径   不等于  资源定义路径
+        故，该请求访问不到指定资源
+    -->
+    <hr>
+    <a href="test/count">查询学生总数2</a>
+
+    <hr>
+    <a th:href="|${#request.getContextPath()}/test/count|">查询学生总数3</a>
+</body>
+</html>

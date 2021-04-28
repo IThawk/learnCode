@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+  <!-- 导入配置文件 -->
+  <properties resource="db/db.properties"/>
+
+<!--  <classPathEntry location="E:\mavenCenter\org\postgresql\postgresql\42.1.1\postgresql-42.1.1.jar"/>-->
+  <!-- defaultModelType="flat" 设置复合主键时不单独为主键创建实体
+   id : 随便填，保证多个 context id 不重复就行
+  defaultModelType ： 可以不填，默认值 conditional，flat表示一张表对应一个po
+  targetRuntime ：可以不填，默认值 MyBatis3，常用的还有 MyBatis3Simple，这个配置会影响生成的 dao 和 mapper.xml的内容
+  -->
+
+  <context id="MySql" targetRuntime="MyBatis3" defaultModelType="flat">
+
+    <!-- 生成的POJO实现java.io.Serializable接口 -->
+    <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
+
+    <!--注释-->
+    <commentGenerator>
+      <!-- 将数据库中表的字段描述信息添加到注释 -->
+      <property name="addRemarkComments" value="true"/>
+      <!-- 注释里不添加日期 -->
+      <property name="suppressDate" value="true"/>
+      <!-- 是否不生成注释 -->
+      <property name="suppressAllComments" value="true"/>
+    </commentGenerator>
+    <!-- 数据库连接，直接通过${}读取application.properties里的配置 -->
+    <jdbcConnection
+      driverClass="${spring.datasource.driver-class-name}"
+      connectionURL="${spring.datasource.url}"
+      userId="${spring.datasource.username}"
+      password="${spring.datasource.password}"/>
+    <!--    <jdbcConnection driverClass="org.postgresql.Driver"-->
+    <!--                    connectionURL="jdbc:postgresql://127.0.0.1:5432/postgres"-->
+    <!--                    userId="postgres"-->
+    <!--                    password="123456"/>-->
+
+    <!-- java类型处理器
+      用于处理DB中的类型到Java中的类型，默认使用JavaTypeResolverDefaultImpl；
+      注意一点，默认会先尝试使用Integer，Long，Short等来对应DECIMAL和 NUMERIC数据类型；
+       -->
+    <javaTypeResolver>
+      <property name="forceBigDecimals" value="false"/>
+    </javaTypeResolver>
+    <!-- 生成POJO对象，并将类放到com.songguoliang.springboot.entity包下 -->
+    <javaModelGenerator targetPackage="com.ithawk.learn.springboot.entity" targetProject="src/main/java">
+      <property name="enableSubPackages" value="false"/>
+      <property name="trimStrings" value="true"/>
+    </javaModelGenerator>
+
+    <!-- 生成SQL map的XML文件生成器，
+             注意，在Mybatis3之后，我们可以使用mapper.xml文件+Mapper接口（或者不用mapper接口），
+                 或者只使用Mapper接口+Annotation，所以，如果 javaClientGenerator配置中配置了需要生成XML的话，这个元素就必须配置
+             targetPackage/targetProject:同javaModelGenerator
+          -->
+    <!-- 生成mapper xml文件，并放到resources下的mappers文件夹下 -->
+    <sqlMapGenerator targetPackage="mappers" targetProject="src/main/resources">
+      <!--<property name="enableSubPackages" value="false"/>-->
+    </sqlMapGenerator>
+    <!--    1，ANNOTATEDMAPPER：会生成使用Mapper接口+Annotation的方式创建（SQL生成在annotation中），不会生成对应的XML；-->
+    <!--    2，MIXEDMAPPER：使用混合配置，会生成Mapper接口，并适当添加合适的Annotation，但是XML会生成在XML中；-->
+    <!--    3，XMLMAPPER：会生成Mapper接口，接口完全依赖XML；-->
+    <!-- 生成mapper xml对应dao接口，放到com.ithawk.learn.springboot.mapper包下-->
+    <javaClientGenerator targetPackage="com.ithawk.learn.springboot.mapper"
+                         targetProject="src/main/java"
+                         type="MIXEDMAPPER">
+
+    </javaClientGenerator>
+
+    <!-- table标签可以有多个，至少一个，tableName指定表名，可以使用_和%通配符 -->
+    <table tableName="share_email_detail" enableCountByExample="false" enableDeleteByExample="false"
+           enableSelectByExample="false" enableUpdateByExample="false">
+      <!-- 是否只生成POJO对象 -->
+      <property name="modelOnly" value="false"/>
+      <!-- 数据库中表名有时我们都会带个前缀，而实体又不想带前缀，这个配置可以把实体的前缀去掉 -->
+      <domainObjectRenamingRule searchString="^Tbl" replaceString=""/>
+    </table>
+  </context>
+</generatorConfiguration>

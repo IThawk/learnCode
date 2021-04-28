@@ -9,6 +9,7 @@ import java.util.List;
 @Mapper
 @Component
 public interface OrmUserMapper {
+
     int deleteByPrimaryKey(Integer id);
 
     int insert(OrmUser record);

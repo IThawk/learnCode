@@ -1,0 +1,21 @@
+spring:
+  profiles:
+    active: dev    # 选择执行开发环境
+
+---
+# 配置开发环境下当前应用的端口号与上下文路径
+spring:
+  profiles: dev
+server:
+  port: 7777
+  servlet:
+    context-path: /ddd
+
+---
+# 配置生产环境下当前应用的端口号与上下文路径
+spring:
+  profiles: pro
+server:
+  port: 9999
+  servlet:
+    context-path: /ppp
