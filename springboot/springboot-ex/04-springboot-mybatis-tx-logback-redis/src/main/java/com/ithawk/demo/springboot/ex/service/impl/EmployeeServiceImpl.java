@@ -23,10 +23,15 @@ public class EmployeeServiceImpl implements EmployeeService {
     private RedisTemplate<Object, Object> redisTemplate;
 
     @CacheEvict(value = "realTimeCache", allEntries = true)
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional()
     @Override
     public void addEmployee(Employee employee) throws Exception {
+
         dao.insertEmployee(employee);
+        //睡眠时间较长导致连接关闭        # 设置druid超时连接关闭
+        //         remove-abandoned: true
+        //         remove-abandoned-timeout-millis: 30000
+        Thread.sleep(90000);
 //        if (true) {
 //            throw new Exception("发生受查异常");
 //        }

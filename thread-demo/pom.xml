@@ -12,6 +12,10 @@
     <name>thread-demo</name>
 
     <dependencies>
-        <!-- spring framework start -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>RELEASE</version>
+        </dependency>
     </dependencies>
 </project>
