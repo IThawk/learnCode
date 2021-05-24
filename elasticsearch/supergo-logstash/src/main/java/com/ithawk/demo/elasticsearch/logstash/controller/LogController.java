@@ -1,4 +1,4 @@
-package com.supergo.controller;
+package com.ithawk.demo.elasticsearch.logstash.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

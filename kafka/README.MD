@@ -8,7 +8,7 @@
     
     
     docker pull docker.io/sheepkiller/kafka-manager
-    docker run -d --name kafamanager -p 19092:9000 -e ZK_HOSTS=192.168.56.101:2181  sheepkiller/kafka-manager
+    docker run -d --name kafkamanager -p 19092:9000 -e ZK_HOSTS=192.168.56.101:2181  sheepkiller/kafka-manager
 ### 管理面地址：
     http://192.168.56.101:19092/
 ## kafka 知识点
