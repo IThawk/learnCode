@@ -1,0 +1,17 @@
+spring:
+  cloud:
+    config:
+      uri: http://localhost:9999
+      label: master
+      name: application-consumer-config
+      profile: dev
+  # 指定要连接的kafka集群
+  kafka:
+    bootstrap-servers: kafkaOS1:9092,kafkaOS2:9092,kafkaOS3:9092
+
+# 开启actuator的bus-refresh监控终端
+management:
+  endpoints:
+    web:
+      exposure:
+        include: bus-refresh

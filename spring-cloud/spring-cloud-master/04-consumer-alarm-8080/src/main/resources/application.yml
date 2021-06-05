@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: abcmsc-consumer-depart
+
+  # 连接Redis服务器
+  redis:
+    host: redis5OS
+    port: 6379
+    password: 111
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8000/eureka
+

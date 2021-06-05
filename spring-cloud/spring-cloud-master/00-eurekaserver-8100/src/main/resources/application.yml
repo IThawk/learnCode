@@ -1,0 +1,11 @@
+server:
+  port: 8100
+
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    service-url:
+      defaultZone: http://eureka8100.com:8100/eureka,http://eureka8200.com:8200/eureka,http://eureka8300.com:8300/eureka
+  instance:
+    hostname: eureka8100.com

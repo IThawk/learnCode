@@ -1,0 +1,20 @@
+server:
+  port: 7777
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8000/eureka
+spring:
+  application:
+    name: hystrix-turbine
+
+# 配置turbine
+turbine:
+  # 指定要监控的微服务名称
+  app-config: consumer-8380,consumer-8480,consumer-8580,consumer-8680
+  aggregator:
+    # 指定要监控的微服务组
+    cluster-config: group1,group2
+  # 指定要监控抽微服务组名称来自于Eureka元数据cluster
+  cluster-name-expression: metadata['cluster']

@@ -1,0 +1,32 @@
+server:
+  port: 9000
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8000/eureka
+
+spring:
+  application:
+    name: abcmsc-zuul-depart
+
+zuul:
+  routes:
+    # 指定微服务的路由规则
+    # *为通配符
+    # /** 可以匹配0到多级路径
+    # /* 只能匹配一级路径
+    # /? 只能匹配一级路径，且路径只能包含一个字符
+    abcmsc-consumer-depart-8080: /abc8080/**
+    abcmsc-consumer-depart-8090: /abc8090/**
+    abcmsc-consumer-depart: /abc123/**
+  # 屏蔽指定微服务名称
+  # ignored-services: abcmsc-consumer-depart-8080
+  #屏蔽所有微服务名称
+  ignored-services: "*"
+  # 指定统一的前辍
+  prefix: /abc
+  # 屏蔽指定的URI
+  ignored-patterns: /**/list/**
+  # 屏蔽掉指定的敏感头信息，其会将原来默认的Cookie、SetCookie、Authorization敏感头信息放开
+  sensitive-headers: token

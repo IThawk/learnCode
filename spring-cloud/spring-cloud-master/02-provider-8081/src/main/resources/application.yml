@@ -1,0 +1,86 @@
+server:
+  port: 8081
+
+spring:
+  # 配置spring data jpa
+  jpa:
+    # 指定是否在spring容器启动时创建表，默认false
+    generate-ddl: true
+    # 指定在控制台是否显示SQL语句，默认false
+    show-sql: true
+    # 指定应用重启后不重新更新表内容
+    hibernate:
+      ddl-auto: none
+  # 配置数据源
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql:///test?useUnicode=true&amp;characterEncoding=utf8
+    username: root
+    password: 111
+
+  # 指定当前微服务名称
+  application:
+    name: abcmsc-provider-depart
+
+# 配置日志
+#logging:
+#  pattern:
+#    console: level-%level %msg%n
+#
+#  level:
+#    root: info
+#    org.hibernate: info
+#    # 在show-sql为true时显示SQL中的动态参数值
+#    org.hibernate.type.descriptor.sql.BasicBinder: trace
+#    # 在show-sql为true时显示查询结果
+#    org.hibernate.hql.internal.ast.exec.BasicExecutor: trace
+#    com.abc: debug
+
+eureka:
+  client:
+    service-url:
+      # 指定当前Client所要连接的eureka Server
+       defaultZone: http://localhost:8000/eureka
+#      defaultZone: http://eureka8100.com:8100/eureka,http://eureka8200.com:8200/eureka,http://eureka8300.com:8300/eureka
+  instance:
+    instance-id: abcmsc-provider-8081
+    # 设置当前Client每1秒向Server发送一次心跳，单位秒
+    lease-renewal-interval-in-seconds: 1
+    # 指定让Server认定当前Client已经失效的时间，将来可以从注册表中剔除了，单位秒
+    lease-expiration-duration-in-seconds: 3
+
+
+info:
+  version: 1.0
+  app.auth: Reythor
+  app.name: abcmsc
+  company.name: www.kaikeba.com
+  company.addr: 北京后厂
+
+
+# region与zone的关系是1:n
+# zone与eureka的关系是1:n
+#eureka:
+#  client:
+#    # 指定区域名称
+#    region: xxx
+#    # 指定区域中所包含的地带zone
+#    availability-zones:
+#      xxx: kkb1, kkb2
+#    # 指定各个地带zone中所包含的eureka server地址
+#    service-url:
+#      kkb1: http://localhost:8000/eureka
+#      kkb2: http://localhost:8000/eureka
+#    # 指定要连接的注册中心所在区域
+#    fetch-remote-regions-registry: xxx
+management:
+  # 开启所有监控终端
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  # 开启shutdown监控终端
+  endpoint:
+    shutdown:
+      enabled: true

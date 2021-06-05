@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: abcmsc-consumer-depart
+
+  cloud:
+    stream:
+      kafka:
+        binder:
+          # 指定要连接的kafka集群
+          brokers: kafkaOS1:9092,kafkaOS2:9092,kafkaOS3:9092
+          # 指定是否自动创建主题
+          auto-create-topics: true
+      bindings:
+        # 指定要绑定的输出管道，及要输出到单管道中的消息主题及类型
+        output:
+          destination: names
+          content-type: text/plain
+
+        xxx:
+          destination: cities
+          content-type: text/plain
+
+        # 指定要绑定的输入管道，及要消费的管道中的消息主题
+        input:
+          destination: names
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8000/eureka

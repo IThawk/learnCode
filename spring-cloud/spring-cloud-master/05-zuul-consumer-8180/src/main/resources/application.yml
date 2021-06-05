@@ -1,0 +1,15 @@
+server:
+  port: 8180
+
+spring:
+  application:
+    name: abcmsc-consumer-depart
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8000/eureka
+
+  instance:
+    metadata-map:
+      host-mark: running-host

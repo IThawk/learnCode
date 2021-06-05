@@ -1,0 +1,49 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: consumer-depart
+
+  # 指定zipkin服务器地址
+  zipkin:
+    base-url: http://192.168.56.101:9411/
+
+  # 设置采样比例为1.0，即全部都需要，默认0.1
+  sleuth:
+    sampler:
+      probability: 1.0
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8000/eureka
+  instance:
+    metadata-map:
+      host-mark: running-host
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000   # 指定Feign客户端连接提供者的超时时限
+        readTimeout: 5000      # 指定Feign客户端连接上提供者后，向提供者进行提交请求，从提交时刻开始，到接收到响应，这个时段的超时时限
+
+  # 开启Feign对Hystrix的支持
+  hystrix:
+    enabled: true
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 3000
+
+# 开启actuator的hystrix.stream监控终端
+management:
+  endpoints:
+    web:
+      exposure:
+        include: hystrix.stream
+

@@ -1,0 +1,35 @@
+server:
+  port: 8081
+
+spring:
+  jpa:
+    generate-ddl: true
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://192.168.56.101:3306/test
+    username: root
+    password: 123456
+
+  application:
+    name: provider-depart
+
+  # 指定zipkin服务器地址
+  zipkin:
+    base-url: http://192.168.56.101:9411/
+
+  # 设置采样比例为1.0，即全部都需要，默认0.1
+  sleuth:
+    sampler:
+      probability: 1.0
+
+eureka:
+  client:
+    service-url:
+       defaultZone: http://localhost:8000/eureka
+
+
+
