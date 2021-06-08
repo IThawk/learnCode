@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -54,6 +55,22 @@ public class MvcTest {
                 ) {
             System.out.println("ID: " + e.getdId() + "==>Name: " + e.getEmpName());
         }*/
+
+        System.out.println(result.getResponse().getContentAsString());
+
+    }
+
+
+    @Test
+    public void testPostPage() throws Exception {
+
+        String body = "{\"id\":\"jk\"}";
+        MvcResult result = mockMvc.perform(
+                MockMvcRequestBuilders.post("/emps").param("pn", "1")
+        .contentType(MediaType.APPLICATION_JSON)
+        .content(body))
+                .andReturn();
+
 
         System.out.println(result.getResponse().getContentAsString());
 

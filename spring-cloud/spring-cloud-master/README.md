@@ -9,10 +9,11 @@
 ##### 依赖
 ```xml
     <properties>
-        <java.version>1.8</java.version>
-        <spring-cloud.version>Hoxton.SR1</spring-cloud.version>
-        <spring-boot-revision>2.2.8.RELEASE</spring-boot-revision>
-    </properties>
+    <java.version>1.8</java.version>
+    <spring-cloud.version>Hoxton.SR11</spring-cloud.version>
+    <spring-boot-cloud.version>2.2.8.RELEASE</spring-boot-cloud.version>
+    <spring-boot-revision>2.3.2.RELEASE</spring-boot-revision>
+ </properties>
 
     <dependencies>
 
@@ -47,7 +48,11 @@
             <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
             <version>${spring-boot-revision}</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <version>${spring-boot-revision}</version>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -107,6 +112,7 @@ eureka:
 ```
 #### 查看管理面
     http://127.0.0.1:8000/
+
 #### 集群版本
 #### 配置
 ```yaml
@@ -122,6 +128,147 @@ eureka:
   instance:
     hostname: eureka8100.com
 ```
+
+### 原理、代码解析
+#### 代码分析入口
+    @EnableEurekaServer   // 开启Eureka服务
+* 找到jar包：
+* META-INF/spring.factories: 
+  * org.springframework.cloud.netflix.eureka.server.EurekaServerAutoConfiguration
+    * org.springframework.cloud.netflix.eureka.server.EurekaServerAutoConfiguration.eurekaServerBootstrap
+    * org.springframework.cloud.netflix.eureka.server.EurekaServerAutoConfiguration.peerAwareInstanceRegistry
+    * org.springframework.cloud.netflix.eureka.server.InstanceRegistry
+## zuul网关
+### 代码 cloud-zuul-7000
+#### maven依赖
+```xml
+<properties>
+        <java.version>1.8</java.version>
+        <spring-cloud.version>Hoxton.SR11</spring-cloud.version>
+        <spring-boot-cloud.version>2.2.8.RELEASE</spring-boot-cloud.version>
+        <spring-boot-revision>2.3.2.RELEASE</spring-boot-revision>
+    </properties>
+
+    <dependencies>
+        <!--zuul依赖-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-zuul</artifactId>
+            <version>${spring-boot-cloud.version}</version>
+        </dependency>
+        <!--actuator依赖-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+            <version>${spring-boot-revision}</version>
+        </dependency>
+
+        <!--eureka客户端依赖-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+            <version>${spring-boot-cloud.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <version>${spring-boot-revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <version>${spring-boot-revision}</version>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.junit.vintage</groupId>
+                    <artifactId>junit-vintage-engine</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!-- -->
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.6.2</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>2.11.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>2.11.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.11.2</version>
+        </dependency>
+    </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+```
+### 配置信息
+```yaml
+server:
+  port: 7000
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8000/eureka
+
+spring:
+  application:
+    name: zuul-depart
+
+zuul:
+  routes:
+    # 指定微服务的路由规则
+    # *为通配符
+    # /** 可以匹配0到多级路径
+    # /* 只能匹配一级路径
+    # /? 只能匹配一级路径，且路径只能包含一个字符
+    abcmsc-consumer-depart-8080: /abc8080/**
+    abcmsc-consumer-depart-8090: /abc8090/**
+    consumer-depart: /abc1/**
+    provider-depart: /abc2/**
+  # 屏蔽指定微服务名称
+  # ignored-services: abcmsc-consumer-depart-8080
+  #屏蔽所有微服务名称
+  ignored-services: "*"
+  # 指定统一的前辍
+  prefix: /abc
+  # 屏蔽指定的URI
+  ignored-patterns: /**/list/**
+  # 屏蔽掉指定的敏感头信息，其会将原来默认的Cookie、SetCookie、Authorization敏感头信息放开
+  sensitive-headers: token
+
+```
+
+### 服务请求：
+    http://127.0.0.1:7000/abc/abc1/consumer/depart/get/1
+    就是请求到了： consumer-depart 的 consumer/depart/get/1 接口
+
+
 ## zipkin
 ### docker 安装
 ```

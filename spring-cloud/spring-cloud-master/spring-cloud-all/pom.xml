@@ -50,10 +50,11 @@
     </properties>
 
     <modules>
-        <module>eurekaserver-8000</module>
-        <module>zuul-9000</module>
-        <module>consumer-8080</module>
-        <module>provider-8081</module>
+        <module>cloud-eurekaserver-8000</module>
+        <module>cloud-zuul-7000</module>
+        <module>cloud-provider-8081</module>
+        <module>cloud-consumer-8080</module>
+
     </modules>
 
 
