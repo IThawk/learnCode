@@ -131,13 +131,36 @@ eureka:
 
 ### 原理、代码解析
 #### 代码分析入口
-    @EnableEurekaServer   // 开启Eureka服务
+#####    @EnableEurekaServer   // 开启Eureka服务
 * 找到jar包：
 * META-INF/spring.factories: 
   * org.springframework.cloud.netflix.eureka.server.EurekaServerAutoConfiguration
     * org.springframework.cloud.netflix.eureka.server.EurekaServerAutoConfiguration.eurekaServerBootstrap
     * org.springframework.cloud.netflix.eureka.server.EurekaServerAutoConfiguration.peerAwareInstanceRegistry
+    * 服务注册、状态修改等  
+      * com.netflix.eureka.registry.AbstractInstanceRegistry.register  
+      * com.netflix.eureka.registry.PeerAwareInstanceRegistryImpl.replicateToPeers  
+      * com.netflix.eureka.registry.PeerAwareInstanceRegistryImpl.replicateInstanceActionsToPeers
+      * com.netflix.eureka.cluster.PeerEurekaNode.statusUpdate(java.lang.String, java.lang.String, com.netflix.appinfo.InstanceInfo.InstanceStatus, com.netflix.appinfo.InstanceInfo) 
+      * com.netflix.discovery.shared.transport.jersey.AbstractJerseyEurekaHttpClient.statusUpdate  
     * org.springframework.cloud.netflix.eureka.server.InstanceRegistry
+  * com.netflix.eureka.resources.InstanceResource
+#####    @EnableEurekaClient  // 注册中心可以是任意的类型
+* 找到jar 包；
+* META-INF/spring.factories:
+  * org.springframework.cloud.netflix.eureka.EurekaClientAutoConfiguration  
+  * org.springframework.cloud.netflix.eureka.EurekaClientAutoConfiguration.EurekaClientConfiguration
+  * org.springframework.cloud.netflix.eureka.EurekaClientAutoConfiguration.EurekaClientConfiguration.eurekaClient
+  * com.netflix.discovery.DiscoveryClient.DiscoveryClient(com.netflix.appinfo.ApplicationInfoManager, com.netflix.discovery.EurekaClientConfig, com.netflix.discovery.AbstractDiscoveryClientOptionalArgs)
+  * com.netflix.discovery.DiscoveryClient.DiscoveryClient(com.netflix.appinfo.ApplicationInfoManager, com.netflix.discovery.EurekaClientConfig, com.netflix.discovery.AbstractDiscoveryClientOptionalArgs, javax.inject.Provider<com.netflix.discovery.BackupRegistry>, com.netflix.discovery.shared.resolver.EndpointRandomizer)
+  * 启动定时任务： com.netflix.discovery.DiscoveryClient.initScheduledTasks
+#### 其他：
+#####  @Inject
+* 1、@Inject是JSR330 (Dependency Injection for Java)中的规范，需要导入javax.inject.Inject;实现注入。
+* 2、@Inject是根据类型进行自动装配的，如果需要按名称进行装配，则需要配合@Named；
+* 3、@Inject可以作用在变量、setter方法、构造函数上。
+
+
 ## zuul网关
 ### 代码 cloud-zuul-7000
 #### maven依赖
