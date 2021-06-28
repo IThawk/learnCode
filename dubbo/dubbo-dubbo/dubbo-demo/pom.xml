@@ -36,6 +36,7 @@
         <module>dubbo-demo-annotation</module>
         <module>dubbo-demo-api</module>
         <module>dubbo-demo-spi</module>
+        <module>jdk-spi</module>
     </modules>
 
     <dependencyManagement>

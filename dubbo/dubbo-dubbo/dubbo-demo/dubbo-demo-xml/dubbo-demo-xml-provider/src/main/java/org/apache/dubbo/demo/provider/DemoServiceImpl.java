@@ -16,6 +16,7 @@
  */
 package org.apache.dubbo.demo.provider;
 
+import org.apache.dubbo.common.extension.ExtensionLoader;
 import org.apache.dubbo.demo.DemoService;
 import org.apache.dubbo.rpc.RpcContext;
 
@@ -30,12 +31,23 @@ public class DemoServiceImpl implements DemoService {
     @Override
     public String sayHello(String name) {
         System.out.println("sayHello");
+
+        //获取到扩展点
+        Order order1 = ExtensionLoader.getExtensionLoader(Order.class).getExtension("alipay");
+        System.out.println(order1.way());
         logger.info("Hello " + name + ", request from consumer: " + RpcContext.getContext().getRemoteAddress());
         try {
-            Thread.sleep(1000);
+            Thread.sleep(6000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        return "Hello " + name + ", response from provider: " + RpcContext.getContext().getLocalAddress();
+    }
+
+    @Override
+    public String sayAHello(String name) {
+        System.out.println("sayHello");
+        logger.info("Hello " + name + ", request from consumer: " + RpcContext.getContext().getRemoteAddress());
         return "Hello " + name + ", response from provider: " + RpcContext.getContext().getLocalAddress();
     }
 

@@ -84,6 +84,7 @@ public class AdaptiveClassCodeGenerator {
     }
 
     /**
+     * 配置生成代码的位置()
      * generate and return class code
      */
     public String generate() {

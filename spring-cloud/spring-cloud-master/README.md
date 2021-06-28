@@ -144,7 +144,7 @@ eureka:
       * com.netflix.eureka.cluster.PeerEurekaNode.statusUpdate(java.lang.String, java.lang.String, com.netflix.appinfo.InstanceInfo.InstanceStatus, com.netflix.appinfo.InstanceInfo) 
       * com.netflix.discovery.shared.transport.jersey.AbstractJerseyEurekaHttpClient.statusUpdate  
     * org.springframework.cloud.netflix.eureka.server.InstanceRegistry
-  * com.netflix.eureka.resources.InstanceResource
+  * com.netflix.eureka.resources.InstanceResource （对服务操作的类：注册，下架等）
 #####    @EnableEurekaClient  // 注册中心可以是任意的类型
 * 找到jar 包；
 * META-INF/spring.factories:
@@ -291,7 +291,31 @@ zuul:
     http://127.0.0.1:7000/abc/abc1/consumer/depart/get/1
     就是请求到了： consumer-depart 的 consumer/depart/get/1 接口
 
-
+## openfeign
+* @EnableFeignClients
+* 找到jar 包；
+* META-INF/spring.factories:
+  * org.springframework.cloud.openfeign.FeignAutoConfiguration
+  * org.springframework.cloud.openfeign.FeignClientFactoryBean
+  * org.springframework.cloud.openfeign.HystrixTargeter.target
+## Gateway
+* 找到jar 包；
+* META-INF/spring.factories:
+  * org.springframework.web.server.handler.DefaultWebFilterChain.filter
+    org.springframework.web.server.handler.FilteringWebHandler.handle
+    org.springframework.web.server.adapter.HttpWebHandlerAdapter.handle
+    org.springframework.http.server.reactive.ReactorHttpHandlerAdapter.apply
+  * org.springframework.web.reactive.DispatcherHandler.handle
+  * org.springframework.web.reactive.handler.AbstractHandlerMapping.getHandler
+  * org.springframework.cloud.gateway.handler.RoutePredicateHandlerMapping.getHandlerInternal
+  * org.springframework.cloud.gateway.handler.RoutePredicateHandlerMapping.lookupRoute
+  * org.springframework.web.reactive.DispatcherHandler.invokeHandler
+  * org.springframework.web.reactive.result.SimpleHandlerAdapter.handle
+  * org.springframework.cloud.gateway.handler.FilteringWebHandler.handle
+  * org.springframework.cloud.gateway.handler.FilteringWebHandler.DefaultGatewayFilterChain.filter
+  * org.springframework.cloud.gateway.filter.factory.AddRequestHeaderGatewayFilterFactory.apply
+  * org.springframework.cloud.gateway.filter.NettyRoutingFilter.filter(远程请求)
+  * org.springframework.cloud.gateway.filter.OrderedGatewayFilter.filter
 ## zipkin
 ### docker 安装
 ```

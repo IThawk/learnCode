@@ -1,0 +1,15 @@
+server:
+  port: 9999
+
+spring:
+  cloud:
+    config:
+      server:
+        git:
+          # 指定git远程库地址
+          uri: git@gitee.com:IThawk/config.git
+          # 指定获取到git远程库连接的超时时限，默认为5秒
+          timeout: 5
+          # 指定要操作的git远程库分支，默认master
+          default-label: master
+

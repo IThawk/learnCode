@@ -118,6 +118,7 @@ public class ExtensionLoader<T> {
     }
 
     /**
+     * 这个位置使用了JDK的SPI  load(LoadingStrategy.class)
      * Load all {@link Prioritized prioritized} {@link LoadingStrategy Loading Strategies} via {@link ServiceLoader}
      *
      * @return non-null
@@ -141,6 +142,11 @@ public class ExtensionLoader<T> {
         return asList(strategies);
     }
 
+    /**
+     * 构造函数
+     *
+     * @param type
+     */
     private ExtensionLoader(Class<?> type) {
         this.type = type;
         objectFactory = (type == ExtensionFactory.class ? null : ExtensionLoader.getExtensionLoader(ExtensionFactory.class).getAdaptiveExtension());
@@ -237,7 +243,7 @@ public class ExtensionLoader<T> {
 
     /**
      * This is equivalent to {@code getActivateExtension(url, url.getParameter(key).split(","), null)}
-     *
+     * 获取激活扩展点
      * @param url   url
      * @param key   url parameter key which used to get extension point names
      * @param group group
@@ -417,8 +423,9 @@ public class ExtensionLoader<T> {
 
     /**
      * 获取扩展点
+     *
      * @param name
-     * @param wrap
+     * @param wrap 是否为包装类
      * @return
      */
     public T getExtension(String name, boolean wrap) {
@@ -498,6 +505,7 @@ public class ExtensionLoader<T> {
     }
 
     /**
+     * 加载扩展类的位置
      * Register new extension via API
      *
      * @param name  extension name
@@ -579,6 +587,11 @@ public class ExtensionLoader<T> {
         }
     }
 
+    /**
+     * 获取自适应扩展点
+     *
+     * @return
+     */
     @SuppressWarnings("unchecked")
     public T getAdaptiveExtension() {
         Object instance = cachedAdaptiveInstance.get();
@@ -645,9 +658,11 @@ public class ExtensionLoader<T> {
                 EXTENSION_INSTANCES.putIfAbsent(clazz, clazz.newInstance());
                 instance = (T) EXTENSION_INSTANCES.get(clazz);
             }
+            //注入获取SPI
             injectExtension(instance);
 
 
+            //如果是包装类 进行这个处理逻辑
             if (wrap) {
 
                 List<Class<?>> wrapperClassesList = new ArrayList<>();
@@ -682,6 +697,7 @@ public class ExtensionLoader<T> {
 
     /**
      * 实例化扩展点
+     *
      * @param instance
      * @return
      */
@@ -708,8 +724,11 @@ public class ExtensionLoader<T> {
                 }
 
                 try {
+                    //获取成员变量名称
                     String property = getSetterProperty(method);
-                    System.out.println("扩展点获取： " + property);
+                    System.out.println("扩展点获取： " + property + "class" + objectFactory.getClass().getName());
+                    // objectFactory: ExtensionFactory  这个地方使用的 org.apache.dubbo.common.extension.factory.SpiExtensionFactory
+                    //和 org.apache.dubbo.config.spring.extension.SpringExtensionFactory
                     Object object = objectFactory.getExtension(pt, property);
                     if (object != null) {
                         method.invoke(instance, object);
@@ -783,15 +802,16 @@ public class ExtensionLoader<T> {
     }
 
     /**
+     * 加载Class类
      * synchronized in getExtensionClasses
      */
     private Map<String, Class<?>> loadExtensionClasses() {
         cacheDefaultExtensionName();
 
         Map<String, Class<?>> extensionClasses = new HashMap<>();
-        System.out.println(JSON.toJSONString(strategies));
+        System.out.println("加载SPI的文件位置定义：" + JSON.toJSONString(strategies));
         for (LoadingStrategy strategy : strategies) {
-            System.out.println(JSON.toJSONString(strategy));
+            System.out.println("加载SPI的文件位置定义列表:" + JSON.toJSONString(strategy));
             loadDirectory(extensionClasses, strategy.directory(), type.getName(), strategy.preferExtensionClassLoader(), strategy.overridden(), strategy.excludedPackages());
             loadDirectory(extensionClasses, strategy.directory(), type.getName().replace("org.apache", "com.alibaba"), strategy.preferExtensionClassLoader(), strategy.overridden(), strategy.excludedPackages());
         }
@@ -862,6 +882,7 @@ public class ExtensionLoader<T> {
 
     /**
      * 获取资源信息
+     *
      * @param extensionClasses
      * @param classLoader
      * @param resourceURL
@@ -917,6 +938,7 @@ public class ExtensionLoader<T> {
 
     /**
      * 加载class文件的内容
+     *
      * @param extensionClasses
      * @param resourceURL
      * @param clazz
@@ -926,7 +948,7 @@ public class ExtensionLoader<T> {
      */
     private void loadClass(Map<String, Class<?>> extensionClasses, java.net.URL resourceURL, Class<?> clazz, String name,
                            boolean overridden) throws NoSuchMethodException {
-        System.out.println("loadClass"+JSON.toJSONString(clazz.getName()));
+        System.out.println("开始加载 Class 类 loadClass" + JSON.toJSONString(clazz.getName()));
         if (!type.isAssignableFrom(clazz)) {
             throw new IllegalStateException("Error occurred when loading extension class (interface: " +
                     type + ", class line: " + clazz.getName() + "), class "
@@ -934,7 +956,8 @@ public class ExtensionLoader<T> {
         }
         if (clazz.isAnnotationPresent(Adaptive.class)) {
             cacheAdaptiveClass(clazz, overridden);
-        } else if (isWrapperClass(clazz)) {
+        } else if (isWrapperClass(clazz)) { //是否为包装类
+            System.out.println("包装类 ：" + clazz.getName());
             cacheWrapperClass(clazz);
         } else {
             System.out.println("SPI load");
@@ -1052,6 +1075,11 @@ public class ExtensionLoader<T> {
         return name.toLowerCase();
     }
 
+    /**
+     * 创建自定义扩展点
+     *
+     * @return
+     */
     @SuppressWarnings("unchecked")
     private T createAdaptiveExtension() {
         try {
@@ -1062,21 +1090,23 @@ public class ExtensionLoader<T> {
     }
 
     private Class<?> getAdaptiveExtensionClass() {
-        System.out.println("getAdaptiveExtensionClass");
+        System.out.println("获取自定义扩展类：getAdaptiveExtensionClass");
         getExtensionClasses();
         if (cachedAdaptiveClass != null) {
             return cachedAdaptiveClass;
         }
+        System.out.println("未获取自定义扩展类：org.apache.dubbo.common.extension.ExtensionLoader.getAdaptiveExtensionClass");
         return cachedAdaptiveClass = createAdaptiveExtensionClass();
     }
 
     /**
      * 生成代码
+     *
      * @return
      */
     private Class<?> createAdaptiveExtensionClass() {
         String code = new AdaptiveClassCodeGenerator(type, cachedDefaultName).generate();
-        System.out.println("自定义生成代码："+code);
+        System.out.println("自定义扩展点自定义生成代码：" + code);
         ClassLoader classLoader = findClassLoader();
         org.apache.dubbo.common.compiler.Compiler compiler = ExtensionLoader.getExtensionLoader(org.apache.dubbo.common.compiler.Compiler.class).getAdaptiveExtension();
         return compiler.compile(code, classLoader);

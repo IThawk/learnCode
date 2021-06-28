@@ -1,0 +1,42 @@
+server:
+  port: 9100
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8000/eureka
+  instance:
+    metadata-map:
+      host-mark: running-host
+spring:
+  application:
+    name: gateway-depart
+  cloud:
+#    nacos:
+#      discovery:
+#        server-addr: 127.0.0.1:8848
+    gateway:
+      default-filters:
+        - name: CircuitBreaker
+          args:
+            name: myCircuitBreaker
+            fallbackUri: forward:/fallback
+      discovery:
+        locator:
+          enabled: true  # 允许gateway从Nacos（或其他注册中心发现服务）进行服务发现
+      routes:
+#      - id: direct_route
+#        uri: http://127.0.0.1:8081 # 拦截跳转的uri
+#        predicates:
+#        - Path=/provider/depart/**
+      - id: ribbon_route_provider
+        uri: lb://provider-depart # 拦截跳转的uri(这地方更加方便)
+        predicates:
+          - Path=/provider/depart/**
+      - id: ribbon_route_comsumer
+        uri: lb://consumer-depart # 拦截跳转的uri(这地方更加方便)
+        predicates:
+          - Path=/consumer/depart/**
+
+
+
+

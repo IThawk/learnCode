@@ -16,6 +16,7 @@
     <module>dubbo-spring</module>
     <module>dubbo-dubbo</module>
     <module>dubbo-spi-extention</module>
+    <module>dubbo-admin-develop</module>
   </modules>
   <name>dubbo</name>
 </project>

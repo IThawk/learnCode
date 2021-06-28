@@ -75,6 +75,7 @@
         <module>07-via-consumer-8080</module>
 
         <module>spring-cloud-all</module>
+
     </modules>
 
 

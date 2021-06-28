@@ -112,6 +112,8 @@ public interface CommonConstants {
 
     int DEFAULT_ALIVE = 60 * 1000;
 
+//    int DEFAULT_ALIVE = 2 * 1000;
+
     String TIMEOUT_KEY = "timeout";
 
     int DEFAULT_TIMEOUT = 1000;

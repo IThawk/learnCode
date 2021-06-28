@@ -1,0 +1,3 @@
+alipay=org.apache.dubbo.demo.spi.AlipayOrder
+#wechat,wechat2=com.abc.spi.WechatOrder
+org.apache.dubbo.demo.spi.WechatOrder

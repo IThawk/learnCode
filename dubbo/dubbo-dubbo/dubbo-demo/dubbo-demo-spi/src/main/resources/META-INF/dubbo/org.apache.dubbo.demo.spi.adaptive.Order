@@ -1,0 +1,3 @@
+alipay=org.apache.dubbo.demo.spi.adaptive.AlipayOrder
+wechat=org.apache.dubbo.demo.spi.adaptive.WechatOrder
+adaptive=org.apache.dubbo.demo.spi.adaptive.AdaptiveOrder

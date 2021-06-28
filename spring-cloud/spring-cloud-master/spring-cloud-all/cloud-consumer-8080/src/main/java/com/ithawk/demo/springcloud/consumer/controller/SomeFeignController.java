@@ -1,6 +1,9 @@
 package com.ithawk.demo.springcloud.consumer.controller;
 
+import com.ithawk.demo.springcloud.common.api.CommonResult;
+import com.ithawk.demo.springcloud.common.constant.AuthConstant;
 import com.ithawk.demo.springcloud.consumer.bean.Depart;
+import com.ithawk.demo.springcloud.consumer.service.AuthService;
 import com.ithawk.demo.springcloud.consumer.service.DepartService;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
@@ -9,7 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @RestController
@@ -21,6 +26,21 @@ public class SomeFeignController {
     // private static final String SERVICE_PROVIDER = "http://localhost:8081";
     // 要使用微服务名称来从eureka server查找提供者
     private static final String SERVICE_PROVIDER = "http://abcmsc-provider-depart";
+
+    @Autowired
+    AuthService authService;
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @ResponseBody
+    public CommonResult login(@RequestParam String username,
+                              @RequestParam String password) {
+        Map<String, String> params = new HashMap<>();
+        params.put("client_id", AuthConstant.PORTAL_CLIENT_ID);
+        params.put("client_secret","123456");
+        params.put("grant_type","password");
+        params.put("username",username);
+        params.put("password",password);
+        return authService.getAccessToken(params);
+    }
 
     @Autowired
     DepartService departService;

@@ -117,3 +117,40 @@ public class DubboProtocol{
     
     
     org.apache.dubbo.remoting.transport.netty4.NettyServer.doOpen
+# 源码阅读
+
+## org.apache.dubbo.config.ServiceConfig 服务发布代码入口
+* 例子
+  * private static final Protocol PROTOCOL = ExtensionLoader.getExtensionLoader(Protocol.class).getAdaptiveExtension();
+* 获取扩展点：
+  org.apache.dubbo.common.extension.ExtensionLoader.getExtension(java.lang.String)
+* 获取激活扩展点
+  * org.apache.dubbo.common.extension.ExtensionLoader.getActivateExtension(org.apache.dubbo.common.URL, java.lang.String, java.lang.String)
+* 获取自适应扩展点（自适应类，自适应方法，包装类）：
+  * org.apache.dubbo.common.extension.ExtensionLoader.getAdaptiveExtension
+##  org.apache.dubbo.common.extension.ExtensionLoader    
+    org.apache.dubbo.common.extension.ExtensionLoader.loadClass
+    org.apache.dubbo.common.extension.LoadingStrategy  这个是定义spi扫描文件的位置
+    实现类如下： 
+    org.apache.dubbo.common.extension.DubboInternalLoadingStrategy   Integer.MIN_VALUE
+    org.apache.dubbo.common.extension.DubboExternalLoadingStrategy   Integer.MIN_VALUE +1
+    org.apache.dubbo.common.extension.DubboLoadingStrategy    org.apache.dubbo.common.lang.Prioritized.NORMAL_PRIORITY 0
+    org.apache.dubbo.common.extension.ServicesLoadingStrategy   Integer.MAX_VALUE
+
+
+## javassist 动态编译
+    org.apache.dubbo.common.compiler.support.AbstractCompiler
+    org.apache.dubbo.common.compiler.support.JavassistCompiler.doCompile
+## spring.handlers文件 定义spring处理配置
+    DubboNamespaceHandler
+## 服务发布
+
+## IOC
+    org.apache.dubbo.common.extension.ExtensionLoader.getExtension(java.lang.String, boolean)
+    org.apache.dubbo.common.extension.ExtensionLoader.injectExtension
+    org.apache.dubbo.common.extension.ExtensionFactory
+    org.apache.dubbo.config.spring.extension.SpringExtensionFactory
+## AOP
+    org.apache.dubbo.common.extension.ExtensionLoader.getExtension(java.lang.String, boolean)
+    org.apache.dubbo.common.extension.ExtensionLoader.createExtension
+
