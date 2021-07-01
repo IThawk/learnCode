@@ -32,6 +32,7 @@ public class JavassistProxyFactory extends AbstractProxyFactory {
     @Override
     @SuppressWarnings("unchecked")
     public <T> T getProxy(Invoker<T> invoker, Class<?>[] interfaces) {
+        System.out.println("设置代理类。。。。。InvokerInvocationHandler "+ invoker.getClass().getName());
         return (T) Proxy.getProxy(interfaces).newInstance(new InvokerInvocationHandler(invoker));
     }
 

@@ -94,12 +94,16 @@ public class AdaptiveClassCodeGenerator {
         }
 
         StringBuilder code = new StringBuilder();
+        // 生成包信息
         code.append(generatePackageInfo());
+        // 生成引包信息
         code.append(generateImports());
+        //生成类名和实现接口信息
         code.append(generateClassDeclaration());
 
         Method[] methods = type.getMethods();
         for (Method method : methods) {
+            //生成方法信息
             code.append(generateMethod(method));
         }
         code.append("}");
@@ -159,6 +163,7 @@ public class AdaptiveClassCodeGenerator {
     private String generateMethod(Method method) {
         String methodReturnType = method.getReturnType().getCanonicalName();
         String methodName = method.getName();
+        //生成方法的内容
         String methodContent = generateMethodContent(method);
         String methodArgs = generateMethodArguments(method);
         String methodThrows = generateMethodThrows(method);
@@ -201,6 +206,7 @@ public class AdaptiveClassCodeGenerator {
     private String generateMethodContent(Method method) {
         Adaptive adaptiveAnnotation = method.getAnnotation(Adaptive.class);
         StringBuilder code = new StringBuilder(512);
+        //如果没有Adaptive注解
         if (adaptiveAnnotation == null) {
             return generateUnsupported(method);
         } else {
@@ -330,6 +336,7 @@ public class AdaptiveClassCodeGenerator {
     private String[] getMethodAdaptiveValue(Adaptive adaptiveAnnotation) {
         String[] value = adaptiveAnnotation.value();
         // value is not set, use the value generated from class name as the key
+        //如果没有设置注解的value值，就会使用接口名进行 分割处理
         if (value.length == 0) {
             String splitName = StringUtils.camelToSplitName(type.getSimpleName(), ".");
             value = new String[]{splitName};

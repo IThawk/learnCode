@@ -292,6 +292,7 @@ public class ExtensionLoader<T> {
                     activateExtensions.add(getExtension(name));
                 }
             }
+            //会导致 未加@Activate 报错
             activateExtensions.sort(ActivateComparator.COMPARATOR);
         }
         List<T> loadedExtensions = new ArrayList<>();
@@ -646,6 +647,12 @@ public class ExtensionLoader<T> {
         return new IllegalStateException(buf.toString());
     }
 
+    /**
+     * 创建扩展点
+     * @param name
+     * @param wrap
+     * @return
+     */
     @SuppressWarnings("unchecked")
     private T createExtension(String name, boolean wrap) {
         Class<?> clazz = getExtensionClasses().get(name);
@@ -662,7 +669,7 @@ public class ExtensionLoader<T> {
             injectExtension(instance);
 
 
-            //如果是包装类 进行这个处理逻辑
+            //如果是包装类 进行这个处理逻辑  AOP
             if (wrap) {
 
                 List<Class<?>> wrapperClassesList = new ArrayList<>();
@@ -937,7 +944,7 @@ public class ExtensionLoader<T> {
     }
 
     /**
-     * 加载class文件的内容
+     * 加载class文件的内容（自适应、包装类  都是在这个地方加载）
      *
      * @param extensionClasses
      * @param resourceURL

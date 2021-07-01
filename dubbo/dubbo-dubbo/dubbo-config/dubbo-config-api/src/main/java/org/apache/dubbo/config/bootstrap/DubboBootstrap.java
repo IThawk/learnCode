@@ -181,7 +181,7 @@ public class DubboBootstrap extends GenericEventListener {
     private List<CompletableFuture<Object>> asyncReferringFutures = new ArrayList<>();
 
     /**
-     * 懒汉式单例模式
+     * 懒汉式单例模式： 双重检查锁机制
      * See {@link ApplicationModel} and {@link ExtensionLoader} for why DubboBootstrap is designed to be singleton.
      */
     public static DubboBootstrap getInstance() {

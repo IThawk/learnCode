@@ -1,0 +1,2 @@
+alipay=org.apache.dubbo.demo.spi.adaptiveMethod.AlipayMallOrder
+wechat=org.apache.dubbo.demo.spi.adaptiveMethod.WechatMallOrder

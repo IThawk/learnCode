@@ -358,6 +358,7 @@ public class DubboProtocol extends AbstractProtocol {
         //根据SPI获取到对应的server进行启动服务
         ExchangeServer server;
         try {
+            System.out.println("进行服务端口绑定");
             server = Exchangers.bind(url, requestHandler);
         } catch (RemotingException e) {
             throw new RpcException("Fail to start server(url: " + url + ") " + e.getMessage(), e);

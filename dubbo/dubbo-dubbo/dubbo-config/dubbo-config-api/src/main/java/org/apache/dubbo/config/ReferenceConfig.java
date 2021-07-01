@@ -227,7 +227,11 @@ public class ReferenceConfig<T> extends ReferenceConfigBase<T> {
         dispatch(new ReferenceConfigDestroyedEvent(this));
     }
 
+    /**
+     * 服务订阅的入口
+     */
     public synchronized void init() {
+        logger.info("开始服务订阅 初始化");
         if (initialized) {
             return;
         }
@@ -302,6 +306,8 @@ public class ReferenceConfig<T> extends ReferenceConfigBase<T> {
 
         serviceMetadata.getAttachments().putAll(map);
 
+        //创建代理对象
+        System.out.println("创建代理对象");
         ref = createProxy(map);
 
         serviceMetadata.setTarget(ref);

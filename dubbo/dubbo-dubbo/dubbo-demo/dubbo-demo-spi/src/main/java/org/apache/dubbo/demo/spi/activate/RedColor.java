@@ -13,7 +13,7 @@ public class RedColor implements Color {
 
     @Override
     public void sayHello() {
-        System.out.println("流血的痛苦！");
+        System.out.println("我是红色！");
     }
 
 }

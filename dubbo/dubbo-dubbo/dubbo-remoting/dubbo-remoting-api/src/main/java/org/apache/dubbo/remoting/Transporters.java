@@ -40,6 +40,13 @@ public class Transporters {
         return bind(URL.valueOf(url), handler);
     }
 
+    /**
+     * 使用不同的进行端口绑定
+     * @param url
+     * @param handlers
+     * @return
+     * @throws RemotingException
+     */
     public static RemotingServer bind(URL url, ChannelHandler... handlers) throws RemotingException {
         if (url == null) {
             throw new IllegalArgumentException("url == null");
