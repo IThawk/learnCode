@@ -1,0 +1,11 @@
+spring:
+  application:
+    # 要根据这个微服务名称从远程库中查找与其对应的配置文件
+    name: msc-provider-depart
+
+  cloud:
+    nacos:
+      config:
+        server-addr: localhost:8848
+        # 指定远程库中的配置文件类型，默认为properties
+        file-extension: yml

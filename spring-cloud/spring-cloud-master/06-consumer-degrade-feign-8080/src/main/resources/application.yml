@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: abcmsc-consumer-depart
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+
+# 打开Feign对Sentinel的支持
+feign:
+  sentinel:
+    enabled: true

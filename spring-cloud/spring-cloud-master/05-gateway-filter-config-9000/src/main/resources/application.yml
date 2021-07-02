@@ -1,0 +1,48 @@
+server:
+  port: 9000
+
+spring:
+  cloud:
+    gateway:
+      default-filters:
+        - name: CircuitBreaker
+          args:
+            name: myCircuitBreaker
+            fallbackUri: forward:/fallback
+
+      routes:
+        - id: test_filter
+          uri: http://localhost:8080
+          predicates:
+            - Path=/**
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

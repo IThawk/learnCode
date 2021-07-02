@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: abcmsc-consumer-depart
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+
+
+
+

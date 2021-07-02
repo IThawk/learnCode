@@ -1,0 +1,4 @@
+red=com.ithawk.demo.dubbo.spi.practice.practiceprovider.RedColor
+blue=com.ithawk.demo.dubbo.spi.practice.practiceprovider.BlueColor
+activate=com.ithawk.demo.dubbo.spi.practice.practiceprovider.ActivateColor
+activate1=com.ithawk.demo.dubbo.spi.practice.practiceprovider.Activate1Color

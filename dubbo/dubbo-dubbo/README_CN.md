@@ -202,7 +202,7 @@ http://www.javassist.org/tutorial/tutorial2.html
 * org.apache.dubbo.config.ReferenceConfig.createProxy
 * org.apache.dubbo.rpc.ProxyFactory$Adaptive.getProxy(org.apache.dubbo.rpc.Invoker, boolean)
 * org.apache.dubbo.rpc.proxy.javassist.JavassistProxyFactory.getProxy
-* org.apache.dubbo.rpc.proxy.InvokerInvocationHandler
+* org.apache.dubbo.rpc.proxy.InvokerInvocationHandler    调用的方式的地方
   org.apache.dubbo.rpc.cluster.support.AbstractClusterInvoker.invoke
 * org.apache.dubbo.rpc.cluster.support.FailfastCluster
 ## IOC 容器中获取属性

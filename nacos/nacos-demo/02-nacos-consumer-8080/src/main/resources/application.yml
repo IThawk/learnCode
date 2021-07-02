@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: msc-consumer-depart  # 微服务名称
+
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848   # nacos discovery地址

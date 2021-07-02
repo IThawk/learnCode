@@ -1,0 +1,26 @@
+server:
+  port: 9000
+
+spring:
+  cloud:
+    gateway:
+      routes:
+      - id: weight_baidu_route
+        uri: https://www.baidu.com
+        predicates:
+        - Weight=search, 8
+
+      - id: weight_360_route
+        uri: https://www.so.com
+        predicates:
+        - Weight=search, 2
+
+
+
+
+
+
+
+
+
+
