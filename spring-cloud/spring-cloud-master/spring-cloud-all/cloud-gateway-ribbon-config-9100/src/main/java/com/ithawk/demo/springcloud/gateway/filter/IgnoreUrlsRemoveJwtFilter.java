@@ -1,7 +1,8 @@
 package com.ithawk.demo.springcloud.gateway.filter;
 
-import com.macro.mall.common.constant.AuthConstant;
-import com.macro.mall.config.IgnoreUrlsConfig;
+
+import com.ithawk.demo.springcloud.common.constant.AuthConstant;
+import com.ithawk.demo.springcloud.gateway.config.IgnoreUrlsConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Component;

@@ -11,6 +11,17 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>springboot-aop</name>
     <description>Demo project for Spring Boot</description>
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
+        <!-- dependency versions -->
+        <spring.version>5.0.2.RELEASE</spring.version>
+    </properties>
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
