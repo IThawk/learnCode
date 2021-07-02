@@ -8,7 +8,7 @@ public interface Color {
 
     void sayMy();
 
-    @Adaptive
+
     void sayHello();
 
 }

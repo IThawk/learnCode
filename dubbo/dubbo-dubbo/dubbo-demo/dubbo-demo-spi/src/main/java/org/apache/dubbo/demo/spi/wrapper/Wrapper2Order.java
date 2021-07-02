@@ -9,6 +9,7 @@ import org.apache.dubbo.common.extension.Activate;
 @Activate(order = 3,value = "wrapper2")
 public class Wrapper2Order implements Order {
 
+    
     private Order order;
 
     public Wrapper2Order(Order order) {
