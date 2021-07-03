@@ -202,7 +202,7 @@ http://www.javassist.org/tutorial/tutorial2.html
 * org.apache.dubbo.config.ReferenceConfig.createProxy
 * org.apache.dubbo.rpc.ProxyFactory$Adaptive.getProxy(org.apache.dubbo.rpc.Invoker, boolean)
 * org.apache.dubbo.rpc.proxy.javassist.JavassistProxyFactory.getProxy
-* org.apache.dubbo.rpc.proxy.InvokerInvocationHandler    调用的方式的地方
+* org.apache.dubbo.rpc.proxy.InvokerInvocationHandler    远程调用的方式的地方
   org.apache.dubbo.rpc.cluster.support.AbstractClusterInvoker.invoke
 * org.apache.dubbo.rpc.cluster.support.FailfastCluster
 ## IOC 容器中获取属性
@@ -216,4 +216,45 @@ http://www.javassist.org/tutorial/tutorial2.html
 
     org.apache.dubbo.common.extension.ExtensionLoader.getExtension(java.lang.String, boolean)
     org.apache.dubbo.common.extension.ExtensionLoader.createExtension
+## 服务路由规则
+//更新规则
+org.apache.dubbo.registry.integration.RegistryProtocol.doRefer
+org.apache.dubbo.rpc.cluster.RouterFactory
 
+org.apache.dubbo.rpc.proxy.InvokerInvocationHandler
+org.apache.dubbo.rpc.cluster.support.wrapper.MockClusterInvoker.invoke
+org.apache.dubbo.rpc.cluster.support.AbstractClusterInvoker.invoke
+org.apache.dubbo.rpc.cluster.support.AbstractClusterInvoker.list
+org.apache.dubbo.rpc.cluster.directory.AbstractDirectory.list
+org.apache.dubbo.registry.integration.RegistryDirectory.doList
+org.apache.dubbo.rpc.cluster.RouterChain.route
+org.apache.dubbo.rpc.cluster.router.condition.ConditionRouter.route
+
+## 服务降级 mock
+
+org.apache.dubbo.rpc.proxy.InvokerInvocationHandler
+
+org.apache.dubbo.registry.integration.RegistryProtocol.doRefer
+
+org.apache.dubbo.rpc.cluster.support.wrapper.MockClusterWrapper.join  将MockClusterInvoker降级的invoker加入进来
+
+org.apache.dubbo.rpc.cluster.support.wrapper.MockClusterInvoker.invoke
+
+org.apache.dubbo.registry.integration.RegistryDirectory.doList
+
+org.apache.dubbo.rpc.cluster.support.wrapper.MockClusterInvoker.doMockInvoke
+
+org.apache.dubbo.rpc.support.MockInvoker.invoke
+
+org.apache.dubbo.rpc.support.MockInvoker.getInvoker
+
+org.apache.dubbo.rpc.support.MockInvoker.getMockObject
+
+## 集群容错 cluster （容错之后不行再降级）
+
+org.apache.dubbo.rpc.proxy.InvokerInvocationHandler
+
+org.apache.dubbo.registry.integration.RegistryProtocol.doRefer
+
+筛选容错类
+org.apache.dubbo.rpc.cluster.support.FailfastClusterInvoker.doInvoke

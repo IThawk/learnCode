@@ -229,7 +229,7 @@ public class RegistryProtocol implements Protocol {
         exporter.setRegisterUrl(registeredProviderUrl);
         exporter.setSubscribeUrl(overrideSubscribeUrl);
 
-        // Deprecated! Subscribe to override rules in 2.6.x or before.
+        // Deprecated! Subscribe to override rules in 2.6.x or before.  服务订阅
         registry.subscribe(overrideSubscribeUrl, overrideSubscribeListener);
 
         notifyExport(exporter);
@@ -477,9 +477,10 @@ public class RegistryProtocol implements Protocol {
             directory.setRegisteredConsumerUrl(subscribeUrl);
             registry.register(directory.getRegisteredConsumerUrl());
         }
+        //设置路由规则加载
         directory.buildRouterChain(subscribeUrl);
         directory.subscribe(toSubscribeUrl(subscribeUrl));
-
+       // 这个地方将Mock的 那个invoker  这个invoker就包装了 容错 降级
         Invoker<T> invoker = cluster.join(directory);
         List<RegistryProtocolListener> listeners = findRegistryProtocolListeners(url);
         if (CollectionUtils.isEmpty(listeners)) {

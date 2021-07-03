@@ -46,6 +46,7 @@ public class RouterChain<T> {
         return new RouterChain<>(url);
     }
 
+    // 初始化 路由的激活扩展点
     private RouterChain(URL url) {
         List<RouterFactory> extensionFactories = ExtensionLoader.getExtensionLoader(RouterFactory.class)
                 .getActivateExtension(url, "router");

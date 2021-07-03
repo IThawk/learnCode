@@ -165,6 +165,15 @@ public class ConditionRouter extends AbstractRouter {
         return condition;
     }
 
+    /**
+     * 基于condition的路由过滤
+     * @param invokers   invoker list
+     * @param url        refer url
+     * @param invocation invocation
+     * @param <T>
+     * @return
+     * @throws RpcException
+     */
     @Override
     public <T> List<Invoker<T>> route(List<Invoker<T>> invokers, URL url, Invocation invocation)
             throws RpcException {
@@ -176,6 +185,7 @@ public class ConditionRouter extends AbstractRouter {
             return invokers;
         }
         try {
+            //matchWhen 就是消费则   例如：host:1.1.1.1=>host:2.2.2.2  中的1.1.1.1
             if (!matchWhen(url, invocation)) {
                 return invokers;
             }
