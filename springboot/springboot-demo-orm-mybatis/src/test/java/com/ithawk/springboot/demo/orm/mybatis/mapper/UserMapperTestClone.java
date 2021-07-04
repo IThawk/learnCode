@@ -4,7 +4,7 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.crypto.SecureUtil;
-import com.ithawk.springboot.demo.orm.mybatis.SpringBootDemoOrmMybatisApplicationTests;
+import com.ithawk.springboot.demo.orm.mybatis.SpringBootDemoMybatisApplicationTests;
 import com.ithawk.springboot.demo.orm.mybatis.entity.User;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
@@ -14,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 @Slf4j
-public class UserMapperTest extends SpringBootDemoOrmMybatisApplicationTests {
+public class UserMapperTestClone extends SpringBootDemoMybatisApplicationTests {
     @Autowired
     private UserMapper userMapper;
 

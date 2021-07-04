@@ -1,6 +1,6 @@
-package com.ithawk.demo.springboot.ex.service.impl;
+package com.ithawk.demo.springboot.actuator.service.impl;
 
-import com.ithawk.demo.springboot.ex.service.SomeService;
+import com.ithawk.demo.springboot.actuator.service.SomeService;
 import org.springframework.stereotype.Service;
 
 @Service

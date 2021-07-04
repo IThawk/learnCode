@@ -26,8 +26,13 @@ spring:
       connection-timeout: 30000
 logging:
   level:
-    com.xkcoding: debug
-    com.xkcoding.orm.mybatis.mapper: trace
+    com.ithawk: debug
+    com.ithawk.springboot.demo.orm.mybatis.mapper: trace
+
+  file:
+    max-size: 10MB
+    clean-history-on-start: true
+    name: logs/app.log
 mybatis:
   configuration:
     # 下划线转驼峰

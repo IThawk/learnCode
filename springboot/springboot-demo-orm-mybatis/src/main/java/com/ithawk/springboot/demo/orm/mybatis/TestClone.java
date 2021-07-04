@@ -8,7 +8,7 @@ import java.io.*;
 import java.lang.reflect.Array;
 import java.util.*;
 
-public class Test<T> {
+public class TestClone<T> {
     public static void main(String[] args) {
         List<D> list = new ArrayList<>();
         list.add(new D().setString("test"));

@@ -6,6 +6,8 @@ import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.stereotype.Component;
@@ -24,6 +26,7 @@ import java.lang.reflect.Method;
 //声明这是一个切面Bean
 @Aspect
 public class AnnotaionAspect1 {
+    Logger logger = LoggerFactory.getLogger(AnnotaionAspect1.class);
 
     @Autowired
     private TestService testService;
@@ -37,7 +40,7 @@ public class AnnotaionAspect1 {
     @Before("aspect()")
     public void beforeReturnUser(JoinPoint joinPoint) {
 
-        System.out.println("beforeReturnUser " + JSON.toJSONString(joinPoint.getArgs()));
+        logger.info("beforeReturnUser " + JSON.toJSONString(joinPoint.getArgs()));
         testService.test();
     }
 
@@ -54,7 +57,7 @@ public class AnnotaionAspect1 {
         String className = AnnotationUtils.findAnnotation(s, Test.class).className();
         String[] strings = AnnotationUtils.findAnnotation(s, Test.class).strings();
         for (String s2 : strings) {
-            System.out.println(s2);
+            logger.info(s2);
         }
         Class<?> clazz = Class.forName(className);
         Method[] method = clazz.getMethods();
@@ -68,9 +71,9 @@ public class AnnotaionAspect1 {
         }
         Method method1 = clazz.getMethod("test1", String.class);
         method1.invoke(clazz.newInstance(), joinPoint.getArgs()[0]);
-        System.out.println(joinPoint.getArgs());
-        System.out.println(s1);
-        System.out.println("aroundReturnUser " + joinPoint);
+        logger.info(JSON.toJSONString(joinPoint.getArgs()));
+        logger.info(s1);
+        logger.info("aroundReturnUser " + joinPoint);
         return re;
     }
 
@@ -78,26 +81,26 @@ public class AnnotaionAspect1 {
     @After("aspect()")
     public void afterReturnUser(JoinPoint joinPoint) {
 
-        System.out.println("beforeReturnUser " + JSON.toJSONString(joinPoint.getArgs()));
+        logger.info("beforeReturnUser " + JSON.toJSONString(joinPoint.getArgs()));
         testService.test();
     }
 
     @AfterThrowing(value = "aspect()", throwing = "exception")
     public void afterExceptionUser(JoinPoint joinPoint, Exception exception) {
-        System.out.println("beforeReturnUser " + JSON.toJSONString(joinPoint.getArgs()));
-        System.out.println("beforeReturnUser " + JSON.toJSONString(joinPoint.getArgs()));
+        logger.info("beforeReturnUser " + JSON.toJSONString(joinPoint.getArgs()));
+        logger.info("beforeReturnUser " + JSON.toJSONString(joinPoint.getArgs()));
         testService.test();
     }
 
     @AfterReturning(returning = "returnValue", value = "aspect()")
     public Object afterReturnUser(JoinPoint joinPoint, Object returnValue) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException, InstantiationException {
         Object re = null;
-        System.out.println("aroundReturnUser " + returnValue);
+        logger.info("aroundReturnUser " + returnValue);
         return re;
     }
 
 
-    //配置前置通知,拦截参数为 com.ithawk.springboot.aop.model.Member的方法
+    //配置前置通知,com.ithawk.springboot.aop.service 拦截参数为 com.ithawk.springboot.aop.model.Member的方法
     @Before("execution(* com.ithawk.springboot.aop.service..*(com.ithawk.springboot.aop.model.Member))")
     public void beforeArgUser(JoinPoint joinPoint) {
         System.out.println("beforeArgUser " + joinPoint);
@@ -106,7 +109,7 @@ public class AnnotaionAspect1 {
     //配置前置通知,拦截含有long类型参数的方法,并将参数值注入到当前方法的形参id中
     @Before("aspect()&&args(id)")
     public void beforeArgId(JoinPoint joinPoint, long id) {
-        System.out.println("beforeArgId " + joinPoint + "\tID:" + id);
+        logger.info("beforeArgId " + joinPoint + "\tID:" + id);
     }
 
 }

@@ -17,8 +17,7 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-    @Autowired
-    ApplicationUtils applicationUtils;
+
 
     @PostMapping(value = "post")
     public int addUser(@RequestBody User user) {
@@ -28,7 +27,7 @@ public class UserController {
 
     @GetMapping(value = "all")
     public List<User> addUser() {
-        String[]  strings = applicationUtils.getApplicationContext().getBeanDefinitionNames();
+        String[]  strings = ApplicationUtils.getApplicationContext().getBeanDefinitionNames();
         log.info(JSON.toJSONString(strings,true));
         return userService.getUserList();
     }

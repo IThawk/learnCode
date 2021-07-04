@@ -1,7 +1,7 @@
-package com.ithawk.demo.springboot.ex;
+package com.ithawk.demo.springboot.actuator;
 
 
-import com.ithawk.demo.springboot.ex.service.SomeService;
+import com.ithawk.demo.springboot.actuator.service.SomeService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class ApplicationTests {
+public class ActuatorApplicationTests {
 
     @Autowired
     private SomeService service;

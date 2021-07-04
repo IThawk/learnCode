@@ -1,4 +1,4 @@
-package com.ithawk.demo.springboot.ex.controller;
+package com.ithawk.demo.springboot.war.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,5 +10,4 @@ public class SomeController {
     public String someHandle() {
         return "hello spring boot world";
     }
-
 }
