@@ -1,6 +1,7 @@
 package com.ithawk.demo.springboot.ex.configuration;
 
-import com.abc.service.WrapService;
+
+import com.ithawk.demo.springboot.ex.service.WrapService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;

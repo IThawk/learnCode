@@ -17,6 +17,7 @@
     <artifactId>04-provider-8081</artifactId>
 
     <properties>
+<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
         <spring-cloud.version>Hoxton.SR1</spring-cloud.version>
     </properties>
