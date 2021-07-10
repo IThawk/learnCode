@@ -1,11 +1,10 @@
 package com.kkb.spring.aop.test;
 
+import com.kkb.spring.aop.target.UserService;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-
-import com.kkb.spring.aop.target.UserService;
 
 public class TestAOP2 {
 

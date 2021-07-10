@@ -1,9 +1,8 @@
 package com.kkb.spring.ioc.test;
 
+import com.kkb.spring.ioc.annotation.po.Student;
 import org.junit.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-
-import com.kkb.spring.ioc.annotation.po.Student;
 
 public class TestIoCAnno {
 

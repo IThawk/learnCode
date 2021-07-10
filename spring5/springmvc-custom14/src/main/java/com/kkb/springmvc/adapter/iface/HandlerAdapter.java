@@ -1,9 +1,9 @@
 package com.kkb.springmvc.adapter.iface;
 
+import com.kkb.springmvc.model.ModelAndView;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.kkb.springmvc.model.ModelAndView;
 
 /**
  * 适配器接口

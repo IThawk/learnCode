@@ -1,9 +1,9 @@
 package com.kkb.springmvc.handler;
 
+import com.kkb.springmvc.handler.iface.HttpRequestHandler;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.kkb.springmvc.handler.iface.HttpRequestHandler;
 
 /**
  * 处理查询用户请求

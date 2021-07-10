@@ -1,13 +1,9 @@
 package com.kkb.spring.ioc.test;
 
-import java.beans.BeanInfo;
-import java.beans.Introspector;
-import java.beans.PropertyDescriptor;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-
-import javax.sql.DataSource;
-
+import com.kkb.spring.ioc.xml.po.ClassA;
+import com.kkb.spring.ioc.xml.po.ClassB;
+import com.kkb.spring.ioc.xml.po.Course;
+import com.kkb.spring.ioc.xml.po.Student;
 import org.junit.Test;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
@@ -17,10 +13,12 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
-import com.kkb.spring.ioc.xml.po.ClassA;
-import com.kkb.spring.ioc.xml.po.ClassB;
-import com.kkb.spring.ioc.xml.po.Course;
-import com.kkb.spring.ioc.xml.po.Student;
+import javax.sql.DataSource;
+import java.beans.BeanInfo;
+import java.beans.Introspector;
+import java.beans.PropertyDescriptor;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 
 public class TestIoCXML {
 	

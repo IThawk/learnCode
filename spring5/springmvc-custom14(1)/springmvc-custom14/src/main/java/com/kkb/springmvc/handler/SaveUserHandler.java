@@ -1,10 +1,10 @@
 package com.kkb.springmvc.handler;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import com.kkb.springmvc.handler.iface.SimpleControllerHandler;
 import com.kkb.springmvc.model.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * 处理添加用户的请求

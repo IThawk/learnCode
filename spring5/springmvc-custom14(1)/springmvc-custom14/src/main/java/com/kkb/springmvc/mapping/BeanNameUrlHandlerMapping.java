@@ -1,17 +1,15 @@
 package com.kkb.springmvc.mapping;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
 import com.kkb.spring.framework.aware.BeanFactoryAware;
 import com.kkb.spring.framework.factory.BeanFactory;
 import com.kkb.spring.framework.factory.support.DefaultListableBeanFactory;
 import com.kkb.spring.framework.ioc.BeanDefinition;
-import com.kkb.springmvc.handler.QueryUserHandler;
 import com.kkb.springmvc.mapping.iface.HandlerMapping;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 将处理器类配置到xml中的bean标签

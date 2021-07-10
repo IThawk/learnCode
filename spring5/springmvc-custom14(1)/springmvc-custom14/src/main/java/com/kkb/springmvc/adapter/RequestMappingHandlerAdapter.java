@@ -2,7 +2,6 @@ package com.kkb.springmvc.adapter;
 
 import com.kkb.springmvc.adapter.iface.HandlerAdapter;
 import com.kkb.springmvc.annotation.ResponseBody;
-import com.kkb.springmvc.handler.iface.SimpleControllerHandler;
 import com.kkb.springmvc.model.HandlerMethod;
 import com.kkb.springmvc.model.ModelAndView;
 import com.kkb.springmvc.utils.JsonUtils;

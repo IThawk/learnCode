@@ -1,12 +1,11 @@
 package com.kkb.springmvc.mapping;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
 import com.kkb.springmvc.handler.SaveUserHandler;
 import com.kkb.springmvc.mapping.iface.HandlerMapping;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 将处理器类配置到xml中的bean标签

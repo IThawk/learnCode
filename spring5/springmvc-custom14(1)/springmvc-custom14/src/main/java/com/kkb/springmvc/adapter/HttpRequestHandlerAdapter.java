@@ -1,11 +1,11 @@
 package com.kkb.springmvc.adapter;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import com.kkb.springmvc.adapter.iface.HandlerAdapter;
 import com.kkb.springmvc.handler.iface.HttpRequestHandler;
 import com.kkb.springmvc.model.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * 适配并处理HttpRequestHandler处理器类的

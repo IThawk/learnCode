@@ -1,11 +1,10 @@
 package com.kkb.spring.tx.service;
 
-import javax.annotation.Resource;
-
+import com.kkb.spring.tx.dao.AccountDao;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.kkb.spring.tx.dao.AccountDao;
+import javax.annotation.Resource;
 
 //@Transactional：标记该类的所有方法都已经被事务进行管理了，至于管理属性，不设置的话，都采取默认值
 @Transactional
