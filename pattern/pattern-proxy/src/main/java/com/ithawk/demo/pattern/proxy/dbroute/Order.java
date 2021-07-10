@@ -1,7 +1,7 @@
 package com.ithawk.demo.pattern.proxy.dbroute;
 
 /**
- * Created by Tom.
+ *
  */
 public class Order {
     private Object orderInfo;

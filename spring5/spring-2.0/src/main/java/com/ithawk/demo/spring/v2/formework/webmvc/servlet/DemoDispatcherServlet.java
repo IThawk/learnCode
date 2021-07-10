@@ -2,7 +2,7 @@ package com.ithawk.demo.spring.v2.formework.webmvc.servlet;
 
 import com.ithawk.demo.spring.v2.formework.annotation.GPController;
 import com.ithawk.demo.spring.v2.formework.annotation.GPRequestMapping;
-import com.ithawk.demo.spring.v2.formework.context.GPApplicationContext;
+import com.ithawk.demo.spring.v2.formework.context.ApplicationContext;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.ServletConfig;
@@ -24,7 +24,7 @@ public class DemoDispatcherServlet extends HttpServlet {
     //这个参数对于初始化的  init-param
     private final String CONTEXT_CONFIG_LOCATION = "contextConfigLocation";
 
-    private GPApplicationContext context;
+    private ApplicationContext context;
 
 
     private List<GPHandlerMapping> handlerMappings = new ArrayList<GPHandlerMapping>();
@@ -37,7 +37,7 @@ public class DemoDispatcherServlet extends HttpServlet {
     @Override
     public void init(ServletConfig config) throws ServletException {
         //1、初始化ApplicationContext 这个就是类似spring的核心bean的初始化
-        context = new GPApplicationContext(config.getInitParameter(CONTEXT_CONFIG_LOCATION));
+        context = new ApplicationContext(config.getInitParameter(CONTEXT_CONFIG_LOCATION));
         //2、初始化Spring MVC 九大组件
         initStrategies(context);
     }
@@ -130,7 +130,7 @@ public class DemoDispatcherServlet extends HttpServlet {
 
 
     //初始化策略
-    protected void initStrategies(GPApplicationContext context) {
+    protected void initStrategies(ApplicationContext context) {
         //多文件上传的组件
         initMultipartResolver(context);
         //初始化本地语言环境
@@ -155,10 +155,10 @@ public class DemoDispatcherServlet extends HttpServlet {
         initFlashMapManager(context);
     }
 
-    private void initFlashMapManager(GPApplicationContext context) {
+    private void initFlashMapManager(ApplicationContext context) {
     }
 
-    private void initViewResolvers(GPApplicationContext context) {
+    private void initViewResolvers(ApplicationContext context) {
 
         //拿到模板的存放目录
         String templateRoot = context.getConfig().getProperty("templateRoot");
@@ -175,13 +175,13 @@ public class DemoDispatcherServlet extends HttpServlet {
 
     }
 
-    private void initRequestToViewNameTranslator(GPApplicationContext context) {
+    private void initRequestToViewNameTranslator(ApplicationContext context) {
     }
 
-    private void initHandlerExceptionResolvers(GPApplicationContext context) {
+    private void initHandlerExceptionResolvers(ApplicationContext context) {
     }
 
-    private void initHandlerAdapters(GPApplicationContext context) {
+    private void initHandlerAdapters(ApplicationContext context) {
 
         //把一个requet请求变成一个handler，参数都是字符串的，自动配到handler中的形参
 
@@ -194,7 +194,7 @@ public class DemoDispatcherServlet extends HttpServlet {
 
     }
 
-    private void initHandlerMappings(GPApplicationContext context) {
+    private void initHandlerMappings(ApplicationContext context) {
 
         String [] beanNames = context.getBeanDefinitionNames();
 
@@ -246,13 +246,13 @@ public class DemoDispatcherServlet extends HttpServlet {
 
     }
 
-    private void initThemeResolver(GPApplicationContext context) {
+    private void initThemeResolver(ApplicationContext context) {
     }
 
-    private void initLocaleResolver(GPApplicationContext context) {
+    private void initLocaleResolver(ApplicationContext context) {
     }
 
-    private void initMultipartResolver(GPApplicationContext context) {
+    private void initMultipartResolver(ApplicationContext context) {
     }
 
 }

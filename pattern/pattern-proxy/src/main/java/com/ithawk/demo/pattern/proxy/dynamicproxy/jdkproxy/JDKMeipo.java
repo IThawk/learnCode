@@ -6,10 +6,13 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
 /**
- * Created by Tom on 2019/3/10.
+ *
  */
 public class JDKMeipo implements InvocationHandler {
 
+    /**
+     * 被代理的对象
+     */
     private Object target;
     public Object getInstance(Object target) throws Exception{
         this.target = target;

@@ -21,6 +21,8 @@ import org.springframework.core.ResolvableType;
 import org.springframework.lang.Nullable;
 
 /**
+ * BeanFactory是接口，提供了OC容器最基本的形式，给具体的IOC容器的实现提供了规范，
+ * spring容器的顶级接口
  * The root interface for accessing a Spring bean container.
  *
  * <p>This is the basic client view of a bean container;

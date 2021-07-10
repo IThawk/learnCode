@@ -1,0 +1,25 @@
+<beans>
+	<bean id="userService"
+		class="com.ithawk.demo.spring.custom.demo.service.UserServiceImpl">
+		<!-- 引用类型 -->
+		<property name="userDao" ref="userDao"></property>
+	</bean>
+
+	<!-- 该类有一个初始化方法 -->
+	<bean id="userDao" class="com.ithawk.demo.spring.custom.demo.dao.UserDaoImpl"
+		init-method="init">
+		<constructor-args name="dataSource" ref="dataSource"></constructor-args>
+	</bean>
+
+	<!-- 该类有一个初始化方法 -->
+	<bean id="dataSource"
+		class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName"
+			value="com.mysql.jdbc.Driver"></property>
+		<property name="url"
+			value="jdbc:mysql://192.168.56.101:3306/test"></property>
+		<property name="username" value="root"></property>
+		<property name="password" value="123456"></property>
+	</bean>
+
+</beans>

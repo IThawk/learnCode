@@ -1,0 +1,16 @@
+标准（接口）可以随意制定：
+接口1：HttpServletHandler(高仿了Servlet的写法)
+    void handleRequest(req,resp);
+
+接口2：SimpleControllerHandler
+    ModelAndView handleRequest(req,resp);
+
+    ModelAndView
+        Model--handler的处理结果
+        View--要将处理结果进行展示的视图名称
+
+    该接口可以对ModelAndView的数据进行改变
+
+接口3：注解方式（后面要讲的重点）
+
+spring要求，各个处理器类的标准没有任何关系，也就是没有统一的标准
