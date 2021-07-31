@@ -896,9 +896,18 @@ public class BrokerController {
         if (!messageStoreConfig.isEnableDLegerCommitLog()) {
             startProcessorByHa(messageStoreConfig.getBrokerRole());
             handleSlaveSynchronize(messageStoreConfig.getBrokerRole());
+            /**
+             *  RocketMQ 注册是通过Broker 与NameServer 的心跳机制实现的。
+             *  Broker 启动的时候向集群中所有的NameServer 发送心跳语句，
+             */
             this.registerBrokerAll(true, false, true);
         }
-
+        /**
+         * 每隔30s 向集群中所有的NameServer 发送心跳包，
+         * NameServer 收到Broker 心跳包时会更新brokerLiveTable缓存中BrokerLiveInfo 的lastUpdateTimestamp，
+         * 然后NameServer 每隔10s扫描brokerLiveTable，如果连续120s 没有收到心跳包，
+         * NameServer 将移除该Broker 的路由信息同时关闭Socket 连接。
+         */
         this.scheduledExecutorService.scheduleAtFixedRate(new Runnable() {
 
             @Override
@@ -960,6 +969,7 @@ public class BrokerController {
             this.brokerConfig.getBrokerName(),
             this.brokerConfig.getBrokerId(),
             this.brokerConfig.getRegisterBrokerTimeoutMills())) {
+            //注册所有的
             doRegisterBrokerAll(checkOrderConfig, oneway, topicConfigWrapper);
         }
     }

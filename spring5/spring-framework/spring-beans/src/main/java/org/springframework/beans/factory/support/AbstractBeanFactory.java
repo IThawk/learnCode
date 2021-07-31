@@ -194,7 +194,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 	/***获取bean*/
 	@Override
 	public Object getBean(String name) throws BeansException {
-		logger.info("XmlBeanFactory");
+//		logger.info("XmlBeanFactory");
 		return doGetBean(name, null, null, false);
 	}
 
@@ -241,6 +241,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 	protected <T> T doGetBean(
 			String name, @Nullable Class<T> requiredType, @Nullable Object[] args, boolean typeCheckOnly)
 			throws BeansException {
+		System.out.println("org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean 获取bean：" + name);
 		// 获取bean名称  理解验证bean的名字是否非法
 		String beanName = transformedBeanName(name);
 		Object bean;
