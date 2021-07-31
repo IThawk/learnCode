@@ -1,5 +1,6 @@
 maven build:
 使用 mvn compile -Dos.detected.classifier=windows-x86_64
+mvn compile -Dos.detected.classifier=windows-x86_64 -Dmaven.test.skip=true
 idea 的时候在maven的run中添加 -Dos.detected.classifier=windows-x86_64
 # 学习代码
 ## dubbo

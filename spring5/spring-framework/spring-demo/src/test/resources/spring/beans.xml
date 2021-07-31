@@ -11,7 +11,7 @@
         http://www.springframework.org/schema/aop/spring-aop.xsd">
 
 	<!-- 该类有一个初始化方法 -->
-	<bean id="course" class="ioc.xml.po.Course">
+	<bean id="course" class="ioc.xml.po.Course" >
 		<property name="name" value="english">
 		</property>
 	</bean>

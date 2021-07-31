@@ -61,7 +61,9 @@ public class NamesrvStartup {
     public static NamesrvController main0(String[] args) {
 
         try {
+            //启动NameServer的第一步是构造一个NamesrvController实例，这个类是NameServer的核心类
             NamesrvController controller = createNamesrvController(args);
+            // 第二步:初始化、启动 NamesrvController 类
             start(controller);
             String tip = "The Name Server boot success. serializeType=" + RemotingCommand.getSerializeTypeConfigInThisServer();
             log.info(tip);
@@ -75,6 +77,14 @@ public class NamesrvStartup {
         return null;
     }
 
+    /**
+     * 而`createNamesrvController`方法，就是从命令行接收参数，
+     * 然后将解析成配置类`NamesrvConfig`和`NettyServerConfig`
+     * @param args
+     * @return
+     * @throws IOException
+     * @throws JoranException
+     */
     public static NamesrvController createNamesrvController(String[] args) throws IOException, JoranException {
         System.setProperty(RemotingCommand.REMOTING_VERSION_KEY, Integer.toString(MQVersion.CURRENT_VERSION));
         //PackageConflictDetect.detectFastjson();
@@ -89,7 +99,13 @@ public class NamesrvStartup {
         //启动配置信息
         final NamesrvConfig namesrvConfig = new NamesrvConfig();
         final NettyServerConfig nettyServerConfig = new NettyServerConfig();
+        // Namesrv 默认端口为9876
         nettyServerConfig.setListenPort(9876);
+        /**
+         *通过 -c 参数指定配置文件，
+         *通过 -c 命令可以指定配置文件，将配置文件中的内容解析成`java.util.Properties`类，
+         *然后赋值给`NamesrvConfig`和`NettyServerConfig`类完成配置文件的解析与映射。
+         */
         //获取启动参数中的配置文件
         if (commandLine.hasOption('c')) {
             String file = commandLine.getOptionValue('c');
@@ -106,7 +122,7 @@ public class NamesrvStartup {
                 in.close();
             }
         }
-
+        // 通过 -p 参数打印当前配置，并退出程序
         if (commandLine.hasOption('p')) {
             InternalLogger console = InternalLoggerFactory.getLogger(LoggerName.NAMESRV_CONSOLE_NAME);
             MixAll.printObjectProperties(console, namesrvConfig);
@@ -125,6 +141,7 @@ public class NamesrvStartup {
         JoranConfigurator configurator = new JoranConfigurator();
         configurator.setContext(lc);
         lc.reset();
+        //加载日志文件
 //        configurator.doConfigure(namesrvConfig.getRocketmqHome() + "/conf/logback_namesrv.xml");
 
         System.out.println("默认日志文件位置"+namesrvConfig.getRocketmqHome() + "/conf/logback_namesrv.xml");
@@ -134,7 +151,9 @@ public class NamesrvStartup {
 
         MixAll.printObjectProperties(log, namesrvConfig);
         MixAll.printObjectProperties(log, nettyServerConfig);
-
+        /**
+         * 当完成配置属性的映射，就会根据配置类`NamesrvConfig`和`NettyServerConfig`构造一个`NamesrvController`实例。
+         */
         final NamesrvController controller = new NamesrvController(namesrvConfig, nettyServerConfig);
 
         // remember all configs to prevent discard
@@ -157,6 +176,11 @@ public class NamesrvStartup {
             System.exit(-3);
         }
         //NameServer启动的最后⼀步，是注册了⼀个`JVM`的钩⼦函数，它会在`JVM`关闭之前执⾏。这个钩⼦函数的作⽤是释放资源，如关闭`Netty`服务器，关闭线程池等。
+        /**
+         * 	//NameServer启动的最后一步，是注册了一个`JVM`的钩子函数，
+         * 	它会在`JVM`关闭之前执行。
+         * 	这个钩子函数的作用是释放资源，如关闭`Netty`服务器，关闭线程池等。
+         */
         Runtime.getRuntime().addShutdownHook(new ShutdownHookThread(log, new Callable<Void>() {
             @Override
             public Void call() throws Exception {

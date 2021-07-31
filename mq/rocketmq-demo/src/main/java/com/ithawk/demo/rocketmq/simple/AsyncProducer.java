@@ -23,7 +23,7 @@ public class AsyncProducer {
 
         producer.setRetryTimesWhenSendAsyncFailed(0);
 
-        int messageCount = 10;
+        int messageCount = 1;
         final CountDownLatch countDownLatch = new CountDownLatch(messageCount);
         for (int i = 0; i < messageCount; i++) {
             try {
