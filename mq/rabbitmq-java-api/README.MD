@@ -3,6 +3,12 @@
 
 RabbitMQ默认端口：5672。
 
+# docker 安装
+```
+docker pull rabbitmq:management
+docker run -dit --name rabbitmq -p 15672:15672 -p 5672:5672 rabbitmq:management
+```
+http://192.168.56.101:15672/#/  guest   guest
 # 目录package说明
   ack  消息手工确认、不确认、拒绝和重回队列的测试
 

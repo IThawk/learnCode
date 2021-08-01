@@ -13,11 +13,10 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 /**
- * @Author: qingshan
- * @Date: 2018/9/21 10:52
- * @Description: 咕泡学院，只为更好的你
- * 消息生产者，测试Confirm模式
- *  参考文章：https://www.cnblogs.com/vipstone/p/9350075.html
+ * @className AsyncConfirmProducer
+ * @description:  
+ * @author IThawk
+ * @date 2021/8/1 22:31
  */
 public class AsyncConfirmProducer {
     private final static String QUEUE_NAME = "ORIGIN_QUEUE";
@@ -25,7 +24,12 @@ public class AsyncConfirmProducer {
     public static void main(String[] args) throws Exception {
         ConnectionFactory factory = new ConnectionFactory();
         factory.setUri(ResourceUtil.getKey("rabbitmq.uri"));
-
+        factory.setHost("192.168.56.101");
+        factory.setPort(5672);
+        //设置vhost
+        factory.setVirtualHost("/my_vhost");
+        factory.setUsername("admin");
+        factory.setPassword("admin");
         // 建立连接
         Connection conn = factory.newConnection();
         // 创建消息通道

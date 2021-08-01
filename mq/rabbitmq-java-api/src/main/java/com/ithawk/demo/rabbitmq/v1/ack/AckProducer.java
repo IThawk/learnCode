@@ -6,11 +6,12 @@ import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 
+
 /**
- * @Author: qingshan
- * @Date: 2018/9/21 10:52
- * @Description: 咕泡学院，只为更好的你
- * 消息生产者，用于测试消费者手工应答和重回队列
+ * @className AckProducer
+ * @description:  消息生产者，用于测试消费者手工应答和重回队列
+ * @author IThawk
+ * @date 2021/8/1 21:53
  */
 public class AckProducer {
     private final static String QUEUE_NAME = "TEST_ACK_QUEUE";
@@ -18,7 +19,14 @@ public class AckProducer {
     public static void main(String[] args) throws Exception {
 
         ConnectionFactory factory = new ConnectionFactory();
-        factory.setUri(ResourceUtil.getKey("rabbitmq.uri"));
+
+        //设置
+        factory.setHost("192.168.56.101");
+        factory.setPort(5672);
+        //设置vhost
+        factory.setVirtualHost("/my_vhost");
+        factory.setUsername("admin");
+        factory.setPassword("admin");
 
         // 建立连接
         Connection conn = factory.newConnection();

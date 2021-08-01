@@ -16,6 +16,7 @@ import java.util.Map;
  *  必须要在服务端安装rabbitmq-delayed-message-exchange插件，安装步骤见README.MD
  *  先启动消费者
  */
+
 public class DelayPluginConsumer {
 
     public static void main(String[] args) throws Exception {

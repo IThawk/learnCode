@@ -6,19 +6,25 @@ import com.rabbitmq.client.*;
 
 import java.io.IOException;
 
+
 /**
- * @Author: qingshan
- * @Date: 2018/9/21 10:53
- * @Description: 咕泡学院，只为更好的你
- * 消息消费者，用于测试消费者手工应答和重回队列
+ * @className AckConsumer
+ * @description:  消息消费者，用于测试消费者手工应答和重回队列
+ * @author IThawk
+ * @date 2021/8/1 21:53
  */
 public class AckConsumer {
     private final static String QUEUE_NAME = "TEST_ACK_QUEUE";
 
     public static void main(String[] args) throws Exception {
         ConnectionFactory factory = new ConnectionFactory();
-        factory.setUri(ResourceUtil.getKey("rabbitmq.uri"));
-
+//        factory.setUri(ResourceUtil.getKey("rabbitmq.uri"));
+        factory.setHost("192.168.56.101");
+        factory.setPort(5672);
+        //设置vhost
+        factory.setVirtualHost("/my_vhost");
+        factory.setUsername("admin");
+        factory.setPassword("admin");
         // 建立连接
         Connection conn = factory.newConnection();
         // 创建消息通道

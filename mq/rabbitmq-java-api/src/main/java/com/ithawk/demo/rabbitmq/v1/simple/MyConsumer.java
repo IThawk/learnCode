@@ -16,16 +16,12 @@ public class MyConsumer {
 
     public static void main(String[] args) throws Exception {
         ConnectionFactory factory = new ConnectionFactory();
-        // 连接IP
-        factory.setHost("127.0.0.1");
-        // 默认监听端口
+        factory.setHost("192.168.56.101");
         factory.setPort(5672);
-        // 虚拟机
-        factory.setVirtualHost("/");
-
-        // 设置访问的用户
-        factory.setUsername("guest");
-        factory.setPassword("guest");
+        //设置vhost
+        factory.setVirtualHost("/my_vhost");
+        factory.setUsername("admin");
+        factory.setPassword("admin");
         // 建立连接
         Connection conn = factory.newConnection();
         // 创建消息通道

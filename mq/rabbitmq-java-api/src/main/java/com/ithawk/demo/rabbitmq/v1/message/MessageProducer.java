@@ -22,8 +22,14 @@ public class MessageProducer {
 
     public static void main(String[] args) throws Exception {
         ConnectionFactory factory = new ConnectionFactory();
+        System.out.println(ResourceUtil.getKey("rabbitmq.uri"));
         factory.setUri(ResourceUtil.getKey("rabbitmq.uri"));
-
+        factory.setHost("192.168.56.101");
+        factory.setPort(5672);
+        //设置vhost
+        factory.setVirtualHost("/my_vhost");
+        factory.setUsername("admin");
+        factory.setPassword("admin");
         // 建立连接
         Connection conn = factory.newConnection();
         // 创建消息通道

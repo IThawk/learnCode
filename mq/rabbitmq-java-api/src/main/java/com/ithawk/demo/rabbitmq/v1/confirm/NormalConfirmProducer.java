@@ -6,11 +6,12 @@ import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 
+
 /**
- * @Author: qingshan
- * @Date: 2018/10/21 16:18
- * @Description: 咕泡学院，只为更好的你
- * 普通确认模式
+ * @className AsyncConfirmProducer
+ * @description:普通确认模式
+ * @author IThawk
+ * @date 2021/8/1 22:31
  */
 public class NormalConfirmProducer {
 
@@ -19,7 +20,12 @@ public class NormalConfirmProducer {
     public static void main(String[] args) throws Exception {
         ConnectionFactory factory = new ConnectionFactory();
         factory.setUri(ResourceUtil.getKey("rabbitmq.uri"));
-
+        factory.setHost("192.168.56.101");
+        factory.setPort(5672);
+        //设置vhost
+        factory.setVirtualHost("/my_vhost");
+        factory.setUsername("admin");
+        factory.setPassword("admin");
         // 建立连接
         Connection conn = factory.newConnection();
         // 创建消息通道
