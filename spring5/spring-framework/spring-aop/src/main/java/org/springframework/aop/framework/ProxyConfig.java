@@ -16,9 +16,9 @@
 
 package org.springframework.aop.framework;
 
-import java.io.Serializable;
-
 import org.springframework.util.Assert;
+
+import java.io.Serializable;
 
 /**
  * Convenience superclass for configuration used in creating proxies,
@@ -34,6 +34,8 @@ public class ProxyConfig implements Serializable {
 	private static final long serialVersionUID = -8409359707199703185L;
 
 
+//	<!-- 开启aspectj的自动代理，用于AOP的注解方式   proxy-target-class="true"  选择默认使用 Cglib 动态代理 -->
+//	<aop:aspectj-autoproxy proxy-target-class="false"/>
 	private boolean proxyTargetClass = false;
 
 	private boolean optimize = false;

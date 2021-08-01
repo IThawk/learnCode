@@ -16,6 +16,7 @@
 
 package org.springframework.beans.factory.xml;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
@@ -53,7 +54,7 @@ import org.springframework.core.io.Resource;
 @Deprecated
 @SuppressWarnings({"serial", "all"})
 public class XmlBeanFactory extends DefaultListableBeanFactory {
-
+	private static Logger logger = Logger.getLogger(XmlBeanFactory.class);
 	private final XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(this);
 
 
@@ -64,6 +65,7 @@ public class XmlBeanFactory extends DefaultListableBeanFactory {
 	 * @throws BeansException in case of loading or parsing errors
 	 */
 	public XmlBeanFactory(Resource resource) throws BeansException {
+
 		this(resource, null);
 	}
 

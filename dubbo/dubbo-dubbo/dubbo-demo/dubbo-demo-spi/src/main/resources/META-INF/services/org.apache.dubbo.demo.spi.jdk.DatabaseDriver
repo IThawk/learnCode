@@ -1,0 +1,2 @@
+org.apache.dubbo.demo.spi.jdk.MyDatabase
+org.apache.dubbo.demo.spi.jdk.RedDatabase

@@ -54,6 +54,10 @@ jar包依赖：
 
 
 # mySQL 相关知识
+<<<<<<< HEAD
+=======
+## docker启动
+>>>>>>> aaec40860904e3b1ec6164df914652bc11c958bb
       --privileged=true 解决权限问题
       docker run --name mysql -p 3306:3306 -v /mydata/mysql:/var/lib/mysql --privileged=true -e MYSQL_ROOT_PASSWORD="123456" -d mysql:5.7
 ### sql执行过程：

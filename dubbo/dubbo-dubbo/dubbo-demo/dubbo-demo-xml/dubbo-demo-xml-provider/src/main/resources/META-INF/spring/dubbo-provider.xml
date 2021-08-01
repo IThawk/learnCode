@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  -->
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://dubbo.apache.org/schema/dubbo"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+       http://dubbo.apache.org/schema/dubbo http://dubbo.apache.org/schema/dubbo/dubbo.xsd">
+
+    <dubbo:application metadata-type="remote" name="demo-provider"/>
+    <dubbo:metadata-report address="zookeeper://192.168.56.101:2181"/>
+
+    <dubbo:registry address="zookeeper://192.168.56.101:2181"/>
+<!--    <dubbo:monitor address="127.0.0.1:17077" />-->
+<!--    <dubbo:monitor address="127.0.0.1:7070" />-->
+    <dubbo:protocol name="dubbo" port="20881"/>
+
+<!--    参数说明：
+threadpool：dubbo线程池类型
+fixed=org.apache.dubbo.common.threadpool.support.fixed.FixedThreadPool
+cached=org.apache.dubbo.common.threadpool.support.cached.CachedThreadPool
+limited=org.apache.dubbo.common.threadpool.support.limited.LimitedThreadPool
+eager=org.apache.dubbo.common.threadpool.support.eager.EagerThreadPool
+threads：线程池大小
+timeout: 调用超时时间
+cluster: 调用模式
+mock=org.apache.dubbo.rpc.cluster.support.wrapper.MockClusterWrapper
+failover=org.apache.dubbo.rpc.cluster.support.FailoverCluster
+failfast=org.apache.dubbo.rpc.cluster.support.FailfastCluster
+failsafe=org.apache.dubbo.rpc.cluster.support.FailsafeCluster
+failback=org.apache.dubbo.rpc.cluster.support.FailbackCluster
+forking=org.apache.dubbo.rpc.cluster.support.ForkingCluster
+available=org.apache.dubbo.rpc.cluster.support.AvailableCluster
+mergeable=org.apache.dubbo.rpc.cluster.support.MergeableCluster
+broadcast=org.apache.dubbo.rpc.cluster.support.BroadcastCluster
+zone-aware=org.apache.dubbo.rpc.cluster.support.registry.ZoneAwareCluster
+-->
+    <dubbo:provider threadpool ="cached" threads ="2" timeout="1000" cluster="failover"> </dubbo:provider>
+<!--    <dubbo:provider threadpool ="fixed" threads ="2" timeout="1000" > </dubbo:provider>-->
+    <bean id="demoService" class="org.apache.dubbo.demo.provider.DemoServiceImpl"/>
+
+    <dubbo:provider port="20880"></dubbo:provider>
+    <bean id="testSpiAutowired" class="org.apache.dubbo.demo.provider.TestSpiAutowired"/>
+    <!-- dubbo 发布服务 -->
+    <dubbo:service interface="org.apache.dubbo.demo.DemoService" ref="demoService" />
+
+</beans>

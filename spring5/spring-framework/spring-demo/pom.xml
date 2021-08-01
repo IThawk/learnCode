@@ -35,14 +35,24 @@
 	</properties>
 	<dependencies>
 		<dependency>
-			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-api</artifactId>
-			<version>2.13.3</version>
-		</dependency>
-		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
 			<version>1.8.0-beta2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.7.25</version>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>2.6.2</version>
 		</dependency>
 		<dependency>
 			<groupId>com.ithawk</groupId>
@@ -60,6 +70,11 @@
 			<version>5.2.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
+			<groupId>com.ithawk</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>5.2.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
 			<groupId>org.mybatis</groupId>
 			<artifactId>mybatis</artifactId>
 			<version>3.5.3</version>
@@ -73,6 +88,11 @@
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 			<version>42.2.11</version>
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>8.0.24</version>
 		</dependency>
 		<dependency>
 			<groupId>com.ithawk</groupId>
@@ -101,6 +121,7 @@
 			<artifactId>pagehelper</artifactId>
 			<version>5.0.0</version>
 		</dependency>
+
 
 
 		<!--		&lt;!&ndash;结局tomcat的JSP问题&ndash;&gt;-->

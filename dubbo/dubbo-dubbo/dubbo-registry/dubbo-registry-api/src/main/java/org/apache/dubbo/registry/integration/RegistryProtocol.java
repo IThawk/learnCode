@@ -173,6 +173,11 @@ public class RegistryProtocol implements Protocol {
         return overrideListeners;
     }
 
+    /**
+     *开始注册
+     * @param registryUrl
+     * @param registeredProviderUrl
+     */
     private void register(URL registryUrl, URL registeredProviderUrl) {
         Registry registry = registryFactory.getRegistry(registryUrl);
         registry.register(registeredProviderUrl);
@@ -189,7 +194,7 @@ public class RegistryProtocol implements Protocol {
     @Override
     public <T> Exporter<T> export(final Invoker<T> originInvoker) throws RpcException {
 
-        logger.info("开始远程注册服务");
+        logger.info("org.apache.dubbo.registry.integration.RegistryProtocol.export 开始远程注册服务");
         //注册服务
         URL registryUrl = getRegistryUrl(originInvoker);
         // url to export locally
@@ -224,7 +229,7 @@ public class RegistryProtocol implements Protocol {
         exporter.setRegisterUrl(registeredProviderUrl);
         exporter.setSubscribeUrl(overrideSubscribeUrl);
 
-        // Deprecated! Subscribe to override rules in 2.6.x or before.
+        // Deprecated! Subscribe to override rules in 2.6.x or before.  服务订阅
         registry.subscribe(overrideSubscribeUrl, overrideSubscribeListener);
 
         notifyExport(exporter);
@@ -250,9 +255,13 @@ public class RegistryProtocol implements Protocol {
     }
 
     @SuppressWarnings("unchecked")
+    /**
+     * 使用协议开始服务暴露的位置
+     */
     private <T> ExporterChangeableWrapper<T> doLocalExport(final Invoker<T> originInvoker, URL providerUrl) {
         String key = getCacheKey(originInvoker);
 
+        System.out.println("使用协议开始服务暴露的位置 protocol "+ protocol.getClass().getName());
         return (ExporterChangeableWrapper<T>) bounds.computeIfAbsent(key, s -> {
             Invoker<?> invokerDelegate = new InvokerDelegate<>(originInvoker, providerUrl);
             return new ExporterChangeableWrapper<>((Exporter<T>) protocol.export(invokerDelegate), originInvoker);
@@ -348,7 +357,7 @@ public class RegistryProtocol implements Protocol {
 
     /**
      * Get an instance of registry based on the address of invoker
-     *
+     * 获取注册中心
      * @param originInvoker
      * @return
      */
@@ -468,9 +477,10 @@ public class RegistryProtocol implements Protocol {
             directory.setRegisteredConsumerUrl(subscribeUrl);
             registry.register(directory.getRegisteredConsumerUrl());
         }
+        //设置路由规则加载
         directory.buildRouterChain(subscribeUrl);
         directory.subscribe(toSubscribeUrl(subscribeUrl));
-
+       // 这个地方将Mock的 那个invoker  这个invoker就包装了 容错 降级
         Invoker<T> invoker = cluster.join(directory);
         List<RegistryProtocolListener> listeners = findRegistryProtocolListeners(url);
         if (CollectionUtils.isEmpty(listeners)) {

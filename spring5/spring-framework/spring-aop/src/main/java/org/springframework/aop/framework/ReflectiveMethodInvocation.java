@@ -16,19 +16,18 @@
 
 package org.springframework.aop.framework;
 
+import org.aopalliance.intercept.MethodInterceptor;
+import org.aopalliance.intercept.MethodInvocation;
+import org.springframework.aop.ProxyMethodInvocation;
+import org.springframework.aop.support.AopUtils;
+import org.springframework.core.BridgeMethodResolver;
+import org.springframework.lang.Nullable;
+
 import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.aopalliance.intercept.MethodInterceptor;
-import org.aopalliance.intercept.MethodInvocation;
-
-import org.springframework.aop.ProxyMethodInvocation;
-import org.springframework.aop.support.AopUtils;
-import org.springframework.core.BridgeMethodResolver;
-import org.springframework.lang.Nullable;
 
 /**
  * Spring's implementation of the AOP Alliance
@@ -159,8 +158,12 @@ public class ReflectiveMethodInvocation implements ProxyMethodInvocation, Clonea
 	@Nullable
 	public Object proceed() throws Throwable {
 		// We start with an index of -1 and increment early.
+		//currentInterceptorIndex索引 默认为-1,记录当前拦截器索引
+		//如果没有拦截器执行执行目标方法，或者拦截器的索引和拦截器数组-1大小一样（指定到了最后一个拦截器）执行目标方法,比如最一个为5, -1 != 5-1
 		if (this.currentInterceptorIndex == this.interceptorsAndDynamicMethodMatchers.size() - 1) {
+			//如果不相同,表明不使用拦截器跟进会发现,最终是调了一个invoke反射
 			return invokeJoinpoint();
+			//注：如果代码执行到这，表示前置通知已处理完，并执行完@Before注解的打印内容，开始准备调用目标方法
 		}
 
 		Object interceptorOrInterceptionAdvice =
@@ -183,6 +186,7 @@ public class ReflectiveMethodInvocation implements ProxyMethodInvocation, Clonea
 		else {
 			// It's an interceptor, so we just invoke it: The pointcut will have
 			// been evaluated statically before this object was constructed.
+			//会调用此方法，this=CglibAopProxy,跟进去看
 			return ((MethodInterceptor) interceptorOrInterceptionAdvice).invoke(this);
 		}
 	}

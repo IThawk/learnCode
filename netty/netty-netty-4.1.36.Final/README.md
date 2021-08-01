@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+mvn package -Dos.detected.classifier=windows-x86_64
+>>>>>>> aaec40860904e3b1ec6164df914652bc11c958bb
 # Netty Project
 
 Netty is an asynchronous event-driven network application framework for rapid development of maintainable high performance protocol servers & clients.

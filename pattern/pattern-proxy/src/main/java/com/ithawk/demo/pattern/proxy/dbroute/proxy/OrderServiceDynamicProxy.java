@@ -1,28 +1,40 @@
 package com.ithawk.demo.pattern.proxy.dbroute.proxy;
 
 import com.ithawk.demo.pattern.proxy.dbroute.db.DynamicDataSourceEntity;
-import com.ithawk.demo.pattern.proxy.dynamicproxy.gpproxy.GPClassLoader;
-import com.ithawk.demo.pattern.proxy.dynamicproxy.gpproxy.GPInvocationHandler;
-import com.ithawk.demo.pattern.proxy.dynamicproxy.gpproxy.GPProxy;
+import com.ithawk.demo.pattern.proxy.dynamicproxy.proxy.ProxyClassLoader;
+import com.ithawk.demo.pattern.proxy.dynamicproxy.proxy.InvocationHandler;
+import com.ithawk.demo.pattern.proxy.dynamicproxy.proxy.Proxy;
 
 import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * Created by Tom on 2019/3/10.
+ * 动态代理
  */
-public class OrderServiceDynamicProxy implements GPInvocationHandler {
+public class OrderServiceDynamicProxy implements InvocationHandler {
 
     private SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy");
 
+    /**
+     * 被代理的对象
+     */
     Object proxyObj;
+
     public Object getInstance(Object proxyObj) {
         this.proxyObj = proxyObj;
         Class<?> clazz = proxyObj.getClass();
-        return GPProxy.newProxyInstance(new GPClassLoader(),clazz.getInterfaces(),this);
+        return Proxy.newProxyInstance(new ProxyClassLoader(),clazz.getInterfaces(),this);
     }
 
+    /**
+     *
+     * @param proxy
+     * @param method
+     * @param args
+     * @return
+     * @throws Throwable
+     */
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         before(args[0]);
         Object object = method.invoke(proxyObj,args);

@@ -1,0 +1,14 @@
+<beans>
+    <!-- Handler 处理器的配置 -->
+    <bean name="/queryUser1" class="com.kkb.springmvc.handler.QueryUserHandler"></bean>
+    <bean name="/saveUser" class="com.kkb.springmvc.handler.SaveUserHandler"></bean>
+    <bean class="com.kkb.springmvc.controller.UserController"></bean>
+    <!-- 处理器映射器的配置 -->
+    <bean class="com.kkb.springmvc.mapping.BeanNameUrlHandlerMapping" init-method="init"></bean>
+    <bean class="com.kkb.springmvc.mapping.SimpleUrlHandlerMapping" init-method="init"></bean>
+    <bean class="com.kkb.springmvc.mapping.RequestMappingHandlerMapping" init-method="init"></bean>
+    <!-- 处理器适配器的配置 -->
+    <bean class="com.kkb.springmvc.adapter.HttpRequestHandlerAdapter"></bean>
+    <bean class="com.kkb.springmvc.adapter.SimpleControllerHandlerAdapter"></bean>
+    <bean class="com.kkb.springmvc.adapter.RequestMappingHandlerAdapter"></bean>
+</beans>

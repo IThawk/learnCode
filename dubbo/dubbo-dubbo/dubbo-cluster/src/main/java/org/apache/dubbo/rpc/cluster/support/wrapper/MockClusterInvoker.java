@@ -87,6 +87,7 @@ public class MockClusterInvoker<T> implements ClusterInvoker<T> {
             //no mock
             result = this.invoker.invoke(invocation);
         } else if (value.startsWith("force")) {
+            // mock="force:return null"
             if (logger.isWarnEnabled()) {
                 logger.warn("force-mock: " + invocation.getMethodName() + " force-mock enabled , url : " + getUrl());
             }
@@ -95,6 +96,7 @@ public class MockClusterInvoker<T> implements ClusterInvoker<T> {
         } else {
             //fail-mock
             try {
+                //具有容错调用的invoker
                 result = this.invoker.invoke(invocation);
 
                 //fix:#4585
@@ -115,12 +117,19 @@ public class MockClusterInvoker<T> implements ClusterInvoker<T> {
                 if (logger.isWarnEnabled()) {
                     logger.warn("fail-mock: " + invocation.getMethodName() + " fail-mock enabled , url : " + getUrl(), e);
                 }
+                // 服务降级了
                 result = doMockInvoke(invocation, e);
             }
         }
         return result;
     }
 
+    /**
+     * 进行服务降级功能invoker
+     * @param invocation
+     * @param e
+     * @return
+     */
     @SuppressWarnings({"unchecked", "rawtypes"})
     private Result doMockInvoke(Invocation invocation, RpcException e) {
         Result result = null;

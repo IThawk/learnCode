@@ -55,7 +55,7 @@
         <module>ejob</module>
         <module>springboot</module>
         <module>redis</module>
-        <module>kafka</module>
+        <module>cache</module>
         <module>mq</module>
         <module>mybatis</module>
         <module>nacos</module>

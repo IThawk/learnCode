@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: abcmsc-consumer-depart
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8000/eureka
+
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000   # 指定Feign客户端连接提供者的超时时限
+        readTimeout: 5000      # 指定Feign客户端连接上提供者后，向提供者进行提交请求，从提交时刻开始，到接收到响应，这个时段的超时时限
+
+  # 开启Feign对Hystrix的支持
+  hystrix:
+    enabled: true
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 3000
+
+# 开启actuator的hystrix.stream监控终端
+management:
+  endpoints:
+    web:
+      exposure:
+        include: hystrix.stream

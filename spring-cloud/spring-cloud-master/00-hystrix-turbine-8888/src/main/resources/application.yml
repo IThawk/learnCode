@@ -1,0 +1,20 @@
+server:
+  port: 8888
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8000/eureka
+spring:
+  application:
+    name: hystrix-turbine
+
+# 配置turbine
+turbine:
+  # 指定要监控的微服务名称
+  app-config: consumer-8180,consumer-8280
+  aggregator:
+    # 指定要监控的微服务组，default指定要监控默认组为
+    cluster-config: default
+  # 指定要监控抽微服务组名称，默认组名称为'default'
+  cluster-name-expression: "'default'"

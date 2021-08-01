@@ -17,8 +17,12 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+<<<<<<< HEAD
     @Autowired
     ApplicationUtils applicationUtils;
+=======
+
+>>>>>>> aaec40860904e3b1ec6164df914652bc11c958bb
 
     @PostMapping(value = "post")
     public int addUser(@RequestBody User user) {
@@ -28,7 +32,11 @@ public class UserController {
 
     @GetMapping(value = "all")
     public List<User> addUser() {
+<<<<<<< HEAD
         String[]  strings = applicationUtils.getApplicationContext().getBeanDefinitionNames();
+=======
+        String[]  strings = ApplicationUtils.getApplicationContext().getBeanDefinitionNames();
+>>>>>>> aaec40860904e3b1ec6164df914652bc11c958bb
         log.info(JSON.toJSONString(strings,true));
         return userService.getUserList();
     }

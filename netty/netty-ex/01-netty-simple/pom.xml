@@ -12,6 +12,10 @@
     <artifactId>01-netty-simple</artifactId>
 
     <properties>
+<<<<<<< HEAD
+=======
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+>>>>>>> aaec40860904e3b1ec6164df914652bc11c958bb
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>

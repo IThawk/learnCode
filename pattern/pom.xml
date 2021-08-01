@@ -22,6 +22,7 @@
     <module>pattern-spring</module>
     <module>pattern-strategy</module>
     <module>pattern-template</module>
+    <module>design-pattern</module>
 <!--    <module>sqlhepler</module>-->
   </modules>
   <name>pattern</name>

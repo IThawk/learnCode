@@ -1,0 +1,25 @@
+server:
+  port: 8302
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8000/eureka
+# 开启actuator 监控
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+feign:
+  okhttp:
+    enabled: true
+#ribbon限流 超时
+ribbon:
+  ConnectTimeout: 3000 #服务请求连接超时时间（毫秒）
+  ReadTimeout: 3000 #服务请求处理超时时间（毫秒）
+spring:
+  application:
+    name: cloud-auth
+  redis:
+    port: 6379
+    host: 192.168.56.101

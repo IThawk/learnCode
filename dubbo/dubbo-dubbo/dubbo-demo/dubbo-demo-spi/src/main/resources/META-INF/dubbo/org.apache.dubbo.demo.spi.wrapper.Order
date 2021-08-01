@@ -1,0 +1,4 @@
+alipay=org.apache.dubbo.demo.spi.wrapper.AlipayOrder
+wechat=org.apache.dubbo.demo.spi.wrapper.WechatOrder
+wrapper=org.apache.dubbo.demo.spi.wrapper.WrapperOrder
+wrapper2=org.apache.dubbo.demo.spi.wrapper.Wrapper2Order

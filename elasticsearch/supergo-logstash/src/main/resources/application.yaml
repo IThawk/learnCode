@@ -1,5 +1,9 @@
 server:
+<<<<<<< HEAD
   port: 8080 # 端口
+=======
+  port: 18080 # 端口
+>>>>>>> aaec40860904e3b1ec6164df914652bc11c958bb
 # 加载日志文件
 logging:
   config: classpath:log/logback-spring.xml

@@ -43,11 +43,14 @@ public @interface Adaptive {
      * <p>
      * For example, given <code>String[] {"key1", "key2"}</code>:
      * <ol>
+     *     使用 第一个参数作为自适应扩展类的参数
      * <li>find parameter 'key1' in URL, use its value as the extension's name</li>
+     *    使用第二个参数作为 未获取到第一个参数值的时候，使用该值获取参数 默认值
      * <li>try 'key2' for extension's name if 'key1' is not found (or its value is empty) in URL</li>
      * <li>use default extension if 'key2' doesn't exist either</li>
      * <li>otherwise, throw {@link IllegalStateException}</li>
      * </ol>
+     * 如果 你的接口是多个单词的时候
      * If the parameter names are empty, then a default parameter name is generated from interface's
      * class name with the rule: divide classname from capital char into several parts, and separate the parts with
      * dot '.', for example, for {@code org.apache.dubbo.xxx.YyyInvokerWrapper}, the generated name is

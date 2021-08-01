@@ -16,6 +16,19 @@
 
 package org.springframework.beans;
 
+import kotlin.jvm.JvmClassMappingKt;
+import kotlin.reflect.KFunction;
+import kotlin.reflect.KParameter;
+import kotlin.reflect.full.KClasses;
+import kotlin.reflect.jvm.KCallablesJvm;
+import kotlin.reflect.jvm.ReflectJvmMapping;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.core.KotlinDetector;
+import org.springframework.core.MethodParameter;
+import org.springframework.lang.Nullable;
+import org.springframework.util.*;
+
 import java.beans.PropertyDescriptor;
 import java.beans.PropertyEditor;
 import java.lang.reflect.Constructor;
@@ -25,32 +38,7 @@ import java.lang.reflect.Modifier;
 import java.net.URI;
 import java.net.URL;
 import java.time.temporal.Temporal;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Set;
-
-import kotlin.jvm.JvmClassMappingKt;
-import kotlin.reflect.KFunction;
-import kotlin.reflect.KParameter;
-import kotlin.reflect.full.KClasses;
-import kotlin.reflect.jvm.KCallablesJvm;
-import kotlin.reflect.jvm.ReflectJvmMapping;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-import org.springframework.core.KotlinDetector;
-import org.springframework.core.MethodParameter;
-import org.springframework.lang.Nullable;
-import org.springframework.util.Assert;
-import org.springframework.util.ClassUtils;
-import org.springframework.util.ConcurrentReferenceHashMap;
-import org.springframework.util.ReflectionUtils;
-import org.springframework.util.StringUtils;
+import java.util.*;
 
 /**
  * Static convenience methods for JavaBeans: for instantiating beans,
@@ -135,7 +123,7 @@ public abstract class BeanUtils {
 		if (clazz.isInterface()) {
 			throw new BeanInstantiationException(clazz, "Specified class is an interface");
 		}
-		try {
+		try {//通过无参构造实例化bean
 			return instantiateClass(clazz.getDeclaredConstructor());
 		}
 		catch (NoSuchMethodException ex) {

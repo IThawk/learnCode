@@ -1,0 +1,3 @@
+redColor=org.apache.dubbo.demo.spi.activate.RedColor
+blueColor=org.apache.dubbo.demo.spi.activate.BlueColor
+wrapperColor=org.apache.dubbo.demo.spi.activate.WrapperColor

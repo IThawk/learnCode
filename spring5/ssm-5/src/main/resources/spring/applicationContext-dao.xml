@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+	<!-- 加载db.properties -->
+	<context:property-placeholder
+		location="classpath:db.properties" />
+	<!-- 配置数据源 -->
+	<bean id="dataSource"
+		class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="${jdbc.driver}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<property name="maxActive" value="30" />
+		<property name="maxIdle" value="5" />
+	</bean>
+
+	<!-- 配置SqlSessionFacotory -->
+	<bean id="sqlSessionFactory"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+		<!-- 配置数据源 -->
+		<property name="dataSource" ref="dataSource" />
+		<property name="typeAliasesPackage" value="com.kkb.ssm.po"></property>
+	</bean>
+
+	<!-- 配置mapper扫描器，SqlSessionConfig.xml中的mapper配置去掉 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<!-- 指定扫描的包 -->
+		<property name="basePackage" value="com.kkb.ssm.mapper" />
+	</bean>
+</beans>

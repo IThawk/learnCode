@@ -1,0 +1,35 @@
+server:
+  port: 8083
+
+spring:
+  # 配置spring data jpa
+  jpa:
+    # 指定是否在spring容器启动时创建表，默认false
+    generate-ddl: true
+    # 指定在控制台是否显示SQL语句，默认false
+    show-sql: true
+    # 指定应用重启后不重新更新表内容
+    hibernate:
+      ddl-auto: none
+  # 配置数据源
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql:///test?useUnicode=true&amp;characterEncoding=utf8
+    username: root
+    password: 111
+
+  # 指定当前微服务名称
+  application:
+    name: abcmsc-provider-depart
+
+eureka:
+  client:
+    service-url:
+      # 指定当前Client所要连接的eureka Server
+       defaultZone: http://localhost:8000/eureka
+  instance:
+    # 设置当前Client每1秒向Server发送一次心跳，单位秒
+    lease-renewal-interval-in-seconds: 1
+    # 指定让Server认定当前Client已经失效的时间，将来可以从注册表中剔除了，单位秒
+    lease-expiration-duration-in-seconds: 3

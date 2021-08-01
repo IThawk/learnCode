@@ -16,15 +16,14 @@
 
 package org.springframework.aop.framework.adapter;
 
+import org.aopalliance.aop.Advice;
+import org.aopalliance.intercept.MethodInterceptor;
+import org.springframework.aop.Advisor;
+import org.springframework.aop.support.DefaultPointcutAdvisor;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.aopalliance.aop.Advice;
-import org.aopalliance.intercept.MethodInterceptor;
-
-import org.springframework.aop.Advisor;
-import org.springframework.aop.support.DefaultPointcutAdvisor;
 
 /**
  * Default implementation of the {@link AdvisorAdapterRegistry} interface.
@@ -55,13 +54,17 @@ public class DefaultAdvisorAdapterRegistry implements AdvisorAdapterRegistry, Se
 
 	@Override
 	public Advisor wrap(Object adviceObject) throws UnknownAdviceTypeException {
+		// 如果是Advisor，不进行处理
 		if (adviceObject instanceof Advisor) {
 			return (Advisor) adviceObject;
 		}
+		// 如果不是Advisor类型也不是Advice类型，则报异常
 		if (!(adviceObject instanceof Advice)) {
 			throw new UnknownAdviceTypeException(adviceObject);
 		}
 		Advice advice = (Advice) adviceObject;
+		// 如果是MethodInterceptor类型，则封装到DefaultPointcutAdvisor中
+		// AspectJAroundAdvice\AspectJAfterAdvice\AspectJAfterThrowingAdvice
 		if (advice instanceof MethodInterceptor) {
 			// So well-known it doesn't even need an adapter.
 			return new DefaultPointcutAdvisor(advice);
@@ -74,19 +77,25 @@ public class DefaultAdvisorAdapterRegistry implements AdvisorAdapterRegistry, Se
 		}
 		throw new UnknownAdviceTypeException(advice);
 	}
-
+	//方法拦截器集合
 	@Override
 	public MethodInterceptor[] getInterceptors(Advisor advisor) throws UnknownAdviceTypeException {
 		List<MethodInterceptor> interceptors = new ArrayList<>(3);
+		//CTRL+T查看一下类看是不是MethodInterceptor类型
 		Advice advice = advisor.getAdvice();
+		// 如果是advice是MethodInterceptor类型，则直接加到数组中
 		if (advice instanceof MethodInterceptor) {
 			interceptors.add((MethodInterceptor) advice);
 		}
+		// 使用AdvisorAdapter适配器对advice进行适配，如果适配成功，则将advisor适配成MethodInterceptor,放入集合中
+		//有些advice不是实现MethodInterceptor接口,需要使用adapter进行包装转换,实际上就是加一个AfterReturningAdviceInterceptor后置通知进行
 		for (AdvisorAdapter adapter : this.adapters) {
 			if (adapter.supportsAdvice(advice)) {
 				interceptors.add(adapter.getInterceptor(advisor));
 			}
 		}
+		//把每个adivce转换成MethodIntereptor数组并返回,得到拦截器链(其实就是指每个通知方法又被包装为方法拦截 器,
+		// 以后的方法的执行都是利用 MethodIntercpter机制执行)
 		if (interceptors.isEmpty()) {
 			throw new UnknownAdviceTypeException(advisor.getAdvice());
 		}

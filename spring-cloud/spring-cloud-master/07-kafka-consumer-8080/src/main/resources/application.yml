@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: abcmsc-consumer-depart
+
+  # 指定zipkin服务器地址
+  zipkin:
+    # 指定zipkin服务器的消息发送者是kafka
+    sender:
+      type: kafka
+
+  # 设置采样比例为1.0，即全部都需要，默认0.1
+  sleuth:
+    sampler:
+      probability: 1.0
+
+  # 指定当前Sleuth要连接的Kafka集群
+  kafka:
+    bootstrap-servers: kafkaOS1:9092,kafkaOS2:9092,kafkaOS3:9092
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8000/eureka

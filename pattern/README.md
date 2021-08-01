@@ -11,3 +11,4 @@
 # pattern-observer 观察者模式
 # pattern-strategy 策略模式
     策略模式的核心就是：统一的接口不同的实现：根据关键信息获取对于的实现，完成相应的操作
+# pattern-proxy 代理模式

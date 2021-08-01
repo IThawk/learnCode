@@ -1,0 +1,16 @@
+<beans>
+
+    <!-- 配置处理器映射器和处理器适配器 -->
+    <bean class="com.kaikeba.adapter.HttpServletHandlerAdapter"></bean>
+    <bean class="com.kaikeba.adapter.SimpleControllerHandlerAdapter"></bean>
+    <bean class="com.kaikeba.adapter.RequestMappingHandlerAdapter"></bean>
+    <bean class="com.kaikeba.mapping.BeanNameUrlHandlerMapping"></bean>
+    <bean class="com.kaikeba.mapping.SimpleUrlHandlerMapping"></bean>
+    <bean class="com.kaikeba.mapping.RequestMappingHandlerMapping"></bean>
+
+    <!-- 配置处理器 -->
+    <bean name="/queryUser" class="com.kaikeba.handler.QueryUserHandler" />
+    <!-- 配置注解方式开发的处理器 -->
+    <bean class="com.kaikeba.controller.UserController"/>
+
+</beans>

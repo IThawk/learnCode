@@ -8,6 +8,7 @@
 						http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
 						http://www.springframework.org/schema/aop 
 						http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+
 	<aop:aspectj-autoproxy proxy-target-class="true"/>
 	
 <!--	 声明一个需要织入到虚拟切面的逻辑（切面） -->

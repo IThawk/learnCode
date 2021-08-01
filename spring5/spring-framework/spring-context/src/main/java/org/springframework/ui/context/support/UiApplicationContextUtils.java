@@ -45,7 +45,7 @@ public abstract class UiApplicationContextUtils {
 	private static final Log logger = LogFactory.getLog(UiApplicationContextUtils.class);
 
 
-	/**
+	/** 初始化WEB容器主题
 	 * Initialize the ThemeSource for the given application context,
 	 * autodetecting a bean with the name "themeSource". If no such
 	 * bean is found, a default (empty) ThemeSource will be used.

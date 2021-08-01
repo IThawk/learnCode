@@ -31,11 +31,24 @@ public class DemoServiceImplMock implements DemoService {
         System.out.println("DemoServiceImplMock");
         logger.info("Hello " + name + ", request from consumer: " + RpcContext.getContext().getRemoteAddress());
         try {
-            Thread.sleep(1000);
+            Thread.sleep(100);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
         return "DemoServiceImplMock Hello " + name + ", response from provider: " + RpcContext.getContext().getLocalAddress();
+    }
+
+    @Override
+    public String sayAHello(String name) {
+        System.out.println("DemoServiceImplMock");
+        logger.info("Hello " + name + ", request from consumer: " + RpcContext.getContext().getRemoteAddress());
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return "DemoServiceImplMock Hello " + name + ", response from provider: " + RpcContext.getContext().getLocalAddress();
+
     }
 
     @Override

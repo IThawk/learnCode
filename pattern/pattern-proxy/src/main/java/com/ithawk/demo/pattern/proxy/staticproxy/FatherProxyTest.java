@@ -1,7 +1,8 @@
 package com.ithawk.demo.pattern.proxy.staticproxy;
 
+
 /**
- * Created by Tom on 2019/3/10.
+ * 静态代理
  */
 public class FatherProxyTest {
 

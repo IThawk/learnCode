@@ -19,6 +19,9 @@
     <module>spring-tx1</module>
     <module>spring5-demo</module>
     <module>spring-framework</module>
+    <module>spring-framework-custom-18</module>
+    <module>spring-custom</module>
+    <module>springmvc-custom18</module>
   </modules>
   <name>spring5</name>
 

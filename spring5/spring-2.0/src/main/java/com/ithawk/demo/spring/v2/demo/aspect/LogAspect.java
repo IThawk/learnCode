@@ -1,6 +1,6 @@
 package com.ithawk.demo.spring.v2.demo.aspect;
 
-import com.ithawk.demo.spring.v2.formework.aop.aspect.GPJoinPoint;
+import com.ithawk.demo.spring.v2.formework.aop.aspect.JoinPoint;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Arrays;
@@ -12,7 +12,7 @@ import java.util.Arrays;
 public class LogAspect {
 
     //在调用一个方法之前，执行before方法
-    public void before(GPJoinPoint joinPoint){
+    public void before(JoinPoint joinPoint){
         joinPoint.setUserAttribute("startTime_" + joinPoint.getMethod().getName(),System.currentTimeMillis());
         //这个方法中的逻辑，是由我们自己写的
         log.info("Invoker Before Method!!!" +
@@ -21,7 +21,7 @@ public class LogAspect {
     }
 
     //在调用一个方法之后，执行after方法
-    public void after(GPJoinPoint joinPoint){
+    public void after(JoinPoint joinPoint){
         log.info("Invoker After Method!!!" +
                 "\nTargetObject:" +  joinPoint.getThis() +
                 "\nArgs:" + Arrays.toString(joinPoint.getArguments()));
@@ -30,7 +30,7 @@ public class LogAspect {
         System.out.println("use time :" + (endTime - startTime));
     }
 
-    public void afterThrowing(GPJoinPoint joinPoint, Throwable ex){
+    public void afterThrowing(JoinPoint joinPoint, Throwable ex){
         log.info("出现异常" +
                 "\nTargetObject:" +  joinPoint.getThis() +
                 "\nArgs:" + Arrays.toString(joinPoint.getArguments()) +

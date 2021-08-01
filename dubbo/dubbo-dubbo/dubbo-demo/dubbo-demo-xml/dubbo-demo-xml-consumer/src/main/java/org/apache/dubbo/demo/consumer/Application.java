@@ -32,10 +32,23 @@ public class Application {
         context.start();
         DemoService demoService = context.getBean("demoService", DemoService.class);
 
-        CompletableFuture<String> hello = demoService.sayHelloAsync("world");
-        System.out.println("sayHelloAsync result: " + hello.get());
+//        CompletableFuture<String> hello = demoService.sayHelloAsync("world");
+//        System.out.println("sayHelloAsync result: " + hello.get());
 
-        String hello1 = demoService.sayHello("world");
-        System.out.println("sayHello result: " + hello1);
+        for (int i = 0; i < 100; i++) {
+            try {
+                String hello1 = demoService.sayHello("world");
+                System.out.println("sayHello result: " + hello1);
+
+
+            } catch (Exception e) {
+
+            }
+            Thread.sleep(2000);
+            String hello2 = demoService.sayAHello("world");
+            System.out.println("------------- " + i + " sayHelloA result: " + hello2);
+        }
+
+
     }
 }

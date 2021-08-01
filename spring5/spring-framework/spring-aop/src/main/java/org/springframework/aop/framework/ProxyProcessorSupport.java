@@ -16,8 +16,6 @@
 
 package org.springframework.aop.framework;
 
-import java.io.Closeable;
-
 import org.springframework.beans.factory.Aware;
 import org.springframework.beans.factory.BeanClassLoaderAware;
 import org.springframework.beans.factory.DisposableBean;
@@ -26,6 +24,8 @@ import org.springframework.core.Ordered;
 import org.springframework.lang.Nullable;
 import org.springframework.util.ClassUtils;
 import org.springframework.util.ObjectUtils;
+
+import java.io.Closeable;
 
 /**
  * Base class with common functionality for proxy processors, in particular
@@ -102,22 +102,32 @@ public class ProxyProcessorSupport extends ProxyConfig implements Ordered, BeanC
 	 * @param proxyFactory the ProxyFactory for the bean
 	 */
 	protected void evaluateProxyInterfaces(Class<?> beanClass, ProxyFactory proxyFactory) {
+		// 获取目标类的所有接口
 		Class<?>[] targetInterfaces = ClassUtils.getAllInterfacesForClass(beanClass, getProxyClassLoader());
+		// 是否具有合理的代理接口
 		boolean hasReasonableProxyInterface = false;
 		for (Class<?> ifc : targetInterfaces) {
+			/** 接口判断是否有合理的代理接口
+			 * 	1：排除InitializingBean等容器回调接口
+			 * 	2：排除是一些语言相关接口
+			 *  3：排除标记接口（无方法实现的接口）
+			 */
 			if (!isConfigurationCallbackInterface(ifc) && !isInternalLanguageInterface(ifc) &&
 					ifc.getMethods().length > 0) {
 				hasReasonableProxyInterface = true;
 				break;
 			}
 		}
+		// 如果有合理的代理接口,则进行JDK动态代理
 		if (hasReasonableProxyInterface) {
 			// Must allow for introductions; can't just set interfaces to the target's interfaces only.
 			for (Class<?> ifc : targetInterfaces) {
+				// 将接口添加到代理工厂中
 				proxyFactory.addInterface(ifc);
 			}
 		}
 		else {
+			//CGLib动态代理
 			proxyFactory.setProxyTargetClass(true);
 		}
 	}

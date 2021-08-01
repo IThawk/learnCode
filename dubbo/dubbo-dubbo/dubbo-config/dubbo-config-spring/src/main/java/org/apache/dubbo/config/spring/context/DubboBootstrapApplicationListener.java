@@ -27,6 +27,7 @@ import org.springframework.core.Ordered;
 /**
  * The {@link ApplicationListener} for {@link DubboBootstrap}'s lifecycle when the {@link ContextRefreshedEvent}
  * and {@link ContextClosedEvent} raised
+ * dubbo 服务启动的入口
  *
  * @since 2.7.5
  */
@@ -46,6 +47,10 @@ public class DubboBootstrapApplicationListener extends OneTimeExecutionApplicati
         this.dubboBootstrap = DubboBootstrap.getInstance();
     }
 
+    /**
+     * 监听spring事件 开始dubbu 启动
+     * @param event {@link ApplicationContextEvent}
+     */
     @Override
     public void onApplicationContextEvent(ApplicationContextEvent event) {
         System.out.println("监听到spring的refreshde 操作");

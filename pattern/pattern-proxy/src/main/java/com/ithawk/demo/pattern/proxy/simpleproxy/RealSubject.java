@@ -1,7 +1,7 @@
 package com.ithawk.demo.pattern.proxy.simpleproxy;
 
 /**
- * Created by Tom.
+ *
  */
 public class RealSubject implements Subject{
     @Override

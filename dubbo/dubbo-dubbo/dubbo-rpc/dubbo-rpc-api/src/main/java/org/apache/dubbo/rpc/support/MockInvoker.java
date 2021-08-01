@@ -49,6 +49,7 @@ import static org.apache.dubbo.rpc.Constants.THROW_PREFIX;
 
 final public class MockInvoker<T> implements Invoker<T> {
     private final static ProxyFactory PROXY_FACTORY = ExtensionLoader.getExtensionLoader(ProxyFactory.class).getAdaptiveExtension();
+    //本地内存的使用方法
     private final static Map<String, Invoker<?>> MOCK_MAP = new ConcurrentHashMap<String, Invoker<?>>();
     private final static Map<String, Throwable> THROWABLE_MAP = new ConcurrentHashMap<String, Throwable>();
 
@@ -168,6 +169,7 @@ final public class MockInvoker<T> implements Invoker<T> {
         }
 
         Class<T> serviceType = (Class<T>) ReflectUtils.forName(url.getServiceInterface());
+        //获取mock类
         T mockObject = (T) getMockObject(mockService, serviceType);
         invoker = PROXY_FACTORY.getInvoker(mockObject, serviceType, url);
         if (MOCK_MAP.size() < 10000) {
@@ -206,6 +208,7 @@ final public class MockInvoker<T> implements Invoker<T> {
         }
 
         try {
+            //实例化
             return mockClass.newInstance();
         } catch (InstantiationException e) {
             throw new IllegalStateException("No default constructor from mock class " + mockClass.getName(), e);

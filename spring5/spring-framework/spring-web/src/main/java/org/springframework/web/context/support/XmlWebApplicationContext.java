@@ -16,12 +16,12 @@
 
 package org.springframework.web.context.support;
 
-import java.io.IOException;
-
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.beans.factory.xml.ResourceEntityResolver;
 import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
+
+import java.io.IOException;
 
 /**
  * {@link org.springframework.web.context.WebApplicationContext} implementation
@@ -72,7 +72,7 @@ public class XmlWebApplicationContext extends AbstractRefreshableWebApplicationC
 
 
 	/**
-	 * Loads the bean definitions via an XmlBeanDefinitionReader.
+	 * Loads the bean definitions via an XmlBeanDefinitionReader. 加载bean定义信息
 	 * @see org.springframework.beans.factory.xml.XmlBeanDefinitionReader
 	 * @see #initBeanDefinitionReader
 	 * @see #loadBeanDefinitions
@@ -106,7 +106,7 @@ public class XmlWebApplicationContext extends AbstractRefreshableWebApplicationC
 	protected void initBeanDefinitionReader(XmlBeanDefinitionReader beanDefinitionReader) {
 	}
 
-	/**
+	/** 加载bean的位置
 	 * Load the bean definitions with the given XmlBeanDefinitionReader.
 	 * <p>The lifecycle of the bean factory is handled by the refreshBeanFactory method;
 	 * therefore this method is just supposed to load and/or register bean definitions.

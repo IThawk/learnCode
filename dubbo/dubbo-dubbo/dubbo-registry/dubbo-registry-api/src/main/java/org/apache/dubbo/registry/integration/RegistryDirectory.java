@@ -590,9 +590,14 @@ public class RegistryDirectory<T> extends AbstractDirectory<T> implements Notify
         }
     }
 
+    /**
+     * 获取zk的Invoker（远程调用） 列表
+     * @param invocation
+     * @return
+     */
     @Override
     public List<Invoker<T>> doList(Invocation invocation) {
-        if (forbidden) {
+        if (forbidden) {  //远程服务被禁用
             // 1. No service provider 2. Service providers are disabled
             throw new RpcException(RpcException.FORBIDDEN_EXCEPTION, "No provider available from registry " +
                     getUrl().getAddress() + " for service " + getConsumerUrl().getServiceKey() + " on consumer " +
@@ -607,6 +612,7 @@ public class RegistryDirectory<T> extends AbstractDirectory<T> implements Notify
         List<Invoker<T>> invokers = null;
         try {
             // Get invokers from cache, only runtime routers will be executed.
+            // 进行Invoker的路由过滤 黑白名单等等
             invokers = routerChain.route(getConsumerUrl(), invocation);
         } catch (Throwable t) {
             logger.error("Failed to execute router: " + getUrl() + ", cause: " + t.getMessage(), t);

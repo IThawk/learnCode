@@ -40,6 +40,12 @@ spring:
 #      filters: stat,wall,log4j
       # 通过 connection-properties 属性打开 mergeSql 功能；慢 SQL 记录
       connection-properties: druid.stat.mergeSql\=true;druid.stat.slowSqlMillis\=5000
+<<<<<<< HEAD
+=======
+      # 设置druid超时连接关闭
+      remove-abandoned: true
+      remove-abandoned-timeout-millis: 30000
+>>>>>>> aaec40860904e3b1ec6164df914652bc11c958bb
   # 连接单机Redis
   redis:
     host: 192.168.56.101

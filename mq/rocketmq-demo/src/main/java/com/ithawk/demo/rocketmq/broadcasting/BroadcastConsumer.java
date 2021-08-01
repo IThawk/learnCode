@@ -24,6 +24,7 @@ public class BroadcastConsumer {
 
         consumer.subscribe("TopicTest", "TagA || TagC || TagD");
 
+
         consumer.registerMessageListener(new MessageListenerConcurrently() {
 
             @Override

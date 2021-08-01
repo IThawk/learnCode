@@ -35,6 +35,10 @@ abstract class OneTimeExecutionApplicationContextEventListener implements Applic
 
     private ApplicationContext applicationContext;
 
+    /**
+     * spring 容器启动 完成之后 就会 执行这个方法   implements ApplicationListener
+     * @param event
+     */
     public final void onApplicationEvent(ApplicationEvent event) {
         if (isOriginalEventSource(event) && event instanceof ApplicationContextEvent) {
             onApplicationContextEvent((ApplicationContextEvent) event);

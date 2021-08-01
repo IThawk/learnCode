@@ -1,0 +1,14 @@
+# bootstrap.yml：在启用启动时加载，其一般用于配置应用启动过程中所需要的数据，即若没有这些配置，则应用无法启动
+# application.yml：在启用启动时加载，其一般用于配置应用运行过程中所需要的数据，即若没有这些配置，则应用无法运行
+spring:
+  cloud:
+    config:
+      # 指定要连接的config server的uri
+      # uri: http://localhost:9999,http://localhost:8888,http://localhost:7777
+      uri: http://localhost:9999
+      # 指定要访问的远程库分支
+      label: master
+      # 指定要从git远程库读取的配置文件名称，注意无需扩展名
+      name: application-eureka-config
+      # 环境选择
+      profile: dev

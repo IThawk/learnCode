@@ -28,6 +28,7 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 
 /**
+ * 服务调用 远程 invoke
  * InvokerHandler
  */
 public class InvokerInvocationHandler implements InvocationHandler {
@@ -45,6 +46,7 @@ public class InvokerInvocationHandler implements InvocationHandler {
 
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+        logger.info("InvokerInvocationHandler invoke" + method.getName());
         if (method.getDeclaringClass() == Object.class) {
             return method.invoke(invoker, args);
         }
@@ -70,7 +72,7 @@ public class InvokerInvocationHandler implements InvocationHandler {
             rpcInvocation.put(Constants.CONSUMER_MODEL, consumerModel);
             rpcInvocation.put(Constants.METHOD_MODEL, consumerModel.getMethodModel(method));
         }
-
+        //远程调用
         return invoker.invoke(rpcInvocation).recreate();
     }
 }

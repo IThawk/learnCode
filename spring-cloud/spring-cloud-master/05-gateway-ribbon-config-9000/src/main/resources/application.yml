@@ -1,0 +1,21 @@
+server:
+  port: 9000
+spring:
+  application:
+    name: abcmsc-gateway-depart
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+    gateway:
+      discovery:
+        locator:
+          enabled: true  # 允许gateway从Nacos进行服务发现
+      routes:
+      - id: ribbon_route
+        predicates:
+        - Path=/provider/depart/**
+        uri: lb://abcmsc-provider-depart
+
+
+

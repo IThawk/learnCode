@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.ithawk.demo</groupId>
+        <artifactId>spring-cloud</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <artifactId>spring-cloud-master</artifactId>
+    <packaging>pom</packaging>
+    <name>Spring Cloud</name>
+    <description>Spring Cloud </description>
+
+    <properties>
+        <!-- Project revision -->
+        <spring-boot-revision>2.2.8.RELEASE</spring-boot-revision>
+
+        <!-- Dependency Versions -->
+        <spring-cloud-commons.version>2.2.5.RELEASE</spring-cloud-commons.version>
+        <spring-cloud-netflix.version>2.2.5.RELEASE</spring-cloud-netflix.version>
+        <spring-cloud-openfeign.version>2.2.5.RELEASE</spring-cloud-openfeign.version>
+        <spring-cloud-bus.version>2.2.3.RELEASE</spring-cloud-bus.version>
+        <spring-cloud-gateway.version>2.2.5.RELEASE</spring-cloud-gateway.version>
+        <spring-cloud-stream.version>Horsham.SR3</spring-cloud-stream.version>
+        <spring-cloud-consul.version>2.2.4.RELEASE</spring-cloud-consul.version>
+        <spring-cloud-config.version>2.2.5.RELEASE</spring-cloud-config.version>
+        <spring-cloud-zookeeper.version>2.2.3.RELEASE</spring-cloud-zookeeper.version>
+
+        <!-- Apache Dubbo -->
+        <dubbo.version>2.7.8</dubbo.version>
+        <curator.version>4.0.1</curator.version>
+
+        <!-- Apache RocketMQ -->
+        <rocketmq.starter.version>2.0.2</rocketmq.starter.version>
+
+        <!-- Maven Plugin Versions -->
+        <maven-compiler-plugin.version>3.7.0</maven-compiler-plugin.version>
+        <maven-deploy-plugin.version>2.8.2</maven-deploy-plugin.version>
+        <maven-surefire-plugin.version>2.21.0</maven-surefire-plugin.version>
+        <maven-source-plugin.version>2.2.1</maven-source-plugin.version>
+        <maven-javadoc-plugin.version>3.1.1</maven-javadoc-plugin.version>
+        <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
+        <flatten-maven-plugin.version>1.1.0</flatten-maven-plugin.version>
+        <gmavenplus-plugin.version>1.6</gmavenplus-plugin.version>
+        <jacoco.version>0.8.3</jacoco.version>
+    </properties>
+
+    <modules>
+        <module>00-config-server-9999</module>
+        <module>00-eurekaserver-8000</module>
+        <!-- ji qun eurake server -->
+        <module>00-eurekaserver-8100</module>
+        <module>00-eurekaserver-8200</module>
+        <module>00-eurekaserver-8300</module>
+
+        <module>00-hystrix-turbine-7777</module>
+
+        <module>00-zuul-9000</module>
+
+        <module>04-provider-8081</module>
+        <module>04-consumer-turbine-client-8180</module>
+        <module>04-consumer-turbine-client-8280</module>
+        <module>04-consumer-turbine-client-8380</module>
+        <module>04-consumer-turbine-client-8480</module>
+        <module>04-consumer-turbine-client-8580</module>
+        <module>04-consumer-turbine-client-8680</module>
+        <!--diaoyongliang-->
+        <module>07-sleuth-consumer-8080</module>
+        <module>07-sleuth-provider-8081</module>
+        <module>07-via-provider-8081</module>
+        <module>07-via-consumer-8080</module>
+
+        <module>spring-cloud-all</module>
+
+    </modules>
+
+
+
+
+
+
+
+
+</project>
