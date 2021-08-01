@@ -1,0 +1,47 @@
+{
+  "groups": [
+    {
+      "name": "spring.cache.multi",
+      "type": "com.ithawk.demo.springboot.redis.cache.plugin.properties.CacheConfigProperties",
+      "sourceType": "com.ithawk.demo.springboot.redis.cache.plugin.properties.CacheConfigProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "spring.cache.multi.cache-names",
+      "type": "java.util.Set<java.lang.String>",
+      "sourceType": "com.ithawk.demo.springboot.redis.cache.plugin.properties.CacheConfigProperties"
+    },
+    {
+      "name": "spring.cache.multi.cache-null-values",
+      "type": "java.lang.Boolean",
+      "description": "是否存储空值，默认true，防止缓存穿透",
+      "sourceType": "com.ithawk.demo.springboot.redis.cache.plugin.properties.CacheConfigProperties",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.cache.multi.cache-prefix",
+      "type": "java.lang.String",
+      "description": "缓存key的前缀",
+      "sourceType": "com.ithawk.demo.springboot.redis.cache.plugin.properties.CacheConfigProperties"
+    },
+    {
+      "name": "spring.cache.multi.caffeine",
+      "type": "com.ithawk.demo.springboot.redis.cache.plugin.properties.CaffeineConfigProp",
+      "sourceType": "com.ithawk.demo.springboot.redis.cache.plugin.properties.CacheConfigProperties"
+    },
+    {
+      "name": "spring.cache.multi.dynamic",
+      "type": "java.lang.Boolean",
+      "description": "是否动态根据cacheName创建Cache的实现，默认true",
+      "sourceType": "com.ithawk.demo.springboot.redis.cache.plugin.properties.CacheConfigProperties",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.cache.multi.redis",
+      "type": "com.ithawk.demo.springboot.redis.cache.plugin.properties.RedisConfigProp",
+      "sourceType": "com.ithawk.demo.springboot.redis.cache.plugin.properties.CacheConfigProperties"
+    }
+  ],
+  "hints": []
+}

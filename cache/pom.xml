@@ -18,6 +18,7 @@
     </properties>
     <modules>
         <module>Caffeine</module>
+        <module>cache-springboot</module>
     </modules>
 
 </project>

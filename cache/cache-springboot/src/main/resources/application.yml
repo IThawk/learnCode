@@ -1,0 +1,26 @@
+server:
+  port: 18090
+  tomcat:
+    uri-encoding: UTF-8
+spring:
+  application:
+    name: redis-cache
+  cache:
+    multi:
+      cachePrefix: test
+      caffeine:
+        expire-after-access: 10000 # 10秒过期
+        maximumsize: 1000
+        initial-capacity: 500
+      redis:
+        default-expiration: 20000  # 20秒过期
+    redis:
+      time-to-live: 3600000
+      cache-null-values: true
+      key-prefix: Cache_
+      use-key-prefix: true
+#    cache-names: user
+    type: redis
+  redis:
+    host: 192.168.56.101
+    port: 6379
