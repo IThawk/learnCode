@@ -18,18 +18,34 @@ import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 
 @Configuration
 @AutoConfigureAfter(RedisAutoConfiguration.class)
-@EnableConfigurationProperties(CacheConfigProperties.class)
+@EnableConfigurationProperties(CacheConfigProperties.class)//定义加载配置类
 public class CacheRedisCaffeineAutoConfiguration {
 
 	@Autowired
 	private CacheConfigProperties cacheRedisCaffeineProperties;
 
+	/**
+	 * @description:  定义一个
+	  * @param redisTemplate
+	 * @return: com.ithawk.demo.springboot.cache.plugin.support.RedisCaffeineCacheManager
+	 * @author IThawk
+	 * @date: 2021/8/1 20:52
+	 */
 	@Bean
-	@ConditionalOnBean(RedisTemplate.class)
+	@ConditionalOnBean(RedisTemplate.class)//定义RedisTemplate 已经 加载完成之后 才会初始化化这个bean
 	public RedisCaffeineCacheManager cacheManager(RedisTemplate<Object, Object> redisTemplate) {
+		//新建缓存管理器
 		return new RedisCaffeineCacheManager(cacheRedisCaffeineProperties, redisTemplate);
 	}
 
+	/**
+	 * @description:  注册redis pub/sub 监听
+	  * @param redisTemplate
+	 * @param redisCaffeineCacheManager
+	 * @return: org.springframework.data.redis.listener.RedisMessageListenerContainer
+	 * @author IThawk
+	 * @date: 2021/8/1 21:03
+	 */
 	@Bean
 	public RedisMessageListenerContainer redisMessageListenerContainer(RedisTemplate<Object, Object> redisTemplate,
 			RedisCaffeineCacheManager redisCaffeineCacheManager) {

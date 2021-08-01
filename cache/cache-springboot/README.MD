@@ -25,3 +25,9 @@ Redisson 使用redis解决分布式中的问题
         }
 
 ```
+
+## 缓存定义类
+### 实现 org.springframework.cache.CacheManager
+### 添加自动配置类 Auto Configure META-INF/spring.factories
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.ithawk.demo.springboot.cache.plugin.config.CacheRedisCaffeineAutoConfiguration

@@ -24,3 +24,13 @@ spring:
   redis:
     host: 192.168.56.101
     port: 6379
+logging:
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS}- [%thread]- %-5level -%logger{50} - %msg%n"  #格式化，只能输出日期和内容
+    dateformat:
+    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} = [%thread] = %-5level = %logger{50} = %msg%n"   #日志文件输出格式
+  file:
+    name: D:/dev_logs/cache/test.log
+  level:
+    root: info
+    com.ithawk.demo: debug

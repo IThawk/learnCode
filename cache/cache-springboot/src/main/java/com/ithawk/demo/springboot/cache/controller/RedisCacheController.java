@@ -1,6 +1,7 @@
 package com.ithawk.demo.springboot.cache.controller;
 
 import com.ithawk.demo.springboot.cache.model.User;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cache.annotation.*;
@@ -25,15 +26,15 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/cache")
+@Slf4j
 public class RedisCacheController {
-    Logger logger = LoggerFactory.getLogger(RedisCacheController.class);
 
     @GetMapping("/get")
     @Cacheable(cacheNames = {"user"}, key = "#root.methodName")
     public User getRedisCache() {
         User user = new User();
         System.out.println("开始生成缓存数据");
-        logger.debug("dddddd");
+        log.info("dddddd");
         user.setAge(10);
         user.setName("test");
         user.setPassword("test");
@@ -45,7 +46,7 @@ public class RedisCacheController {
     public User getRedisCache1() {
         User user = new User();
         System.out.println("开始生成缓存数据");
-        logger.debug("dddddd");
+        log.info("dddddd");
         user.setAge(10);
         user.setName("test");
         user.setPassword("test");

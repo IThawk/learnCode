@@ -15,7 +15,6 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnClass({MeterBinder.class, CacheMeterBinderProvider.class})
-//@EnableConfigurationProperties({CacheConfigProperties.class, CaffeineConfigProp.class, RedisConfigProp.class})
 public class RedisCaffeineCacheMeterConfiguration {
 
 	@Bean

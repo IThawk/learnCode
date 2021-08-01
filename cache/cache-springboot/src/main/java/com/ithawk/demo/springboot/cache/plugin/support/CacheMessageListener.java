@@ -8,7 +8,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 
 /**
  * @className CacheMessageListener
- * @description:  
+ * @description:  定义缓存更新监听
  * @author IThawk
  * @date 2021/8/1 17:36
  */

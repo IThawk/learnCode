@@ -41,6 +41,13 @@ public class RedisCaffeineCacheManager implements CacheManager {
 		this.cacheNames = cacheConfigProperties.getCacheNames();
 	}
 
+	/**
+	 * @description: 从缓存中获取数据
+	  * @param name 缓存名
+	 * @return: org.springframework.cache.Cache
+	 * @author IThawk
+	 * @date: 2021/8/1 21:06
+	 */
 	@Override
 	public Cache getCache(String name) {
 		Cache cache = cacheMap.get(name);

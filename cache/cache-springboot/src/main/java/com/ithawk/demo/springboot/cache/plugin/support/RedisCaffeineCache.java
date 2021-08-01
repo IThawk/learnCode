@@ -20,7 +20,7 @@ import java.util.concurrent.locks.ReentrantLock;
 /**
  * @author IThawk
  * @className RedisCaffeineCache
- * @description:
+ * @description: 定义缓存类
  * @date 2021/8/1 17:37
  */
 @Slf4j
@@ -29,6 +29,9 @@ public class RedisCaffeineCache extends AbstractValueAdaptingCache {
 
     @Getter
     private final String name;
+
+    /** 定义本地缓存
+     */
     @Getter
     private final Cache<Object, Object> caffeineCache;
 
@@ -64,7 +67,7 @@ public class RedisCaffeineCache extends AbstractValueAdaptingCache {
     @SuppressWarnings("unchecked")
     @Override
     public <T> T get(Object key, Callable<T> valueLoader) {
-        log.info("get key :" + key);
+        log.info("get key : {}， from cache " , key);
         Object value = lookup(key);
         if (value != null) {
             return (T) value;
@@ -111,6 +114,14 @@ public class RedisCaffeineCache extends AbstractValueAdaptingCache {
         caffeineCache.put(key, value);
     }
 
+    /**
+     * @description: 更新缓存
+      * @param key
+ * @param value
+     * @return: org.springframework.cache.Cache.ValueWrapper
+     * @author IThawk
+     * @date: 2021/8/1 21:15
+     */
     @Override
     public ValueWrapper putIfAbsent(Object key, Object value) {
 		log.info("putIfAbsent key :" + key);
@@ -136,6 +147,13 @@ public class RedisCaffeineCache extends AbstractValueAdaptingCache {
         return toValueWrapper(prevValue);
     }
 
+    /**
+     * @description: 清除对应缓存数据
+      * @param key
+     * @return: void
+     * @author IThawk
+     * @date: 2021/8/1 21:14
+     */
     @Override
     public void evict(Object key) {
 		log.info("清除 key :" + key);
@@ -147,6 +165,13 @@ public class RedisCaffeineCache extends AbstractValueAdaptingCache {
         caffeineCache.invalidate(key);
     }
 
+    /**
+     * @description: 清除所有缓存数据
+      * @param
+     * @return: void
+     * @author IThawk
+     * @date: 2021/8/1 21:12
+     */
     @Override
     public void clear() {
 		log.info("清除 all key ");
@@ -157,11 +182,19 @@ public class RedisCaffeineCache extends AbstractValueAdaptingCache {
             stringKeyRedisTemplate.delete(keys);
         }
 
+        //发送缓存清除信息
         push(new CacheMessage(this.name, null));
 
         caffeineCache.invalidateAll();
     }
 
+    /**
+     * @description: 读取缓存的数据
+      * @param key
+     * @return: java.lang.Object
+     * @author IThawk
+     * @date: 2021/8/1 21:09
+     */
     @Override
     protected Object lookup(Object key) {
         Object cacheKey = getKey(key);
@@ -177,6 +210,7 @@ public class RedisCaffeineCache extends AbstractValueAdaptingCache {
 
         if (value != null) {
             log.debug("get cache from redis and put in caffeine, the key is : {}", cacheKey);
+            //更新本地缓存数据
             caffeineCache.put(key, value);
         }
         return value;
@@ -192,23 +226,25 @@ public class RedisCaffeineCache extends AbstractValueAdaptingCache {
         return cacheNameExpire == null ? defaultExpiration : cacheNameExpire;
     }
 
+
     /**
-     * @param message
-     * @description 缓存变更时通知其他节点清理本地缓存
-     * @author fuwei.deng
-     * @date 2018年1月31日 下午3:20:28
-     * @version 1.0.0
+     * @description:  缓存变更时通知其他节点清理本地缓存
+      * @param message
+     * @return: void
+     * @author IThawk
+     * @date: 2021/8/1 21:11
      */
     private void push(CacheMessage message) {
         stringKeyRedisTemplate.convertAndSend(topic, message);
     }
 
+
     /**
-     * @param key
-     * @description 清理本地缓存
-     * @author fuwei.deng
-     * @date 2018年1月31日 下午3:15:39
-     * @version 1.0.0
+     * @description:  清理本地缓存
+      * @param key
+     * @return: void
+     * @author IThawk
+     * @date: 2021/8/1 21:11
      */
     public void clearLocal(Object key) {
         log.debug("clear local cache, the key is : {}", key);
