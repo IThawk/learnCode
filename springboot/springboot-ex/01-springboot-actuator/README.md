@@ -41,14 +41,9 @@ info:
 ```
 
 ### 请求
-
-<<<<<<< HEAD
-    http://127.0.0.1:7777/ooo/base/info
-=======
     http://127.0.0.1:7777/ooo/base/info  查询info信息
     http://127.0.0.1:7777/ooo/base    查询所有的接口
     http://127.0.0.1:9999/xxx/some   WEB端接口
->>>>>>> aaec40860904e3b1ec6164df914652bc11c958bb
 
 ```json
 {

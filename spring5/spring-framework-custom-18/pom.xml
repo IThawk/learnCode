@@ -9,7 +9,15 @@
 	</parent>
 	<artifactId>spring-framework-custom-18</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<properties>
+		<maven.compiler.source>8</maven.compiler.source>
+		<maven.compiler.target>8</maven.compiler.target>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+		<maven.compiler.encoding>UTF-8</maven.compiler.encoding>
+	</properties>
 	<build>
 		<plugins>
 			<!-- 配置Maven的JDK编译级别 -->

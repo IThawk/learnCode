@@ -3,11 +3,11 @@ package com.kaikeba.mapping;
 import com.kaikeba.annotation.Controller;
 import com.kaikeba.annotation.RequestMapping;
 import com.kaikeba.model.HandlerMethod;
-import com.kkb.spring.aware.BeanFactoryAware;
-import com.kkb.spring.factory.BeanFactory;
-import com.kkb.spring.factory.support.DefaultListableBeanFactory;
-import com.kkb.spring.init.InitializingBean;
-import com.kkb.spring.ioc.BeanDefinition;
+import com.ithawk.demo.spring.custom.aware.BeanFactoryAware;
+import com.ithawk.demo.spring.custom.factory.BeanFactory;
+import com.ithawk.demo.spring.custom.factory.support.DefaultListableBeanFactory;
+import com.ithawk.demo.spring.custom.init.InitializingBean;
+import com.ithawk.demo.spring.custom.ioc.BeanDefinition;
 
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;

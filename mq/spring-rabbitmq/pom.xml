@@ -20,8 +20,14 @@
         <log4j.version>1.2.12</log4j.version>
         <!-- junit版本号 -->
         <junit.version>4.10</junit.version>
-    </properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
+    </properties>
     <dependencies>
         <dependency>
             <groupId>org.springframework</groupId>

@@ -2,10 +2,10 @@ package com.kaikeba.servlet;
 
 import com.kaikeba.adapter.HandlerAdapter;
 import com.kaikeba.mapping.HandlerMapping;
-import com.kkb.spring.factory.support.DefaultListableBeanFactory;
-import com.kkb.spring.reader.XmlBeanDefinitionReader;
-import com.kkb.spring.resource.ClasspathResource;
-import com.kkb.spring.resource.Resource;
+import com.ithawk.demo.spring.custom.factory.support.DefaultListableBeanFactory;
+import com.ithawk.demo.spring.custom.reader.XmlBeanDefinitionReader;
+import com.ithawk.demo.spring.custom.resource.ClasspathResource;
+import com.ithawk.demo.spring.custom.resource.Resource;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;

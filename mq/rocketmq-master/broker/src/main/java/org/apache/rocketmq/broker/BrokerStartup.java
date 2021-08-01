@@ -126,10 +126,7 @@ public class BrokerStartup {
 
             nettyClientConfig.setUseTLS(Boolean.parseBoolean(System.getProperty(TLS_ENABLE,
                     String.valueOf(TlsSystemConfig.tlsMode == TlsMode.ENFORCING))));
-<<<<<<< HEAD
-=======
             //设置nettyServerConfig监听端口号
->>>>>>> aaec40860904e3b1ec6164df914652bc11c958bb
             nettyServerConfig.setListenPort(10911);
             final MessageStoreConfig messageStoreConfig = new MessageStoreConfig();
 

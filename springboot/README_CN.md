@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-=======
+
 # springboot-aop springboot AOP使用
 ```java
 package com.ithawk.springboot.aop.aspect;
@@ -121,7 +120,7 @@ public class AnnotaionAspect1 {
 * @Component  //声明这是一个组件
 * @Aspect //声明这是一个切面Bean
 * @Pointcut  // 设置切点
->>>>>>> aaec40860904e3b1ec6164df914652bc11c958bb
+
 # SpringBoot
 
 ## SpringBoot中CommandLineRunner的作用

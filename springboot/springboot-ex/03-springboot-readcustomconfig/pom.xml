@@ -13,8 +13,6 @@
 
     <properties>
         <java.version>1.8</java.version>
-<<<<<<< HEAD
-=======
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -22,7 +20,6 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
->>>>>>> aaec40860904e3b1ec6164df914652bc11c958bb
     </properties>
 
     <dependencies>

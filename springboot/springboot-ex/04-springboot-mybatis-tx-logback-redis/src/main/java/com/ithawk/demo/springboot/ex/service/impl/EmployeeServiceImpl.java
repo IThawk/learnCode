@@ -23,12 +23,6 @@ public class EmployeeServiceImpl implements EmployeeService {
     private RedisTemplate<Object, Object> redisTemplate;
 
     @CacheEvict(value = "realTimeCache", allEntries = true)
-<<<<<<< HEAD
-    @Transactional(rollbackFor = Exception.class)
-    @Override
-    public void addEmployee(Employee employee) throws Exception {
-        dao.insertEmployee(employee);
-=======
     @Transactional()
     @Override
     public void addEmployee(Employee employee) throws Exception {
@@ -38,7 +32,6 @@ public class EmployeeServiceImpl implements EmployeeService {
         //         remove-abandoned: true
         //         remove-abandoned-timeout-millis: 30000
         Thread.sleep(90000);
->>>>>>> aaec40860904e3b1ec6164df914652bc11c958bb
 //        if (true) {
 //            throw new Exception("发生受查异常");
 //        }

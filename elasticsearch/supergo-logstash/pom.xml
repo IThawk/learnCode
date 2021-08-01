@@ -28,26 +28,17 @@
 
     <!--注册中心-->
     <dependencies>
-<<<<<<< HEAD
-=======
-        <!--springboot web -->
->>>>>>> aaec40860904e3b1ec6164df914652bc11c958bb
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
             <version>2.3.0.RELEASE</version>
         </dependency>
-<<<<<<< HEAD
-=======
         <!--logstash 依赖-->
->>>>>>> aaec40860904e3b1ec6164df914652bc11c958bb
         <dependency>
             <groupId>net.logstash.logback</groupId>
             <artifactId>logstash-logback-encoder</artifactId>
             <version>5.2</version>
         </dependency>
-<<<<<<< HEAD
-=======
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-core</artifactId>
@@ -65,7 +56,6 @@
             <artifactId>jackson-databind</artifactId>
             <version>2.11.2</version>
         </dependency>
->>>>>>> aaec40860904e3b1ec6164df914652bc11c958bb
     </dependencies>
 
     <build>

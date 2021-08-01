@@ -1,11 +1,7 @@
 package com.ithawk.demo.springboot.ex.configuration;
 
-<<<<<<< HEAD
-import com.abc.service.WrapService;
-=======
 
 import com.ithawk.demo.springboot.ex.service.WrapService;
->>>>>>> aaec40860904e3b1ec6164df914652bc11c958bb
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;

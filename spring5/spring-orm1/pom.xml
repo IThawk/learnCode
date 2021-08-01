@@ -12,7 +12,15 @@
 
 	<packaging>jar</packaging>
 	<name>spring-orm1</name>
+	<properties>
+		<maven.compiler.source>8</maven.compiler.source>
+		<maven.compiler.target>8</maven.compiler.target>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+		<maven.compiler.encoding>UTF-8</maven.compiler.encoding>
+	</properties>
 	<dependencies>
 		<!-- spring framework start -->
 		<dependency>
@@ -158,7 +166,7 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<version>1.16.10</version>
+			<version>1.18.6</version>
 		</dependency>
 
 	</dependencies>

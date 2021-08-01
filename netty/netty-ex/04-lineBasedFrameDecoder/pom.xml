@@ -12,17 +12,12 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-<<<<<<< HEAD
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-    </properties>
 
-=======
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
->>>>>>> aaec40860904e3b1ec6164df914652bc11c958bb
+
     <dependencies>
         <dependency>
             <groupId>io.netty</groupId>
