@@ -5,19 +5,15 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>com.ithawk.demo</groupId>
-    <artifactId>demo</artifactId>
+    <artifactId>mq</artifactId>
     <version>1.0-SNAPSHOT</version>
   </parent>
-  <artifactId>mq</artifactId>
+  <artifactId>rocketmq</artifactId>
   <packaging>pom</packaging>
   <modules>
-    <module>rabbitmq-java-api</module>
-    <module>spring-rabbitmq</module>
-    <module>springboot-demo</module>
-    <module>springboot-amqp</module>
-    <module>rabbitmq-springboot-project</module>
-    <module>kafka</module>
-    <module>rocketmq</module>
+    <module>rocketmq-demo</module>
+    <module>rocketmq-springboot</module>
+    <module>rocketmq-master</module>
   </modules>
-  <name>mq</name>
+  <name>rocketmq</name>
 </project>
