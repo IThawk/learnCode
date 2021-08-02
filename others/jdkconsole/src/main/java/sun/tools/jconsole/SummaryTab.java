@@ -149,7 +149,7 @@ class SummaryTab extends Tab {
 		if (sunOSMBean != null) {
 		    result.processCpuTime = sunOSMBean.getProcessCpuTime();
 		    float cpuUsedTime=(float)sunOSMBean.getProcessCpuTime()/1000000000;
-		    System.out.println("CPU����ʱ�䣺"+cpuUsedTime+"��");                           //CPU����ʱ��
+		    System.out.println("CPU占用时间"+cpuUsedTime+"秒");                           //CPU����ʱ��
 		    append("Process CPU time", formatNanoTime(result.processCpuTime));
 		}
 
@@ -173,7 +173,7 @@ class SummaryTab extends Tab {
 		int tdCount = tmBean.getDaemonThreadCount();
 		int tpCount = tmBean.getPeakThreadCount();
 		long ttCount = tmBean.getTotalStartedThreadCount();
-		System.out.println("��ǰ�̸߳����� "+tlCount);                //��ǰ�߳���
+		System.out.println("使用线程数据： "+tlCount);                //��ǰ�߳���
 		String[] strings1 = formatLongs(tlCount, tpCount,
 						tdCount, ttCount);
 		append("Live Threads",          strings1[0]);
@@ -208,7 +208,7 @@ class SummaryTab extends Tab {
 
 		append(newRightTable);
 		String[] strings2 = formatKByteStrings(u.getCommitted());
-		System.out.println("������ڴ棺"+u.getCommitted()/1024+"Kb");                   ////������ڴ�
+		System.out.println("提交内存"+u.getCommitted()/1024+"Kb");                   ////������ڴ�
 		append("Committed memory",  strings2[0]);
 		
 		append("SummaryTab.pendingFinalization.label",
@@ -285,9 +285,9 @@ class SummaryTab extends Tab {
 		    System.out.println("���ö�ջ�ڴ棺"+nu.getUsed()/1024+"Kb");
 		    long jjjj=mu.getUsed()+nu.getUsed();
 		    System.out.println("��ջ�ڴ�+�Ƕ�ջ�ڴ棺"+jjjj/1024+"Kb");  */
-		    System.out.println("����������ڴ棺"+sunOSMBean.getCommittedVirtualMemorySize()/1024+"Kb"); //����������ڴ�
+		    System.out.println("占用虚拟内存"+sunOSMBean.getCommittedVirtualMemorySize()/1024+"Kb"); //����������ڴ�
 		    long memoryTotalCommited=sunOSMBean.getCommittedVirtualMemorySize()/1024+memoryBean.getHeapMemoryUsage().getCommitted()/1024;
-            System.out.println("�ڴ�ʹ��������"+memoryTotalCommited+"Kb");		    
+            System.out.println("占用总内存"+memoryTotalCommited+"Kb");
 		}
 
 		append(endTable);
@@ -384,7 +384,7 @@ class SummaryTab extends Tab {
 		float cpuUsage =
 		    Math.min(99F,
 			     elapsedCpu / (elapsedTime * 10000F * result.nCPUs));
-        System.out.println("CPUʹ���ʣ�"+cpuUsage+"%");                                ///CPUʹ���ʣ�
+        System.out.println("CPUʹ使用率"+cpuUsage+"%");                                ///CPUʹ���ʣ�
 		System.out.println("--------------------------------------");
         getPlotter().addValues(result.timeStamp,
 				Math.round(cpuUsage * Math.pow(10.0, CPU_DECIMALS)));

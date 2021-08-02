@@ -15,11 +15,12 @@ public class RocketMqConsumer {
     public static void main(String[] args) throws MQClientException {
         //设置消费组
         DefaultMQPushConsumer consumer=
-                new DefaultMQPushConsumer("gp_producer_group");
+                new DefaultMQPushConsumer("producer_group");
         consumer.setNamesrvAddr("192.168.56.101:9876");
         consumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_FIRST_OFFSET);
-        consumer.subscribe("TopicTest","*");
+        consumer.subscribe("TopicTest1","*");
 
+        //设置集群消费
         consumer.registerMessageListener(new MessageListenerConcurrently() {
             @Override
             public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> list,
@@ -29,6 +30,7 @@ public class RocketMqConsumer {
             }
         });
 
+        //设置顺序消费
 //        consumer.registerMessageListener(new MessageListenerOrderly() {
 //            @Override
 //            public ConsumeOrderlyStatus consumeMessage(List<MessageExt> list, ConsumeOrderlyContext consumeOrderlyContext) {

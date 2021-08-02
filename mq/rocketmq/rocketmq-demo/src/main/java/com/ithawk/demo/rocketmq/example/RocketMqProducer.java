@@ -15,23 +15,24 @@ import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 /**
- * 腾讯课堂搜索【咕泡学院】
- * 官网：www.gupaoedu.com
- * 风骚的Mic 老师
- * create-date: 2019/8/28-21:05
+ * @className RocketMqProducer
+ * @description:  
+ * @author IThawk
+ * @date 2021/8/2 11:36
  */
 public class RocketMqProducer {
 
 
     public static void main(String[] args) throws MQClientException, RemotingException, InterruptedException, MQBrokerException, UnsupportedEncodingException {
         //事务消息的时候会用到
-        DefaultMQProducer producer=new DefaultMQProducer("gp_producer_group");
+        DefaultMQProducer producer=new DefaultMQProducer("producer_group");
         producer.setSendMsgTimeout(6000);
         producer.setNamesrvAddr("192.168.56.101:9876"); //它会从命名服务器上拿到broker的地址
+        producer.setDefaultTopicQueueNums(8); //设置队列的数目是 8；默认的队列数目是 4
         producer.start();
         for (int i = 0; i < 100; i++) {
             //Create a message instance, specifying topic, tag and message body.
-            Message msg = new Message("TopicTest" /* Topic */,
+            Message msg = new Message("TopicTest1" /* Topic */,
                     "TagA" /* Tag */,
                     ("Hello RocketMQ " +
                             i).getBytes(RemotingHelper.DEFAULT_CHARSET) /* Message body */

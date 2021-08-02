@@ -18,6 +18,7 @@
         <module>jdkconsole</module>
         <module>distribute-demo</module>
         <module>my-jvm</module>
+        <module>arthas-web</module>
     </modules>
 
     <build>

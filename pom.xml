@@ -71,7 +71,6 @@
         <module>javaStructures</module>
         <module>tomcat</module>
         <module>gulimall</module>
-        <module>arthas-web</module>
         <module>spring-cloud</module>
         <module>elasticsearch</module>
         <module>pattern</module>
