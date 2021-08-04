@@ -19,6 +19,7 @@
         <module>distribute-demo</module>
         <module>my-jvm</module>
         <module>arthas-web</module>
+        <module>jvm</module>
     </modules>
 
     <build>

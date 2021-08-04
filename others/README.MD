@@ -1,6 +1,6 @@
 # jdk中相关问题
 ## 1: string计算hashcode
-```java
+```
     public int hashCode() {
         int h = hash;
         if (h == 0 && value.length > 0) {
