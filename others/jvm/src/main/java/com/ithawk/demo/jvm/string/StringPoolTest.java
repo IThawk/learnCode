@@ -4,7 +4,7 @@ public class StringPoolTest {
 
     public static void main(String[] args) {
         String str1 = "abc";
-        System.out.println(str1 == "abc");
+        System.out.println(str1 == "abc");//true
 				/*<p>
 		步骤：
 			1) 栈中开辟一块空间存放引用str1，
@@ -24,69 +24,69 @@ public class StringPoolTest {
 
         String str3 = new String("abc");
         System.out.println(str3 == str2);//false
+        System.out.println("str3 == str3.intern()%S"+str3 == str3.intern());//false
 		/*<p>
 		步骤：
-
-1) 栈中开辟一块空间存放引用str3，
-2) 堆中开辟一块新空间存放另外一个(不同于str2所指)新建的String对象，
-3) 引用str3指向另外新建的那个String对象
-4) str3和str2指向堆中不同的String对象，地址也不相同，输出为false
+            1) 栈中开辟一块空间存放引用str3，
+            2) 堆中开辟一块新空间存放另外一个(不同于str2所指)新建的String对象，
+            3) 引用str3指向另外新建的那个String对象
+            4) str3和str2指向堆中不同的String对象，地址也不相同，输出为false
 		 */
 
         String str4 = "a" + "b";
         System.out.println(str4 == "ab");//true
-/*<p>
-步骤：
-1) 栈中开辟一块空间存放引用str4，
-2) 根据编译器合并已知量的优化功能，池中开辟一块空间，存放合并后的String常量"ab"，
-3) 引用str4指向池中常量"ab"，
-4) str4所指即池中常量"ab"，输出为true
- */
+        /*<p>
+        步骤：
+            1) 栈中开辟一块空间存放引用str4，
+            2) 根据编译器合并已知量的优化功能，池中开辟一块空间，存放合并后的String常量"ab"，
+            3) 引用str4指向池中常量"ab"，
+            4) str4所指即池中常量"ab"，输出为true
+         */
         final String s = "a";
         String str5 = s + "b";
         System.out.println(str5 == "ab");//true
 
 		/*<p>
-步骤：
-1) 栈中开辟一块空间存放引用str5，
-2) 根据编译器合并已知量的优化功能，池中开辟一块空间，存放合并后的String常量"ab"，
-3) 引用str5指向池中常量"ab"，
-4) str5所指即池中常量"ab"，输出为true
- */
+        步骤：
+            1) 栈中开辟一块空间存放引用str5，
+            2) 根据编译器合并已知量的优化功能，池中开辟一块空间，存放合并后的String常量"ab"，
+            3) 引用str5指向池中常量"ab"，
+            4) str5所指即池中常量"ab"，输出为true
+         */
 
         String s1 = "a";
         String s2 = "b";
         String str6 = s1 + s2;
         System.out.println(str6 == "ab");//false
-/*<p>
-步骤：
-1) 栈中开辟一块中间存放引用s1，s1指向池中String常量"a"，
-2) 栈中开辟一块中间存放引用s2，s2指向池中String常量"b"，
-3) 栈中开辟一块中间存放引用str6，
-4) s1 + s2通过StringBuilder的最后一步toString()方法还原一个新的String对象"ab"，因此
-堆中开辟一块空间存放此对象，
-5) 引用str6指向堆中(s1 + s2)所还原的新String对象，
-6) str6指向的对象在堆中，而常量"ab"在池中，输出为false
- */
+        /*<p>
+        步骤：
+            1) 栈中开辟一块中间存放引用s1，s1指向池中String常量"a"，
+            2) 栈中开辟一块中间存放引用s2，s2指向池中String常量"b"，
+            3) 栈中开辟一块中间存放引用str6，
+            4) s1 + s2通过StringBuilder的最后一步toString()方法还原一个新的String对象"ab"，因此
+            堆中开辟一块空间存放此对象，
+            5) 引用str6指向堆中(s1 + s2)所还原的新String对象，
+            6) str6指向的对象在堆中，而常量"ab"在池中，输出为false
+             */
         String str7 = "abc".substring(0, 2);
         System.out.println(str7 == "ab");//false
-/*<p>
-步骤：
-1) 栈中开辟一块空间存放引用str7，
-2) substring()方法还原一个新的String对象"ab"（不同于str6所指），堆中开辟一块空间存放此
-对象，
-3) 引用str7指向堆中的新String对象，
- */
+        /*<p>
+        步骤：
+            1) 栈中开辟一块空间存放引用str7，
+            2) substring()方法还原一个新的String对象"ab"（不同于str6所指），堆中开辟一块空间存放此
+            对象，
+            3) 引用str7指向堆中的新String对象，
+         */
 
         String str8 = "abc".toUpperCase();
         System.out.println(str8 == "ABC");//false
-/*<p>
-步骤：
-1) 栈中开辟一块空间存放引用str8，
-2) toUpperCase()方法还原一个新的String对象"ABC"，池中并未开辟新的空间存放String常
-量"ABC"，
-3) 引用str8指向堆中的新String对象
- */
+        /*<p>
+        步骤：
+            1) 栈中开辟一块空间存放引用str8，
+            2) toUpperCase()方法还原一个新的String对象"ABC"，池中并未开辟新的空间存放String常
+            量"ABC"，
+            3) 引用str8指向堆中的新String对象
+         */
         String s3 = "ab";
         String s4 = "ab" + getString();
         System.out.println(s3 == s4);//false
@@ -95,6 +95,8 @@ public class StringPoolTest {
         String s6 = "abc";  //在常量池中
         String s7 = s5 + "bc";
         System.out.println(s6 == s7.intern());//true
+
+        System.out.println(s6.intern()==s6);//true
 		/*<p>
 		intern的作用
 		intern的作用是把new出来的字符串的引用添加到stringtable中，java会先计算string的
