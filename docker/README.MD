@@ -1,5 +1,5 @@
-docker从容器里面拷文件到宿主机或从宿主机拷文件到docker容器里面
-1、从容器里面拷文件到宿主机？
+## docker从容器里面拷文件到宿主机或从宿主机拷文件到docker容器里面
+### 1、从容器里面拷文件到宿主机？
 
      答：在宿主机里面执行以下命令
 
@@ -10,7 +10,7 @@ docker从容器里面拷文件到宿主机或从宿主机拷文件到docker容�
      答案：在宿主机上面执行命令
 
 docker cp testtomcat：/usr/local/tomcat/webapps/test/js/test.js /opt
-2、从宿主机拷文件到容器里面
+### 2、从宿主机拷文件到容器里面
 
       答：在宿主机里面执行如下命令
 
@@ -116,7 +116,7 @@ events {
     worker_connections  1024;
 }
 
-#######Nginx的Http服务器配置,Gzip配置
+##### Nginx的Http服务器配置,Gzip配置
 http {
     #主模块指令，实现对配置文件所包含的文件的设定，可以减少主配置文件的复杂度，DNS主配置文件中的zonerfc1912,acl基本上都是用include语句。
     include       mime.types;

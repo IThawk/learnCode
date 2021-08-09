@@ -335,6 +335,7 @@
             <element id="library" level="project" name="Maven: jakarta.validation:jakarta.validation-api:2.0.2" />
             <element id="library" level="project" name="Maven: org.jboss.logging:jboss-logging:3.3.2.Final" />
             <element id="library" level="project" name="Maven: com.fasterxml:classmate:1.3.4" />
+            <element id="library" level="project" name="Maven: javax.xml.ws:com.springsource.javax.xml.ws:2.1.1" />
             <element id="archive" name="spring-web-5.2.0-SNAPSHOT.jar">
               <element id="module-output" name="spring-web" />
             </element>
@@ -1077,8 +1078,8 @@
         <module name="netty-testsuite" />
         <module name="11-springboot-wrap-spring-boot-starter" />
         <module name="oracle-driver" />
-        <module name="spring-cloud-alibaba-coverage" />
         <module name="netty-codec-http" />
+        <module name="spring-cloud-alibaba-coverage" />
         <module name="nacos-discovery-provider-example" />
         <module name="springmvc-custom18" />
         <module name="00-hystrix-turbine-7777" />
@@ -1101,8 +1102,8 @@
         <module name="08-springboot-thymeleaf-ssrm" />
         <module name="springboot-amqp" />
         <module name="supergo-logstash" />
-        <module name="rocketmq-namesrv" />
         <module name="dubbo-spring-provider" />
+        <module name="rocketmq-namesrv" />
         <module name="06-springboot-interceptor" />
         <module name="distribute-demo" />
         <module name="spring-test" />
@@ -1133,8 +1134,8 @@
         <module name="springboot-aop" />
         <module name="07-sleuth-consumer-8080" />
         <module name="cloud-provider-8081" />
-        <module name="rocketmq-common" />
         <module name="02-netty-socket" />
+        <module name="rocketmq-common" />
         <module name="rpc-server-api" />
         <module name="practice-api" />
         <module name="10-springboot-wraptest" />
@@ -1166,9 +1167,10 @@
         <module name="dubbo-springboot-provider" />
         <module name="account-service" />
         <module name="spring-cloud-dubbo-servlet-gateway-sample" />
-        <module name="rocketmq-example" />
         <module name="spring-websocket" />
+        <module name="rocketmq-example" />
         <module name="rocketmq-client" />
+        <module name="jvm" />
         <module name="spring-cloud-starter-dubbo" />
         <module name="spring-custom" />
         <module name="dubbo-spi-provider" />
@@ -1260,8 +1262,8 @@
         <module name="rocketmq-filter" />
         <module name="rpc-server-provider" />
         <module name="spring-cloud-starter-alibaba-sentinel" />
-        <module name="jdkconsole" />
         <module name="zk-repo-service" />
+        <module name="jdkconsole" />
         <module name="netty-dev-tools" />
         <module name="spring-cloud-dubbo-client-sample" />
         <module name="spring-cloud-starter-stream-rocketmq" />
@@ -1327,6 +1329,7 @@
         <module name="04-consumer-turbine-client-8380" />
         <module name="gulimall-coupon" />
         <module name="ejob-springboot" />
+        <module name="cache-springboot" />
         <module name="spring-demo" />
         <module name="netty-pattern" />
         <module name="13-netty-multiports" />
@@ -1346,8 +1349,8 @@
         <module name="spring-cloud-bus-rocketmq-example" />
         <module name="rocketmq-broker" />
         <module name="07-sleuth-provider-8081" />
-        <module name="rocketmq-test" />
         <module name="design-pattern" />
+        <module name="rocketmq-test" />
         <module name="netty-io" />
         <module name="01-springboot-war" />
         <module name="nacos-address" />
@@ -1438,6 +1441,7 @@
       <module name="arthas-web" target="1.8" />
       <module name="business-service" target="1.8" />
       <module name="cache" target="1.8" />
+      <module name="cache-springboot" target="1.8" />
       <module name="Caffeine" target="1.8" />
       <module name="cloud-auth" target="1.8" />
       <module name="cloud-common" target="1.8" />
@@ -1600,10 +1604,12 @@
       <module name="gulimall-ware" target="1.8" />
       <module name="java-spi" target="1.8" />
       <module name="java-structures-learn" target="1.8" />
+      <module name="javaBase" target="1.8" />
       <module name="javaStructures" target="1.8" />
       <module name="jdk-spi" target="1.8" />
       <module name="jdkconsole" target="1.8" />
       <module name="jedis" target="1.8" />
+      <module name="jvm" target="1.8" />
       <module name="kafka" target="1.8" />
       <module name="kafka-demo" target="8" />
       <module name="kafka-springboot" target="1.8" />
@@ -1715,6 +1721,7 @@
       <module name="redisson-springboot" target="1.8" />
       <module name="renren-fast" target="1.8" />
       <module name="renren-generator" target="1.8" />
+      <module name="rocketmq" target="1.8" />
       <module name="rocketmq-acl" target="1.8" />
       <module name="rocketmq-all" target="1.8" />
       <module name="rocketmq-broker" target="1.8" />
@@ -1862,9 +1869,9 @@
   </component>
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/arthas-web/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/arthas-web/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/cache/Caffeine/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cache/cache-springboot/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cache/cache-springboot/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/dubbo/dubbo-admin-develop/dubbo-admin-server/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/dubbo/dubbo-admin-develop/dubbo-admin-server/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/dubbo/dubbo-admin-develop/dubbo-admin-test/src/main/java" charset="UTF-8" />
@@ -2075,6 +2082,12 @@
     <file url="file://$PROJECT_DIR$/gulimall/renren-fast/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/gulimall/renren-generator/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/gulimall/renren-generator/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/javaBase/arthas-web/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/javaBase/distribute-demo/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/javaBase/jvm/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/javaBase/my-jvm/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/javaBase/my-jvm/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/javaBase/thread-demo/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/javaStructures/java-structures-learn/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/javaStructures/leecode-learn/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/mq/kafka/kafka-demo/src/main/java" charset="UTF-8" />
@@ -2086,32 +2099,29 @@
     <file url="file://$PROJECT_DIR$/mq/rabbitmq-springboot-project/springboot-rabbit-consumer/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/mq/rabbitmq-springboot-project/springboot-rabbit-producer/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/mq/rabbitmq-springboot-project/springboot-rabbit-producer/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/mq/rocketmq-demo/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/mq/rocketmq-master/acl/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/mq/rocketmq-master/broker/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/mq/rocketmq-master/broker/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/mq/rocketmq-master/broker/target/maven-shared-archive-resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/mq/rocketmq-master/client/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/mq/rocketmq-master/common/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/mq/rocketmq-master/example/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/mq/rocketmq-master/example/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/mq/rocketmq-master/example/target/maven-shared-archive-resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/mq/rocketmq-master/filter/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/mq/rocketmq-master/logappender/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/mq/rocketmq-master/logging/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/mq/rocketmq-master/namesrv/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/mq/rocketmq-master/namesrv/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/mq/rocketmq-master/namesrv/target/maven-shared-archive-resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/mq/rocketmq-master/openmessaging/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/mq/rocketmq-master/remoting/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/mq/rocketmq-master/srvutil/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/mq/rocketmq-master/store/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/mq/rocketmq-master/test/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/mq/rocketmq-master/tools/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/mq/rocketmq-springboot/rocketmq-consume-springcloud-alibaba/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/mq/rocketmq-springboot/rocketmq-consume-springcloud-alibaba/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/mq/rocketmq-springboot/rocketmq-produce-springcloud-alibaba/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/mq/rocketmq-springboot/rocketmq-produce-springcloud-alibaba/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mq/rocketmq/rocketmq-demo/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mq/rocketmq/rocketmq-master/acl/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mq/rocketmq/rocketmq-master/broker/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mq/rocketmq/rocketmq-master/broker/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mq/rocketmq/rocketmq-master/client/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mq/rocketmq/rocketmq-master/common/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mq/rocketmq/rocketmq-master/example/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mq/rocketmq/rocketmq-master/example/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mq/rocketmq/rocketmq-master/filter/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mq/rocketmq/rocketmq-master/logappender/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mq/rocketmq/rocketmq-master/logging/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mq/rocketmq/rocketmq-master/namesrv/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mq/rocketmq/rocketmq-master/namesrv/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mq/rocketmq/rocketmq-master/openmessaging/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mq/rocketmq/rocketmq-master/remoting/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mq/rocketmq/rocketmq-master/srvutil/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mq/rocketmq/rocketmq-master/store/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mq/rocketmq/rocketmq-master/test/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mq/rocketmq/rocketmq-master/tools/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mq/rocketmq/rocketmq-springboot/rocketmq-consume-springcloud-alibaba/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mq/rocketmq/rocketmq-springboot/rocketmq-consume-springcloud-alibaba/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mq/rocketmq/rocketmq-springboot/rocketmq-produce-springcloud-alibaba/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mq/rocketmq/rocketmq-springboot/rocketmq-produce-springcloud-alibaba/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/mq/spring-rabbitmq/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/mq/spring-rabbitmq/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/mq/springboot-amqp/src/main/java" charset="UTF-8" />
@@ -2210,9 +2220,6 @@
     <file url="file://$PROJECT_DIR$/netty/netty-rpc/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/netty/netty-tomcat/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/netty/netty-tomcat/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/others/distribute-demo/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/others/my-jvm/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/others/my-jvm/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/pattern/design-pattern/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/pattern/pattern-adapter/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/pattern/pattern-decorator/src/main/java" charset="UTF-8" />
@@ -2361,7 +2368,6 @@
     <file url="file://$PROJECT_DIR$/springboot/springboot-starter/format-spring-boot-starter/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/springboot/springboot-starter/springboot-starter-demo/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/springboot/springboot-starter/springboot-starter-demo/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/thread-demo/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/zookeeper/zookeeper-master/zookeeper-server/src/main/java" charset="UTF-8" />
   </component>
   <component name="FrameworkDetectionExcludesConfiguration">
@@ -2377,6 +2383,12 @@
     <file type="web" url="file://$PROJECT_DIR$/spring5/spring5-demo" />
     <file type="web" url="file://$PROJECT_DIR$/spring5/springmvc-custom18" />
     <file type="web" url="file://$PROJECT_DIR$/springboot/springboot-ex/01-springboot-war" />
+  </component>
+  <component name="InspectionProjectProfileManager">
+    <profile version="1.0">
+      <option name="myName" value="Project Default" />
+    </profile>
+    <version value="1.0" />
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
@@ -2444,6 +2456,7 @@
       <module name="account-service" options="-parameters -parameters" />
       <module name="arthas-web" options="-parameters" />
       <module name="business-service" options="-parameters -parameters" />
+      <module name="cache-springboot" options="-parameters" />
       <module name="cloud-auth" options="-parameters" />
       <module name="cloud-common" options="-parameters" />
       <module name="cloud-config-server-9999" options="-parameters" />
@@ -2573,6 +2586,7 @@
       <module name="jdk-spi" options="-parameters -proc:none -parameters" />
       <module name="jdkconsole" options="-parameters" />
       <module name="jedis" options="-parameters" />
+      <module name="jvm" options="-parameters -verbose -bootclasspath &quot;C:/Program Files/Java/jdk1.8.0_201/jre/lib/rt.jar;C:/Program Files/Java/jdk1.8.0_201/jre/lib/jce.jar;C:/Program Files/Java/jdk1.8.0_201/jre/lib/jsse.jar&quot;" />
       <module name="kafka-demo" options="-parameters" />
       <module name="kafka-springboot" options="-parameters" />
       <module name="leecode-learn" options="-parameters" />

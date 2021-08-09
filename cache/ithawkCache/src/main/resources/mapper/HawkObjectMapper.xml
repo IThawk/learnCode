@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ithawk.demo.cache.ithawk.dao.HawkObjectMapper">
+    <!-- 一对多查询 -->
+    <resultMap id="WithDeptResultMap1" type="com.ithawk.demo.cache.ithawk.bean.HawkObject">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="des" jdbcType="VARCHAR" property="des"/>
+        <!-- 一对多关联映射 -->
+        <collection property="hawkTreeList" ofType="com.ithawk.demo.cache.ithawk.bean.HawkObject">
+            <!-- id 与父级的关系-->
+            <id property="id" column="relate_id"/>
+            <result property="id" column="t1id"/>
+            <result property="name" column="t1name"/>
+            <result column="t1des" jdbcType="VARCHAR" property="des"/>
+            <!-- 一对多关联映射 -->
+            <collection property="hawkTreeList" ofType="com.ithawk.demo.cache.ithawk.bean.HawkObject">
+                <id property="id" column="relate_id"/>
+                <result property="id" column="t2id"/>
+                <result property="name" column="t2name"/>
+                <result column="t2des" jdbcType="VARCHAR" property="des"/>
+            </collection>
+        </collection>
+    </resultMap>
+
+
+
+    <select id="selectById"  resultMap="WithDeptResultMap1">
+        select t.id id, t.name name , t3.des des ,
+        t1.id t1id, t1.name t1name , t4.des t1des,
+         t2.id t2id, t2.name t2name ,t5.des t2des
+        from hawk_object t
+        left join hawk_object t1 on t1.relate_id = t.id
+        left join hawk_object t2 on t2.relate_id = t1.id
+        left join hawk_object_value t3 on t3.relate_id = t.id
+        left join hawk_object_value t4 on t4.relate_id = t1.id
+        left join hawk_object_value t5 on t5.relate_id = t2.id
+        where t.id = #{id}
+    </select>
+
+
+</mapper>

@@ -53,6 +53,14 @@ git add .
 git commit .
 ```
 
+5、代码分别Github和Gitee即可。
+
+提交到github
+
+```text
+git pull github master
+```
+
 5、代码分别提交到Github和Gitee即可。
 
 提交到github

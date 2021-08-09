@@ -63,9 +63,8 @@
         <module>rpc</module>
         <module>sentinel</module>
         <module>spring5</module>
-        <module>thread-demo</module>
         <module>zookeeper</module>
-        <module>others</module>
+        <module>javaBase</module>
         <module>spi</module>
 
         <module>javaStructures</module>

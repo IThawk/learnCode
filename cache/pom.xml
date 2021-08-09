@@ -19,6 +19,7 @@
     <modules>
         <module>Caffeine</module>
         <module>cache-springboot</module>
+        <module>ithawkCache</module>
     </modules>
 
 </project>
