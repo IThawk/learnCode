@@ -1,6 +1,8 @@
 package com.ithawk.demo.cache.ithawk.aop;
 
+import com.alibaba.fastjson.JSON;
 import com.ithawk.demo.cache.ithawk.constate.ITHawkCache;
+import com.ithawk.demo.cache.ithawk.listener.CacheMessage;
 import com.ithawk.demo.cache.ithawk.utils.ApplicationUtil;
 import com.ithawk.demo.cache.ithawk.utils.LocalCaffeineCache;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -13,6 +15,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
@@ -54,7 +57,7 @@ public class ITHawkCacheAop {
                     LocalCaffeineCache.setData(cacheKeys.get(0), result);
                     return result;
                 }
-            }else {
+            } else {
                 return result;
             }
 
@@ -63,11 +66,24 @@ public class ITHawkCacheAop {
 
         try {
             result = proceedingJoinPoint.proceed();
+            //修改缓存 发送广播消息
+            push(new CacheMessage("TEST", cacheKeys));
             LocalCaffeineCache.setAsyncData(cacheKeys.get(0), result);
-            redisTemplate.boundValueOps(cacheKeys.get(0)).set(result,5, TimeUnit.MINUTES);
+            redisTemplate.boundValueOps(cacheKeys.get(0)).set(result, 5, TimeUnit.MINUTES);
         } catch (Throwable throwable) {
             throwable.printStackTrace();
         }
         return result;
+    }
+
+    /**
+     * @param message
+     * @description: 缓存变更时通知其他节点清理本地缓存
+     * @return: void
+     * @author IThawk
+     * @date: 2021/8/1 21:11
+     */
+    private void push(CacheMessage message) {
+        redisTemplate.convertAndSend("TOPIC", JSON.toJSONString(message));
     }
 }

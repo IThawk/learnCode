@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @className CacheMessage
@@ -17,7 +18,12 @@ public class CacheMessage implements Serializable {
 
 	private String cacheName;
 
-	private Object key;
+	private List<String> key;
+
+	public CacheMessage(String cacheName, List<String> key) {
+		this.cacheName = cacheName;
+		this.key = key;
+	}
 
 	public String getCacheName() {
 		return cacheName;
@@ -27,11 +33,11 @@ public class CacheMessage implements Serializable {
 		this.cacheName = cacheName;
 	}
 
-	public Object getKey() {
+	public List<String> getKey() {
 		return key;
 	}
 
-	public void setKey(Object key) {
+	public void setKey(List<String> key) {
 		this.key = key;
 	}
 }
