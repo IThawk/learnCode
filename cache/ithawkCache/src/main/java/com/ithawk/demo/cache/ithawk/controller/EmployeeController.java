@@ -1,6 +1,8 @@
 package com.ithawk.demo.cache.ithawk.controller;
 
 import com.ithawk.demo.cache.ithawk.bean.Msg;
+import com.ithawk.demo.cache.ithawk.constant.CacheActionType;
+import com.ithawk.demo.cache.ithawk.constant.ITHawkCache;
 import com.ithawk.demo.cache.ithawk.service.EmployeeService;
 import com.ithawk.demo.cache.ithawk.bean.Employee;
 import com.github.pagehelper.PageHelper;
@@ -49,6 +51,7 @@ public class EmployeeController {
 
     @ResponseBody
     @RequestMapping(value = "/emp/{empId}", method = RequestMethod.PUT)
+    @ITHawkCache(keyMaker = "#empId", actionType = CacheActionType.UPDATE)
     public Msg saveEmp(Employee employee) {
         employeeService.updateEmp(employee);
         return Msg.success();
@@ -57,13 +60,13 @@ public class EmployeeController {
     //根据id查询员工
     @RequestMapping(value = "/emp/{id}", method = RequestMethod.GET)
     @ResponseBody
+    @ITHawkCache(keyMaker = "#")
     public Msg geEmp(@PathVariable("id") Integer id) {
         Employee employee = employeeService.getEmp(id);
         return Msg.success().add("emp", employee);
     }
 
     /**
-     *
      * @param pn
      * @return
      */

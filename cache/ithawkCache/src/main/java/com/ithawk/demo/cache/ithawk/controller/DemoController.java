@@ -1,10 +1,7 @@
 package com.ithawk.demo.cache.ithawk.controller;
 
 import com.ithawk.demo.cache.ithawk.bean.Department;
-import com.ithawk.demo.cache.ithawk.bean.Msg;
-import com.ithawk.demo.cache.ithawk.constate.ITHawkCache;
-import com.ithawk.demo.cache.ithawk.service.DepartmentService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.ithawk.demo.cache.ithawk.constant.ITHawkCache;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;

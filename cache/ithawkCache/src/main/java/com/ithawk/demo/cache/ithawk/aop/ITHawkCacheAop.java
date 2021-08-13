@@ -1,7 +1,8 @@
 package com.ithawk.demo.cache.ithawk.aop;
 
 import com.alibaba.fastjson.JSON;
-import com.ithawk.demo.cache.ithawk.constate.ITHawkCache;
+import com.ithawk.demo.cache.ithawk.constant.CacheActionType;
+import com.ithawk.demo.cache.ithawk.constant.ITHawkCache;
 import com.ithawk.demo.cache.ithawk.listener.CacheMessage;
 import com.ithawk.demo.cache.ithawk.utils.ApplicationUtil;
 import com.ithawk.demo.cache.ithawk.utils.LocalCaffeineCache;
@@ -14,8 +15,12 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
+
+import java.lang.reflect.Field;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 /**
  * @author llwei
@@ -33,21 +38,35 @@ public class ITHawkCacheAop {
     private RedisTemplate<String, String> redisTemplate;
 
 
-    @Around("@annotation(com.ithawk.demo.cache.ithawk.constate.ITHawkCache)")
+    @Around("@annotation(com.ithawk.demo.cache.ithawk.constant.ITHawkCache)")
     public Object cache(ProceedingJoinPoint proceedingJoinPoint) {
         MethodSignature methodSignature = (MethodSignature) proceedingJoinPoint.getSignature();
         //获取缓存
         ITHawkCache itHawkCache = methodSignature.getMethod().getAnnotation(ITHawkCache.class);
         Object[] args = proceedingJoinPoint.getArgs();
         Class<?> resultClass = methodSignature.getMethod().getReturnType();
-        String cacheType = itHawkCache.actionType();
+        CacheActionType cacheType = itHawkCache.actionType();
         String methodName = itHawkCache.valueMethod();
         Class<?> clazz = itHawkCache.keyClass();
+        String cacheMaker = itHawkCache.keyMaker();
+        String cacheHead = itHawkCache.cacheHead();
         Object result = null;
         List<String> cacheKeys = null;
         try {
-            cacheKeys = (List<String>) ApplicationUtil.invokeMethod(clazz, methodName, args);
-            if (cacheType.contains("QUERY")) {
+
+            if (!"".equals(cacheMaker)) {
+                //根据规则生成key
+                if (cacheMaker.contains("#")) {
+                    cacheKeys = makeParam(cacheMaker, args, cacheHead);
+                } else {
+                    cacheKeys = Arrays.asList(cacheHead + cacheMaker);
+                }
+            } else {
+                cacheKeys = (List<String>) ApplicationUtil.invokeMethod(clazz, methodName, args);
+                cacheKeys = cacheKeys.stream().map(f -> cacheHead + f).distinct().collect(Collectors.toList());
+            }
+
+            if (cacheType.equals(CacheActionType.QUERY)) {
                 result = LocalCaffeineCache.getData(cacheKeys.get(0));
                 System.out.println("getf from local key " + cacheKeys.get(0) + JSON.toJSONString(result));
                 if (result == null) {
@@ -69,8 +88,8 @@ public class ITHawkCacheAop {
                     return result;
                 }
 
-
             }
+
         } catch (Exception e) {
             System.out.println("获取缓存失败");
         }
@@ -79,17 +98,48 @@ public class ITHawkCacheAop {
         try {
             result = proceedingJoinPoint.proceed();
             if (!CollectionUtils.isEmpty(cacheKeys)) {
-                //修改缓存 发送广播消息
-                push(new CacheMessage("TEST", cacheKeys));
-                LocalCaffeineCache.setAsyncData(cacheKeys.get(0), result);
-                String redis = result == null ? "{}" : JSON.toJSONString(result);
-                redisTemplate.boundValueOps(cacheKeys.get(0)).set(redis, 5, TimeUnit.MINUTES);
+                if (cacheType.equals(CacheActionType.QUERY)) {
+                    LocalCaffeineCache.setAsyncData(cacheKeys.get(0), result);
+                    String redis = result == null ? "{}" : JSON.toJSONString(result);
+                    redisTemplate.boundValueOps(cacheKeys.get(0)).set(redis, 5, TimeUnit.MINUTES);
+                } else {
+                    redisTemplate.delete(cacheKeys.get(0));
+                    //修改缓存 发送广播消息
+                    push(new CacheMessage("TEST", cacheKeys));
+                }
             }
 
         } catch (Throwable throwable) {
             throwable.printStackTrace();
         }
         return result;
+    }
+
+    private List<String> makeParam(String cacheMaker, Object[] args, String cacheHead) {
+        String[] p = cacheMaker.split("-");
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < p.length; i++) {
+            String a = p[i].replaceAll("#", "");
+            if ("".equals(a)) {
+                stringBuilder.append(args[i]);
+            } else {
+                Field field = null;
+                try {
+                    field = args[i].getClass().getDeclaredField(a);
+                    field.setAccessible(true);
+                    try {
+                        stringBuilder.append(field.get(args[i]));
+                    } catch (IllegalAccessException e) {
+                        e.printStackTrace();
+                    }
+                } catch (NoSuchFieldException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+        }
+        return Arrays.asList(cacheHead + stringBuilder.toString());
     }
 
     /**
