@@ -1,0 +1,1 @@
+alipay=org.apache.dubbo.demo.spi.service.SpiServiceImpl

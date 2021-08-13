@@ -22,13 +22,16 @@ public @interface ITHawkCache {
     Class<?> keyClass() default String.class;
 
     String valueMethod() default "makeITHawkCache";
-//    Function<?,?> keyMethod() default new Function<String, String>() {
-//        @Override
-//        public String apply(String s) {
-//            return null;
-//        }
-//    };
 
-
+    /**
+     * @className ITHawkCache
+     * @description:  根据入参生成 key的规则
+     * <p>
+     *
+     * </p>
+     * @author IThawk
+     * @date 2021/8/13 8:13
+     */
+    String keyMaker() default "";
 
 }

@@ -18,7 +18,7 @@ import java.util.function.Function;
 public class LocalCaffeineCache {
 
 
-    private static Cache<String, Object> cache;
+    private static volatile Cache<String, Object> cache;
 
     private static AsyncLoadingCache<String, Object> asyncCache;
 
@@ -26,7 +26,7 @@ public class LocalCaffeineCache {
 
     private static final long ACCESS_EXPIRE_TIMEOUT = 2;
 
-    private static final long CACHE_MAX_SIZE = 10;
+    private static final long CACHE_MAX_SIZE = 10000;
 
     //
 //    expireAfterWrite：表示自从最后一次写入后多久就会过期；
@@ -60,10 +60,10 @@ public class LocalCaffeineCache {
                             .expireAfterAccess(ACCESS_EXPIRE_TIMEOUT, TimeUnit.MINUTES)
                             // 数量上限
                             .maximumSize(CACHE_MAX_SIZE)
-                            // 弱引用key
-                            .weakKeys()
-                            // 弱引用value
-                            .weakValues()
+//                            // 弱引用key
+//                            .weakKeys()
+//                            // 弱引用value
+//                            .weakValues()
                             // 剔除监听
                             .removalListener((RemovalListener<String, Object>) (key, value, cause) ->
                                     System.out.println("key:" + key + ", value:" + value + ", 删除原因:" + cause.toString()))
@@ -102,7 +102,8 @@ public class LocalCaffeineCache {
      */
     public static Object getData(String key) {
         //getIfPresent 方法从缓存中获取值。如果缓存中不存指定的值，则方法将返回 null：
-        return getCacheObject().getIfPresent(key);
+        Cache<String, Object> cache = getCacheObject();
+        return cache.getIfPresent(key);
     }
 
     /**
@@ -152,8 +153,9 @@ public class LocalCaffeineCache {
      * @date: 2021/8/1 14:49
      */
     public static void removeDataByKey(String key) {
-//        手动触发一些缓存的值失效：
         getCacheObject().invalidate(key);
+//        手动触发一些缓存的值失效：
+//        getCacheObject().invalidate(key);
     }
 
     /**

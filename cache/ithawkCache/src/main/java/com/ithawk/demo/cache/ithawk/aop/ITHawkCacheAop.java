@@ -13,11 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
-
-import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
+import org.springframework.util.CollectionUtils;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -33,7 +30,7 @@ import java.util.concurrent.TimeUnit;
 public class ITHawkCacheAop {
 
     @Autowired
-    private RedisTemplate<String, Object> redisTemplate;
+    private RedisTemplate<String, String> redisTemplate;
 
 
     @Around("@annotation(com.ithawk.demo.cache.ithawk.constate.ITHawkCache)")
@@ -42,34 +39,53 @@ public class ITHawkCacheAop {
         //获取缓存
         ITHawkCache itHawkCache = methodSignature.getMethod().getAnnotation(ITHawkCache.class);
         Object[] args = proceedingJoinPoint.getArgs();
+        Class<?> resultClass = methodSignature.getMethod().getReturnType();
         String cacheType = itHawkCache.actionType();
         String methodName = itHawkCache.valueMethod();
         Class<?> clazz = itHawkCache.keyClass();
-        List<String> cacheKeys = (List<String>) ApplicationUtil.invokeMethod(clazz, methodName, args);
         Object result = null;
-        if (cacheType.contains("QUERY")) {
+        List<String> cacheKeys = null;
+        try {
+            cacheKeys = (List<String>) ApplicationUtil.invokeMethod(clazz, methodName, args);
+            if (cacheType.contains("QUERY")) {
+                result = LocalCaffeineCache.getData(cacheKeys.get(0));
+                System.out.println("getf from local key " + cacheKeys.get(0) + JSON.toJSONString(result));
+                if (result == null) {
+                    //缓存中获取数据
+                    String redisResult = redisTemplate.opsForValue().get(cacheKeys.get(0));
+                    System.out.println("getf from redis key " + cacheKeys.get(0) + redisResult);
+                    if (redisResult != null) {
+                        try {
+                            Object redis = JSON.parseObject(redisResult, resultClass);
+                            System.out.println("set from local key " + cacheKeys.get(0) + JSON.toJSONString(redis));
+                            LocalCaffeineCache.setData(cacheKeys.get(0), redis);
+                            return redis;
+                        } catch (Exception e) {
+                            System.out.println("缓存有问题。。。。。");
+                        }
 
-            result = LocalCaffeineCache.getData(cacheKeys.get(0));
-            if (result == null) {
-                //缓存中获取数据
-                result = redisTemplate.opsForValue().get(cacheKeys.get(0));
-                if (result != null) {
-                    LocalCaffeineCache.setData(cacheKeys.get(0), result);
+                    }
+                } else {
                     return result;
                 }
-            } else {
-                return result;
+
+
             }
-
-
+        } catch (Exception e) {
+            System.out.println("获取缓存失败");
         }
+
 
         try {
             result = proceedingJoinPoint.proceed();
-            //修改缓存 发送广播消息
-            push(new CacheMessage("TEST", cacheKeys));
-            LocalCaffeineCache.setAsyncData(cacheKeys.get(0), result);
-            redisTemplate.boundValueOps(cacheKeys.get(0)).set(result, 5, TimeUnit.MINUTES);
+            if (!CollectionUtils.isEmpty(cacheKeys)) {
+                //修改缓存 发送广播消息
+                push(new CacheMessage("TEST", cacheKeys));
+                LocalCaffeineCache.setAsyncData(cacheKeys.get(0), result);
+                String redis = result == null ? "{}" : JSON.toJSONString(result);
+                redisTemplate.boundValueOps(cacheKeys.get(0)).set(redis, 5, TimeUnit.MINUTES);
+            }
+
         } catch (Throwable throwable) {
             throwable.printStackTrace();
         }

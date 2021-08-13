@@ -52,7 +52,10 @@
 * 解决数据安全问题
 * 线程之间进行通信
 ## 三·volatile 解决可见先问题  
-
+在每个volatile写操作的前面插入一个StoreStore屏障。
+·在每个volatile写操作的后面插入一个StoreLoad屏障。
+·在每个volatile读操作的后面插入一个LoadLoad屏障。
+·在每个volatile读操作的后面插入一个LoadStore屏障。
 ## 四·Lock
 ### 1：ReentrantLock 互斥可重入锁
 ```

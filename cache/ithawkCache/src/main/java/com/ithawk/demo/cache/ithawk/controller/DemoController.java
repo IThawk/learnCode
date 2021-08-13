@@ -7,6 +7,7 @@ import com.ithawk.demo.cache.ithawk.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Arrays;
@@ -19,12 +20,20 @@ public class DemoController {
     @RequestMapping("/cache")
     @ResponseBody
     @ITHawkCache(keyClass = DemoController.class, valueMethod = "makeITHawkCache")
-    public String getDepts() {
+    public String getDepts(@RequestParam(name = "id") String id) {
         //查询所有部门信息
         return "ddddd";
     }
 
-    public List<String> makeITHawkCache() {
-        return Arrays.asList("test") ;
+    @RequestMapping("/cache1")
+    @ResponseBody
+    @ITHawkCache(keyClass = DemoController.class, valueMethod = "makeITHawkCache")
+    public Department getDept(@RequestParam(name = "id") String id) {
+        //查询所有部门信息
+        return new Department();
+    }
+
+    public List<String> makeITHawkCache(String key) {
+        return Arrays.asList(key);
     }
 }

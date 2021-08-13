@@ -7,6 +7,9 @@ import org.springframework.stereotype.Component;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author ithawk
@@ -34,11 +37,21 @@ public class ApplicationUtil implements ApplicationContextAware {
 
     public static Object invokeMethod(Class<?> clazz, String methodName, Object[] args) {
         Object s = applicationContext.getBean(clazz);
+        Class<?>[] classes = new Class[args.length];
+        for (int i = 0; i < args.length; i++) {
+            if (args[i] instanceof List){
+                classes[i] = List.class;
+            }else if(args[i] instanceof Map){
+                classes[i] = Map.class;
+            }else{
+
+            }
+        }
         try {
             try {
-                Class clas =s.getClass();
-                Method method = clas.getDeclaredMethod(methodName);
-                return method.invoke(s,args);
+                Class<?> clas = s.getClass();
+                Method method = clas.getDeclaredMethod(methodName, classes);
+                return method.invoke(s, args);
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             } catch (InvocationTargetException e) {

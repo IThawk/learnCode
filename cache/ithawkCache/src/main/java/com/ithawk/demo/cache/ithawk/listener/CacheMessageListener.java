@@ -29,14 +29,14 @@ public class CacheMessageListener implements MessageListener {
 
 	Logger logger =  LoggerFactory.getLogger(getClass());
 
-	private RedisTemplate<String, Object> redisTemplate;
+	private RedisTemplate<String, String> redisTemplate;
 
-	public CacheMessageListener(RedisTemplate<String, Object> redisTemplate) {
+	public CacheMessageListener(RedisTemplate<String, String> redisTemplate) {
 		this.redisTemplate = redisTemplate;
 	}
 
 	@Bean
-	public RedisMessageListenerContainer redisMessageListenerContainer(RedisTemplate<String, Object>  redisTemplate) {
+	public RedisMessageListenerContainer redisMessageListenerContainer(RedisTemplate<String, String>  redisTemplate) {
 		RedisMessageListenerContainer redisMessageListenerContainer = new RedisMessageListenerContainer();
 		redisMessageListenerContainer.setConnectionFactory(redisTemplate.getConnectionFactory());
 		CacheMessageListener cacheMessageListener = new CacheMessageListener(redisTemplate);
@@ -46,7 +46,7 @@ public class CacheMessageListener implements MessageListener {
 
 	@Override
 	public void onMessage(Message message, byte[] pattern) {
-		System.out.println(".....................");
+		System.out.println("...........消费消息 清除本地缓存..........");
 		CacheMessage cacheMessage = (CacheMessage) redisTemplate.getValueSerializer().deserialize(message.getBody());
 		logger.debug("recevice a redis topic message, clear local cache, the cacheName is {}, the key is {}",
 				cacheMessage.getCacheName(), cacheMessage.getKey());

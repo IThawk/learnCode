@@ -967,7 +967,7 @@ public class ExtensionLoader<T> {
             System.out.println("包装类 ：" + clazz.getName());
             cacheWrapperClass(clazz);
         } else {
-            System.out.println("SPI load");
+            System.out.println("SPI load"+ JSON.toJSONString(clazz.getName()));
             clazz.getConstructor();
             if (StringUtils.isEmpty(name)) {
                 name = findAnnotationName(clazz);
