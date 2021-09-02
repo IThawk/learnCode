@@ -18,5 +18,6 @@
     <modules>
         <module>nacos-1.3.2</module>
         <module>nacos-demo</module>
+        <module>nacos-1.4.1</module>
     </modules>
 </project>
