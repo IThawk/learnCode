@@ -12,6 +12,7 @@
     <modules>
         <module>spring-cloud-alibaba</module>
         <module>spring-cloud-master</module>
+        <module>Sentinel-master</module>
     </modules>
     <name>spring-cloud</name>
 
