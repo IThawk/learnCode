@@ -17,7 +17,7 @@
     <modules>
         <module>jdkconsole</module>
         <module>distribute-demo</module>
-        <module>my-jvm</module>
+<!--        <module>my-jvm</module>-->
         <module>arthas-web</module>
         <module>jvm</module>
         <module>thread-demo</module>

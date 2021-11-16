@@ -8,12 +8,9 @@ import org.springframework.demo.service.impl.UserServiceImpl;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-/**
- * @Author: qingshan
- * @Date: 2019/3/9 15:04
- * @Description:
- */
+
 @RunWith(SpringJUnit4ClassRunner.class)
+// 添加配置文件的地址
 @ContextConfiguration(locations = {"classpath:application-context.xml"})
 public class DaoSupportTest {
     @Autowired

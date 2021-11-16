@@ -16,13 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-/**
- * @Author: qingshan
- * @Date: 2018/11/9 17:31
- * @Description: 咕泡学院，只为更好的你
- */
+
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:applicationContext.xml"})
+@ContextConfiguration(locations = {"classpath:application-context.xml"})
 public class JdbcTemplteBatchInsertTest {
 
     @Autowired
