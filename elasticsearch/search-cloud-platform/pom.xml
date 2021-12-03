@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <!--spring-boot父依赖-->
+    <parent>
+        <groupId>com.ithawk.demo</groupId>
+        <artifactId>elasticsearch</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <artifactId>search-cloud-platform</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>service-elasticsearch</module>
+        <module>service-gateway</module>
+        <module>service-commons</module>
+        <module>service-analysis</module>
+		<module>service-sleuth</module>
+		<module>service-code-mgr</module>
+        <module>service-code-make</module>
+    </modules>
+
+    <properties>
+        <!--项目编码-->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <!--JDK版本-->
+        <java.version>8</java.version>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+        <!--spring-cloud版本-->
+        <spring-cloud.version>Hoxton.SR12</spring-cloud.version>
+        <!--spring-cloud-alibaba版本-->
+        <spring.cloud.alibaba.version>2.2.6.RELEASE</spring.cloud.alibaba.version>
+        <!--ES版本-->
+        <elasticsearch.version>7.4.0</elasticsearch.version>
+
+        <!--Fastjson版本-->
+        <fastjson.version>1.2.78</fastjson.version>
+
+        <!--swagger版本-->
+        <swagger.version>3.0.0</swagger.version>
+
+        <!--fasterxml版本-->
+        <fasterxml.version>2.11.3</fasterxml.version>
+    </properties>
+    <dependencyManagement>
+        <dependencies>
+            <!-- spring-cloud-alibaba依赖 -->
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>${spring.cloud.alibaba.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!-- spring-cloud依赖 -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!--终搜平台公共调用-->
+            <dependency>
+                <groupId>com.ithawk.demo</groupId>
+                <artifactId>service-commons</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <!--Es 高阶客户端-->
+            <dependency>
+                <groupId>org.elasticsearch.client</groupId>
+                <artifactId>elasticsearch-rest-high-level-client</artifactId>
+                <version>${elasticsearch.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.elasticsearch.client</groupId>
+                <artifactId>elasticsearch-rest-client</artifactId>
+                <version>${elasticsearch.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.elasticsearch</groupId>
+                <artifactId>elasticsearch</artifactId>
+                <version>${elasticsearch.version}</version>
+            </dependency>
+            <!--Fastjson-->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
+            </dependency>
+
+            <!--swagger2-->
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger2</artifactId>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>swagger-models</artifactId>
+                        <groupId>io.swagger</groupId>
+                    </exclusion>
+                </exclusions>
+                <version>${swagger.version}</version>
+            </dependency>
+            <!--  !!Java web项目集成Swagger报AbstractSerializableParameter类的异常问题!!-->
+            <dependency>
+                <artifactId>swagger-models</artifactId>
+                <groupId>io.swagger</groupId>
+                <version>1.6.3</version>
+            </dependency>
+            <!-- 注意：3.0.0 需要starter -->
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-boot-starter</artifactId>
+                <version>${swagger.version}</version>
+            </dependency>
+
+            <!-- jackson -->
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-core</artifactId>
+                <version>${fasterxml.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-annotations</artifactId>
+                <version>${fasterxml.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${fasterxml.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+
+</project>

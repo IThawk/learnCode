@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>com.ithawk.demo</groupId>
+        <artifactId>search-cloud-platform</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>service-analysis</artifactId>
+    <dependencies>
+        <!-- Nacos配置中心-->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+            <version>2.2.6.RELEASE</version>
+        </dependency>
+        <!-- Nacos注册发现中心-->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+            <version>2.2.6.RELEASE</version>
+        </dependency>
+        <!-- Elasticsearch高阶客户端-->
+        <dependency>
+            <groupId>org.elasticsearch.client</groupId>
+            <artifactId>elasticsearch-rest-high-level-client</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.elasticsearch.client</groupId>
+            <artifactId>elasticsearch-rest-client</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.elasticsearch</groupId>
+            <artifactId>elasticsearch</artifactId>
+        </dependency>
+        <!--排除logback的默认集成 Spring Cloud 默认集成了logback-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <version>2.3.10.RELEASE</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!-- 引入log4j2起步依赖-->
+        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-log4j2 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-log4j2</artifactId>
+            <version>2.3.10.RELEASE</version>
+        </dependency>
+
+        <!-- log4j2依赖环形队列-->
+        <dependency>
+            <groupId>com.lmax</groupId>
+            <artifactId>disruptor</artifactId>
+            <version>3.4.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>2.13.2</version>
+            <scope>compile</scope>
+        </dependency>
+        <!-- 阿里fastjson-->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+        </dependency>
+
+        <!--swagger2-->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>swagger-models</artifactId>
+                    <groupId>io.swagger</groupId>
+                </exclusion>
+            </exclusions>
+            <version>3.0.0</version>
+        </dependency>
+        <!--!!Java web项目集成Swagger报AbstractSerializableParameter类的异常问题!!-->
+        <dependency>
+            <artifactId>swagger-models</artifactId>
+            <groupId>io.swagger</groupId>
+            <version>1.6.3</version>
+        </dependency>
+        <!-- 注意：3.0.0 需要starter -->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-boot-starter</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+
+        <!-- jackson -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>2.11.3</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>2.11.3</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.11.3</version>
+        </dependency>
+
+        <!-- 端点监控-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+            <version>2.3.10.RELEASE</version>
+        </dependency>
+        <!-- 链路追踪启动器,可以不加这个，spring-cloud-starter-zipkin已经包含-->
+        <!--<dependency>-->
+        <!--<groupId>org.springframework.cloud</groupId>-->
+        <!--<artifactId>spring-cloud-starter-sleuth</artifactId>-->
+        <!--</dependency>-->
+        <!-- 图形化zipkin启动器-->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.cloud</groupId>-->
+<!--            <artifactId>spring-cloud-starter-zipkin</artifactId>-->
+<!--            <version>2.2.8.RELEASE</version>-->
+<!--        </dependency>-->
+        <!-- 项目公共依赖-->
+        <dependency>
+            <groupId>com.ithawk.demo</groupId>
+            <artifactId>service-commons</artifactId>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.yaml/snakeyaml -->
+        <dependency>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
+            <version>1.29</version>
+        </dependency>
+
+    </dependencies>
+    <build>
+        <plugins>
+            <!-- maven打包插件-->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.3.4.RELEASE</version>
+            </plugin>
+            <!-- 镜像构建、推送插件-->
+<!--            <plugin>-->
+<!--                &lt;!&ndash; Spotify公司开发的Maven插件&ndash;&gt;-->
+<!--                <groupId>com.spotify</groupId>-->
+<!--                <artifactId>docker-maven-plugin</artifactId>-->
+<!--                <version>1.0.0</version>-->
+<!--                &lt;!&ndash;执行例如mvn clean package时，插件就自动构建Docker镜像。 要想实现这点，只须将插件的goal绑定在某个phase即可 &ndash;&gt;-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        &lt;!&ndash;就可将插件绑定在package这个phase上。也就是说，用户只须执行mvn clean package，就会自动执行mvn docker:build&ndash;&gt;-->
+<!--                        <id>build-image</id>-->
+<!--                        <phase>package</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>build</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--                <configuration>-->
+<!--                    &lt;!&ndash;覆盖已存在的标签 镜像&ndash;&gt;-->
+<!--                    <forceTags>true</forceTags>-->
+<!--                    &lt;!&ndash;镜像名称：命令规则为artifactId和版本，可以自定义镜像名称， 比如指定镜像名称 仓库/镜像名:标签：itheima/eureka:0.0.1&ndash;&gt;-->
+<!--                    <imageName>${project.artifactId}:${project.version}</imageName>-->
+<!--                    &lt;!&ndash;使用 Dockerfile，查找Dockfile文件&ndash;&gt;-->
+<!--                    <dockerDirectory>src/main/resources</dockerDirectory>-->
+<!--                    &lt;!&ndash; 指定Docker仓库地址，需要暴露2375端口， 因为maven docker插件需要通过rest方式调用Docker API进行构建和上传镜像 &ndash;&gt;-->
+<!--                    <dockerHost>http://172.17.0.225:2375</dockerHost>-->
+<!--                    <resources>-->
+<!--                        &lt;!&ndash; 指定资源文件 &ndash;&gt;-->
+<!--                        <resource>-->
+<!--                            &lt;!&ndash; 指定要复制的目录路径，这里是当前目录 &ndash;&gt;-->
+<!--                            <targetPath>/</targetPath>-->
+<!--                            &lt;!&ndash; 指定要复制的根目录，这里是target目录 &ndash;&gt;-->
+<!--                            <directory>${project.build.directory}</directory>-->
+<!--                            &lt;!&ndash; 指定需要拷贝的文件，这里指最后生成的jar包 &ndash;&gt;-->
+<!--                            <include>${project.build.finalName}.jar</include>-->
+<!--                        </resource>-->
+<!--                    </resources>-->
+<!--                </configuration>-->
+<!--                <dependencies>-->
+<!--                    <dependency>-->
+<!--                        <groupId>javax.activation</groupId>-->
+<!--                        <artifactId>activation</artifactId>-->
+<!--                        <version>1.1.1</version>-->
+<!--                    </dependency>-->
+<!--                </dependencies>-->
+
+<!--            </plugin>-->
+        </plugins>
+    </build>
+
+</project>

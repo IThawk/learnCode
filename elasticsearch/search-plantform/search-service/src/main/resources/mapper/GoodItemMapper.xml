@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.search.dao.GoodItemMapper">
+  <resultMap id="BaseResultMap" type="cn.com.search.model.GoodItem">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <id column="item" jdbcType="VARCHAR" property="item" />
+    <result column="item_parent" jdbcType="VARCHAR" property="itemParent" />
+    <result column="pack_ind" jdbcType="VARCHAR" property="packInd" />
+    <result column="item_level" jdbcType="INTEGER" property="itemLevel" />
+    <result column="tran_level" jdbcType="INTEGER" property="tranLevel" />
+    <result column="item_group" jdbcType="INTEGER" property="itemGroup" />
+    <result column="item_dept" jdbcType="INTEGER" property="itemDept" />
+    <result column="item_class" jdbcType="INTEGER" property="itemClass" />
+    <result column="item_subclass" jdbcType="INTEGER" property="itemSubclass" />
+    <result column="item_status" jdbcType="VARCHAR" property="itemStatus" />
+    <result column="item_desc" jdbcType="VARCHAR" property="itemDesc" />
+    <result column="brand" jdbcType="VARCHAR" property="brand" />
+    <result column="place_of_production" jdbcType="VARCHAR" property="placeOfProduction" />
+    <result column="standard_uom" jdbcType="VARCHAR" property="standardUom" />
+    <result column="package_size" jdbcType="DOUBLE" property="packageSize" />
+    <result column="package_uom" jdbcType="VARCHAR" property="packageUom" />
+    <result column="mfg_rec_retail" jdbcType="DOUBLE" property="mfgRecRetail" />
+    <result column="catch_weight_ind" jdbcType="VARCHAR" property="catchWeightInd" />
+    <result column="default_waste_pct" jdbcType="DOUBLE" property="defaultWastePct" />
+    <result column="short_desc" jdbcType="VARCHAR" property="shortDesc" />
+    <result column="inventory_ind" jdbcType="VARCHAR" property="inventoryInd" />
+    <result column="merchandise_ind" jdbcType="VARCHAR" property="merchandiseInd" />
+    <result column="fresh_item_ind" jdbcType="VARCHAR" property="freshItemInd" />
+    <result column="joint_item_ind" jdbcType="VARCHAR" property="jointItemInd" />
+    <result column="vat_in_rate" jdbcType="DOUBLE" property="vatInRate" />
+    <result column="vat_out_rate" jdbcType="DOUBLE" property="vatOutRate" />
+    <result column="create_datetime" jdbcType="VARCHAR" property="createDatetime" />
+    <result column="last_update_id" jdbcType="VARCHAR" property="lastUpdateId" />
+    <result column="last_update_datetime" jdbcType="VARCHAR" property="lastUpdateDatetime" />
+    <result column="barcode" jdbcType="VARCHAR" property="barcode" />
+    <result column="item_number_type" jdbcType="VARCHAR" property="itemNumberType" />
+    <result column="primary_ref_item_ind" jdbcType="VARCHAR" property="primaryRefItemInd" />
+    <result column="mod_type" jdbcType="VARCHAR" property="modType" />
+    <result column="publish_time" jdbcType="VARCHAR" property="publishTime" />
+    <result column="sellable_ind" jdbcType="VARCHAR" property="sellableInd" />
+    <result column="diff_desc" jdbcType="VARCHAR" property="diffDesc" />
+    <result column="add_atrrib3_10" jdbcType="VARCHAR" property="addAtrrib310" />
+    <result column="disable" jdbcType="VARCHAR" property="disable" />
+  </resultMap>
+</mapper>

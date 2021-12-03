@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.search.dao.ReadBooksMapper">
+  <resultMap id="BaseResultMap" type="cn.com.search.model.ReadBooks">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="language" jdbcType="INTEGER" property="language" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="level" jdbcType="INTEGER" property="level" />
+    <result column="author" jdbcType="VARCHAR" property="author" />
+    <result column="imgurl" jdbcType="VARCHAR" property="imgurl" />
+    <result column="score" jdbcType="INTEGER" property="score" />
+    <result column="publisher" jdbcType="VARCHAR" property="publisher" />
+    <result column="publishdate" jdbcType="DATE" property="publishdate" />
+    <result column="word_count" jdbcType="INTEGER" property="wordCount" />
+    <result column="praise_rate" jdbcType="DECIMAL" property="praiseRate" />
+    <result column="page_count" jdbcType="INTEGER" property="pageCount" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="isbn" jdbcType="VARCHAR" property="isbn" />
+    <result column="reader_number" jdbcType="INTEGER" property="readerNumber" />
+    <result column="recommend_number" jdbcType="INTEGER" property="recommendNumber" />
+    <result column="book_size" jdbcType="INTEGER" property="bookSize" />
+    <result column="discription" jdbcType="VARCHAR" property="discription" />
+    <result column="create_tch_id" jdbcType="INTEGER" property="createTchId" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+    <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
+    <result column="creator" jdbcType="INTEGER" property="creator" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="updator" jdbcType="INTEGER" property="updator" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+</mapper>

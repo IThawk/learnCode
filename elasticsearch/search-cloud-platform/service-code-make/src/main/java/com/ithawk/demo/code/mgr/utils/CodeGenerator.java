@@ -69,8 +69,9 @@ public class CodeGenerator {
 
     public static void main(String[] args) {
 //        genCode("输入表名");
-    	genCodeByCustomModelName("read_book_pd", "ReadBookPd");
         genCore();
+    	genCodeByCustomModelName("read_book_pd", "ReadBookPd");
+
     }
 
     /**

@@ -1,0 +1,29 @@
+logging:
+  config: classpath:log4j.xml
+  level:
+    cn.jay.repository: trace
+server:
+  port: 8080
+spring:
+  application:
+    name: service-elasticsearch #微服务名称，对应dataId
+  profiles:
+    active: dev
+  cloud:
+    nacos:
+      config: #配置中心服务地址
+        server-addr: 192.168.56.101:8848
+        file-extension: yml  #配置中心文件类型
+        encode: utf-8     #配置中心编码
+      discovery:
+        server-addr: 192.168.56.101:8848
+management:
+  endpoints:
+    web:
+       exposure:
+         include: '*'
+elasticsearch:
+  cluster_host: 192.168.56.101
+  eNode1_port: 9200
+
+

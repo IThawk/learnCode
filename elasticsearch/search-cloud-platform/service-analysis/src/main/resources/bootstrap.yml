@@ -1,0 +1,22 @@
+logging:
+  config: classpath:log4j.xml
+  level:
+    cn.jay.repository: trace
+server:
+  port: 8081
+spring:
+  application:
+    name: service-analysis
+  profiles:
+    active: dev
+  cloud:
+    nacos:
+      config:
+        file-extension: yml   #配置中心文件类型
+        server-addr: 192.168.56.101:8848      #配置中心服务地址
+        encode: utf-8
+      discovery:
+        server-addr: 192.168.56.101:8848
+elasticsearch:
+  cluster_host: 192.168.56.101
+  eNode1_port: 9200

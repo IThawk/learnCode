@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <!-- 父项目依赖-->
+    <parent>
+        <groupId>com.ithawk.demo</groupId>
+        <artifactId>search-cloud-platform</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <packaging>jar</packaging>
+    <artifactId>service-sleuth</artifactId>
+    <build>
+<!--        <plugins>-->
+<!--            &lt;!&ndash; 镜像构建、推送插件&ndash;&gt;-->
+<!--            <plugin>-->
+<!--                &lt;!&ndash; Spotify公司开发的Maven插件&ndash;&gt;-->
+<!--                <groupId>com.spotify</groupId>-->
+<!--                <artifactId>docker-maven-plugin</artifactId>-->
+<!--                <version>1.0.0</version>-->
+<!--                &lt;!&ndash;执行例如mvn clean package时，插件就自动构建Docker镜像。 要想实现这点，只须将插件的goal绑定在某个phase即可 &ndash;&gt;-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        &lt;!&ndash;就可将插件绑定在package这个phase上。也就是说，用户只须执行mvn clean package，就会自动执行mvn docker:build&ndash;&gt;-->
+<!--                        <id>build-image</id>-->
+<!--                        <phase>package</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>build</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--                <configuration>-->
+<!--                    &lt;!&ndash;覆盖已存在的标签 镜像&ndash;&gt;-->
+<!--                    <forceTags>true</forceTags>-->
+<!--                    &lt;!&ndash;镜像名称：命令规则为artifactId和版本，可以自定义镜像名称， 比如指定镜像名称 仓库/镜像名:标签：itheima/eureka:0.0.1&ndash;&gt;-->
+<!--                    <imageName>zipkin:czbk</imageName>-->
+<!--                    &lt;!&ndash;使用 Dockerfile，查找Dockfile文件&ndash;&gt;-->
+<!--                    <dockerDirectory>src/main/resources</dockerDirectory>-->
+<!--                    &lt;!&ndash; 指定Docker仓库地址，需要暴露2375端口， 因为maven docker插件需要通过rest方式调用Docker API进行构建和上传镜像 &ndash;&gt;-->
+<!--                    <dockerHost>http://172.17.0.225:2375</dockerHost>-->
+<!--                    <resources>-->
+<!--                        &lt;!&ndash; 指定资源文件 &ndash;&gt;-->
+<!--                        <resource>-->
+<!--                            &lt;!&ndash; 指定要复制的目录路径，这里是当前目录 &ndash;&gt;-->
+<!--                            <targetPath>/</targetPath>-->
+<!--                            &lt;!&ndash; 指定要复制的根目录，这里是target目录 &ndash;&gt;-->
+<!--                            <directory>${project.build.directory}/classes</directory>-->
+<!--                            &lt;!&ndash; 指定需要拷贝的文件，这里指最后生成的jar包 &ndash;&gt;-->
+<!--                            <include>zipkin.jar</include>-->
+<!--                        </resource>-->
+<!--                    </resources>-->
+<!--                </configuration>-->
+<!--                <dependencies>-->
+<!--                    <dependency>-->
+<!--                        <groupId>javax.activation</groupId>-->
+<!--                        <artifactId>activation</artifactId>-->
+<!--                        <version>1.1.1</version>-->
+<!--                    </dependency>-->
+<!--                </dependencies>-->
+
+<!--            </plugin>-->
+<!--        </plugins>-->
+    </build>
+</project>

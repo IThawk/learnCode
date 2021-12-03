@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.search.mgr.dao.ReadBookPdMapper">
+  <resultMap id="BaseResultMap" type="com.search.mgr.model.ReadBookPd">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="en_name" jdbcType="VARCHAR" property="enName" />
+    <result column="category" jdbcType="VARCHAR" property="category" />
+    <result column="author" jdbcType="VARCHAR" property="author" />
+    <result column="imgurl" jdbcType="VARCHAR" property="imgurl" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="creator" jdbcType="INTEGER" property="creator" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="discription" jdbcType="LONGVARCHAR" property="discription" />
+    <result column="comment_num" jdbcType="INTEGER" property="commentNum"/>
+    <result column="price" jdbcType="INTEGER" property="price"/>
+  </resultMap>
+  
+  <select id="getPageList" resultType="com.search.mgr.model.ReadBookPd">
+  	select 
+	  	id,
+	  	`name`,
+	  	en_name enName,
+	  	author,
+	  	imgurl,
+	  	create_time createTime,
+	  	creator creator,
+	  	category category,
+	  	update_time updateTime,
+	  	`status` status,
+	  	discription discription,
+	  	price price,
+	  	comment_num commentNum
+  	 from read_book_pd WHERE id >= (select id from read_book_pd limit #{start}, 1) limit #{size}
+  </select>
+  
+  <select id="buildESQuery" resultType="java.util.Map">
+  select 
+	  	id,
+	  	`name`,
+	  	en_name enName,
+	  	author,
+	  	imgurl,
+	  	creator creator,
+	  	category category,
+	  	`status` status,
+	  	discription discription,
+	  	price price,
+	  	comment_num commentNum
+  	 from read_book_pd WHERE id = #{id}
+  </select>
+</mapper>

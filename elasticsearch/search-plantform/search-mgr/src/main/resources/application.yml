@@ -1,0 +1,49 @@
+spring: 
+  profiles:
+    active: dev
+  datasource: 
+    url: jdbc:mysql://192.168.56.101:3306/es-test?useSSL=false
+    username: root 
+    password: 123456
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+  resources:
+    add-mappings: false
+  redis:
+    database: 0
+    host: 192.168.56.101
+    port: 6379
+#    password: test.123redis
+    timeout: 10000
+    lettuce:
+      pool:
+        max-active: 8
+        max-wait: -1
+        max-idle: 8
+        min-idle: 0
+  jackson:
+    date-format: yyyy-MM-dd HH:mm
+    time-zone: GMT+8
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 20MB
+es:
+  host: 192.168.56.101
+  port: 9200
+  trs-port: 9300
+logging:
+  level: {root: INFO, com.search.mgr.dao: DEBUG}
+
+#用来配置多线程监听canal的，大家可以看下我的例子 仅供参考
+#canal:
+#  server:
+#    url: 19.24.7.55
+#    port: 11111
+#  primaryKey:
+#    name: reg&bt|id;rg&br|id;
+#  filter: reg|base_student,br;
+#
+#interceptor:
+#  path:
+#    action:
