@@ -15,6 +15,9 @@
     <modules>
         <module>elasticsearch-springboot</module>
         <module>supergo-logstash</module>
+        <module>search-plantform</module>
+        <module>elasticsearch_app</module>
+        <module>search-cloud-platform</module>
     </modules>
 
 

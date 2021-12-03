@@ -7,6 +7,7 @@ public class ReverseList {
 
     public static void main(String[] args) {
         ListNode r = new ListNode(1);
+        ListNode temp= r;
         r.next = new ListNode(2);
         r = r.next;
         r.next = new ListNode(3);
@@ -15,7 +16,7 @@ public class ReverseList {
         r = r.next;
         r.next = new ListNode(5);
         r = r.next;
-        ListNode s = new Solution().reverseList(r);
+        ListNode s = new Solution().reverseList1(temp);
         System.out.println("out");
     }
 

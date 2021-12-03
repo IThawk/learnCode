@@ -1,7 +1,9 @@
 package com.ithawk.demo.jvm.dispatch;
 
 public class Son extends Father{
-
+	Father father = new Father();
+0
+	Father1 father1 = new Father1();
 	static {
 
 		System.out.println("son-static");

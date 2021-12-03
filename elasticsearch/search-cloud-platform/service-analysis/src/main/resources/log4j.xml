@@ -1,0 +1,110 @@
+<!--日志级别以及优先级排序: OFF > FATAL > ERROR > WARN > INFO > DEBUG > TRACE > ALL -->
+<!--
+	自定义命名格式：
+	%d：发生时间，%d{yyyy-MM-dd HH:mm:ss,SSS}，输出类似：2020-02-20 22:10:28,921
+	%F：输出所在的类文件名
+	%t：线程名称
+	%p：日志级别
+	%c：日志消息所在类名
+	%m：消息内容
+	%M：输出所在函数名
+	%x: 输出和当前线程相关联的NDC(嵌套诊断环境),尤其用到像java servlets这样的多客户多线程的应用中。
+	%l：执行的函数名(类名称:行号）com.core.LogHelper.aroundService(LogHelper.java:32)
+	%n：换行
+	%i：从1开始自增数字
+	%-5level：输出日志级别，-5表示左对齐并且固定输出5个字符，如果不足在右边补0
+	“${sys:user.home}”是HOME目录 如:C:\Users\heave, 此处指定任意目录如：D:\logs
+-->
+<!--设置log4j2自身log级别为warn，每间隔30秒数自动检测配置是否发生修改，并重新配置-->
+<configuration status="warn" monitorInterval="30">
+
+    <Properties>
+        <!-- 日志显示模板,显示内容的格式如下 -->
+        <!-- [21:55:33:047] [INFO] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) - Initializing Spring embedded WebApplicationContext -->
+        <Property name="log_pattern" value="[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n"/>
+        <!-- 保存日志文件目录 -->
+        <!--<Property name="file_path" value="${sys:user.home}/logs"/>-->
+        <Property name="file_path" value="D:/log"/>
+        <!-- 日志文件的最大容量，超过该值就进行备份 -->
+        <Property name="file_max_size" value="30MB"/>
+        <!-- 备份的文件夹名称 如下为：2020-02 -->
+        <Property name="backup_folder" value="$${date:yyyy-MM}"/>
+        <!-- 备份文件的后缀，日志文件超过file_max_size会备份到filePattern指定的目录下 -->
+        <Property name="backup_file_suffix" value="-%d{yyyy-MM-dd}-%i.log"/>
+    </Properties>
+
+
+    <!--定义appender-->
+    <appenders>
+
+        <!--控制台的输出配置-->
+        <console name="Console" target="SYSTEM_OUT">
+            <!-- 设置控制台只输出INFO及以上级别的信息(onMatch),其他的直接拒绝(onMismatch) -->
+            <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
+            <!--输出日志的格式-->
+            <PatternLayout pattern="${log_pattern}"/>
+        </console>
+
+        <!-- 所有的日志信息会打印到此文件中，append=false每次启动程序会自动清空 -->
+        <!-- <File name="all" fileName="${file_path}/all.log" append="true">
+            <PatternLayout pattern="${log_pattern}"/>
+        </File>-->
+
+        <!--
+        该RollingFile存储INFO级别的日志，
+        默认存储到 fileName 文件中
+        超过SizeBasedTriggeringPolicy的设定值，则存储到 filePattern 文件中
+        -->
+        <RollingFile name="RollingFileInfo" fileName="${file_path}/info.log"
+                     filePattern="${file_path}/${backup_folder}/info${backup_file_suffix}">
+            <!--控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch）-->
+            <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
+            <!-- 写入日志文件的模板 -->
+            <PatternLayout pattern="${log_pattern}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="${file_max_size}"/>
+            </Policies>
+            <!-- DefaultRolloverStrategy属性如不设置，则默认为最多同一文件夹下7个文件，超过该数量，会滚动删除前面的记录 -->
+            <DefaultRolloverStrategy max="20"/>
+        </RollingFile>
+
+        <RollingFile name="RollingFileWarn" fileName="${file_path}/warn.log"
+                     filePattern="${file_path}/${backup_folder}/warn${backup_file_suffix}">
+            <ThresholdFilter level="WARN" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="${log_pattern}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="${file_max_size}"/>
+            </Policies>
+        </RollingFile>
+
+        <RollingFile name="RollingFileError" fileName="${file_path}/error.log"
+                     filePattern="${file_path}/${backup_folder}/error${backup_file_suffix}">
+            <ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="${log_pattern}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="${file_max_size}"/>
+            </Policies>
+        </RollingFile>
+
+    </appenders>
+
+    <!-- 只有定义了logger并使用appender-ref，appender才会生效 -->
+    <loggers>
+        <!--过滤掉spring和hibernate的一些无用的debug信息-->
+        <logger name="org.springframework" level="INFO"/>
+        <logger name="org.mybatis" level="INFO">
+            <!-- 添加如下设置，控制台会再打印一次 -->
+            <AppenderRef ref="Console"/>
+        </logger>
+        <root level="INFO">
+            <appender-ref ref="Console"/>
+            <appender-ref ref="RollingFileInfo"/>
+            <appender-ref ref="RollingFileWarn"/>
+            <appender-ref ref="RollingFileError"/>
+        </root>
+    </loggers>
+
+</configuration>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ithawk.mgr.dao.ReadBookPdMapper">
+  <resultMap id="BaseResultMap" type="com.ithawk.mgr.model.ReadBookPd">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="en_name" jdbcType="VARCHAR" property="enName" />
+    <result column="author" jdbcType="VARCHAR" property="author" />
+    <result column="imgurl" jdbcType="VARCHAR" property="imgurl" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="creator" jdbcType="INTEGER" property="creator" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="comment_num" jdbcType="INTEGER" property="commentNum" />
+    <result column="price" jdbcType="INTEGER" property="price" />
+    <result column="category" jdbcType="VARCHAR" property="category" />
+    <result column="discription" jdbcType="LONGVARCHAR" property="discription" />
+  </resultMap>
+  <resultMap id="BaseResultMap" type="com.ithawk.mgr.model.ReadBookPd">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="en_name" jdbcType="VARCHAR" property="enName" />
+    <result column="author" jdbcType="VARCHAR" property="author" />
+    <result column="imgurl" jdbcType="VARCHAR" property="imgurl" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="creator" jdbcType="INTEGER" property="creator" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="comment_num" jdbcType="INTEGER" property="commentNum" />
+    <result column="price" jdbcType="INTEGER" property="price" />
+    <result column="category" jdbcType="VARCHAR" property="category" />
+    <result column="discription" jdbcType="LONGVARCHAR" property="discription" />
+  </resultMap>
+
+</mapper>
