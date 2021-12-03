@@ -17,7 +17,6 @@ import springfox.documentation.oas.annotations.EnableOpenApi;
 @EnableDiscoveryClient
 @RefreshScope
 @EnableOpenApi //swagger
-@MapperScan("${basePackage}")
 public class ServiceApplication {
 
     public static void main(String[] args) {

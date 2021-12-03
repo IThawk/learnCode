@@ -464,6 +464,14 @@ public class CodeGenerator {
                     new FileWriter(ElasticsearchConfig));
             System.out.println(modelNameUpperCamel + "ElasticsearchConfig.java 生成成功");
 
+            File MybatisConfigurer = new File(PROJECT_PATH + JAVA_PATH + PACKAGE_PATH_CONFIG  + "MybatisConfigurer.java");
+            if (!MybatisConfigurer.getParentFile().exists()) {
+                MybatisConfigurer.getParentFile().mkdirs();
+            }
+            cfg.getTemplate("mapper-scane.ftl").process(data,
+                    new FileWriter(MybatisConfigurer));
+            System.out.println(modelNameUpperCamel + "MybatisConfigurer.java 生成成功");
+
 
             File ServiceApplication = new File(PROJECT_PATH + JAVA_PATH + PACKAGE_PATH_BASE  + "ServiceApplication.java");
             if (!ServiceApplication.getParentFile().exists()) {
