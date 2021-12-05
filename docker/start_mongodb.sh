@@ -1,0 +1,1 @@
+docker run --privileged=true -p 27017:27017 -v D:/docker/data/mongo:/data/db --name mongodb -d mongo

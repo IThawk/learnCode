@@ -24,7 +24,7 @@ public class Swagger2Config {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.ithawk.demo.elasticsearch.cloud.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.ithawk.demo.code.mgr.controller"))
                 .paths(PathSelectors.any())
                 .build();
     }

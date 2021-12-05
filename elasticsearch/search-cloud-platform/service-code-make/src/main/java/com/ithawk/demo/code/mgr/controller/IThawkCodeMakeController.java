@@ -1,9 +1,10 @@
 package com.ithawk.demo.code.mgr.controller;
 
+import com.ithawk.demo.code.mgr.bean.CodeMakeParam;
+import com.ithawk.demo.code.mgr.core.ResponseData;
+import com.ithawk.demo.code.mgr.core.ResultEnum;
+import com.ithawk.demo.code.mgr.core.TipsEnum;
 import com.ithawk.demo.code.mgr.utils.CodeGenerator;
-//import com.ithawk.mgr.core.ResponseData;
-//import com.ithawk.mgr.core.ResultEnum;
-//import com.ithawk.mgr.core.TipsEnum;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -32,22 +33,22 @@ public class IThawkCodeMakeController {
      * @since: 1.0.0
      * @Return:
      */
-//    @ApiOperation(value = "生成代码")
-//    @PostMapping(value = "/make")
-//    public ResponseData searchProduct() {
-//        //构造返回数据
-//        ResponseData rData = new ResponseData();
-//
-//        try {
-//            CodeGenerator.genCodeByCustomModelName("read_book_pd", "ReadBookPd");
-//            //日志记录
-//            logger.info(TipsEnum.GET_DOC_SUCCESS.getMessage());
-//        } catch (Exception e) {
-//            //日志记录
-//            logger.error(TipsEnum.GET_DOC_FAIL.getMessage(), e);
-//            //构建错误返回信息
-//            rData.setResultEnum(ResultEnum.ERROR);
-//        }
-//        return rData;
-//    }
+    @ApiOperation(value = "生成代码")
+    @PostMapping(value = "/make")
+    public ResponseData searchProduct(@RequestBody CodeMakeParam codeMakeParam) {
+        //构造返回数据
+        ResponseData rData = new ResponseData();
+
+        try {
+            CodeGenerator.genCodeByCustomModelName("read_book_pd", "ReadBookPd");
+            //日志记录
+            logger.info(TipsEnum.GET_DOC_SUCCESS.getMessage());
+        } catch (Exception e) {
+            //日志记录
+            logger.error(TipsEnum.GET_DOC_FAIL.getMessage(), e);
+            //构建错误返回信息
+            rData.setResultEnum(ResultEnum.ERROR);
+        }
+        return rData;
+    }
 }
