@@ -3,6 +3,7 @@ package com.macro.mall.search;
 import com.alibaba.fastjson.JSON;
 import com.macro.mall.search.dao.EsProductDao;
 import com.macro.mall.search.domain.EsProduct;
+import com.macro.mall.search.repository.EsProductRepository;
 import com.macro.mall.search.tool.SearchTools;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
@@ -25,10 +26,7 @@ import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilde
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.StringUtils;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -48,6 +46,23 @@ public class MallSearchApplicationTests {
         List<EsProduct> esProductList = productDao.getAllEsProductList(null);
         System.out.print(esProductList);
     }
+
+    @Autowired
+    private EsProductRepository productRepository;
+
+    @Test
+    public int importAll() {
+        List<EsProduct> esProductList = productDao.getAllEsProductList(null);
+        Iterable<EsProduct> esProductIterable = productRepository.saveAll(esProductList);
+        Iterator<EsProduct> iterator = esProductIterable.iterator();
+        int result = 0;
+        while (iterator.hasNext()) {
+            result++;
+            iterator.next();
+        }
+        return result;
+    }
+
     @Test
     public void testEsProductMapping(){
 //        elasticsearchTemplate.putMapping(EsProduct.class);

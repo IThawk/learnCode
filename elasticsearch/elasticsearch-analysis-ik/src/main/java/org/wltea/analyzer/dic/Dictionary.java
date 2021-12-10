@@ -52,7 +52,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.elasticsearch.SpecialPermission;
-import org.elasticsearch.core.PathUtils;
+import org.elasticsearch.common.io.PathUtils;
 import org.elasticsearch.plugin.analysis.ik.AnalysisIkPlugin;
 import org.wltea.analyzer.cfg.Configuration;
 import org.apache.logging.log4j.Logger;
@@ -80,7 +80,7 @@ public class Dictionary {
 	 */
 	private Configuration configuration;
 
-	private static final Logger logger = ESPluginLoggerFactory.getLogger(Dictionary.class.getName());
+	private static final Logger logger = ESPluginLoggerFactory.getLogger(Monitor.class.getName());
 
 	private static ScheduledExecutorService pool = Executors.newScheduledThreadPool(1);
 
@@ -469,7 +469,7 @@ public class Dictionary {
 						}
 					}
 
-					if (entity.getContentLength() > 0 || entity.isChunked()) {
+					if (entity.getContentLength() > 0) {
 						in = new BufferedReader(new InputStreamReader(entity.getContent(), charset));
 						String line;
 						while ((line = in.readLine()) != null) {

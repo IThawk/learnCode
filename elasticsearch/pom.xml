@@ -18,6 +18,8 @@
         <module>search-plantform</module>
         <module>elasticsearch_app</module>
         <module>search-cloud-platform</module>
+        <module>elasticsearch-analysis-ik</module>
+        <module>lucene-demo</module>
     </modules>
 
 

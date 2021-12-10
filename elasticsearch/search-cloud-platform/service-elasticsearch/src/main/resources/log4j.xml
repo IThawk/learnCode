@@ -25,6 +25,7 @@
         <!-- 保存日志文件目录 -->
         <!--<Property name="file_path" value="${sys:user.home}/logs"/>-->
         <Property name="file_path" value="D:/log"/>
+        <Property name="project_name" value="service-elasticsearch"/>
         <!-- 日志文件的最大容量，超过该值就进行备份 -->
         <Property name="file_max_size" value="30MB"/>
         <!-- 备份的文件夹名称 如下为：2020-02 -->
@@ -57,7 +58,7 @@
         默认存储到 fileName 文件中
         超过SizeBasedTriggeringPolicy的设定值，则存储到 filePattern 文件中
         -->
-        <RollingFile name="RollingFileInfo" fileName="${file_path}/info.log"
+        <RollingFile name="RollingFileInfo" fileName="${file_path}/${project_name}/info.log"
                      filePattern="${file_path}/${backup_folder}/info${backup_file_suffix}">
             <!--控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch）-->
             <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
@@ -71,7 +72,7 @@
             <DefaultRolloverStrategy max="20"/>
         </RollingFile>
 
-        <RollingFile name="RollingFileWarn" fileName="${file_path}/warn.log"
+        <RollingFile name="RollingFileWarn" fileName="${file_path}/${project_name}/warn.log"
                      filePattern="${file_path}/${backup_folder}/warn${backup_file_suffix}">
             <ThresholdFilter level="WARN" onMatch="ACCEPT" onMismatch="DENY"/>
             <PatternLayout pattern="${log_pattern}"/>
@@ -81,7 +82,7 @@
             </Policies>
         </RollingFile>
 
-        <RollingFile name="RollingFileError" fileName="${file_path}/error.log"
+        <RollingFile name="RollingFileError" fileName="${file_path}/${project_name}/error.log"
                      filePattern="${file_path}/${backup_folder}/error${backup_file_suffix}">
             <ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
             <PatternLayout pattern="${log_pattern}"/>
@@ -93,13 +94,14 @@
 
     </appenders>
 
+
     <!-- 只有定义了logger并使用appender-ref，appender才会生效 -->
     <loggers>
         <!--过滤掉spring和hibernate的一些无用的debug信息-->
         <logger name="org.springframework" level="INFO"/>
-        <logger name="org.mybatis" level="INFO">
+        <logger name="org.mybatis" level="DEBUG">
             <!-- 添加如下设置，控制台会再打印一次 -->
-            <AppenderRef ref="Console"/>
+<!--            <AppenderRef ref="Console"/>-->
         </logger>
         <root level="INFO">
             <appender-ref ref="Console"/>

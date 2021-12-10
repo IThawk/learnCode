@@ -18,7 +18,7 @@ public class SomeConsumer extends ShutdownableThread {
         super("KafkaConsumerTest", false);
 
         Properties properties = new Properties();
-        String brokers = "192.168.56.101:9092";
+        String brokers = "127.0.0.1:9992";
         // 指定kafka集群
         properties.put("bootstrap.servers", brokers);
         // 指定消费者组ID

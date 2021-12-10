@@ -20,7 +20,7 @@ public class GpKafkaProducer extends Thread {
         //kafka 配置
         Properties properties = new Properties();
         //配置kafka的地址
-        properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "192.168.56.101:9092");
+        properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "192.168.56.1:19092");
         //设置clientId
         properties.put(ProducerConfig.CLIENT_ID_CONFIG, "test-producer");
         //设置分区策略配置

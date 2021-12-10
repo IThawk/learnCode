@@ -13,7 +13,7 @@ public class OneProducer {
     public OneProducer() {
         Properties properties = new Properties();
         // 指定kafka集群("192.168.56.101:9092,"192.168.56.101:9093")
-        properties.put("bootstrap.servers", "192.168.56.101:9092");
+        properties.put("bootstrap.servers", "127.0.0.1:9992");
         // 指定key与value的序列化器
         properties.put("key.serializer", "org.apache.kafka.common.serialization.IntegerSerializer");
         properties.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
