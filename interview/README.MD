@@ -12,3 +12,6 @@
 ## io
 * [quick_start.md](./io/网络和IO面试题.md) 
 
+## redis
+* [quick_start.md](./redis/REDIS常见面试题解析.md) 
+

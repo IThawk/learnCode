@@ -835,7 +835,8 @@ Twtter开源的Twemproxy 豌豆荚开源的Codis
 
 主从复制的过程：
 
-![img](images\主从复制.jpg)
+![img](images\主从复制过程.jpg)
+![img](images\主从部分复制过程.jpg)
 
 redis replication -> 主从架构 -> 读写分离 -(redis­master­slave)> 水平扩容支撑读高并发 redis replication 的核心机制
 
@@ -871,7 +872,7 @@ slave node 如果跟 master node 有网络故障，断开了连接，会自动�
 
 5. 之后，主Redis每当接收到写命令时就会将命令发送从Redis，从而保证数据的一致
 
-   ![img](images\主从复制断点续传.jpg)
+   ![img](images\主从部分复制过程.jpg)
 
 缺点
 
@@ -881,6 +882,7 @@ slave node 如果跟 master node 有网络故障，断开了连接，会自动�
 
 为了缓解主从复制风暴(多个从节点同时复制主节点导致主节点压力过大)，可以做如
 下架构，让部分从节点与从节点(与主节点同步)同步数据
+   ![img](images\复制风暴解决.jpg)
 
 ### Redis集群的主从复制模型是怎样的？
 
@@ -1597,6 +1599,7 @@ Z 阶曲线有一个比较严重的问题，虽然有局部保序性，但是它
 # Redis6
 
 ## io多线程
+![](.\images\6.0前.jpg)
 
 \#Redis6.0 这里说 有三个IO 线程，还有一个线程是main线程，main线程负责IO读写和命令执行操作
 
@@ -1610,6 +1613,8 @@ io-threads 4
 
 io‐threads 4 // 这里说 有三个IO 线程，还有一个线程是main线程，main线程负责IO读写和
 命令执行操作
+![](.\images\6.0后.jpg)
+![](.\images\6.0后1.jpg)
 
 ## client side caching
 
