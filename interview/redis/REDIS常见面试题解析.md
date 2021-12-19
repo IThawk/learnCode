@@ -156,7 +156,7 @@ Redis的键值可以使用物种数据类型：**字符串，散列表，列表�
 
 可以使用：LPUSH    RPOP两个命令实现队列
 
-![](D:\workspace\language\github\learnCode\interview\redis\images\LIST实现队列.jpg)
+![](images\LIST实现队列.jpg)
 
 #### 基本命令
 
