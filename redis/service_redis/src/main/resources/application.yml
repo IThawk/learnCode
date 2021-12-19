@@ -1,0 +1,64 @@
+logging:
+  file:
+    name: D:/logs/redis-test/redis0511.log
+  level:
+    com.ithawk.demo.redis: info
+    root: warn
+  pattern:
+    console: '%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger- %msg%n '
+    file: '%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger- %msg%n'
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.ithawk.demo.redis.service.entities
+server:
+  port: 5555
+spring:
+  application:
+    name: service-redis
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    password: 123456
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://localhost:3306/redis-test?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    username: root
+    druid:
+      initial-size: 5 #连接池初始化大小
+      min-idle: 10 #最小空闲连接数
+      max-active: 20 #最大连接数
+      web-stat-filter:
+        exclusions: "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*" #不统计这些请求数据
+        enabled: true #是否启用StatFilter默认值false
+      stat-view-servlet: #访问监控网页的登录用户名和密码
+        login-username: druid
+        login-password: druid
+        enabled: true # 默认关闭了管理面
+      filter:
+        config:
+          enabled: true
+  redis:
+    database: 0
+    host: 127.0.0.1
+    lettuce:
+      pool:
+        max-active: 8
+        max-idle: 8
+        max-wait: -1ms
+        min-idle: 0
+    password: ''
+    port: 6379
+  swagger2:
+    enabled: true
+#  rabbitmq:
+#    host: 127.0.0.1
+#    password: guest
+#    port: 5672
+#    username: guest
+#    virtual-host: /
+redis:
+  bloom:
+    error-rate: 0.01
+    init-capacity: 10000
+    port: 6379
+    url: 127.0.0.1
+
+

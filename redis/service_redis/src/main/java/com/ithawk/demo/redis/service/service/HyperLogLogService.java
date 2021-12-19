@@ -1,4 +1,4 @@
-package com.atguigu.redis.service;
+package com.ithawk.demo.redis.service.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -9,10 +9,7 @@ import javax.annotation.Resource;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
-/**
- * @auther zzyy
- * @create 2021-05-02 18:16
- */
+
 @Service
 @Slf4j
 public class HyperLogLogService

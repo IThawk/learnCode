@@ -1,4 +1,4 @@
-package com.atguigu.redis;
+package com.ithawk.demo.redis.service;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

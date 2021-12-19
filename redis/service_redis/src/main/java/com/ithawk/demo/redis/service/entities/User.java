@@ -1,4 +1,4 @@
-package com.atguigu.redis.entities;
+package com.ithawk.demo.redis.service.entities;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;

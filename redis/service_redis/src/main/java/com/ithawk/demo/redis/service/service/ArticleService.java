@@ -1,4 +1,4 @@
-package com.atguigu.redis.service;
+package com.ithawk.demo.redis.service.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -7,10 +7,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.Random;
 
-/**
- * @auther zzyy
- * @create 2021-05-01 19:50
- */
+
 @Service
 @Slf4j
 public class ArticleService

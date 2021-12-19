@@ -1,4 +1,4 @@
-package com.atguigu.redis.controller;
+package com.ithawk.demo.redis.service.controller;
 
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * @auther zzyy
- * @create 2020-11-26 16:48
- */
+
 @RestController
 public class GeoController
 {

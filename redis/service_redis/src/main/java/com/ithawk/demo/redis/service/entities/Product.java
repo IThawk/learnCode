@@ -1,14 +1,11 @@
-package com.atguigu.redis.entities;
+package com.ithawk.demo.redis.service.entities;
 
 import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/**
- * @auther zzyy
- * @create 2021-05-09 14:48
- */
+
 @Data
 @ApiModel(value = "聚划算活动producet信息")
 public class Product {

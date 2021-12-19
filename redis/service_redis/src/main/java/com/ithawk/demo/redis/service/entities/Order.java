@@ -1,4 +1,4 @@
-package com.atguigu.redis.entities;
+package com.ithawk.demo.redis.service.entities;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -6,10 +6,7 @@ import lombok.NoArgsConstructor;
 import java.awt.*;
 import java.io.Serializable;
 
-/**
- * @auther zzyy
- * @create 2020-10-25 13:32
- */
+
 @NoArgsConstructor
 @Data
 public class Order implements Serializable

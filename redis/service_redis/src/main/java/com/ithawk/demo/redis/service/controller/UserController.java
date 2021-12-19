@@ -1,25 +1,19 @@
-package com.atguigu.redis.controller;
+package com.ithawk.demo.redis.service.controller;
 
 import cn.hutool.core.util.IdUtil;
-import cn.hutool.core.util.ReferenceUtil;
-import com.atguigu.redis.entities.User;
-import com.atguigu.redis.entities.UserDTO;
-import com.atguigu.redis.service.UserService;
+import com.ithawk.demo.redis.service.entities.User;
+import com.ithawk.demo.redis.service.entities.UserDTO;
+import com.ithawk.demo.redis.service.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.models.auth.In;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.Random;
 
-/**
- * @auther zzyy
- * @create 2021-05-01 15:02
- */
+
 @Api(description = "用户User接口")
 @RestController
 @Slf4j

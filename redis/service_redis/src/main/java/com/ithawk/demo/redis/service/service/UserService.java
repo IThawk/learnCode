@@ -1,24 +1,15 @@
-package com.atguigu.redis.service;
+package com.ithawk.demo.redis.service.service;
 
-import com.atguigu.redis.entities.User;
-import com.atguigu.redis.mapper.UserMapper;
-import io.swagger.models.auth.In;
+import com.ithawk.demo.redis.service.entities.User;
+import com.ithawk.demo.redis.service.mapper.UserMapper;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.annotation.Resource;
 import java.util.concurrent.TimeUnit;
 
-/**
- * @auther zzyy
- * @create 2021-05-01 14:58
- */
+
 @Service
 @Slf4j
 public class UserService {

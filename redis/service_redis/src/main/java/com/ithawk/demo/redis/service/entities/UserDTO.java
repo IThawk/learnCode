@@ -1,4 +1,4 @@
-package com.atguigu.redis.entities;
+package com.ithawk.demo.redis.service.entities;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

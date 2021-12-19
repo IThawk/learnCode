@@ -1,4 +1,4 @@
-package com.atguigu.redis.controller;
+package com.ithawk.demo.redis.service.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -15,10 +15,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-/**
- * @auther zzyy
- * @create 2021-05-02 18:16
- */
+
 @Api(description = "案例实战总03:天猫网站首页亿级UV的Redis统计方案")
 @RestController
 @Slf4j

@@ -1,9 +1,6 @@
-package com.atguigu.redis.util;
+package com.ithawk.demo.redis.service.util;
 
-/**
- * @auther zzyy
- * @create 2021-05-09 14:48
- */
+
 public class Constants {
 
     public  static final String JHS_KEY="jhs";

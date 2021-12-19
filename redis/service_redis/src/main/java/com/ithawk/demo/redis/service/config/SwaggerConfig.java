@@ -1,4 +1,4 @@
-package com.atguigu.redis.config;
+package com.ithawk.demo.redis.service.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -14,10 +14,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-/**
- * @auther zzyy
- * @create 2021-05-01 16:18
- */
+
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig
@@ -31,15 +28,15 @@ public class SwaggerConfig
                 .apiInfo(apiInfo())
                 .enable(enabled)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.atguigu.redis")) //你自己的package
+                .apis(RequestHandlerSelectors.basePackage("com.ithawk.demo.redis.service")) //你自己的package
                 .paths(PathSelectors.any())
                 .build();
     }
 
     public ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("尚硅谷redis6大厂班课程"+"\t"+new SimpleDateFormat("yyyy-MM-dd").format(new Date()))
-                .description("阳哥大厂redis")
+                .title("redis6"+"\t"+new SimpleDateFormat("yyyy-MM-dd").format(new Date()))
+                .description("redis")
                 .version("1.0")
                 .termsOfServiceUrl("https://www.itdachang.com/")
                 .build();
