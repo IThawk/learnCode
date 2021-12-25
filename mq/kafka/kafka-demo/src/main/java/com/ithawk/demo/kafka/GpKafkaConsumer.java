@@ -20,7 +20,7 @@ public class GpKafkaConsumer extends Thread {
 
     public GpKafkaConsumer(String topic) {
         Properties properties = new Properties();
-        properties.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "192.168.56.101:9092");
+        properties.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "172.20.58.133:19092");
         properties.put(ConsumerConfig.CLIENT_ID_CONFIG, "my-consumer");
         properties.put(ConsumerConfig.GROUP_ID_CONFIG, "my-gid3");
         properties.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG, "30000");

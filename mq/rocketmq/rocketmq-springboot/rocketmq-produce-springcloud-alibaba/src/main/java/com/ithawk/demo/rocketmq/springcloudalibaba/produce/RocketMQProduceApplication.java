@@ -1,21 +1,18 @@
 
 package com.ithawk.demo.rocketmq.springcloudalibaba.produce;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
+import com.ithawk.demo.rocketmq.springcloudalibaba.produce.service.MySource;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.stream.annotation.EnableBinding;
-import org.springframework.cloud.stream.annotation.Output;
-import org.springframework.context.annotation.Bean;
-import org.springframework.messaging.MessageChannel;
-import org.springframework.messaging.support.MessageBuilder;
+import springfox.documentation.oas.annotations.EnableOpenApi;
 
 /**
  * @author <a href="mailto:fangjian0423@gmail.com">Jim</a>
  */
 @SpringBootApplication
 @EnableBinding({ MySource.class })
+@EnableOpenApi //swagger
 public class RocketMQProduceApplication {
 
 	public static void main(String[] args) {

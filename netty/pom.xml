@@ -18,7 +18,7 @@
         <module>netty-io</module>
         <module>netty-tomcat</module>
         <module>netty-ex</module>
-<!--        <module>tuling-luban-netty</module>-->
+        <module>tuling-luban-netty</module>
     </modules>
     <name>netty</name>
 </project>

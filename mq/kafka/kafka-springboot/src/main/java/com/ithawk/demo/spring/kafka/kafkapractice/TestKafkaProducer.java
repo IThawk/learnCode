@@ -15,7 +15,7 @@ public class TestKafkaProducer {
      * 发送消息
      */
     public void send(){
-        kafkaTemplate.send("test",1,"msgData");
+        kafkaTemplate.send("kafka-test",1,"msgData");
     }
 
 }

@@ -98,7 +98,7 @@ public class LargestNumber {
 //
 //        int[] d1 = {3};
 //        System.out.println(solution.largestNumber(d1));
-
+        System.out.println("1".startsWith("1"));
 
         int[] d2 = {10, 2};
         System.out.println(solution.largestNumber(d2));

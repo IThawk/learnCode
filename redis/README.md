@@ -9,5 +9,5 @@
     使用redisson,redis-cache,结合springboot
 ## 知识点：
 mvn dependency:tree >1.log
-http://localhost:8888/swagger-ui.html
+http://localhost:8888/swagger-ui/index.html
 
