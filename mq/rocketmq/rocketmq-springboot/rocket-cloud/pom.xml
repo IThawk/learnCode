@@ -9,13 +9,13 @@
         <artifactId>rocketmq</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <artifactId>rocketmq-springboot</artifactId>
+    <artifactId>rocket-cloud</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>rocketmq-springboot</name>
     <modules>
-        <module>rocket-cloud</module>
-        <module>SpringBoot-rocketmq</module>
+        <module>rocketmq-consume-springcloud-alibaba</module>
+        <module>rocketmq-produce-springcloud-alibaba</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

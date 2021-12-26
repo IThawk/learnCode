@@ -14,6 +14,7 @@
     <module>rocketmq-demo</module>
     <module>rocketmq-springboot</module>
     <module>rocketmq-master</module>
+    <module>rocketmq-all-4.7.1-source-release</module>
   </modules>
   <name>rocketmq</name>
 </project>
