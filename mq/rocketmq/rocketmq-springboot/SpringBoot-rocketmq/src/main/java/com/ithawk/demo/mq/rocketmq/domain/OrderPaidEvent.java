@@ -1,12 +1,6 @@
-package com.roy.rocketmq.domain;
+package com.ithawk.demo.mq.rocketmq.domain;
 
 import java.math.BigDecimal;
-
-/**
- * @author ：楼兰
- * @date ：Created in 2020/11/28
- * @description:
- **/
 
 public class OrderPaidEvent {
     private String orderId;

@@ -1,10 +1,4 @@
-package com.roy.rocketmq.domain;
-
-/**
- * @author ：楼兰
- * @date ：Created in 2020/11/28
- * @description:
- **/
+package com.ithawk.demo.mq.rocketmq.domain;
 
 public class User {
     private String userName;

@@ -1,10 +1,5 @@
-package com.roy.rocketmq.domain;
+package com.ithawk.demo.mq.rocketmq.domain;
 
-/**
- * @author ：楼兰
- * @date ：Created in 2020/11/28
- * @description:
- **/
 
 public class ProductWithPayload<T> {
     private String productName;

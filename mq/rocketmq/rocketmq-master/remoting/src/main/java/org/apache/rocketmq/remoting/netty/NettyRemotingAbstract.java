@@ -157,11 +157,11 @@ public abstract class NettyRemotingAbstract {
 
             switch (cmd.getType()) {
                 case REQUEST_COMMAND:
-                    System.out.println("发送请求消息处理 processMessageReceived REQUEST_COMMAND: "+ JSON.toJSONString(msg,true));
+                    //System.out.println("发送请求消息处理 processMessageReceived REQUEST_COMMAND: "+ JSON.toJSONString(msg,true));
                     processRequestCommand(ctx, cmd);
                     break;
                 case RESPONSE_COMMAND:
-                    System.out.println("发送返回消息消息处理 processMessageReceived RESPONSE_COMMAND:"+ JSON.toJSONString(msg,true));
+                    //System.out.println("发送返回消息消息处理 processMessageReceived RESPONSE_COMMAND:"+ JSON.toJSONString(msg,true));
                     processResponseCommand(ctx, cmd);
                     break;
                 default:
@@ -196,7 +196,7 @@ public abstract class NettyRemotingAbstract {
     public void processRequestCommand(final ChannelHandlerContext ctx, final RemotingCommand cmd) {
         //根据不同的code获取线程处理线程的处理
         //301 :同步发送消息
-        System.out.println("根据不同的code获取线程处理线程的处理 "+JSON.toJSONString(cmd,true));
+       // System.out.println("根据不同的code获取线程处理线程的处理 "+JSON.toJSONString(cmd,true));
         final Pair<NettyRequestProcessor, ExecutorService> matched = this.processorTable.get(cmd.getCode());
         final Pair<NettyRequestProcessor, ExecutorService> pair = null == matched ? this.defaultRequestProcessor : matched;
         final int opaque = cmd.getOpaque();

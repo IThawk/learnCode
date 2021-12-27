@@ -1,4 +1,4 @@
-package com.roy.rocketmq.config;
+package com.ithawk.demo.mq.rocketmq.config;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.rocketmq.spring.annotation.RocketMQTransactionListener;

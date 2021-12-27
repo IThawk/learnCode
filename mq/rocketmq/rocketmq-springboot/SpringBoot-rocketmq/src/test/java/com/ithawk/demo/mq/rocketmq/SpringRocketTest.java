@@ -1,9 +1,9 @@
-package com.roy.rocketmq;
+package com.ithawk.demo.mq.rocketmq;
 
 import com.alibaba.fastjson.TypeReference;
-import com.roy.rocketmq.domain.OrderPaidEvent;
-import com.roy.rocketmq.domain.ProductWithPayload;
-import com.roy.rocketmq.domain.User;
+import com.ithawk.demo.mq.rocketmq.domain.OrderPaidEvent;
+import com.ithawk.demo.mq.rocketmq.domain.ProductWithPayload;
+import com.ithawk.demo.mq.rocketmq.domain.User;
 import org.apache.rocketmq.client.producer.SendCallback;
 import org.apache.rocketmq.client.producer.SendResult;
 import org.apache.rocketmq.spring.core.RocketMQLocalRequestCallback;
@@ -22,12 +22,6 @@ import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-
-/**
- * @author ：楼兰
- * @date ：Created in 2020/11/28
- * @description:
- **/
 
 @RunWith(SpringRunner.class)
 @SpringBootTest

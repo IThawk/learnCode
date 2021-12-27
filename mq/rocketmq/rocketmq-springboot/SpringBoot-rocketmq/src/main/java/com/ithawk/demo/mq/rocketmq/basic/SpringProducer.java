@@ -1,4 +1,4 @@
-package com.roy.rocketmq.basic;
+package com.ithawk.demo.mq.rocketmq.basic;
 
 import org.apache.rocketmq.client.producer.SendResult;
 import org.apache.rocketmq.spring.core.RocketMQTemplate;
@@ -9,11 +9,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 
-/**
- * @author ：楼兰
- * @date ：Created in 2020/10/22
- * @description:
- **/
+
 @Component
 public class SpringProducer {
 

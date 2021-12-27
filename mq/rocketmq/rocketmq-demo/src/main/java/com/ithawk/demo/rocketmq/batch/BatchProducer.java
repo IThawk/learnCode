@@ -12,10 +12,11 @@ import java.util.Map;
 public class BatchProducer {
     public static void main(String[] args) throws Exception {
         //Instantiate with a producer group name.
+        //一个批次消息的大小不要超过1MB
         DefaultMQProducer producer = new
                 DefaultMQProducer("please_rename_unique_group_name");
         // Specify name server addresses.
-        producer.setNamesrvAddr("localhost:9876");
+        producer.setNamesrvAddr("192.168.56.101:9876");
         //Launch the instance.
         producer.start();
         String topic = "TopicTest";
@@ -30,7 +31,7 @@ public class BatchProducer {
 
         while (splitter.hasNext()) {
             try {
-                List<Message>  listItem = splitter.next();
+                List<Message> listItem = splitter.next();
                 SendResult sendResult = producer.send(listItem);
                 System.out.printf("%s%n", sendResult);
             } catch (Exception e) {
@@ -47,13 +48,18 @@ class ListSplitter implements Iterator<List<Message>> {
     private final int SIZE_LIMIT = 1000 * 1000;
     private final List<Message> messages;
     private int currIndex;
+
     public ListSplitter(List<Message> messages) {
         this.messages = messages;
     }
-    @Override public boolean hasNext() {
+
+    @Override
+    public boolean hasNext() {
         return currIndex < messages.size();
     }
-    @Override public List<Message> next() {
+
+    @Override
+    public List<Message> next() {
         int nextIndex = currIndex;
         int totalSize = 0;
         for (; nextIndex < messages.size(); nextIndex++) {

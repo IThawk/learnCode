@@ -1,4 +1,4 @@
-package com.roy.rocketmq.config;
+package com.ithawk.demo.mq.rocketmq.config;
 
 import org.apache.rocketmq.spring.annotation.ExtRocketMQTemplateConfiguration;
 import org.apache.rocketmq.spring.core.RocketMQTemplate;

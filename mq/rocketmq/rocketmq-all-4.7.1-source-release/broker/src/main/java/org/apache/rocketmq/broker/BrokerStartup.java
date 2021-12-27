@@ -141,6 +141,23 @@ public class BrokerStartup {
                     BrokerPathConfigHelper.setBrokerConfigPath(file);
                     in.close();
                 }
+            }else{
+                String file = "D:\\workspace\\language\\github\\learnCode\\mq\\rocketmq\\rocketmq-all-4.7.1-source-release\\conf\\broker.conf";
+                if (file != null) {
+                    configFile = file;
+                    InputStream in = new BufferedInputStream(new FileInputStream(file));
+                    properties = new Properties();
+                    properties.load(in);
+
+                    properties2SystemEnv(properties);
+                    MixAll.properties2Object(properties, brokerConfig);
+                    MixAll.properties2Object(properties, nettyServerConfig);
+                    MixAll.properties2Object(properties, nettyClientConfig);
+                    MixAll.properties2Object(properties, messageStoreConfig);
+
+                    BrokerPathConfigHelper.setBrokerConfigPath(file);
+                    in.close();
+                }
             }
             //填充brokerConfig
             MixAll.properties2Object(ServerUtil.commandLine2Properties(commandLine), brokerConfig);
