@@ -11,19 +11,16 @@ import java.util.Collections;
 import java.util.Properties;
 
 /**
- * 腾讯课堂搜索【咕泡学院】
- * 官网：www.gupaoedu.com
- * 风骚的Mic 老师
- * create-date: 2019/8/17-20:22
+ *
  */
-public class GpKafkaConsumer3 extends Thread{
+public class KafkaConsumer3 extends Thread{
 
     KafkaConsumer<Integer,String> consumer;
     String topic;
 
-    public GpKafkaConsumer3(String topic) {
+    public KafkaConsumer3(String topic) {
         Properties properties=new Properties();
-        properties.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG,"127.0.0.1:9092");
+        properties.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG,"192.168.56.101:9092");
         properties.put(ConsumerConfig.CLIENT_ID_CONFIG,"my-consumer");
         properties.put(ConsumerConfig.GROUP_ID_CONFIG,"my-gid1");
         properties.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG,"30000");
@@ -49,6 +46,6 @@ public class GpKafkaConsumer3 extends Thread{
     }
 
     public static void main(String[] args) {
-        new GpKafkaConsumer3("test_partition").start();
+        new KafkaConsumer3("test_partition").start();
     }
 }

@@ -2,7 +2,6 @@ package com.ithawk.demo.kafka;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
-import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.serialization.IntegerDeserializer;
 import org.apache.kafka.common.serialization.StringDeserializer;
 
@@ -13,15 +12,16 @@ import java.util.Properties;
 /**
  *
  */
-public class GpKafkaConsumer extends Thread {
+public class KafkaConsumer extends Thread {
 
-    KafkaConsumer<Integer, String> consumer;
+    org.apache.kafka.clients.consumer.KafkaConsumer consumer;
     String topic;
 
-    public GpKafkaConsumer(String topic) {
+    public KafkaConsumer(String topic) {
         Properties properties = new Properties();
-        properties.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "172.20.58.133:19092");
+        properties.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "192.168.56.101:9092");
         properties.put(ConsumerConfig.CLIENT_ID_CONFIG, "my-consumer");
+        //设置消费组
         properties.put(ConsumerConfig.GROUP_ID_CONFIG, "my-gid3");
         properties.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG, "30000");
         properties.put(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG, "5000"); //自动提交(批量确认)
@@ -29,7 +29,7 @@ public class GpKafkaConsumer extends Thread {
         properties.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
         //一个新的group的消费者去消费一个topic
         properties.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest"); //这个属性. 它能够消费昨天发布的数据
-        consumer = new KafkaConsumer<Integer, String>(properties);
+        consumer = new org.apache.kafka.clients.consumer.KafkaConsumer(properties);
         this.topic = topic;
     }
 
@@ -47,6 +47,6 @@ public class GpKafkaConsumer extends Thread {
     }
 
     public static void main(String[] args) {
-        new GpKafkaConsumer("test_partition").start();
+        new KafkaConsumer("test_partition").start();
     }
 }

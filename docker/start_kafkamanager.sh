@@ -1,0 +1,1 @@
+   docker run -d --name kafkamanager -p 19092:9000 -e ZK_HOSTS=192.168.56.101:2181  sheepkiller/kafka-manager

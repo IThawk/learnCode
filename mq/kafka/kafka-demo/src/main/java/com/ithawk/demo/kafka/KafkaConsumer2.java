@@ -16,15 +16,15 @@ import java.util.Properties;
 /**
  *
  */
-public class GpKafkaConsumer2 extends Thread{
+public class KafkaConsumer2 extends Thread{
 
     KafkaConsumer<Integer,String> consumer;
     String topic;
 
-    public GpKafkaConsumer2(String topic) {
+    public KafkaConsumer2(String topic) {
 
         Properties properties=new Properties();
-        properties.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG,"127.0.0.1:9092");
+        properties.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG,"192.168.56.101:9092");
         properties.put(ConsumerConfig.CLIENT_ID_CONFIG,"my-consumer");
         properties.put(ConsumerConfig.GROUP_ID_CONFIG,"my-gid1");
         properties.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG,"30000");
@@ -59,6 +59,6 @@ public class GpKafkaConsumer2 extends Thread{
     }
 
     public static void main(String[] args) {
-        new GpKafkaConsumer2("test_partition").start();
+        new KafkaConsumer2("test_partition").start();
     }
 }

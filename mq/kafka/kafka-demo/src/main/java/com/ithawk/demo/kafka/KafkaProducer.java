@@ -10,17 +10,17 @@ import java.util.concurrent.TimeUnit;
 /**
  *
  */
-public class GpKafkaProducer extends Thread {
+public class KafkaProducer extends Thread {
 
     //producer api
-    KafkaProducer<Integer, String> producer;
+    org.apache.kafka.clients.producer.KafkaProducer<Integer, String> producer;
     String topic;  //主题
 
-    public GpKafkaProducer(String topic) {
+    public KafkaProducer(String topic) {
         //kafka 配置
         Properties properties = new Properties();
         //配置kafka的地址
-        properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "172.20.58.133:19092");
+        properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "192.168.56.101:9092");
         //设置clientId
         properties.put(ProducerConfig.CLIENT_ID_CONFIG, "test-producer");
         //设置分区策略配置
@@ -31,7 +31,7 @@ public class GpKafkaProducer extends Thread {
         //连接的字符串
         //通过工厂
         //new
-        producer = new KafkaProducer<Integer, String>(properties);
+        producer = new org.apache.kafka.clients.producer.KafkaProducer<Integer, String>(properties);
         this.topic = topic;
     }
 
@@ -59,6 +59,6 @@ public class GpKafkaProducer extends Thread {
     }
 
     public static void main(String[] args) {
-        new GpKafkaProducer("test_partition").start();
+        new KafkaProducer("test_partition").start();
     }
 }
