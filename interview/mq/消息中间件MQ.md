@@ -1089,34 +1089,35 @@ Kafka的事务不同于Rocketmq，Rocketmq是保障本地事务(比如数据库)
 不同的流式计算处理，处理完分别发到不同的topic里，这些topic分别被不同的下游系统消费(比如hbase，redis，es等)，这种我们肯定
 希望系统发送到多个topic的数据保持事务一致性。Kafka要实现类似Rocketmq的分布式事务需要额外开发功能。
 kafka的事务处理可以参考官方文档：
-1 Properties props = new Properties();
-2 props.put("bootstrap.servers", "localhost:9092");
-3 props.put("transactional.id", "my‐transactional‐id");
-4 Producer<String, String> producer = new KafkaProducer<>(props, new StringSerializer(), new StringSerializer());
-5 //初始化事务
-6 producer.initTransactions();
-7
-8 try {
-9 //开启事务
-10 producer.beginTransaction();
-11 for (int i = 0; i < 100; i++){
-12 //发到不同的主题的不同分区
-13 producer.send(new ProducerRecord<>("hdfs‐topic", Integer.toString(i), Integer.toString(i)));
-14 producer.send(new ProducerRecord<>("es‐topic", Integer.toString(i), Integer.toString(i)));
-15 producer.send(new ProducerRecord<>("redis‐topic", Integer.toString(i), Integer.toString(i)));
-16 }
-17 //提交事务
-18 producer.commitTransaction();
-19 } catch (ProducerFencedException | OutOfOrderSequenceException | AuthorizationException e) {
-20 // We can't recover from these exceptions, so our only option is to close the producer and exit.
-21 producer.close();
-22 } catch (KafkaException e) {
-23 // For all other exceptions, just abort the transaction and try again.
-24 //回滚事务
-25 producer.abortTransaction();
-26 }
-27 producer.close();
+```java
+Properties props = new Properties();
+props.put("bootstrap.servers", "localhost:9092");
+props.put("transactional.id", "my‐transactional‐id");
+Producer<String, String> producer = new KafkaProducer<>(props, new StringSerializer(), new StringSerializer());
+//初始化事务
+producer.initTransactions();
 
+try {
+    //开启事务
+    producer.beginTransaction();
+    for (int i = 0; i < 100; i++){
+        //发到不同的主题的不同分区
+        producer.send(new ProducerRecord<>("hdfs‐topic", Integer.toString(i), Integer.toString(i)));
+        producer.send(new ProducerRecord<>("es‐topic", Integer.toString(i), Integer.toString(i)));
+        producer.send(new ProducerRecord<>("redis‐topic", Integer.toString(i), Integer.toString(i)));
+    }
+    //提交事务
+    producer.commitTransaction();
+} catch (ProducerFencedException | OutOfOrderSequenceException | AuthorizationException e) {
+    // We can't recover from these exceptions, so our only option is to close the producer and exit.
+    producer.close();
+} catch (KafkaException e) {
+    // For all other exceptions, just abort the transaction and try again.
+    //回滚事务
+    producer.abortTransaction();
+}
+producer.close();
+```
 ### 10、kafka高性能的原因
 
 磁盘顺序读写：kafka消息不能修改以及不会从文件中间删除保证了磁盘顺序读，kafka的消息写入文件都是追加在文件末尾，
