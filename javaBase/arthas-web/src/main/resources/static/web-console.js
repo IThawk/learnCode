@@ -143,6 +143,20 @@ function startConnect(silent) {
     }
 }
 
+/** 开始连接arthas服务 **/
+function selectItem(){
+    var url="http://localhost:8888/jps";
+    var str = window.showModalDialog(url,window,"status=off","dialogWidth=140px;dialogHeight=100px");
+    if (str!=undefined && str.length>0)
+    {
+        var dataRow = obj.parentElement.parentElement;
+        dataRow.cells[0].children[1].value = str[0][0];
+        dataRow.cells[1].children[0].value = str[0][1];
+        dataRow.cells[2].children[0].value = str[0][2];
+        dataRow.cells[3].children[0].value = 1;
+    }
+}
+
 /**
  * 断开连接
  */

@@ -25,7 +25,9 @@
 <body>
 
 <blockquote class="layui-elem-quote layui-text">
-    可以对线上JAVA项目做诊断 <a href="https://alibaba.github.io/arthas/commands.html">官方文档</a> author ：小富
+    可以对线上JAVA项目做诊断 <a href="https://alibaba.github.io/arthas/commands.html">官方文档</a>
+    <a> 查看所有java进程</a>
+    <a>启动arthas</a>
 </blockquote>
 
 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
@@ -34,10 +36,11 @@
 
 <div class="layui-form-item">
 
+
     <div class="layui-inline">
         <label class="layui-form-label">ip:</label>
         <div class="layui-input-inline">
-            <input value="59.110.218.9" v-model="ip" type="text" name="ip" id="ip" required lay-verify="required"
+            <input value="127.0.0.1" v-model="ip" type="text" name="ip" id="ip" required lay-verify="required"
                    placeholder="请输入ip" autocomplete="off" class="layui-input">
         </div>
     </div>
@@ -77,7 +80,6 @@
                     </div>
                 </div>
                 <!-- dashboard 面板 -->
-
                 <!-- JVM 面板 -->
                 <div class="layui-colla-item">
                     <h2 class="layui-colla-title" style="background-color: #e69e41;color: #f9f8f3">JVM(数据面板)</h2>

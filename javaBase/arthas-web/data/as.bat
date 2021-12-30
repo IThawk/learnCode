@@ -10,7 +10,7 @@ REM ----------------------------------------------------------------------------
 
 
 set ERROR_CODE=0
-set TELNET_PORT=3658
+set TELNET_PORT=13658
 set HTTP_PORT=8563
 
 set BASEDIR=%~dp0

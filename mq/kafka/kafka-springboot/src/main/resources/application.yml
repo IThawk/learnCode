@@ -1,7 +1,7 @@
 kafka:
   topic: kafka-test
 server:
-  port: 8888
+  port: 8080
 spring:
   kafka:
     bootstrap-servers: 192.168.56.101:9092
@@ -14,7 +14,8 @@ spring:
     listener:
       missing-topics-fatal: false
     producer:
-      key-serializer: org.apache.kafka.common.serialization.IntegerSerializer
-      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      key-serializer: org.apache.kafka.common.serialization.IntegerSerializer #key的序列化
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer #value的序列化
+      transaction-id-prefix: test_tx_   #开启事务
   swagger2:
     enabled: true
