@@ -446,7 +446,8 @@ HW俗称高水位，HighWatermark的缩写，取一个partition对应的ISR中�
 
 Kafaconsumer 消费消息时，向 broker 发出"fetch"请求去消费特定分区的消息，consumer 指定消息在日志中的偏移量（offset），就可以消费从这个位置开始的消息，customer 拥有了 offset 的控制权，可以向后回滚去重新消费之前的消息，这是很有意义的
 
-消费者消费消息的offset记录机制
+### 消费者消费消息的offset记录机制
+
 每个consumer会定期将自己消费分区的offset提交给kafka内部topic：__consumer_offsets，提交过去的时候，key是
 consumerGroupId+topic+分区号，value就是当前offset的值，kafka会定期清理topic里的消息，最后就保留最新的
 那条数据
@@ -455,10 +456,8 @@ consumerGroupId+topic+分区号，value就是当前offset的值，kafka会定期
 ### 消费者Rebalance机制
 
 rebalance就是说如果消费组里的消费者数量有变化或消费的分区数有变化，kafka会重新分配消费者消费分区的关系。
-比如consumer group中某个消费者挂了，此时会自动把分配给他的分区交给其他的消费者，如果他又重启了，那么又会
-把一些分区重新交还给他。
-注意：rebalance只针对subscribe这种不指定分区消费的情况，如果通过assign这种消费方式指定了分区，kafka不会进
-行rebanlance。
+比如consumer group中某个消费者挂了，此时会自动把分配给他的分区交给其他的消费者，如果他又重启了，那么又会把一些分区重新交还给他。
+注意：rebalance只针对subscribe这种不指定分区消费的情况，如果通过assign这种消费方式指定了分区，kafka不会进行rebanlance。
 如下情况可能会触发消费者rebalance
 
 1. 消费组里的consumer增加或减少了
@@ -612,7 +611,7 @@ KAFKA维护一个Topic中的分区log，以顺序追加的方式向各个分区�
 
 即使顺序读写，过于频繁的大量小I/O操作一样会造成磁盘的瓶颈，所以KAFKA在此处的处理是把这些消息集合在一起批量发送，这样减少对磁盘IO的过度读写，而不是一次发送单个消息。
 
-另一个是无效率的字节复制，尤其是在负载比较高的情况下影响是显着的。为了避免这种情况，KAFKA采用由Producer，broker和consumer共享的标准化二进制消息格式，这样数据块就可以在它们之间自由传输，无需转换，降低了字节复制的成本开销。
+另一个是无效率的字节复制，尤其是在负载比较高的情况下影响是显着的。cer，broker和consumer共享的标准化二进制消息格式，这样数据块就可以在它们之间自由传输，无需转换，降低了字节复制的成本开销。
 
 同时，KAFKA采用了MMAP(Memory Mapped Files，内存映射文件)技术。很多现代操作系统都大量使用主存做磁盘缓存，一个现代操作系统可以将内存中的所有剩余空间用作磁盘缓存，而当内存回收的时候几乎没有性能损失。
 
@@ -830,7 +829,7 @@ partition是分段的，每个段叫LogSegment，包括了一个数据文件和�
 
 Kafka部分名词解释如下：
 
-- Broker：消息中间件处理结点，一个Kafka节点就是一个broker，多个broker可以组成一个Kafka集群。
+- Broker：消息中间件处理结点，一个Kafka节点就 是一个broker，多个broker可以组成一个Kafka集群。
 - Topic：一类消息，例如page view日志、click日志等都可以以topic的形式存在，Kafka集群能够同时负责多个topic的分发。
 - Partition：topic物理上的分组，一个topic可以分为多个partition，每个partition是一个有序的队列。
 - Segment：partition物理上由多个segment组成，下面2.2和2.3有详细说明。
@@ -955,7 +954,7 @@ Kafka高效文件存储设计特点
 - 通过index元数据全部映射到memory，可以避免segment file的IO磁盘操作。
 - 通过索引文件稀疏存储，可以大幅降低index文件元数据占用空间大小。
 
- kafka与传统的消息中间件对比
+##  kafka与传统的消息中间件对比
 
 
 
@@ -1060,8 +1059,7 @@ kafka保证全链路消息顺序消费，需要从发送端开始，将所有有
 3 bin/kafka‐producer‐perf‐test.sh ‐‐topic test ‐‐num‐records 1000000 ‐‐record‐size 1024 ‐‐throughput ‐1
 4 ‐‐producer‐props bootstrap.servers=192.168.65.60:9092 acks=1
 网络上很多资料都说分区数越多吞吐量越高 ， 但从压测结果来看，分区数到达某个值吞吐量反而开始下降，实际上很多事情都会有一个
-临界值，当超过
-这个临界值之后，很多原本符合既定逻辑的走向又会变得不同。一般情况分区数跟集群机器数量相当就差不多了。
+临界值，当超过这个临界值之后，很多原本符合既定逻辑的走向又会变得不同。一般情况分区数跟集群机器数量相当就差不多了。
 当然吞吐量的数值和走势还会和磁盘、文件系统、 I/O调度策略等因素相关。
 注意：如果分区数设置过大，比如设置10000，可能会设置不成功，后台会报错"java.io.IOException : Too many open files"。
 异常中最关键的信息是“ Too many open flies”，这是一种常见的 Linux 系统错误，通常意味着文件描述符不足，它一般发生在创建线
@@ -1089,6 +1087,7 @@ Kafka的事务不同于Rocketmq，Rocketmq是保障本地事务(比如数据库)
 不同的流式计算处理，处理完分别发到不同的topic里，这些topic分别被不同的下游系统消费(比如hbase，redis，es等)，这种我们肯定
 希望系统发送到多个topic的数据保持事务一致性。Kafka要实现类似Rocketmq的分布式事务需要额外开发功能。
 kafka的事务处理可以参考官方文档：
+
 ```java
 Properties props = new Properties();
 props.put("bootstrap.servers", "localhost:9092");
@@ -1120,12 +1119,11 @@ producer.close();
 ```
 ### 10、kafka高性能的原因
 
-磁盘顺序读写：kafka消息不能修改以及不会从文件中间删除保证了磁盘顺序读，kafka的消息写入文件都是追加在文件末尾，
-不会写入文件中的某个位置(随机写)保证了磁盘顺序写。
-数据传输的零拷贝
-读写数据的批量batch处理以及压缩传输
-数据传输零拷贝原理：
-![](images\kafka零拷贝.jpg)
+1. 磁盘顺序读写：kafka消息不能修改以及不会从文件中间删除保证了磁盘顺序读，kafka的消息写入文件都是追加在文件末尾，不会写入文件中的某个位置(随机写)保证了磁盘顺序写。
+2. 数据传输的零拷贝
+3. 读写数据的批量batch处理以及压缩传输
+         数据传输零拷贝原理：
+         ![](images\kafka零拷贝.jpg)
 
 ## 15.Kafka 对比 ActiveMQ
 

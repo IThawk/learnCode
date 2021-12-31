@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaOperations;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,6 +26,7 @@ public class SomeProducer {
 
     @ApiOperation("发送kafka消息")
     @PostMapping("/msg/send")
+    @Transactional(readOnly = true)//开启kafka的事务之后，需改加这个注解
     public String sendMsg(@RequestParam("message") String message) {
         template.send(topic, message);
         return "send success";

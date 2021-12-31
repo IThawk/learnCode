@@ -17,7 +17,6 @@
         <module>mybatis-3-master</module>
         <module>mybatis-plugs</module>
         <module>shardingsphere</module>
-        <module>sharding-sphere-5.0.0-release</module>
     </modules>
     <name>mybatis</name>
 

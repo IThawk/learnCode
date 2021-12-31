@@ -29,7 +29,7 @@
   <artifactId>zookeeper</artifactId>
   <packaging>pom</packaging>
   <version>3.4.14.re</version>
-  <name>Apache ZooKeeper</name>
+  <name>Apache ZooKeeper Source</name>
   <description>
     ZooKeeper is a centralized service for maintaining configuration information, naming,
     providing distributed synchronization, and providing group services. All of these kinds

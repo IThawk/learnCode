@@ -19,7 +19,7 @@ import java.util.List;
  */
 public class AclDemo {
 
-    private static String CONNECTION_STR="127.0.0.1:12181,127.0.0.1:12182,127.0.0.1:12183";
+    private static String CONNECTION_STR="127.0.0.1:12181";
 
 //    private static String CONNECTION_STR="127.0.0.1:12181";
 

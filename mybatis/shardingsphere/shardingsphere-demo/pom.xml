@@ -6,16 +6,16 @@
 
     <parent>
         <groupId>com.ithawk.demo</groupId>
-        <artifactId>mybatis</artifactId>
+        <artifactId>shardingsphere</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <artifactId>shardingsphere</artifactId>
+    <artifactId>shardingsphere-demo</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
-    <name>shardingsphere</name>
+    <name>shardingsphere-demo</name>
     <modules>
-        <module>shardingsphere-demo</module>
-        <module>sharding-sphere-5.0.0-release</module>
+        <module>shardingjdbc-quickstart</module>
+        <module>shardingjdbc-quickstart1</module>
     </modules>
 
 

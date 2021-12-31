@@ -16,6 +16,7 @@
         <module>curator-demo</module>
         <module>zk-register-demo</module>
         <module>ZooViewer</module>
+        <module>zookeeper-springboot</module>
     </modules>
 
 

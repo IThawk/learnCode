@@ -1,9 +1,6 @@
 package com.ithawk.learn.simple;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author ithawk
@@ -62,6 +59,8 @@ public class IsBalanced {
             invertTree1(root.left, integerList, i + 1);
             invertTree1(root.right, integerList, i + 1);
 
+            List<String> stringList= new LinkedList<>();
+            stringList.add(1,"ddd");
 
         }
     }
