@@ -27,11 +27,13 @@ public final class DefaultEventExecutorChooserFactory implements EventExecutorCh
 
     public static final DefaultEventExecutorChooserFactory INSTANCE = new DefaultEventExecutorChooserFactory();
 
-    private DefaultEventExecutorChooserFactory() { }
+    private DefaultEventExecutorChooserFactory() {
+    }
 
     @SuppressWarnings("unchecked")
     @Override
     public EventExecutorChooser newChooser(EventExecutor[] executors) {
+        System.out.println("哪种选择器，它们的选择策略 io.netty.util.concurrent.DefaultEventExecutorChooserFactory.newChooser:" + executors.length);
         // 判断数组的长度是否是2的整数次幂
         // 无论是哪种选择器，它们的选择策略都是轮询
         if (isPowerOfTwo(executors.length)) {
@@ -57,6 +59,7 @@ public final class DefaultEventExecutorChooserFactory implements EventExecutorCh
 
         @Override
         public EventExecutor next() {
+            System.out.println("io.netty.util.concurrent.DefaultEventExecutorChooserFactory.PowerOfTwoEventExecutorChooser.next");
             return executors[idx.getAndIncrement() & executors.length - 1];
         }
     }
@@ -71,6 +74,7 @@ public final class DefaultEventExecutorChooserFactory implements EventExecutorCh
 
         @Override
         public EventExecutor next() {
+            System.out.println("io.netty.util.concurrent.DefaultEventExecutorChooserFactory.GenericEventExecutorChooser.next");
             return executors[Math.abs(idx.getAndIncrement() % executors.length)];
         }
     }

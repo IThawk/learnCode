@@ -72,6 +72,7 @@ public abstract class SingleThreadEventLoop extends SingleThreadEventExecutor im
 
     @Override
     public ChannelFuture register(Channel channel) {
+        System.out.println("io.netty.channel.SingleThreadEventLoop.register(io.netty.channel.Channel)");
         return register(new DefaultChannelPromise(channel, this));
     }
 

@@ -63,12 +63,25 @@ public class ClimbStairs {
             return r;
         }
 
+        public int climbStairs2(int n) {
+            int[] cs = new int[n];
+            if (n < 2) {
+                return 1;
+            }
+            cs[0] = 1;
+            cs[1] = 2;
+            for (int i = 2; i < n; i++) {
+                cs[i] = cs[i - 1] + cs[i - 2];
+            }
+            return cs[n - 1];
+        }
+
         public int climbStairs1(int n) {
-            if (n==1||n==0){
+            if (n == 1 || n == 0) {
                 return 1;
             }
 
-            return climbStairs1(n-1) + climbStairs1(n-2);
+            return climbStairs1(n - 1) + climbStairs1(n - 2);
         }
 
 

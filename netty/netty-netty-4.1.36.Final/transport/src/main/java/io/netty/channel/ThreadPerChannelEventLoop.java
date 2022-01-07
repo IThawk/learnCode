@@ -34,6 +34,7 @@ public class ThreadPerChannelEventLoop extends SingleThreadEventLoop {
 
     @Override
     public ChannelFuture register(ChannelPromise promise) {
+        System.out.println("io.netty.channel.ThreadPerChannelEventLoop.register(io.netty.channel.ChannelPromise)");
         return super.register(promise).addListener(new ChannelFutureListener() {
             @Override
             public void operationComplete(ChannelFuture future) throws Exception {

@@ -462,6 +462,7 @@ public abstract class AbstractChannel extends DefaultAttributeMap implements Cha
 
         @Override
         public final void register(EventLoop eventLoop, final ChannelPromise promise) {
+            System.out.println("io.netty.channel.AbstractChannel.AbstractUnsafe.register");
             if (eventLoop == null) {
                 throw new NullPointerException("eventLoop");
             }
@@ -484,6 +485,7 @@ public abstract class AbstractChannel extends DefaultAttributeMap implements Cha
                     eventLoop.execute(new Runnable() {
                         @Override
                         public void run() {
+                            System.out.println("................. register0 .................");
                             register0(promise);
                         }
                     });
