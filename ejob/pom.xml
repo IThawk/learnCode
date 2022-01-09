@@ -16,6 +16,9 @@
     <module>ejob-springboot</module>
     <module>elasticjob-spring-boot-starter</module>
 <!--    <module>shardingsphere-elasticjob-master</module>-->
+    <module>xxl-job-admin</module>
+    <module>xxl-job-executor</module>
+    <module>xxl-job-2.2.0</module>
   </modules>
   <name>ejob</name>
 </project>
