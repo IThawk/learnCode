@@ -10,7 +10,7 @@ public class MyScheduler {
 		// JobDetail
 		JobDetail jobDetail = JobBuilder.newJob(MyJob1.class)
 				.withIdentity("job1", "group1")
-				.usingJobData("gupao","只为更好的你")
+				.usingJobData("test","只为更好的你")
 				.usingJobData("moon",5.21F)
 				.build();
 

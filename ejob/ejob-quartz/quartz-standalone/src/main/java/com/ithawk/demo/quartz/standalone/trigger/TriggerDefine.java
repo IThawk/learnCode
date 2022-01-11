@@ -3,9 +3,9 @@ package com.ithawk.demo.quartz.standalone.trigger;
 import org.quartz.*;
 
 /**
- * @Author: qingshan
- * @Date: 2019/9/4 17:49
- * @Description: 咕泡学院，只为更好的你
+ * @Author:
+ * @Date:
+ * @Description:
  */
 public class TriggerDefine {
     public static void main(String[] args) {

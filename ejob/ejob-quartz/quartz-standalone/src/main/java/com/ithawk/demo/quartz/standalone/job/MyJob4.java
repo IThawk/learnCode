@@ -10,9 +10,9 @@ import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @Author: qingshan
- * @Date: 2018/10/15 19:40
- * @Description: 咕泡学院，只为更好的你
+ * @Author:
+ * @Date:
+ * @Description:
  * 这是一个不能并行执行的任务
  */
 @DisallowConcurrentExecution

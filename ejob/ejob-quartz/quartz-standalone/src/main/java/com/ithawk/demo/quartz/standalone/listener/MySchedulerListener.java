@@ -3,9 +3,9 @@ package com.ithawk.demo.quartz.standalone.listener;
 import org.quartz.*;
 
 /**
- * @Author: qingshan
- * @Date: 2018/9/19 15:26
- * @Description: 咕泡学院，只为更好的你
+ * @Author:
+ * @Date:
+ * @Description:
  */
 public class MySchedulerListener implements SchedulerListener {
     

@@ -9,9 +9,12 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 /**
- * @Author: qingshan
- * @Date: 2019/9/5 10:40
- * @Description: 咕泡学院，只为更好的你
+ * <p>
+ * 排除
+ * </p>
+ * @Author:
+ * @Date:
+ * @Description:
  */
 public class CalendarDemo {
     public static void main(String[] args) throws Exception {
@@ -22,9 +25,9 @@ public class CalendarDemo {
         // 定义日历
         AnnualCalendar holidays = new AnnualCalendar();
 
-        // 排除咕泡日
-        Calendar gupaoDay = (Calendar) new GregorianCalendar(2019, 8, 8);
-        holidays.setDayExcluded(gupaoDay, true);
+        // 排除日
+        Calendar testDay = (Calendar) new GregorianCalendar(2019, 8, 8);
+        holidays.setDayExcluded(testDay, true);
         // 排除中秋节
         Calendar midAutumn = new GregorianCalendar(2019, 9, 13);
         holidays.setDayExcluded(midAutumn, true);
@@ -36,12 +39,12 @@ public class CalendarDemo {
         scheduler.addCalendar("holidays", holidays, false, false);
 
         JobDetail jobDetail = JobBuilder.newJob(MyJob1.class)
-                .withIdentity("job1", "group1")
-                .usingJobData("gupao","青山 2673")
+                .withIdentity("job1", "test1")
+                .usingJobData("test","test 2673")
                 .build();
 
         Trigger trigger = TriggerBuilder.newTrigger()
-                .withIdentity("trigger1", "group1")
+                .withIdentity("trigger1", "test1")
                 .startNow()
                 .modifiedByCalendar("holidays")
                 .withSchedule(SimpleScheduleBuilder.simpleSchedule()

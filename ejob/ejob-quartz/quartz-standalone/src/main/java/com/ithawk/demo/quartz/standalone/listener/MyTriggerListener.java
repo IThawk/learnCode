@@ -5,9 +5,9 @@ import org.quartz.Trigger;
 import org.quartz.TriggerListener;
 
 /**
- * @Author: qingshan
- * @Date: 2018/9/19 15:19
- * @Description: 咕泡学院，只为更好的你
+ * @Author:
+ * @Date:
+ * @Description:
  */
 public class MyTriggerListener implements TriggerListener {
     private String name;

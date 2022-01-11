@@ -30,7 +30,7 @@
     <module>13-netty-multiports</module>
     <module>14-netty-niosocket</module>
     <module>15-netty-niochat</module>
-    <module>gupaoedu-vip-netty-chat</module>
+    <module>16-netty-chat</module>
   </modules>
   <name>netty-ex</name>
 

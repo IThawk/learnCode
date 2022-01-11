@@ -15,7 +15,7 @@ public class MyJob1 implements Job {
         SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 		JobDataMap dataMap = context.getJobDetail().getJobDataMap();
-		System.out.println( " " + sf.format(date) + " 任务1执行了，" + dataMap.getString("gupao"));
+		System.out.println( " " + sf.format(date) + " 任务1执行了，" + dataMap.getString("test"));
 		
 	}
 

@@ -5,9 +5,9 @@ import org.quartz.JobExecutionException;
 import org.quartz.JobListener;
 
 /**
- * @Author: qingshan
- * @Date: 2018/9/19 15:08
- * @Description: 咕泡学院，只为更好的你
+ * @Author:
+ * @Date:
+ * @Description:
  */
 public class MyJobListener implements JobListener {
 

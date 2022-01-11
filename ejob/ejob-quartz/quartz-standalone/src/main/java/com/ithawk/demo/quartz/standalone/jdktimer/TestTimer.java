@@ -4,9 +4,9 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 /**
- * @Author: qingshan
- * @Date: 2019/9/3 22:32
- * @Description: 咕泡学院，只为更好的你
+ * @Author:
+ * @Date:
+ * @Description:
  */
 public class TestTimer {
     public static void main(String[] args) {
