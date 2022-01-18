@@ -17,6 +17,7 @@
         <module>zk-register-demo</module>
         <module>ZooViewer</module>
         <module>zookeeper-springboot</module>
+        <module>zookeeper-release-3.5.4</module>
     </modules>
 
 

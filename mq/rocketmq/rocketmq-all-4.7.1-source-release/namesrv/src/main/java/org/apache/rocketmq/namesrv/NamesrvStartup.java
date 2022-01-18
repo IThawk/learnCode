@@ -149,6 +149,7 @@ public class NamesrvStartup {
             System.exit(-3);
         }
 
+        //添加关闭的钩子函数
         Runtime.getRuntime().addShutdownHook(new ShutdownHookThread(log, new Callable<Void>() {
             @Override
             public Void call() throws Exception {

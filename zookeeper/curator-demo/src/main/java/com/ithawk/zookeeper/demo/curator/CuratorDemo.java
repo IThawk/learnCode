@@ -12,7 +12,7 @@ import org.apache.zookeeper.data.Stat;
 public class CuratorDemo {
 
     //    private static String CONNECTION_STR="127.0.0.1:12181";
-    private static String CONNECTION_STR = "127.0.0.1:12181";
+    private static String CONNECTION_STR = "127.0.0.1:2182";
 
 
     public static void main(String[] args) throws Exception {
@@ -30,7 +30,7 @@ public class CuratorDemo {
 
         //启动
         curatorFramework.start();
-        deleteData(curatorFramework);
+//        deleteData(curatorFramework);
         createData(curatorFramework);
         updateData(curatorFramework);
 
@@ -38,7 +38,7 @@ public class CuratorDemo {
 //        curatorFramework.create();
         curatorFramework.getData(); //查询
         curatorFramework.setData(); //修改
-        curatorFramework.delete();// 删除
+//        curatorFramework.delete();// 删除
 
     }
 
