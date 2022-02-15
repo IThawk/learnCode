@@ -10,5 +10,6 @@ public class RocketMQSBApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(RocketMQSBApplication.class,args);
+
     }
 }

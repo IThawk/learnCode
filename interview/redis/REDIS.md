@@ -1,4 +1,4 @@
-# REDIS常见面试题解析：
+# REDIS解析：
 
 ![img](images\redis面试题图解.jpg)
 Redis 配置

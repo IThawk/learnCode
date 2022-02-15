@@ -39,6 +39,9 @@
         <module>spring-cloud-alibaba-dubbo-examples</module>
         <module>spring-cloud-alibaba-sidecar-examples/spring-cloud-alibaba-sidecar-nacos-example</module>
         <module>spring-cloud-alibaba-sidecar-examples/spring-cloud-alibaba-sidecar-consul-example</module>
+        <module>auth-example/oauth_authorization_server</module>
+        <module>auth-example/oauth_resourcs_server</module>
+        <module>auth-example/security_1011</module>
     </modules>
 
     <build>
