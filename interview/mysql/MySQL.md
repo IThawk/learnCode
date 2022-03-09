@@ -1517,7 +1517,7 @@ for update 可以根据条件来完成行锁锁定，并且 id 是有索引键�
 
 ## InnoDB存储引擎的锁的算法有三种
 
-- Record lock：单个行记录上的锁
+- Record lock：记录锁，单个行记录上的锁
 - Gap lock：间隙锁，锁定一个范围，不包括记录本身
 - Next-key lock：record+gap 锁定一个范围，包含记录本身
 
@@ -1557,7 +1557,7 @@ for update 可以根据条件来完成行锁锁定，并且 id 是有索引键�
 
 但如果是多写的情况，一般会经常产生冲突，这就会导致上层应用会不断的进行retry，这样反倒是降低了性能，所以一般多写的场景下用悲观锁就比较合适。
 
-# mysql的锁--行锁，表锁，乐观锁，悲观锁
+## mysql的锁--行锁，表锁，乐观锁，悲观锁
 
 ### **一 引言--为什么mysql提供了锁**
 
@@ -1701,7 +1701,7 @@ public class TestLock {
 
 　![476810-20160802212600934-1636148148](images/476810-20160802212600934-1636148148.png)
 
-![476810-20160802234328293-1886690666](E:/msb金三银四 面试突击班/面试突击一班资料/3月面试突击班/700道面试题/700道面试题/02-BAT面试题汇总及详解(进大厂必看)/BAT面试题汇总及详解(进大厂必看)_子文档/mysql的锁--行锁，表锁，乐观锁，悲观锁.assets/476810-20160802234328293-1886690666.png)
+![476810-20160802234328293-1886690666](images/476810-20160802234328293-1886690666.png)
 
 　　终于发现自己为什么会误会事务能解决丢失修改了。至于为什么隔离性级别不解决丢失修改，我猜是有更好的解决方案吧。
 
@@ -1762,7 +1762,7 @@ public class TestLock {
 
 
 
-```
+```java
 public class ForUpdate1  implements Runnable{
     private CountDownLatch countDown;
     public ForUpdate1(CountDownLatch countDown){
@@ -1807,7 +1807,7 @@ public class ForUpdate1  implements Runnable{
 
 
 
-```
+```java
 public class ForUpdate2  implements Runnable{
     private CountDownLatch countDown;
     public ForUpdate2(CountDownLatch countDown){
@@ -1853,7 +1853,7 @@ public class ForUpdate2  implements Runnable{
 
 
 
-```
+```java
 public class TestForUpdate {    
     public static void main(String[] args) throws InterruptedException {
         final int THREAD_COUNT=10;
@@ -1886,7 +1886,7 @@ public class TestForUpdate {
 　　可以通过检查InnoDB_row_lock状态变量来分析系统上的行锁的争夺情况：
 　　mysql> show status like 'innodb_row_lock%';
 
-![476810-20160803123955231-1228830606](E:/msb金三银四 面试突击班/面试突击一班资料/3月面试突击班/700道面试题/700道面试题/02-BAT面试题汇总及详解(进大厂必看)/BAT面试题汇总及详解(进大厂必看)_子文档/mysql的锁--行锁，表锁，乐观锁，悲观锁.assets/476810-20160803123955231-1228830606.png)
+![476810-20160803123955231-1228830606](images/476810-20160803123955231-1228830606.png)
 
 　　如果发现锁争用比较严重，如InnoDB_row_lock_waits和InnoDB_row_lock_time_avg的值比较高，还可以通过设置InnoDB Monitors来进一步观察发生锁冲突的表、数据行等，并分析锁争用的原因。不明觉厉？，看[这篇](http://blog.csdn.net/xifeijian/article/details/20313977)
 
@@ -1898,7 +1898,7 @@ public class TestForUpdate {
 
 　　首先为什么要加锁，加锁就是为了解决丢失修改（也不知道这么说对不对）。如果一个事务中只有一句sql，数据库是可以保证它是并发安全的。丢失修改的特征就是在一个事务中先读P数据，再写P数据，注意是同一个数据（也不知道这么说对不对）。只是自己推理了一下，没有太强的理据。所谓丢失修改，一般是A事务有两个操作，后一个操作依赖于前一个操作，之后后一个操作覆盖了B事务的写操作，可以表示为这样。
 
-　![476810-20160803143639856-400036081](E:/msb金三银四 面试突击班/面试突击一班资料/3月面试突击班/700道面试题/700道面试题/02-BAT面试题汇总及详解(进大厂必看)/BAT面试题汇总及详解(进大厂必看)_子文档/mysql的锁--行锁，表锁，乐观锁，悲观锁.assets/476810-20160803143639856-400036081.png)
+　![476810-20160803143639856-400036081](images/476810-20160803143639856-400036081.png)
 
 　　pro1可能是Read(P),Write(P),Read(Q),Write(Q),其中P=2Q，数据库中的冗余导致的关联关系是很常见的。
 
@@ -1954,9 +1954,7 @@ PreparedStatement ps =conn.prepareStatement("select * from LostUpdate where id =
 
 　　任务类
 
-
-
-```
+```java
 public class LostUpdateOccDiscard implements Runnable{
     private CountDownLatch countDown;
     public LostUpdateOccDiscard(CountDownLatch countDown){
@@ -2026,8 +2024,24 @@ public class LostUpdateOccDiscard implements Runnable{
 
 　　　主线程，和前面差不多，创建10个线程，执行100个任务。
 
-```
-public class TestLockOcc {        public static void main(String[] args) throws InterruptedException {        //创建线程池，里面有10个线程，共执行100次+1操作        final int THREAD_COUNT=10;        final int RUN_TIME=100;                ExecutorService threadPool=Executors.newFixedThreadPool(THREAD_COUNT);        //用CountDownLatch保证主线程等待所有任务完成        CountDownLatch count=new CountDownLatch(RUN_TIME);                for(int i=0;i<RUN_TIME;i++)            threadPool.execute(new LostUpdateOccDiscard(count));                threadPool.shutdown();        count.await();        //提示所有任务执行完        System.out.println("finish");    }}
+```java
+    public class TestLockOcc {
+        public static void main(String[] args) throws InterruptedException {
+            //创建线程池，里面有10个线程，共执行100次+1操作        
+            final int THREAD_COUNT = 10;
+            final int RUN_TIME = 100;
+            ExecutorService threadPool = Executors.newFixedThreadPool(THREAD_COUNT);
+            //用CountDownLatch保证主线程等待所有任务完成        
+            CountDownLatch count = new CountDownLatch(RUN_TIME);
+            for (int i = 0; i < RUN_TIME; i++) {
+                threadPool.execute(new LostUpdateOccDiscard(count));
+                threadPool.shutdown();
+                count.await();
+                //提示所有任务执行完        
+               System.out.println("finish");    
+            }
+        }
+    }
 ```
 
 
@@ -2048,18 +2062,102 @@ public class TestLockOcc {        public static void main(String[] args) throws 
 
 
 
+```java
+public class LostUpdateOcc implements Runnable {
+    private CountDownLatch countDown;
+
+    public LostUpdateOcc(CountDownLatch countDown) {
+        this.countDown = countDown;
+    }
+
+    @Override
+    public void run() {
+        Connection conn = null;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=UTF-8", "root", "123");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return;
+        }
+        try {
+            int try_times = 100;
+            int count;
+            int version;
+            PreparedStatement ps;
+            ResultSet rs;                        //把循环条件放在里面if里           
+            while (try_times > 0) {                //开始事务               
+                try_times--;
+                conn.setAutoCommit(false);
+                //读操作                
+                ps = conn.prepareStatement("select * from LostUpdate where id =1");
+                rs = ps.executeQuery();
+                //判断事务执行的条件，首先是能执行，其次是需要执行            
+                if (rs.next()) {
+                    count = rs.getInt("count");
+                    version = rs.getInt("version");
+                    count++;
+                    //更新操作，用cas原子操作来更新                   
+                    ps = conn.prepareStatement("update LostUpdate set count=?, version=version+1 where id =1 and version=?");
+                    ps.setInt(1, count);
+                    ps.setInt(2, version);
+                    int result = ps.executeUpdate();
+                    //每次执行完更新操作，检测一次冲突                    
+                    // 成功，则继续事务                    
+                    // 失败，回滚，睡100ms，避开竞争。结束这次循环，开启新事务。                  
+                    if (result == 0) {
+                        conn.rollback();
+                        Thread.sleep(100);
+                        continue;
+                    }
+                    //事务一路顺风，没遇到冲突，事务提交，跳出while     
+                    conn.commit();
+                    break;
+                }                
+                //作为while条件不成立时的处理，比如该行数据被删除。              
+                else {
+                    conn.rollback();
+                    break;
+                }
+            }
+            if (try_times <= 0) throw new Exception("冲突重试的此时过多，事务失败");
+            System.out.println(try_times);
+        } catch (SQLException e) {
+            try {
+                conn.rollback();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
+            e.printStackTrace();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        //表示一次任务完成   
+        countDown.countDown();
+    }
+}
 ```
-public class LostUpdateOcc implements Runnable{    private CountDownLatch countDown;    public LostUpdateOcc(CountDownLatch countDown){        this.countDown = countDown;    }        @Override    public void run() {        Connection conn=null;        try {            Class.forName("com.mysql.jdbc.Driver");            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=UTF-8",                    "root", "123");        } catch (Exception e) {            e.printStackTrace();            return;        }                try {                        int try_times=100;            int count;            int version;                PreparedStatement ps;            ResultSet rs;                        //把循环条件放在里面if里            while(try_times>0){                //开始事务                try_times--;                conn.setAutoCommit(false);                                //读操作                ps=conn.prepareStatement("select * from LostUpdate where id =1");                rs=ps.executeQuery();                                //判断事务执行的条件，首先是能执行，其次是需要执行                if(rs.next()){                    count= rs.getInt("count");                    version= rs.getInt("version");                                        count++;                                        //更新操作，用cas原子操作来更新                    ps =conn.prepareStatement("update LostUpdate set count=?, version=version+1 where id =1 and version=?");                    ps.setInt(1, count);                    ps.setInt(2, version);                    int result = ps.executeUpdate();                                        //每次执行完更新操作，检测一次冲突                    //成功，则继续事务                    //失败，回滚，睡100ms，避开竞争。结束这次循环，开启新事务。                    if(result==0) {                            conn.rollback();                        Thread.sleep(100);                        continue;                    }                                        //事务一路顺风，没遇到冲突，事务提交，跳出while                    conn.commit();                    break;                }                //作为while条件不成立时的处理，比如该行数据被删除。                else{                    conn.rollback();                    break;                }                                                                        }            if(try_times<=0) throw new Exception("冲突重试的此时过多，事务失败");            System.out.println(try_times);        } catch (SQLException e) {            try {                conn.rollback();            } catch (SQLException e1) {                e1.printStackTrace();            }            e.printStackTrace();        }catch (Exception e) {            System.out.println(e.getMessage());        }                //表示一次任务完成        countDown.countDown();    }}
-```
-
-
-
- 
 
 　　主线程，和前面差不多，创建10个线程，执行100个任务。
 
-```
-public class TestLockOcc {        public static void main(String[] args) throws InterruptedException {        //创建线程池，里面有10个线程，共执行100次+1操作        final int THREAD_COUNT=10;        final int RUN_TIME=100;                ExecutorService threadPool=Executors.newFixedThreadPool(THREAD_COUNT);        //用CountDownLatch保证主线程等待所有任务完成        CountDownLatch count=new CountDownLatch(RUN_TIME);                for(int i=0;i<RUN_TIME;i++)            threadPool.execute(new LostUpdateOcc(count));                threadPool.shutdown();        count.await();        //提示所有任务执行完        System.out.println("finish");    }}
+```java
+public class TestLockOcc {
+    public static void main(String[] args) throws InterruptedException {
+        //创建线程池，里面有10个线程，共执行100次+1操作       
+        final int THREAD_COUNT = 10;
+        final int RUN_TIME = 100;
+        ExecutorService threadPool = Executors.newFixedThreadPool(THREAD_COUNT);
+        //用CountDownLatch保证主线程等待所有任务完成       
+        CountDownLatch count = new CountDownLatch(RUN_TIME);
+        for (int i = 0; i < RUN_TIME; i++)
+            threadPool.execute(new LostUpdateOcc(count));
+
+        threadPool.shutdown();
+        count.await();
+        //提示所有任务执行完        
+        System.out.println("finish");
+    }
+}
 ```
 
 
@@ -2080,7 +2178,7 @@ public class TestLockOcc {        public static void main(String[] args) throws 
 
 　　顺手做了个小实验，还是执行100次，冲突睡眠100ms，
 
-　　![476810-20160803213233043-1622778041](E:/msb金三银四 面试突击班/面试突击一班资料/3月面试突击班/700道面试题/700道面试题/02-BAT面试题汇总及详解(进大厂必看)/BAT面试题汇总及详解(进大厂必看)_子文档/mysql的锁--行锁，表锁，乐观锁，悲观锁.assets/476810-20160803213233043-1622778041.png)
+　　![476810-20160803213233043-1622778041](images/476810-20160803213233043-1622778041.png)
 
 　　总结一下：
 
@@ -2090,13 +2188,13 @@ public class TestLockOcc {        public static void main(String[] args) throws 
 
 　　但是，当分布式数据库规模大到一定程度后，又另说了。基于悲观锁的分布式锁在集群大到一定程度后（从几百台扩展到几千台时），性能开销就打得无法接受。所以目前的趋势是大规模的分布式数据库更倾向于用乐观锁来达成external consistency。
 
-　我的Mysql死锁排查过程（案例分析）
+## 　我的Mysql死锁排查过程（案例分析）
 
 
 
 以前接触到的数据库死锁，都是批量更新时加锁顺序不一致而导致的死锁，但是上周却遇到了一个很难理解的死锁。借着这个机会又重新学习了一下mysql的死锁知识以及常见的死锁场景。在多方调研以及和同事们的讨论下终于发现了这个死锁问题的成因，收获颇多。虽然是后端程序员，我们不需要像DBA一样深入地去分析与锁相关的源码，但是如果我们能够掌握基本的死锁排查方法，对我们的日常开发还是大有裨益的。
 
-## 死锁起因
+### 死锁起因
 
 先介绍一下数据库和表情况，因为涉及到公司内部真是的数据，所以以下都做了模拟，不会影响具体的分析。
 
@@ -2104,73 +2202,26 @@ public class TestLockOcc {        public static void main(String[] args) throws 
 
 ```sql
 CREATE TABLE `test` (
-
-
-
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-
-
-
   `a` int(11) unsigned DEFAULT NULL,
-
-
-
   PRIMARY KEY (`id`),
-
-
-
   UNIQUE KEY `a` (`a`)
-
-
-
 )
 ```
-
-
-
-
 
 表的结构很简单，一个主键id，另一个唯一索引a。表里的数据如下：
 
 ```html
 mysql> select * from test;
-
-
-
 +----+------+
-
-
-
 | id | a    |
-
-
-
 +----+------+
-
-
-
 |  1 |    1 |
-
-
-
 |  2 |    2 |
-
-
-
 |  4 |    4 |
-
-
-
 +----+------+
-
-
-
 3 rows in set (0.00 sec)
 ```
-
-
-
-
 
 出现死锁的操作如下：
 
@@ -2185,206 +2236,63 @@ mysql> select * from test;
 然后我们可以通过 SHOW ENGINE INNODB STATUS; 来查看死锁日志：
 
 ```html
+SHOW ENGINE INNODB STATUS;
 ------------------------
-
-
-
 LATEST DETECTED DEADLOCK
-
-
-
 ------------------------
-
-
-
 170219 13:31:31
-
-
-
 *** (1) TRANSACTION:
-
-
-
 TRANSACTION 2A8BD, ACTIVE 11 sec starting index read
-
-
-
 mysql tables in use 1, locked 1
-
-
-
 LOCK WAIT 2 lock struct(s), heap size 376, 1 row lock(s)
-
-
-
 MySQL thread id 448218, OS thread handle 0x2abe5fb5d700, query id 18923238 renjun.fangcloud.net 121.41.41.92 root updating
-
-
-
 delete from test where a = 2
-
-
-
 *** (1) WAITING FOR THIS LOCK TO BE GRANTED:
-
-
-
 RECORD LOCKS space id 0 page no 923 n bits 80 index `a` of table `oauthdemo`.`test` trx id 2A8BD lock_mode X waiting
-
-
-
 Record lock, heap no 3 PHYSICAL RECORD: n_fields 2; compact format; info bits 32
-
-
-
  0: len 4; hex 00000002; asc     ;;
-
-
-
  1: len 4; hex 00000002; asc     ;;
-
-
-
- 
-
-
-
 *** (2) TRANSACTION:
-
-
-
 TRANSACTION 2A8BC, ACTIVE 18 sec inserting
-
-
-
 mysql tables in use 1, locked 1
-
-
-
 4 lock struct(s), heap size 1248, 3 row lock(s), undo log entries 2
-
-
-
 MySQL thread id 448217, OS thread handle 0x2abe5fd65700, query id 18923239 renjun.fangcloud.net 121.41.41.92 root update
-
-
-
 insert into test (id,a) values (10,2)
-
-
-
 *** (2) HOLDS THE LOCK(S):
-
-
-
 RECORD LOCKS space id 0 page no 923 n bits 80 index `a` of table `oauthdemo`.`test` trx id 2A8BC lock_mode X locks rec but not gap
-
-
-
 Record lock, heap no 3 PHYSICAL RECORD: n_fields 2; compact format; info bits 32
-
-
-
  0: len 4; hex 00000002; asc     ;;
-
-
-
  1: len 4; hex 00000002; asc     ;;
-
-
-
- 
-
-
-
 *** (2) WAITING FOR THIS LOCK TO BE GRANTED:
-
-
-
 RECORD LOCKS space id 0 page no 923 n bits 80 index `a` of table `oauthdemo`.`test` trx id 2A8BC lock mode S waiting
-
-
-
 Record lock, heap no 3 PHYSICAL RECORD: n_fields 2; compact format; info bits 32
-
-
-
  0: len 4; hex 00000002; asc     ;;
-
-
-
  1: len 4; hex 00000002; asc     ;;
-
-
-
- 
-
-
-
 *** WE ROLL BACK TRANSACTION (1)
 ```
 
 
 
+### 分析
 
-
-## 分析
-
-### 阅读死锁日志
+#### 阅读死锁日志
 
 遇到死锁，第一步就是阅读死锁日志。死锁日志通常分为两部分，上半部分说明了事务1在等待什么锁：
 
 ```html
 170219 13:31:31
-
-
-
 *** (1) TRANSACTION:
-
-
-
 TRANSACTION 2A8BD, ACTIVE 11 sec starting index read
-
-
-
 mysql tables in use 1, locked 1
-
-
-
 LOCK WAIT 2 lock struct(s), heap size 376, 1 row lock(s)
-
-
-
 MySQL thread id 448218, OS thread handle 0x2abe5fb5d700, query id 18923238 renjun.fangcloud.net 121.41.41.92 root updating
-
-
-
 delete from test where a = 2
-
-
-
 *** (1) WAITING FOR THIS LOCK TO BE GRANTED:
-
-
-
 RECORD LOCKS space id 0 page no 923 n bits 80 index `a` of table `oauthdemo`.`test` trx id 2A8BD lock_mode X waiting
-
-
-
 Record lock, heap no 3 PHYSICAL RECORD: n_fields 2; compact format; info bits 32
-
-
-
  0: len 4; hex 00000002; asc     ;;
-
-
-
  1: len 4; hex 00000002; asc     ;;
 ```
-
-
-
-
 
 从日志里我们可以看到事务1当前正在执行 delete from test where a = 2 ，该条语句正在申请索引a的X锁，所以提示 lock_mode X waiting 。
 
@@ -2392,75 +2300,22 @@ Record lock, heap no 3 PHYSICAL RECORD: n_fields 2; compact format; info bits 32
 
 ```html
 *** (2) TRANSACTION:
-
-
-
 TRANSACTION 2A8BC, ACTIVE 18 sec inserting
-
-
-
 mysql tables in use 1, locked 1
-
-
-
 4 lock struct(s), heap size 1248, 3 row lock(s), undo log entries 2
-
-
-
 MySQL thread id 448217, OS thread handle 0x2abe5fd65700, query id 18923239 renjun.fangcloud.net 121.41.41.92 root update
-
-
-
 insert into test (id,a) values (10,2)
-
-
-
 *** (2) HOLDS THE LOCK(S):
-
-
-
 RECORD LOCKS space id 0 page no 923 n bits 80 index `a` of table `oauthdemo`.`test` trx id 2A8BC lock_mode X locks rec but not gap
-
-
-
 Record lock, heap no 3 PHYSICAL RECORD: n_fields 2; compact format; info bits 32
-
-
-
  0: len 4; hex 00000002; asc     ;;
-
-
-
  1: len 4; hex 00000002; asc     ;;
-
-
-
- 
-
-
-
 *** (2) WAITING FOR THIS LOCK TO BE GRANTED:
-
-
-
 RECORD LOCKS space id 0 page no 923 n bits 80 index `a` of table `oauthdemo`.`test` trx id 2A8BC lock mode S waiting
-
-
-
 Record lock, heap no 3 PHYSICAL RECORD: n_fields 2; compact format; info bits 32
-
-
-
  0: len 4; hex 00000002; asc     ;;
-
-
-
  1: len 4; hex 00000002; asc     ;;
 ```
-
-
-
-
 
 从日志的 HOLDS THE LOCKS(S) 块中我们可以看到事务2持有索引a的X锁，并且是记录锁（Record Lock）。该锁是通过事务2在步骤2执行的delete语句申请的。由于是RR隔离模式下的基于唯一索引的等值查询（Where a = 2），所以会申请一个记录锁，而非next-key锁。
 
@@ -2470,7 +2325,7 @@ Record lock, heap no 3 PHYSICAL RECORD: n_fields 2; compact format; info bits 32
 
 通过阅读死锁日志，我们可以清楚地知道两个事务形成了怎样的循环等待，再加以分析，就可以逆向推断出循环等待的成因，也就是死锁形成的原因。
 
-### 死锁形成流程图
+#### 死锁形成流程图
 
 为了让大家更好地理解死锁形成的原因，我们再通过表格的形式阐述死锁形成的流程：
 
@@ -2482,7 +2337,7 @@ Record lock, heap no 3 PHYSICAL RECORD: n_fields 2; compact format; info bits 32
 | 4    | delete from test where a = 2; 事务1希望申请a=2下的X锁，但是由于事务2已经申请了一把X锁，两把X锁互斥，所以X锁申请进入锁请求队列。 |                                                              |
 | 5    | 出现死锁，事务1权重较小，所以被选择回滚（成为牺牲品）。      | insert into test (id, a) values (10, 2); 由于a字段建立了唯一索引，所以需要申请S锁以便检查duplicate key，由于插入的a的值还是2，所以排在X锁后面。但是前面的X锁的申请只有在事务2commit或者rollback之后才能成功，此时形成了循环等待，死锁产生。 |
 
-## 拓展
+### 拓展
 
 在排查死锁的过程中，有个同事还发现了上述场景会产生另一种死锁，该场景无法通过手工复现，只有高并发场景下才有可能复现。
 
@@ -2497,7 +2352,7 @@ Record lock, heap no 3 PHYSICAL RECORD: n_fields 2; compact format; info bits 32
 | 5    | delete from test where a = 2; 事务1希望申请a=2下的X锁，但是由于事务2已经申请了一把X锁，两把X锁互斥，所以X锁申请进入锁请求队列。 |                                                              |
 | 6    | 出现死锁，事务1权重较小，所以被选择回滚（成为牺牲品）。      | 【insert第2阶段】insert into test (id, a) values (10, 2); 事务2开始插入数据，S锁升级为X锁，类型为insert intention。同理，X锁进入队列排队，形成循环等待，死锁产生。 |
 
-## 总结
+### 总结
 
 排查死锁时，首先需要根据死锁日志分析循环等待的场景，然后根据当前各个事务执行的SQL分析出加锁类型以及顺序，逆向推断出如何形成循环等待，这样就能找到死锁产生的原因了。　
 
@@ -2813,9 +2668,7 @@ select r.*,s.* from r full join s on r.c=s.c
 
 ## mysql中in和exists区别
 
-mysql中的in语句是把外表和内表作hash 连接，而exists语句是对外表作loop
-
-循环，每次loop循环再对内表进行查询。一直大家都认为exists比in语句的效率要高，这种说法其实是不准确的。这个是要区分环境的。
+mysql中的in语句是把外表和内表作hash 连接，而exists语句是对外表作loop循环，每次loop循环再对内表进行查询。一直大家都认为exists比in语句的效率要高，这种说法其实是不准确的。这个是要区分环境的。
 
 1. 如果查询的两个表大小相当，那么用in和exists差别不大。
 
@@ -2831,7 +2684,7 @@ char表示定长字符串，长度是固定的；如果插入数据的长度小�
 
 因为长度固定，所以存取速度要比varchar快很多，甚至能快50%，但正因为其长度固定，所以会占据多余的空间，是空间换时间的做法； 
 
-   对于char来说，   多能存放的字符个数为255，和编码无关 varchar的特点
+   对于char来说，最多能存放的字符个数为255，和编码无关 varchar的特点
 
 varchar表示可变长字符串，长度是可变的；
 
@@ -2839,19 +2692,15 @@ varchar表示可变长字符串，长度是可变的；
 
 varchar在存取方面与char相反，它存取慢，因为长度不固定，但正因如此，不占据多余的空间，是时间换空间的做法；
 
- 对于varchar来说， 多能存放的字符个数为65532 总之，结合性能角度（char更快）和节省磁盘空间角度（varchar更小），具体情况还需具体来设计数据库才是妥当的做法。
+ 对于varchar来说,最多能存放的字符个数为65532 总之，结合性能角度（char更快）和节省磁盘空间角度（varchar更小），具体情况还需具体来设计数据库才是妥当的做法。
 
 ## varchar(50)中50的涵义
 
-多存放50个字符，varchar(50)和(200)存储hello所占空间一样，但后者在排
-
-序时会消耗更多内存，因为order by col采用fixed_length计算col长度
-
-(memory引擎也一样)。在早期 MySQL 版本中， 50 代表字节数，现在代表字符数。
+最多存放50个字符，varchar(50)和(200)存储hello所占空间一样，但后者在排序时会消耗更多内存，因为order by col采用fixed_length计算col长度(memory引擎也一样)。在早期 MySQL 版本中， 50 代表字节数，现在代表字符数。
 
 ## int(20)中20的涵义
 
-是指显示字符的长度。20表示 大显示宽度为20，但仍占4字节存储，存储范围不变；
+是指显示字符的长度。20表示 最大显示宽度为20，但仍占4字节存储，存储范围不变；
 
 不影响内部存储，只是影响带 zerofill 定义的 int 时，前面补多少个 0，易于报表展示
 
@@ -2893,13 +2742,11 @@ DOUBLE类型数据可以存储至多18位十进制数，并在内存中占8字�
 
 如果使用UNION ALL，不会合并重复的记录行 
 
-效率 UNION 高于 UNION ALL
+sql union all的执行效率要比sql union效率要高很多，这是因为，使用sql union需要进行排重，而sql union All 是不需要排重的，这一点非常重要，因为对于一些单纯地使用分表来提高效率的查询，完全可以使用sql union All。
 
 # SQL优化
 
-## 如何定位及优化SQL语句的性能问题？
-
-## 创建的索引有没有被使用到?或者说怎么才可以知道这条语句运行很慢的原因？
+## 如何定位及优化SQL语句的性能问题？创建的索引有没有被使用到?或者说怎么才可以知道这条语句运行很慢的原因？
 
 对于低性能的SQL语句的定位， 重要也是 有效的方法就是使用执行计划， MySQL提供了explain命令来查看语句的执行计划。 我们知道，不管是哪种数据库，或者是哪种数据库引擎，在对一条SQL语句进行执行的过程中都会做很多相关的优化，对于查询语句，最重要的优化方式就是使用索引。 而执行计划，就是显示数据库引擎对于SQL语句的执行的详细情况，其中包含了是否使用索引，使用什么索引，使用的索引的相关信息等。
 
@@ -2927,8 +2774,14 @@ table 查询的数据表，当从衍生表中查数据时会显示 x 表示对�
 
 partitions 表分区、表创建的时候可以指定通过那个列进行表分区。 举个例子：
 
-```
-1	create table tmp (2	id int unsigned not null AUTO_INCREMENT,3	name varchar(255),4	PRIMARY KEY(id))5	engine=innodb partition by key(id) partitions 5;
+```sql
+create table tmp (
+	id int unsigned not null AUTO_INCREMENT,
+	name varchar(255),
+	PRIMARY KEY(id)
+)
+engine=innodb 
+partition by key(id) partitions 5;
 ```
 
 type(非常重要，可以看到有没有走索引) 访问类型
@@ -2955,9 +2808,15 @@ extra 的信息非常丰富，常见的有：
 
 4. Using temporary 使用了临时表 sql优化的目标可以参考阿里开发手册
 
-【推荐】SQL性能优化的目标：至少要达到 range 级别，要求是ref级别，如果可以是
+【推荐】SQL性能优化的目标：至少要达到 range 级别，要求是ref级别，如果可以是consts 好。
 
-consts 好。 说明： 1） consts 单表中  多只有一个匹配行（主键或者唯一索引），在优化阶段即可读取到数据。 2） ref 指的是使用普通的索引（normal index）。 3） range 对索引进行范围检索。 反例：explain表的结果，type=index，索引物理文件全扫描，速度非常慢，这个index级别比较range还低，与全表扫描是小巫见大巫。
+ 说明： 
+
+1） consts 单表中  多只有一个匹配行（主键或者唯一索引），在优化阶段即可读取到数据。 
+
+2） ref 指的是使用普通的索引（normal index）。 
+
+3） range 对索引进行范围检索。 反例：explain表的结果，type=index，索引物理文件全扫描，速度非常慢，这个index级别比较range还低，与全表扫描是小巫见大巫。
 
 ## SQL的生命周期？
 
@@ -2987,9 +2846,7 @@ consts 好。 说明： 1） consts 单表中  多只有一个匹配行（主键
 
 4. 垂直拆分，根据你模块的耦合度，将一个大的系统分为多个小的系统，也就是分布式系统；
 
-5. 水平切分，针对数据量大的表，这一步 麻烦， 能考验技术水平，要选择一个合理的sharding key, 为了有好的查询效率，表结构也要改动，
-
-做一定的冗余，应用也要改，sql中尽量带sharding key，将数据定位到限定的表上去查，而不是扫描全部的表；
+5. 水平切分，针对数据量大的表，这一步 麻烦， 能考验技术水平，要选择一个合理的sharding key, 为了有好的查询效率，表结构也要改动，做一定的冗余，应用也要改，sql中尽量带sharding key，将数据定位到限定的表上去查，而不是扫描全部的表；
 
 ## 超大分页怎么处理？
 
@@ -3002,9 +2859,7 @@ consts 好。 说明： 1） consts 单表中  多只有一个匹配行（主键
 
 在阿里巴巴《Java开发手册》中,对超大分页的解决办法是类似于上面提到的第一种.
 
-【推荐】利用延迟关联或者子查询优化超多分页场景。 说明：MySQL并不是跳过offset
-
-行，而是取offset+N行，然后返回放弃前offset行，返回N行，那当offset特别大的时候，效率就非常的低下，要么控制返回的总页数，要么对超过特定阈值的页数进行SQL改写。 正例：先快速定位需要获取的id段，然后再关联：
+【推荐】利用延迟关联或者子查询优化超多分页场景。 说明：MySQL并不是跳过offset行，而是取offset+N行，然后返回放弃前offset行，返回N行，那当offset特别大的时候，效率就非常的低下，要么控制返回的总页数，要么对超过特定阈值的页数进行SQL改写。 正例：先快速定位需要获取的id段，然后再关联：
 
 ` SELECT a.* FROM 表1 a,(select id from 表1 where 条件 LIMIT 100000,20) b w here a.id=b.id`
 
@@ -3036,15 +2891,11 @@ mysql> SELECT * FROM table LIMIT 95,-1; // 检索记录行 96-last.
 
 开启慢查询日志
 
-配置项：slow_query_log 可以使用show variables like ‘slov_query_log’查看是否开启，如果状态值为
-
-OFF，可以使用set GLOBAL slow_query_log = on来开启，它会在datadir下产生一个xxx-slow.log的文件。
+配置项：slow_query_log 可以使用show variables like ‘slov_query_log’查看是否开启，如果状态值为OFF，可以使用set GLOBAL slow_query_log = on来开启，它会在datadir下产生一个xxx-slow.log的文件。
 
 设置临界时间
 
-配置项：long_query_time 查看：show VARIABLES like 'long_query_time'，单位秒设置：set long_query_time=0.5
-
-实操时应该从长时间设置到短的时间，即将 慢的SQL优化掉
+配置项：long_query_time 查看：show VARIABLES like 'long_query_time'，单位秒设置：set long_query_time=0.5实操时应该从长时间设置到短的时间，即将 慢的SQL优化掉
 
 查看日志，一旦SQL超过了我们设置的临界时间就会被记录到xxx-slow.log中
 
@@ -3058,7 +2909,7 @@ OFF，可以使用set GLOBAL slow_query_log = on来开启，它会在datadir下�
 
  分析语句的执行计划，然后获得其使用索引的情况，之后修改语句或者修改索引，使得语句可以尽可能的命中索引。
 
-​          如果对语句的优化已经无法进行，可以考虑表中的数据量是否太大，如果是的话可以进行横向或者纵向的分表。
+如果对语句的优化已经无法进行，可以考虑表中的数据量是否太大，如果是的话可以进行横向或者纵向的分表。
 
 ## 为什么要尽量设定一个主键？
 
@@ -3086,9 +2937,9 @@ null值会占用更多的字节，且会在程序中造成很多与预期不符�
 
 访问数据太多导致查询性能下降确定应用程序是否在检索大量超过需要的数据，可能是太多行或列确认MySQL服务器是否在分析大量不必要的数据行避免犯如下SQL语句错误
 
-查询不需要的数据。解决办法：使用limit解决
+查询不需要的数据。解决办法：使用limit解决多表关联返回全部列。
 
-多表关联返回全部列。解决办法：指定列名
+解决办法：指定列名
 
 总是返回全部列。解决办法：避免使用SELECT * 重复查询相同的数据。解决办法：可以缓存数据，下次直接读取缓存是否在扫描额外的记录。解决办法：
 
@@ -3176,7 +3027,7 @@ SQL语句优化的一些方法？
 
 `1 select id from t where num=10 or num=20 ‐‐ 可以这样查询：select id from t where num=10 union all select id from t where num=20`
 
-​            5.in 和 not in 也要慎用，否则会导致全表扫描，如：
+  5.in 和 not in 也要慎用，否则会导致全表扫描，如：
 
 `1 select id from t where num in(1,2,3) ‐‐ 对于连续的数值，能用 between 就不要用 in 了：select id from t where num between 1 and 3`
 
@@ -3196,18 +3047,19 @@ SQL语句优化的一些方法？
 
  10.不要在 where 子句中的“=”左边进行函数、算术运算或其他表达式运算，否则系统将可能无法正确使用索引。
 
-# Mysql优化系列（1）--Innodb引擎下mysql自身配置优化
+## Innodb引擎下mysql自身配置优化
 
+### 1.简单介绍
 
-
-1.简单介绍
 InnoDB给MySQL提供了具有提交，回滚和崩溃恢复能力的事务安全（ACID兼容）存储引擎。InnoDB锁定在行级并且也在SELECT语句提供一个Oracle风格一致的非锁定读。这些特色增加了多用户部署和性能。没有在InnoDB中扩大锁定的需要，因为在InnoDB中行级锁定适合非常小的空间。InnoDB也支持FOREIGN KEY强制。在SQL查询中，你可以自由地将InnoDB类型的表与其它MySQL的表的类型混合起来，甚至在同一个查询中也可以混合。
 
-2.之所以选用innodb作为存储引擎的考虑
+### 2.之所以选用innodb作为存储引擎的考虑
+
 目前来说，InnoDB是为Mysql处理巨大数据量时的最大性能设计。它的CPU效率可能是任何其它基于磁盘的关系数据库引擎所不能匹敌的。在数据量大的网站或是应用中Innodb是倍受青睐的。
 另一方面，在数据库的复制操作中Innodb也是能保证master和slave数据一致有一定的作用。
 
-3.下面是对线上mysql5.6版本的数据库的配置进行的优化分析记录：
+### 3.下面是对线上mysql5.6版本的数据库的配置进行的优化分析记录：
+
 1）内存利用方面：
 innodb_buffer_pool_size
 这个是Innodb最重要的参数，和MyISAM的key_buffer_size有相似之处，但也是有差别的。
@@ -4278,7 +4130,7 @@ innodb_print_all_deadlocks = 1
 
 系统的吞吐量瓶颈往往出现在数据库的访问速度上随着应用程序的运行，数据库的中的数据会越来越多，处理时间会相应变慢数据是存放在磁盘上的，读写速度无法和内存相比优化原则：减少系统瓶颈，减少资源占用，增加系统的反应速度。
 
-# 数据库结构优化
+## 数据库结构优化
 
 一个好的数据库设计方案对于数据库的性能往往会起到事半功倍的效果。
 
@@ -6072,7 +5924,7 @@ xtrabackup 属于物理备份，直接拷贝表空间文件，同时不断扫描
 
 如下图：
 
-![2017031315163835](E:\msb金三银四 面试突击班\面试突击一班资料\3月面试突击班\700道面试题\700道面试题\02-BAT面试题汇总及详解(进大厂必看)\BAT面试题汇总及详解(进大厂必看)_子文档\Mysql主从同步的实现原理.assets\2017031315163835.png)
+![2017031315163835](images\2017031315163835.png)
 
 不管是delete、update、insert，还是创建函数、存储过程，所有的操作都在master上。当master有操作的时候,slave会快速的接收到这些操作，从而做同步。
 
@@ -6119,7 +5971,7 @@ xtrabackup 属于物理备份，直接拷贝表空间文件，同时不断扫描
 
 如图，在master机器上查看binlog dump线程。
 
-![2017031315163936](E:\msb金三银四 面试突击班\面试突击一班资料\3月面试突击班\700道面试题\700道面试题\02-BAT面试题汇总及详解(进大厂必看)\BAT面试题汇总及详解(进大厂必看)_子文档\Mysql主从同步的实现原理.assets\2017031315163936.png)
+![2017031315163936](images\2017031315163936.png)
 
 如图，在slave机器上查看I/O、SQL线程。
 
@@ -6127,7 +5979,7 @@ xtrabackup 属于物理备份，直接拷贝表空间文件，同时不断扫描
 
 **4、讲了这么多，一图以蔽之**
 
-![2017031315164038](Mysql主从同步的实现原理.assets/2017031315164038.png)
+![2017031315164038](images/2017031315164038.png)
 
 ## 数据表损坏的修复方式有哪些？
 
@@ -6575,7 +6427,7 @@ INSERT into user VALUES (1,'1',20),(5,'5',20),(15,'15',30),(20,'20',30);
 
 ​    有如图所示的表，现在希望查询的结果将行转成列
 
-![20160901211351701](E:\msb金三银四 面试突击班\面试突击一班资料\3月面试突击班\700道面试题\700道面试题\02-BAT面试题汇总及详解(进大厂必看)\BAT面试题汇总及详解(进大厂必看)_子文档\mysql行转列、列转行.assets\20160901211351701.png)
+![20160901211351701](images\20160901211351701.png)
 
 ​    建表语句如下：
 
@@ -6614,13 +6466,13 @@ GROUP BY USER_NAME;123456
 
 ​    结果展示：
 
-![20160901211414524](E:\msb金三银四 面试突击班\面试突击一班资料\3月面试突击班\700道面试题\700道面试题\02-BAT面试题汇总及详解(进大厂必看)\BAT面试题汇总及详解(进大厂必看)_子文档\mysql行转列、列转行.assets\20160901211414524.png)
+![20160901211414524](images\20160901211414524.png)
 
 ## 列转行
 
 ​    有如图所示的表，现在希望查询的结果将列成行
 
-![20160901211431540](E:\msb金三银四 面试突击班\面试突击一班资料\3月面试突击班\700道面试题\700道面试题\02-BAT面试题汇总及详解(进大厂必看)\BAT面试题汇总及详解(进大厂必看)_子文档\mysql行转列、列转行.assets\20160901211431540.png)
+![20160901211431540](images\20160901211431540.png)
 
 ​    建表语句如下：
 
@@ -6650,7 +6502,7 @@ order by user_name,COURSE;1234
 
 ​    结果展示：
 
-![20160901211440967](mysql行转列、列转行.assets/20160901211440967.png)
+![20160901211440967](images/20160901211440967.png)
 
 
 
@@ -6777,7 +6629,7 @@ PROPAGATION_NESTED：如果当前事务存在，则在嵌套事务中执行，�
 
  XA 规范主要 定义了 ( 全局 ) 事务管理器 ( Transaction Manager ) 和 ( 局部 ) 资源管理器 ( Resource Manager ) 之间的接口。 XA 接口是双向的系统接口，在事务管理器（Transaction Manager）以及一个或多个资源管理器（Resource Manager）之间形成通信桥梁。 XA 之所以需要引入事务管理器是因为，在分布式系统中，从理论上讲（参考Fischer等的论文），两台机器理论上无 法达到一致的状态，需要引入一个单点进行协调。 事务管理器控制着全局事务，管理事务生命周期，并协调资源。资源管理器负责控制和管理实际资源（如数据库或 JMS队列）。下图说明了事务管理器、资源管理器，与应用程序之间的关系：
 
-![913887-20160328134152238-1470949969](E:/msb金三银四 面试突击班/面试突击一班资料/3月面试突击班/700道面试题/700道面试题/02-BAT面试题汇总及详解(进大厂必看)/BAT面试题汇总及详解(进大厂必看)_子文档/浅谈，分布式事务与解决方案.assets/913887-20160328134152238-1470949969.png)
+![913887-20160328134152238-1470949969](images/913887-20160328134152238-1470949969.png)
 
 在 JavaEE 平台下，WebLogic、Webshare 等主流商用的应用服务器提供了 JTA 的实现和支持。而在 Tomcat 下是没有实现的（Tomcat 不能算是 JavaEE 应用服务器，比较轻量），这就需要借助第三方的框架 Jotm、Automikos 等来实现，两者均支持 Spring 事务整合。
 
@@ -6789,11 +6641,11 @@ PROPAGATION_NESTED：如果当前事务存在，则在嵌套事务中执行，�
 
  在一个分布式事务中，必须有一个场地的Server作为协调者(coordinator)，它能向 其它场地的Server发出请求，并对它们的回答作出响应，由它来控制一个分布式事务的提交或撤消。该分布式事务中涉及到的其它场地的Server称为参 与者（Participant）。
 
-![250417-20171016132145537-970496141](E:/msb金三银四 面试突击班/面试突击一班资料/3月面试突击班/700道面试题/700道面试题/02-BAT面试题汇总及详解(进大厂必看)/BAT面试题汇总及详解(进大厂必看)_子文档/浅谈，分布式事务与解决方案.assets/250417-20171016132145537-970496141.png)
+![250417-20171016132145537-970496141](images/250417-20171016132145537-970496141.png)
 
 
 
-![913887-20160328134232723-1604465391](E:/msb金三银四 面试突击班/面试突击一班资料/3月面试突击班/700道面试题/700道面试题/02-BAT面试题汇总及详解(进大厂必看)/BAT面试题汇总及详解(进大厂必看)_子文档/浅谈，分布式事务与解决方案.assets/913887-20160328134232723-1604465391.png)
+![913887-20160328134232723-1604465391](images/913887-20160328134232723-1604465391.png)
 
 事务两阶段提交的过程如下：　　
 
@@ -6843,7 +6695,7 @@ PROPAGATION_NESTED：如果当前事务存在，则在嵌套事务中执行，�
 
  这种实现方式的思路，其实是源于ebay，后来通过支付宝等公司的布道，在业内广泛使用。其基本的设计思想是将远程分布式事务拆分成一系列的本地事务。如果不考虑性能及设计优雅，借助关系型数据库中的表即可实现。
 
-![250417-20171016141237443-2074834323](E:/msb金三银四 面试突击班/面试突击一班资料/3月面试突击班/700道面试题/700道面试题/02-BAT面试题汇总及详解(进大厂必看)/BAT面试题汇总及详解(进大厂必看)_子文档/浅谈，分布式事务与解决方案.assets/250417-20171016141237443-2074834323.png)
+![250417-20171016141237443-2074834323](images/250417-20171016141237443-2074834323.png)
 
 基本思路就是：
 
@@ -6871,7 +6723,7 @@ PROPAGATION_NESTED：如果当前事务存在，则在嵌套事务中执行，�
 
  这样就保证了消息发送与本地事务同时成功或同时失败，具体原理如下：
 
-![99941-20160805193239215-1686697120](E:/msb金三银四 面试突击班/面试突击一班资料/3月面试突击班/700道面试题/700道面试题/02-BAT面试题汇总及详解(进大厂必看)/BAT面试题汇总及详解(进大厂必看)_子文档/浅谈，分布式事务与解决方案.assets/99941-20160805193239215-1686697120.png)
+![99941-20160805193239215-1686697120](images/99941-20160805193239215-1686697120.png)
 
  1、A系统向消息中间件发送一条预备消息
 
@@ -6907,7 +6759,7 @@ PROPAGATION_NESTED：如果当前事务存在，则在嵌套事务中执行，�
 
  比如我们一次关于购买旅游套餐业务操作涉及到三个操作，他们分别是预定车辆，预定宾馆，预定机票，他们分别属于三个不同的远程接口。可能从我们程序的角度来说他们不属于一个事务，但是从业务角度来说是属于同一个事务的。
 
-![250417-20171016220040115-805407978](E:/msb金三银四 面试突击班/面试突击一班资料/3月面试突击班/700道面试题/700道面试题/02-BAT面试题汇总及详解(进大厂必看)/BAT面试题汇总及详解(进大厂必看)_子文档/浅谈，分布式事务与解决方案.assets/250417-20171016220040115-805407978.png)
+![250417-20171016220040115-805407978](images/250417-20171016220040115-805407978.png)
 
  他们的执行顺序如上图所示，所以当发生失败时，会依次进行取消的补偿操作。
 
@@ -6929,7 +6781,7 @@ PROPAGATION_NESTED：如果当前事务存在，则在嵌套事务中执行，�
 
  在某些特殊的情况下，还会有 "人工补偿" 的，这也是最后一道屏障。
 
-# **总结**
+### **总结**
 
  分布式事务，本质上是对多个数据库的事务进行统一控制，按照控制力度可以分为：不控制、部分控制和完全控制。
 

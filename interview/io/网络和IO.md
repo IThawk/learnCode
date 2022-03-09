@@ -194,8 +194,7 @@ TCP可以保证可靠、有序的传输，这意思是说保证收到的数据�
    但共同点是recv都会立即返回失败。
    没有crash的一端发送数据第一次调用send返回成功，数据会被发送到crash的一端，crash的一端会回应一个RST，再次调用send返回-1， errno被设置为32， Broken pipe。 注意：这会向应用程序发送SIGPIPE信号，你的程序会莫名其妙退出。这是因为程序对SIGPIPE的默认处理就是结束程序。
    这是编写服务器程序是最需要注意的一个问题。最简单的处理方法是忽略该信号 -- signal(SIGPIPE,SIG_IGN);
-   windows下行为是一样的， 不同的是返回的错误是10053 - WSAECONNABORTED， 由于软件错误，造成一个已经建立的连
-   接被取消。
+   windows下行为是一样的， 不同的是返回的错误是10053 - WSAECONNABORTED， 由于软件错误，造成一个已经建立的连接被取消。
 
    共同点第一次send成功，之后就出错。
 
@@ -299,10 +298,6 @@ send函数返回状态及其原因
 
 　　配置IP和主机名时，要记得修改/etc/hosts文件，因为有些应用程序在主机内的进程之间通信的时候，会本机的主机名，如果主机名不能正确解析到一个正常的IP地址，那么就会导致进程通信有问题。
 
- 
-
- 
-
 **二、概念解释** 
 
 DNS（Domain Name System，域名系统）
@@ -339,10 +334,7 @@ A：大的高并发网站可能不止一个IP地址，根据不同的网络他�
 
 # OSI七层协议模型和TCP/IP四层模型比较
 
-
-
 TCP/IP参考模型
-　　
 　　ISO制定的OSI参考模型的过于庞大、复杂招致了许多批评。与此对照，由技术人员自己开发的TCP/IP协议栈获得了更为广泛的应用。如图2-1所示，是TCP/IP参考模型和OSI参考模型的对比示意图。
 ![OSIVSTCP](images\OSIVSTCP.jpg)
 
@@ -355,7 +347,6 @@ TCP/IP参考模型
 图2-2　 TCP/IP参考模型的层次结构
 
 　　在TCP/IP参考模型中，去掉了OSI参考模型中的会话层和表示层（这两层的功能被合并到应用层实现）。同时将OSI参考模型中的数据链路层和物理层合并为主机到网络层。下面，分别介绍各层的主要功能。
-　　
 　　1、主机到网络层　　
 　　实际上TCP/IP参考模型没有真正描述这一层的实现，只是要求能够提供给其上层-网络互连层一个访问接口，以便在其上传递IP分组。由于这一层次未被定义，所以其具体的实现方法将随着网络类型的不同而不同。　　
 　　2、网络互连层　　
@@ -391,8 +382,7 @@ TCP/IP参考模型
 　　●协议字段：占8比特。指明IP层所封装的上层协议类型，如ICMP（1）、IGMP（2） 、TCP（6）、UDP（17）等。　　
 　　●头部校验和字段：占16比特。内容是根据IP头部计算得到的校验和码。计算方法是：对头部中每个16比特进行二进制反码求和。（和ICMP、IGMP、TCP、UDP不同，IP不对头部后的数据进行校验）。　　
 　　●源IP地址、目标IP地址字段：各占32比特。用来标明发送IP数据报文的源主机地址和接收IP报文的目标主机地址。　　
-　　可选项字段：占32比特。用来定义一些任选项：如记录路径、时间戳等。这些选项很少被使用，同时并不是所有主机和路由器都支持这些选项。可选项字段的长度必须是32比特的整数倍，如果不足，必须填充0以达到此长度要求。　
-　
+　　可选项字段：占32比特。用来定义一些任选项：如记录路径、时间戳等。这些选项很少被使用，同时并不是所有主机和路由器都支持这些选项。可选项字段的长度必须是32比特的整数倍，如果不足，必须填充0以达到此长度要求。
 　　2、TCP数据段格式　　
 　　TCP是一种可靠的、面向连接的字节流服务。源主机在传送数据前需要先和目标主机建立连接。然后，在此连接上，被编号的数据段按序收发。同时，要求对每个数据段进行确认，保证了可靠性。如果在指定的时间内没有收到目标主机对所发数据段的确认，源主机将再次发送该数据段。　　
 　　如图2-5所示，是TCP头部结构（RFC 793、1323）。
@@ -424,16 +414,15 @@ TCP/IP参考模型
 
 　　2.3　套接字　　
 　　在每个TCP、UDP数据段中都包含源端口和目标端口字段。有时，我们把一个IP地址和一个端口号合称为一个套接字（Socket），而一个套接字对（Socket pair）可以唯一地确定互连网络中每个TCP连接的双方（客户IP地址、客户端口号、服务器IP地址、服务器端口号）。
-　　
 　　如图2-7所示，是常见的一些协议和它们对应的服务端口号。
 ![Socket](images\Socket.jpg)
 图2-7　 常见协议和对应的端口号
-　　
 　　需要注意的是，不同的应用层协议可能基于不同的传输层协议，如FTP、TELNET、SMTP协议基于可靠的TCP协议。TFTP、SNMP、RIP基于不可靠的UDP协议。　　
 　　同时，有些应用层协议占用了两个不同的端口号，如FTP的20、21端口，SNMP的161、162端口。这些应用层协议在不同的端口提供不同的功能。如FTP的21端口用来侦听用户的连接请求，而20端口用来传送用户的文件数据。再如，SNMP的161端口用于SNMP管理进程获取SNMP代理的数据，而162端口用于SNMP代理主动向SNMP管理进程发送数据。　　
 　　还有一些协议使用了传输层的不同协议提供的服务。如DNS协议同时使用了TCP 53端口和UDP 53端口。DNS协议在UDP的53端口提供域名解析服务，在TCP的53端口提供DNS区域文件传输服务。
 
-　　2.4　TCP连接建立、释放时的握手过程　　
+​	2.4　TCP连接建立、释放时的握手过程　　
+
 　　1、TCP建立连接的三次握手过程　　
 　　TCP会话通过三次握手来初始化。三次握手的目标是使数据段的发送和接收同步。同时也向其他主机表明其一次可接收的数据量（窗口大小），并建立逻辑连接。这三次握手的过程可以简述如下：　　
 　　●源主机发送一个同步标志位（SYN）置1的TCP数据段。此段中同时标明初始序号（Initial Sequence Number，ISN）。ISN是一个随时间变化的随机值。　　
@@ -514,15 +503,11 @@ RARP允许局域网的物理机器从网管服务器ARP表或者缓存上请求�
 
 ### 工作原理
 
-\1. 主机发送一个本地的RARP广播，在此广播包中，声明自己的MAC地址并且请求任何收到此请求的RARP服务器分配一个IP地址。
-
-\2. 本地网段上的RARP服务器收到此请求后，检查其RARP列表，查找该MAC地址对应的IP地址。
-
-\3. 如果存在，RARP服务器就给源主机发送一个响应数据包并将此IP地址提供给对方主机使用。
-
-\4. 如果不存在，RARP服务器对此不做任何的响应。
-
-\5. 源主机收到从RARP服务器的响应信息，就利用得到的IP地址进行通讯；如果一直没有收到RARP服务器的响应信息，表示初始化失败。
+1. 主机发送一个本地的RARP广播，在此广播包中，声明自己的MAC地址并且请求任何收到此请求的RARP服务器分配一个IP地址。
+2. 本地网段上的RARP服务器收到此请求后，检查其RARP列表，查找该MAC地址对应的IP地址。
+3. 如果存在，RARP服务器就给源主机发送一个响应数据包并将此IP地址提供给对方主机使用。
+4. 如果不存在，RARP服务器对此不做任何的响应。
+5. 源主机收到从RARP服务器的响应信息，就利用得到的IP地址进行通讯；如果一直没有收到RARP服务器的响应信息，表示初始化失败。
 
 # HTTP请求报文和HTTP响应报文
 
@@ -705,13 +690,10 @@ POST的安全性要比GET的安全性高。注意：这里所说的安全性和�
 
 # HTTPS协议，SSL协议及完整交互过程
 
-
-
 ## SSL
 
-\1.    安全套接字（Secure Socket Layer，SSL）协议是Web浏览器与Web服务器之间安全交换信息的协议。
-
-\2.  SSL协议的三个特性
+1. 安全套接字（Secure Socket Layer，SSL）协议是Web浏览器与Web服务器之间安全交换信息的协议。
+2. SSL协议的三个特性
 
 Ø 保密：在握手协议中定义了会话密钥后，所有的消息都被加密。
 
@@ -719,7 +701,7 @@ POST的安全性要比GET的安全性高。注意：这里所说的安全性和�
 
 Ø 完整性：传送的消息包括消息完整性检查（使用MAC）。
 
-\3.  SSL的位置
+3. SSL的位置
 
 
 
@@ -760,7 +742,7 @@ POST的安全性要比GET的安全性高。注意：这里所说的安全性和�
 
    Ø 如果证书受信任，浏览器会生成一串随机数的密码，并用证书中提供的公钥加密。
 
-   Ø 使用约定好的HASH***\*计算握手消息\****，
+   Ø 使用约定好的HASH**计算握手消息**，
 
    Ø 使用生成的随机数**对消息进行加密**，最后将之前生成的所有信息发送给网站。
 
@@ -770,9 +752,9 @@ POST的安全性要比GET的安全性高。注意：这里所说的安全性和�
 
    Ø 使用密码**解密**浏览器发来的握手消息，并验证HASH是否与浏览器发来的一致。
 
-   Ø ***\*使用密码加密\****一段握手消息，发送给浏览器
+   Ø **使用密码加密**一段握手消息，发送给浏览器
 
-5. 浏览器解密并计算握手消息的***\*HASH\****，如果与服务端发来的HASH一致，此时握手结束。
+5. 浏览器解密并计算握手消息的**HASH**，如果与服务端发来的HASH一致，此时握手结束。
 
 6. 使用**随机密码**和**对称加密算法**对传输的数据加密，传输。
 
@@ -819,15 +801,15 @@ OSI 的七层协议体系结构的概念清楚，理论也较完整，但它既�
 传输层(transport layer)的主要任务就是负责向两台主机进程之间的通信提供通 用的数据传输服务。应用进程利用该服务传送应用层报文。 运输层主要使用一下两种协议 
 
 1. 传输控制协议-TCP：提供面向连接的，可靠的数据传输服务。 
-2. 用户数据协议-UDP：提供无连接的，尽大努力的数据传输服务（不 保证数据传输的可靠性）。
+2. 用户数据协议-UDP：提供无连接的，尽大努力的数据传输服务（不保证数据传输的可靠性）。
 
 |               | UDP                                             | TCP                                        |
 | ------------- | ----------------------------------------------- | ------------------------------------------ |
 | 是否连接      | 无连接                                          | 面向连接                                   |
-| 是否可靠      | 不可靠传 输，不使 用流量控 制和拥塞 控制        | 可靠传 输，使用 流量控制 和拥塞控 制       |
+| 是否可靠      | 不可靠传输，不使用流量控制和拥塞控制            | 可靠传 输，使用 流量控制 和拥塞控 制       |
 | 连接对象 个数 | 支持一对 一，一对 多，多对 一和多对 多交互通 信 | 只能是一 对一通信                          |
-| 传输方式      | 面向报文                                        | 面向字节 流                                |
-| 首部开销      | 首部开销 小，仅8字 节                           | 首部小 20字节， 大60字 节                  |
+| 传输方式      | 面向报文                                        | 面向字节流                                 |
+| 首部开销      | 首部开销 小，仅8字节                            | 首部小 20字节， 大60字 节                  |
 | 场景          | 适用于实 时应用 （IP电 话、视频会议、直 播等）  | 适用于要 求可靠传 输的应 用，例如 文件传输 |
 
 每一个应用层（TCP/IP参考模型的最高层）协议一般都会使用到两个传输层协 议之一： 
@@ -904,7 +886,7 @@ TCP可以看成是一种字节流，它会处理IP层或以下的层的丢包、
 
 （2）确认序号：ack序号，占32位，只有ACK标志位为1时，确认序号字段才有效，ack=seq+1。 
 
-（3）标志位：共6个，即URG、ACK、PSH、RST、SYN、FIN等，具体含义如 下： 
+（3）标志位：共6个，即URG、ACK、PSH、RST、SYN、FIN等，具体含义如下： 
 
 - ACK：确认序号有效。 
 - FIN：释放一个连接。 
@@ -951,9 +933,7 @@ TCP可以看成是一种字节流，它会处理IP层或以下的层的丢包、
 
 因为需要考虑连接时丢包的问题，如果只握手2次，第二次握手时如果服务端发给客户端的确认报文段丢失，此时服务端已经准备好了收发数(可以理解服务端已经连接成功)据，而客户端一直没收到服务端的确认报文，所以客户端就不知道服务端是否已经准备好了(可以理解为客户端未连接成功)，这种情况下客户端不会给服务端发数据，也会忽略服务端发过来的数据。
 
-如果是三次握手，即便发生丢包也不会有问题，比如如果第三次握手客户端发的确认ack报文丢失，服务端在一段时间内没有收到确认ack报文的话就会重新进
-
-行第二次握手，也就是服务端会重发SYN报文段，客户端收到重发的报文段后会再次给服务端发送确认ack报文。
+如果是三次握手，即便发生丢包也不会有问题，比如如果第三次握手客户端发的确认ack报文丢失，服务端在一段时间内没有收到确认ack报文的话就会重新进行第二次握手，也就是服务端会重发SYN报文段，客户端收到重发的报文段后会再次给服务端发送确认ack报文。
 
 ## 为什么TCP连接的时候是3次，关闭的时候却是4次？
 
@@ -975,7 +955,7 @@ HTTP 是一个在计算机世界里专门在两点之间传输文字、图片、
 | -------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | 协议     | 运行在   TCP 之上，明文传输，客户端与服务器端都无法验证对方的身份 | 身披 SSL(   Secure   Socket   Layer  )外壳的   HTTP，运行于 SSL 上，SSL 运行于   TCP 之  上，  是添加了加密和认证机制的   HTTP。 |
 | 端口     | 80                                                           | 443                                                          |
-| 资源消耗 | 较少                                                         | 由于加解密处理，会消耗更  多的 CPU 和内存资源                |
+| 资源消耗 | 较少                                                         | 由于加解密处理，会消耗更多的 CPU 和内存资源                  |
 | 开销     | 无需证书                                                     | 需要证书，而证书一般需要向认证机构购买                       |
 | 加密机制 | 无                                                           | 共享密钥加密和公开密钥加密并用的混合加密机制                 |
 | 安全性   | 弱                                                           | 由于加密机制，安全性强                                       |
@@ -1002,7 +982,7 @@ HTTP状态码表示客户端HTTP请求的返回结果、标识服务器处理是
 | 204  | No   content，表示请求成功，但响应报文不含实体的主体部分     |
 | 206  | Partial   Content  ，进行范围请求成功                        |
 | 3XX  | 重定向  （表明浏览器要执行特殊处理）                         |
-| 301  | moved permanently，永久  性重定向，表示资源已被分配了新的 URL |
+| 301  | moved permanently，永久性重定向，表示资源已被分配了新的 URL  |
 | 302  | found，临时性重定向，表示资源临时被分配了新的   URL          |
 | 303  | see   other，表示资源存在着另一个 URL，  应使用   GET 方法获取资源  （对于  301/302/  303响应，几乎所有浏览器都会删除报文主体并  自动用  GET重新请求） |
 | 304  | not   modified ，表示服务器允许访问资源，但请求未满足条件的情况（与重定向无关） |
@@ -1013,15 +993,13 @@ HTTP状态码表示客户端HTTP请求的返回结果、标识服务器处理是
 | 403  | forbidden  ，表示对请求资源的访问被服务器拒绝，可在实体主体部分返回原因描述 |
 | 404  | not   found，表示在服务器上没有找到请求的资源                |
 | 5XX  | 服务器错误                                                   |
-| 500  | internal   sever   error，表 示服务器端在执行请求时发生了错误 |
+| 500  | internal   sever   error，表示服务器端在执行请求时发生了错误 |
 | 501  | Not   Implemented，表示服务器不支持当前请求所需要的某个功能  |
 | 503  | service unavailable，表明服务器暂时处于超负载或正在停机维护，无法处理请求 |
 
 ## GET和POST区别
 
-说道GET和POST，就不得不提HTTP协议，因为浏览器和服务器的交互是通过
-
-HTTP协议执行的，而GET和POST也是HTTP协议中的两种方法。
+说道GET和POST，就不得不提HTTP协议，因为浏览器和服务器的交互是通过HTTP协议执行的，而GET和POST也是HTTP协议中的两种方法。
 
 HTTP全称为Hyper Text Transfer Protocol，中文翻译为超文本传输协议，目的是保证浏览器与服务器之间的通信。HTTP的工作方式是客户端与服务器之间的请求-应答协议。
 
@@ -1034,15 +1012,12 @@ HTTP协议中定义了浏览器和服务器进行交互的不同方法，基本�
 
 GET和POST区别
 
-\1. Get是不安全的，因为在传输过程，数据被放在请求的URL中；Post的所有操作对用户来说都是不可见的。 但是这种做法也不时绝对的，大部分人的做法也是按照上面的说法来的，但是也可以在get请求加上 request body，给 post请求带上 URL 参数。
-
-\2. Get请求提交的url中的数据 多只能是2048字节，这个限制是浏览器或者服务器给添加的，http协议并没有对url长度进行限制，目的是为了保证服务器和浏览器能够正常运行，防止有人恶意发送请求。Post请求则没有大小限制。
-
-\3. Get限制Form表单的数据集的值必须为ASCII字符；而Post支持整个ISO10646字符集。
-
-\4. Get执行效率却比Post方法好。Get是form提交的默认方法。
-
-\5. GET产生一个TCP数据包；POST产生两个TCP数据包。对于GET方式的请求，浏览器会把http header和data一并发送出去，服务器响应200（返回数据）；而对于POST，浏览器先发送header，服务器响应100 continue，浏览器再发送data，服务器响应200 ok（返回数据）。
+1. Get是不安全的，因为在传输过程，数据被放在请求的URL中；Post的所有操作对用户来说都是不可见的。 但是这种做法也不时绝对的，大部分人的做法也是按照上面的说法来的，但是也可以在get请求加上 request body，给 post请求带上 URL 参数。
+2. Get请求提交的url中的数据 多只能是2048字节，这个限制是浏览器或者服务器给添加的，http协议并没有对url长度进行限制，目的是为了保证服务器和浏览器能够正常运行，防止有人恶意发送请求。Post请求则没有大小限制。
+3. Get限制Form表单的数据集的值必须为ASCII字符；而Post支持整个ISO10646字符集。
+4. Get执行效率却比Post方法好。Get是form提交的默认方法。
+5. 
+6. GET产生一个TCP数据包；POST产生两个TCP数据包。对于GET方式的请求，浏览器会把http header和data一并发送出去，服务器响应200（返回数据）；而对于POST，浏览器先发送header，服务器响应100 continue，浏览器再发送data，服务器响应200 ok（返回数据）。
 
 ## 什么是对称加密与非对称加密
 
@@ -1162,7 +1137,7 @@ Java的IO流是实现输入/输出的基础，它可以方便地实现数据的�
 #### 2.字节流和字符流
 
 字节流和字符流和用法几乎完全一样，区别在于字节流和字符流所操作的数据单元不同。
- 字符流的由来： 因为数据编码的不同，而有了对字符进行高效操作的流对象。本质其实就是基于字节流读取时，去查了指定的码表。字节流和字符流的区别：
+字符流的由来： 因为数据编码的不同，而有了对字符进行高效操作的流对象。本质其实就是基于字节流读取时，去查了指定的码表。字节流和字符流的区别：
  （1）读写单位不同：字节流以字节（8bit）为单位，字符流以字符为单位，根据码表映射字符，一次可能读多个字节。
  （2）处理对象不同：字节流能处理所有类型的数据（如图片、avi等），而字符流只能处理字符类型的数据。
 
@@ -2005,10 +1980,6 @@ AIO是一种接口标准，各家操作系统可以实现也可以不实现。�
 
    epoll跟select都能提供多路I/O复用的解决方案。在现在的[Linux](https://so.csdn.net/so/search?from=pc_blog_highlight&q=Linux)内核里有都能够支持，其中epoll是Linux所特有，而select则应该是POSIX所规定，一般操作系统均有实现.
 
-   
-
-   
-
    epoll既然是对select和poll的改进，就应该能避免上述缺点。那epoll都是怎么解决的呢？在此之前，我们先看一下epoll和select和poll的调用接口上的不同，select和poll都只提供了一个函数——select或者poll函数。而epoll提供了三个函数，epoll_create,epoll_ctl和epoll_wait，
 
    epoll_create是创建一个epoll句柄；
@@ -2173,7 +2144,7 @@ transferTo( )和 transferFrom( )方法允许将一个通道交叉连接到另一
 下面看下该方法的定义：
 
 ```
-public abstract long transferTo(long position, long count,                                    WritableByteChannel target)        throws IOException;
+public abstract long transferTo(long position, long count,                                  WritableByteChannel target)        throws IOException;
 ```
 
 下图展示了通过transferTo实现数据传输的路径：
@@ -2231,7 +2202,7 @@ Netty是 一个异步事件驱动的网络应用程序框架，用于快速开�
 ## 2. Netty 特点是什么？ 
 
 - 高并发：Netty 是一款基于 NIO（Nonblocking IO，非阻塞IO）开发的网络通 信框架，对比于 BIO（Blocking I/O，阻塞IO），他的并发性能得到了很大提高。 
-- 传输快：Netty 的传输依赖于零拷贝特性，尽量减少不必要的内存拷贝，实现了 更高效率的传输。 
+- 传输快：Netty 的传输依赖于零拷贝特性，尽量减少不必要的内存拷贝，实现了更高效率的传输。 
 - 封装好：Netty 封装了 NIO 操作的很多细节，提供了易于使用调用接口。 
 
 ## 3. Netty 的优势有哪些？ 
@@ -2240,7 +2211,7 @@ Netty是 一个异步事件驱动的网络应用程序框架，用于快速开�
 - 功能强大：预置了多种编解码功能，支持多种主流协议。 
 - 定制能力强：可以通过 ChannelHandler 对通信框架进行灵活地扩展。 
 - 性能高：通过与其他业界主流的 NIO 框架对比，Netty 的综合性能优。 
-- 稳定：Netty 修复了已经发现的所有 NIO 的 bug，让开发人员可以专注于业务 本身。 
+- 稳定：Netty 修复了已经发现的所有 NIO 的 bug，让开发人员可以专注于业务本身。 
 - 社区活跃：Netty 是活跃的开源项目，版本迭代周期短，bug 修复速度快。 
 
 ## 4. Netty 的应用场景有哪些？ 
@@ -2251,13 +2222,13 @@ Netty是 一个异步事件驱动的网络应用程序框架，用于快速开�
 
 - IO 线程模型：同步非阻塞，用少的资源做更多的事。 
 - 内存零拷贝：尽量减少不必要的内存拷贝，实现了更高效率的传输。 
-- 内存池设计：申请的内存可以重用，主要指直接内存。内部实现是用一颗二叉查 找树管理内存分配情况。 
+- 内存池设计：申请的内存可以重用，主要指直接内存。内部实现是用一颗二叉查找树管理内存分配情况。 
 - 串形化处理读写：避免使用锁带来的性能开销。
 - 高性能序列化协议：支持 protobuf 等高性能序列化协议。 
 
 ## 6. BIO、NIO和AIO的区别？
 
-BIO：一个连接一个线程，客户端有连接请求时服务器端就需要启动一个线程进 行处理。线程开销大。 
+BIO：一个连接一个线程，客户端有连接请求时服务器端就需要启动一个线程进行处理。线程开销大。 
 
 伪异步IO：将请求连接放入线程池，一对多，但线程还是很宝贵的资源。 
 
@@ -2265,11 +2236,11 @@ NIO：一个请求一个线程，但客户端发送的连接请求都会注册�
 
 AIO：一个有效请求一个线程，客户端的I/O请求都是由OS先完成了再通知服务 器应用去启动线程进行处理， 
 
-BIO是面向流的，NIO是面向缓冲区的；BIO的各种流是阻塞的。而NIO是非阻 塞的；BIO的Stream是单向的，而NIO的channel是双向的。 
+BIO是面向流的，NIO是面向缓冲区的；BIO的各种流是阻塞的。而NIO是非阻塞的；BIO的Stream是单向的，而NIO的channel是双向的。 
 
-NIO的特点：事件驱动模型、单线程处理多任务、非阻塞I/O，I/O读写不再阻 塞，而是返回0、基于block的传输比基于流的传输更高效、更高级的IO函数 zero-copy、IO多路复用大大提高了Java网络应用的可伸缩性和实用性。基于 Reactor线程模型。 
+NIO的特点：事件驱动模型、单线程处理多任务、非阻塞I/O，I/O读写不再阻塞，而是返回0、基于block的传输比基于流的传输更高效、更高级的IO函数 zero-copy、IO多路复用大大提高了Java网络应用的可伸缩性和实用性。基于 Reactor线程模型。 
 
-在Reactor模式中，事件分发器等待某个事件或者可应用或个操作的状态发生， 事件分发器就把这个事件传给事先注册的事件处理函数或者回调函数，由后者来 做实际的读写操作。如在Reactor中实现读：注册读就绪事件和相应的事件处理 器、事件分发器等待事件、事件到来，激活分发器，分发器调用事件对应的处理 器、事件处理器完成实际的读操作，处理读到的数据，注册新的事件，然后返还 控制权。 
+在Reactor模式中，事件分发器等待某个事件或者可应用或个操作的状态发生， 事件分发器就把这个事件传给事先注册的事件处理函数或者回调函数，由后者来 做实际的读写操作。如在Reactor中实现读：注册读就绪事件和相应的事件处理 器、事件分发器等待事件、事件到来，激活分发器，分发器调用事件对应的处理器、事件处理器完成实际的读操作，处理读到的数据，注册新的事件，然后返还控制权。 
 
 ## 7. NIO的组成？ 
 
@@ -2283,33 +2254,33 @@ rewind方法 ： 重绕此缓冲区，将position置为0
 
 DirectByteBuffer可减少一次系统空间到用户空间的拷贝。但Buffer创建和销毁 的成本更高，不可控，通常会用内存池来提高性能。直接缓冲区主要分配给那些易受基础系统的本机I/O 操作影响的大型、持久的缓冲区。如果数据量比较小的 中小应用情况下，可以考虑使用heapBuffer，由JVM进行管理。 
 
-Channel：表示 IO 源与目标打开的连接，是双向的，但不能直接访问数据，只 能与Buffer 进行交互。通过源码可知，FileChannel的read方法和write方法都 导致数据复制了两次！ 
+Channel：表示 IO 源与目标打开的连接，是双向的，但不能直接访问数据，只能与Buffer 进行交互。通过源码可知，FileChannel的read方法和write方法都导致数据复制了两次！ 
 
-Selector可使一个单独的线程管理多个Channel，open方法可创建Selector， register方法向多路复用器器注册通道，可以监听的事件类型：读、写、连接、 accept。注册事件后会产生一个SelectionKey：它表示SelectableChannel 和 Selector 之间的注册关系，wakeup方法：使尚未返回的第一个选择操作立即返 回，唤醒的 
+Selector可使一个单独的线程管理多个Channel，open方法可创建Selector， register方法向多路复用器器注册通道，可以监听的事件类型：读、写、连接、 accept。注册事件后会产生一个SelectionKey：它表示SelectableChannel 和 Selector 之间的注册关系，wakeup方法：使尚未返回的第一个选择操作立即返回，唤醒的 
 
 原因是：注册了新的channel或者事件；channel关闭，取消注册；优先级更高 的事件触发（如定时器事件），希望及时处理。 
 
 Selector在Linux的实现类是EPollSelectorImpl，委托给EPollArrayWrapper实 现，其中三个native方法是对epoll的封装，而EPollSelectorImpl.  
 
-implRegister方法，通过调用epoll_ctl向epoll实例中注册事件，还将注册的文 件描述符(fd)与SelectionKey的对应关系添加到fdToKey中，这个map维护了文 件描述符与SelectionKey的映射。 
+implRegister方法，通过调用epoll_ctl向epoll实例中注册事件，还将注册的文件描述符(fd)与SelectionKey的对应关系添加到fdToKey中，这个map维护了文 件描述符与SelectionKey的映射。 
 
-fdToKey有时会变得非常大，因为注册到Selector上的Channel非常多（百万连 接）；过期或失效的Channel没有及时关闭。fdToKey总是串行读取的，而读取 是在select方法中进行的，该方法是非线程安全的。 
+fdToKey有时会变得非常大，因为注册到Selector上的Channel非常多（百万连接）；过期或失效的Channel没有及时关闭。fdToKey总是串行读取的，而读取是在select方法中进行的，该方法是非线程安全的。 
 
-Pipe：两个线程之间的单向数据连接，数据会被写到sink通道，从source通道 读取 
+Pipe：两个线程之间的单向数据连接，数据会被写到sink通道，从source通道读取 
 
 NIO的服务端建立过程：Selector.open()：打开一个Selector； 
 
-ServerSocketChannel.open()：创建服务端的Channel；bind()：绑定到某个 端口上。并配置非阻塞模式；register()：注册Channel和关注的事件到 Selector上；select()轮询拿到已经就绪的事件 
+ServerSocketChannel.open()：创建服务端的Channel；bind()：绑定到某个端口上。并配置非阻塞模式；register()：注册Channel和关注的事件到 Selector上；select()轮询拿到已经就绪的事件 
 
 ## 8. Netty的线程模型？ 
 
-Netty通过Reactor模型基于多路复用器接收并处理用户请求，内部实现了两个 线程池，boss线程池和work线程池，其中boss线程池的线程负责处理请求的 accept事件，当接收到accept事件的请求时，把对应的socket封装到一个NioSocketChannel中，并交给work线程池，其中work线程池负责请求的read 和write事件，由对应的Handler处理。 
+Netty通过Reactor模型基于多路复用器接收并处理用户请求，内部实现了两个线程池，boss线程池和work线程池，其中boss线程池的线程负责处理请求的 accept事件，当接收到accept事件的请求时，把对应的socket封装到一个NioSocketChannel中，并交给work线程池，其中work线程池负责请求的read 和write事件，由对应的Handler处理。 
 
-单线程模型：所有I/O操作都由一个线程完成，即多路复用、事件分发和处理都 是在一个Reactor线程上完成的。既要接收客户端的连接请求,向服务端发起连 接，又要发送/读取请求或应答/响应消息。一个NIO 线程同时处理成百上千的 链路，性能上无法支撑，速度慢，若线程进入死循环，整个程序不可用，对于高 负载、大并发的应用场景不合适。 
+单线程模型：所有I/O操作都由一个线程完成，即多路复用、事件分发和处理都 是在一个Reactor线程上完成的。既要接收客户端的连接请求,向服务端发起连接，又要发送/读取请求或应答/响应消息。一个NIO 线程同时处理成百上千的链路，性能上无法支撑，速度慢，若线程进入死循环，整个程序不可用，对于高负载、大并发的应用场景不合适。 
 
-多线程模型：有一个NIO 线程（Acceptor） 只负责监听服务端，接收客户端的 TCP 连接请求；NIO 线程池负责网络IO 的操作，即消息的读取、解码、编码和 发送；1 个NIO 线程可以同时处理N 条链路，但是1 个链路只对应1 个NIO 线 程，这是为了防止发生并发操作问题。但在并发百万客户端连接或需要安全认证 时，一个Acceptor 线程可能会存在性能不足问题。 
+多线程模型：有一个NIO 线程（Acceptor） 只负责监听服务端，接收客户端的 TCP 连接请求；NIO 线程池负责网络IO 的操作，即消息的读取、解码、编码和发送；1 个NIO 线程可以同时处理N 条链路，但是1 个链路只对应1 个NIO 线 程，这是为了防止发生并发操作问题。但在并发百万客户端连接或需要安全认证 时，一个Acceptor 线程可能会存在性能不足问题。 
 
-主从多线程模型：Acceptor 线程用于绑定监听端口，接收客户端连接，将 SocketChannel 从主线程池的Reactor 线程的多路复用器上移除，重新注册到 Sub 线程池的线程上，用于处理I/O 的读写等操作，从而保证mainReactor只负 责接入认证、握手等操作； 
+主从多线程模型：Acceptor 线程用于绑定监听端口，接收客户端连接，将 SocketChannel 从主线程池的Reactor 线程的多路复用器上移除，重新注册到 Sub 线程池的线程上，用于处理I/O 的读写等操作，从而保证mainReactor只负责接入认证、握手等操作； 
 
 ## 9. TCP 粘包/拆包的原因及解决方法？ 
 
@@ -2340,7 +2311,7 @@ Netty 的零拷贝主要包含三个方面：
 
 - Netty 的接收和发送 ByteBuffer 采用 DIRECT BUFFERS，使用堆外直接内存进行 Socket 读写，不需要进行字节缓冲区的二次拷贝。如果使用传统的堆内存 （HEAP BUFFERS）进行 Socket 读写，JVM 会将堆内存 Buffer 拷贝一份到直接内存中，然后才写入 Socket 中。相比于堆外直接内存，消息在发送过程中多了一次缓冲区的内存拷贝。 
 - Netty 提供了组合 Buffer 对象，可以聚合多个 ByteBuffer 对象，用户可以像操作一个 Buffer 那样方便的对组合 Buffer 进行操作，避免了传统通过内存拷贝的方式 将几个小 Buffer 合并成一个大的 Buffer。 
-- Netty 的文件传输采用了 transferTo 方法，它可以直接将文件缓冲区的数据发 送到目标 Channel，避免了传统通过循环 write 方式导致的内存拷贝问题。 
+- Netty 的文件传输采用了 transferTo 方法，它可以直接将文件缓冲区的数据发送到目标 Channel，避免了传统通过循环 write 方式导致的内存拷贝问题。 
 
 ## 11.Netty 中有哪种重要组件？
 
@@ -2375,9 +2346,7 @@ Fastjson，采用一种“假定有序快速匹配”的算法。优点：接口
 
 Thrift，不仅是序列化协议，还是一个RPC框架。优点：序列化后的体积小, 速度快、支持多种语言和丰富的数据类型、对于数据字段的增删具有较强的兼容性、支持二进制压缩编码。缺点：使用者较少、跨防火墙访问时，不安全、不具有可读性，调试代码时相对困难、不能与其他传输层协议共同使用（例如HTTP）、无法支持向持久层直接读写数据，即不适合做数据持久化序列化协议。适用场景：分布式系统的RPC解决方案
 
-Avro，Hadoop的一个子项目，解决了JSON的冗长和没有IDL的问题。优点：支持丰富的数据类型、简单的动态语言结合功能、具有自我描述属性、提高了数据解析速度、快速可压缩的二进制数据形式、可以实现远程过程调用RPC、支持跨编程语言实现。缺点：对于习惯于静态类型语言的用户不直观。适用场景：在
-
-Hadoop中做Hive、Pig和MapReduce的持久化数据格式。
+Avro，Hadoop的一个子项目，解决了JSON的冗长和没有IDL的问题。优点：支持丰富的数据类型、简单的动态语言结合功能、具有自我描述属性、提高了数据解析速度、快速可压缩的二进制数据形式、可以实现远程过程调用RPC、支持跨编程语言实现。缺点：对于习惯于静态类型语言的用户不直观。适用场景：在Hadoop中做Hive、Pig和MapReduce的持久化数据格式。
 
 Protobuf，将数据结构以.proto文件进行描述，通过代码生成工具可以生成对应数据结构的POJO对象和Protobuf相关的方法和属性。优点：序列化后码流小，性能高、结构化数据存储格式（XML JSON等）、通过标识字段的顺序，可以实现协议的前向兼容、结构化的文档更容易管理和维护。缺点：需要依赖于工具生成代码、支持的语言相对较少，官方只支持Java 、C++ 、python。适用场景：对性能要求高的RPC调用、具有良好的跨防火墙的访问属性、适合应用层对象的持久化
 
@@ -2411,9 +2380,7 @@ kryo 基于protobuf协议，只支持java语言,需要注册（Registration）�
 
 如果序列化之后需要支持不同的传输层协议，或者需要跨防火墙访问的高性能场景，Protobuf可以优先考虑。
 
-protobuf的数据类型有多种：bool、double、float、int32、int64、string、 bytes、enum、message。protobuf的限定符：required: 必须赋值，不能为
-
-空、optional:字段可以赋值，也可以不赋值、repeated: 该字段可以重复任意次数（包括0次）、枚举；只能用指定的常量集中的一个值作为其值；
+protobuf的数据类型有多种：bool、double、float、int32、int64、string、 bytes、enum、message。protobuf的限定符：required: 必须赋值，不能为空、optional:字段可以赋值，也可以不赋值、repeated: 该字段可以重复任意次数（包括0次）、枚举；只能用指定的常量集中的一个值作为其值；
 
 protobuf的基本规则：每个消息中必须至少留有一个required类型的字段、包含0个或多个optional类型的字段；repeated表示的字段可以包含0个或多个数据；[1,15]之内的标识号在编码的时候会占用一个字节（常用），[16,2047]之内的标识号则占用2个字节，标识号一定不能重复、使用消息类型，也可以将消息嵌套任意多层，可用嵌套消息类型来代替组。
 
@@ -2444,23 +2411,15 @@ NioEventLoopGroup(其实是MultithreadEventExecutorGroup) 内部维护一个类�
 
 select ( oldWakenUp) 方法解决了 Nio 中的 bug，selectCnt 用来记录 selector.select方法的执行次数和标识是否执行过selector.selectNow()，若触发了epoll的空轮询bug，则会反复执行selector.select(timeoutMillis)，变量 selectCnt 会逐渐变大，当selectCnt 达到阈值（默认512），则执行 rebuildSelector方法，进行selector重建，解决cpu占用100%的bug。
 
-rebuildSelector方法先通过openSelector方法创建一个新的selector。然后将
-
-old selector的selectionKey执行cancel。   后将old selector的channel重新注册到新的selector中。rebuild后，需要重新执行方法selectNow，检查是否有已ready的selectionKey。
+rebuildSelector方法先通过openSelector方法创建一个新的selector。然后将old selector的selectionKey执行cancel。   后将old selector的channel重新注册到新的selector中。rebuild后，需要重新执行方法selectNow，检查是否有已ready的selectionKey。
 
 接下来调用processSelectedKeys 方法（处理I/O任务），当selectedKeys != null时，调用processSelectedKeysOptimized方法，迭代 selectedKeys 获取就绪的 IO 事件的selectkey存放在数组selectedKeys中, 然后为每个事件都调用 processSelectedKey 来处理它，processSelectedKey 中分别处理OP_READ； OP_WRITE；OP_CONNECT事件。
 
-后调用runAllTasks方法（非IO任务），该方法首先会调用
+后调用runAllTasks方法（非IO任务），该方法首先会调用 fetchFromScheduledTaskQueue方法，把scheduledTaskQueue中已经超过延迟执行时间的任务移到taskQueue中等待被执行，然后依次从taskQueue中取任务执行，每执行64个任务，进行耗时检查，如果已执行时间超过预先设定的执行时间，则停止执行非IO任务，避免非IO任务太多，影响IO任务的执行。每个NioEventLoop对应一个线程和一个Selector，NioServerSocketChannel 会主动注册到某一个NioEventLoop的Selector上，NioEventLoop负责事件轮询。
 
-fetchFromScheduledTaskQueue方法，把scheduledTaskQueue中已经超过延迟执行时间的任务移到taskQueue中等待被执行，然后依次从taskQueue中取任务执行，每执行64个任务，进行耗时检查，如果已执行时间超过预先设定的执行时间，则停止执行非IO任务，避免非IO任务太多，影响IO任务的执行。每个NioEventLoop对应一个线程和一个Selector，NioServerSocketChannel 会主动注册到某一个NioEventLoop的Selector上，NioEventLoop负责事件轮询。
+Outbound 事件都是请求事件, 发起者是 Channel，处理者是 unsafe，通过 Outbound 事件进行通知，传播方向是 tail到head。Inbound 事件发起者是 unsafe，事件的处理者是 Channel, 是通知事件，传播方向是从头到尾。内存管理机制，首先会预申请一大块内存Arena，Arena由许多Chunk组成，而每个Chunk默认由2048个page组成。Chunk通过AVL树的形式组织Page，每个叶子节点表示一个Page，而中间节点表示内存区域，节点自己记录它在整个 Arena中的偏移地址。当区域被分配出去后，中间节点上的标记位会被标记，这样就表示这个中间节点以下的所有节点都已被分配了。大于8k的内存分配在poolChunkList中，而PoolSubpage用于分配小于8k的内存，它会把一个page 分割成多段，进行内存分配。
 
-Outbound 事件都是请求事件, 发起者是 Channel，处理者是 unsafe，通过 Outbound 事件进行通知，传播方向是 tail到head。Inbound 事件发起者是 unsafe，事件的处理者是 Channel, 是通知事件，传播方向是从头到尾。内存管理机制，首先会预申请一大块内存Arena，Arena由许多Chunk组成，而每个Chunk默认由2048个page组成。Chunk通过AVL树的形式组织Page，每个叶子节点表示一个Page，而中间节点表示内存区域，节点自己记录它在整个 Arena中的偏移地址。当区域被分配出去后，中间节点上的标记位会被标记，这样就表示这个中间节点以下的所有节点都已被分配了。大于8k的内存分配在
-
-poolChunkList中，而PoolSubpage用于分配小于8k的内存，它会把一个page 分割成多段，进行内存分配。
-
-ByteBuf的特点：支持自动扩容（4M），保证put方法不会抛出异常、通过内置的复合缓冲类型，实现零拷贝（zero-copy）；不需要调用flip()来切换读/写模
-
-式，读取和写入索引分开；方法链；引用计数基于AtomicIntegerFieldUpdater 用于内存回收；PooledByteBuf采用二叉树来实现一个内存池，集中管理内存的分配和释放，不用每次使用都新建一个缓冲区对象。UnpooledHeapByteBuf每次都会新建一个缓冲区对象。
+ByteBuf的特点：支持自动扩容（4M），保证put方法不会抛出异常、通过内置的复合缓冲类型，实现零拷贝（zero-copy）；不需要调用flip()来切换读/写模式，读取和写入索引分开；方法链；引用计数基于AtomicIntegerFieldUpdater 用于内存回收；PooledByteBuf采用二叉树来实现一个内存池，集中管理内存的分配和释放，不用每次使用都新建一个缓冲区对象。UnpooledHeapByteBuf每次都会新建一个缓冲区对象。
 
 # Netty简介
 
@@ -2473,16 +2432,15 @@ JDK原生也有一套网络应用程序API，但是存在一系列问题，主�
 - NIO的类库和API繁杂，使用麻烦，你需要熟练掌握Selector、ServerSocketChannel、SocketChannel、ByteBuffer等
 - 需要具备其它的额外技能做铺垫，例如熟悉Java多线程编程，因为NIO编程涉及到Reactor模式，你必须对多线程和网路编程非常熟悉，才能编写出高质量的NIO程序
 - 可靠性能力补齐，开发工作量和难度都非常大。例如客户端面临断连重连、网络闪断、半包读写、失败缓存、网络拥塞和异常码流的处理等等，NIO编程的特点是功能开发相对容易，但是可靠性能力补齐工作量和难度都非常大
-- JDK NIO的BUG，例如臭名昭著的epoll bug，它会导致Selector空轮询，  终导致CPU 100%。官方声称在JDK1.6版本的update18修复了该问题，但是直到
-- JDK1.7版本该问题仍旧存在，只不过该bug发生概率降低了一些而已，它并没有被根本解决
+- JDK NIO的BUG，例如臭名昭著的epoll bug，它会导致Selector空轮询，  终导致CPU 100%。官方声称在JDK1.6版本的update18修复了该问题，但是直到JDK1.7版本该问题仍旧存在，只不过该bug发生概率降低了一些而已，它并没有被根本解决
 
 ## Netty的特点
 
 - Netty的对JDK自带的NIO的API进行封装，解决上述问题，主要特点有：
 - 设计优雅 适用于各种传输类型的统一API - 阻塞和非阻塞Socket 基于灵活且可扩展的事件模型，可以清晰地分离关注点 高度可定制的线程模型 - 单线程，一个或多个线程池 真正的无连接数据报套接字支持（自3.1起）
-- 使用方便 详细记录的Javadoc，用户指南和示例 没有其他依赖项，JDK 5（Netty 3.x）或6（Netty 4.x）就足够了
+- 使用方便详细记录的Javadoc，用户指南和示例 没有其他依赖项，JDK 5（Netty 3.x）或6（Netty 4.x）就足够了
 - 高性能 吞吐量更高，延迟更低 减少资源消耗   小化不必要的内存复制安全 完整的SSL / TLS和StartTLS支持
-- 社区活跃，不断更新 社区活跃，版本迭代周期短，发现的BUG可以被及时修复，同时，更多的新功能会被加入
+- 社区活跃，不断更新社区活跃，版本迭代周期短，发现的BUG可以被及时修复，同时，更多的新功能会被加入
 
 ## Netty常见使用场景
 
@@ -2498,9 +2456,11 @@ Netty作为异步事件驱动的网络，高性能之处主要来自于其I/O模
 
 ## I/O模型
 
-用什么样的通道将数据发送给对方，BIO、NIO或者AIO，I/O模型在很大程度上决定了框架的性能阻塞I/O 传统阻塞型I/O(BIO)可以用下图表示：![IO模型](images\IO模型.jpg)
+用什么样的通道将数据发送给对方，BIO、NIO或者AIO，I/O模型在很大程度上决定了框架的性能阻塞I/O 传统阻塞型I/O(BIO)可以用下图表示：
 
-特点
+![IO模型](images\IO模型.jpg)
+
+特点：
 
  每个请求都需要独立的线程完成数据read，业务处理，数据write的完整操作问题
 
@@ -2512,9 +2472,7 @@ Netty作为异步事件驱动的网络，高性能之处主要来自于其I/O模
 
 ![IO复用模型](images\IO复用模型.jpg)
 
-在I/O复用模型中，会用到select，这个函数也会使进程阻塞，但是和阻塞I/O所不同的的，这两个函数可以同时阻塞多个I/O操作，而且可以同时对多个读操作，多个写操作的I/O函数进行检测，直到有数据可读或可写时，才真正调用
-
-I/O操作函数
+在I/O复用模型中，会用到select，这个函数也会使进程阻塞，但是和阻塞I/O所不同的的，这两个函数可以同时阻塞多个I/O操作，而且可以同时对多个读操作，多个写操作的I/O函数进行检测，直到有数据可读或可写时，才真正调用I/O操作函数
 
 Netty的非阻塞I/O的实现关键是基于I/O复用模型，这里用Selector对象表示：
 
@@ -2528,9 +2486,7 @@ Netty的IO线程NioEventLoop由于聚合了多路复用器Selector，可以同�
 
 传统的I/O是面向字节流或字符流的，以流式的方式顺序地从一个Stream 中读取一个或多个字节, 因此也就不能随意改变读取指针的位置。
 
-在NIO中, 抛弃了传统的 I/O流, 而是引入了Channel和Buffer的概念. 在NIO中, 
-
-只能从Channel中读取数据到Buffer中或将数据 Buffer 中写入到 Channel。
+在NIO中, 抛弃了传统的 I/O流, 而是引入了Channel和Buffer的概念. 在NIO中, 只能从Channel中读取数据到Buffer中或将数据 Buffer 中写入到 Channel。
 
 基于buffer操作不像传统IO的顺序操作, NIO 中可以随意地读取任意位置的数据线程模型
 
@@ -2557,12 +2513,10 @@ Netty的IO线程NioEventLoop由于聚合了多路复用器Selector，可以同�
 - 事件队列（event queue）：接收事件的入口，存储待处理事件
 - 分发器（event mediator）：将不同的事件分发到不同的业务逻辑单元
 - 事件通道（event channel）：分发器与处理器之间的联系渠道
-- 事件处理器（event processor）：实现业务逻辑，处理完成后会发出事件，触发下一步操作
+- 事件处理器（event processor）：实现业务逻辑，处理完成后会发出事件，触发下一步操作可以看出，相对传统轮询模式，事件驱动有如下优点：
 
-可以看出，相对传统轮询模式，事件驱动有如下优点：
-
--  可扩展性好，分布式的异步架构，事件处理器之间高度解耦，可以方便扩展事件处理逻辑
--  高性能，基于队列暂存事件，能方便并行异步处理事件
+  -  可扩展性好，分布式的异步架构，事件处理器之间高度解耦，可以方便扩展事件处理逻辑
+  - 高性能，基于队列暂存事件，能方便并行异步处理事件
 
 ### Reactor线程模型
 
@@ -2585,29 +2539,23 @@ Reactor模型中有2个关键组成：
 
 ### Netty线程模型
 
-Netty主要基于主从Reactors多线程模型（如下图）做了一定的修改，其中主从
+Netty主要基于主从Reactors多线程模型（如下图）做了一定的修改，其中主从Reactor多线程模型有多个Reactor：MainReactor和SubReactor：
 
-Reactor多线程模型有多个Reactor：MainReactor和SubReactor：
+MainReactor负责客户端的连接请求，并将请求转交给SubReactor 
 
-MainReactor负责客户端的连接请求，并将请求转交给SubReactor SubReactor负责相应通道的IO读写请求
-
-非IO请求（具体逻辑处理）的任务则会直接写入队列，等待worker threads进
-
-行处理
+SubReactor负责相应通道的IO读写请求非IO请求（具体逻辑处理）的任务则会直接写入队列，等待worker threads进行处理
 
 这里引用Doug Lee大神的Reactor介绍：Scalable IO in Java里面关于主从 Reactor多线程模型的图
 
 ![Reactor多线程模型](images\Reactor多线程模型.jpg)
 
-特别说明的是： 虽然Netty的线程模型基于主从Reactor多线程，借用了
-
-MainReactor和SubReactor的结构，但是实际实现上，SubReactor和Worker 线程在同一个线程池中：
+特别说明的是： 虽然Netty的线程模型基于主从Reactor多线程，借用了MainReactor和SubReactor的结构，但是实际实现上，SubReactor和Worker 线程在同一个线程池中：
 
 ```
-1	EventLoopGroup bossGroup =newNioEventLoopGroup();
-2	EventLoopGroup workerGroup =newNioEventLoopGroup();
-3	ServerBootstrap server =newServerBootstrap();
-4	server.group(bossGroup, workerGroup).channel(NioServerSocketChannel.class)
+	EventLoopGroup bossGroup =newNioEventLoopGroup();
+	EventLoopGroup workerGroup =newNioEventLoopGroup();
+	ServerBootstrap server =newServerBootstrap();
+	server.group(bossGroup, workerGroup).channel(NioServerSocketChannel.class)
 ```
 
 -  bossGroup线程池则只是在bind某个端口后，获得其中一个线程作为MainReactor，专门处理端口的accept事件，**每个端口对应一个boss线程**   
@@ -2666,7 +2614,7 @@ Bootstrap意思是引导，一个Netty应用通常由一个Bootstrap开始，主
 
 Netty网络通信的组件，能够用于执行网络I/O操作。 Channel为用户提供：
 
-- 当前网络连接的通道的状态（例如是否打开？是否已连接？）
+- 当前网络连接的通道的状态（例如：是否打开？是否已连接？）
 - 网络连接的配置参数 （例如接收缓冲区大小）
 - 提供异步的网络I/O操作(如建立连接，读写，绑定端口)，异步调用意味着任何I / O调用都将立即返回，并且不保证在调用结束时所请求的I / O操作已完成。调用立即返回一个ChannelFuture实例，通过注册监听器到ChannelFuture上，可以I / O操作成功、失败或取消时回调通知调用方。
 - 支持关联I/O操作与对应的处理程序
@@ -2709,19 +2657,11 @@ ChannelHandler本身并没有提供很多方法，因为这个接口有许多的
 - ChannelOutboundHandlerAdapter用于处理出站I / O操作
 - ChannelDuplexHandler用于处理入站和出站事件
 
-ChannelHandlerContext 保存Channel相关的所有上下文信息，同时关联一个ChannelHandler对象 ChannelPipline
-
-保存ChannelHandler的List，用于处理或拦截Channel的入站事件和出站操作。 ChannelPipeline实现了一种高级形式的拦截过滤器模式，使用户可以完全控制事件的处理方式，以及Channel中各个的ChannelHandler如何相互交互。
+ChannelHandlerContext 保存Channel相关的所有上下文信息，同时关联一个ChannelHandler对象 ChannelPipline保存ChannelHandler的List，用于处理或拦截Channel的入站事件和出站操作。 ChannelPipeline实现了一种高级形式的拦截过滤器模式，使用户可以完全控制事件的处理方式，以及Channel中各个的ChannelHandler如何相互交互。
 
 下图引用Netty的Javadoc4.1中ChannelPipline的说明，描述了 ChannelPipeline中ChannelHandler通常如何处理I/O事件。 I/O事件由
 
-ChannelInboundHandler或ChannelOutboundHandler处理，并通过调用
-
-ChannelHandlerContext中定义的事件传播方法（例如
-
-ChannelHandlerContext.fireChannelRead（Object）和
-
-ChannelOutboundInvoker.write（Object））转发到其 近的处理程序。
+ChannelInboundHandler或ChannelOutboundHandler处理，并通过调用ChannelHandlerContext中定义的事件传播方法（例如ChannelHandlerContext.fireChannelRead（Object）和ChannelOutboundInvoker.write（Object））转发到其近的处理程序。
 
 ```
 1   I/O Request
@@ -2892,4 +2832,4 @@ NioEventLoopGroup，NioEventLoopGroup相当于1个事件循环组，这个组
 
 Netty 入门门槛相对较高，其实是因为这方面的资料较少，并不是因为他有多
 
-难，大家其实都可以像搞透 Spring 一样搞透 Netty。在学习之前，建议先理解透整个框架原理结构，运行过程，可以少走很多弯路。
+难，大家其实都可以像搞透 Spring 一样搞透 Netty。在学习之前，建议先理解透整个框架原理结构，运行过程，可以少走很多弯路。8

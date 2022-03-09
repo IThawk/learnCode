@@ -40,7 +40,7 @@ public class TotalHammingDistance {
 
     public static void main(String[] args) {
         Solution solution = new Solution();
-        int[] i ={4,14,4};
+        int[] i = {4, 14, 4};
         solution.totalHammingDistance(i);
     }
 
