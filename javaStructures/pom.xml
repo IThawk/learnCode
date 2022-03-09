@@ -14,7 +14,7 @@
         <module>leecode-learn</module>
         <module>java-structures-learn</module>
 <!--        <module>jdk-structures</module>-->
-<!--        <module>jdk-master</module>-->
+        <module>jdk-master</module>
     </modules>
 
 </project>
