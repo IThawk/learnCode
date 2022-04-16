@@ -1,0 +1,109 @@
+{
+	"info": {
+		"_postman_id": "7056de9c-4c56-4225-8b65-40d4d1cb36ab",
+		"name": "web-flux",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "flux",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8080/flux",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"flux"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "mono",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8080/mono",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"mono"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "array",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8080/array?interests=123,321",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"array"
+					],
+					"query": [
+						{
+							"key": "interests",
+							"value": "123,321"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "list",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8080/list?interests=123,321",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"list"
+					],
+					"query": [
+						{
+							"key": "interests",
+							"value": "123,321"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

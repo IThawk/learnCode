@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>custom</title>
+</head>
+
+<script type="text/javascript">
+    // 创建EventSource对象
+    var es = new EventSource("sse/custom");
+    // 当客户端接收到服务端发送的事件时会触发该方法的执行
+   es.addEventListener("china", function (evt) {
+       console.log("my-log", evt.data);
+
+       if(evt.data == 9) {
+           es.close();
+       }
+   })
+</script>
+
+<body>
+
+</body>
+</html>

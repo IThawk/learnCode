@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>com.ithawk.demo</groupId>
+    <artifactId>spring5</artifactId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+  <artifactId>spring-webflux-demo</artifactId>
+  <packaging>pom</packaging>
+  <modules>
+    <module>00-labmda</module>
+    <module>01-firstwebflux</module>
+    <module>02-primary</module>
+    <module>03-sse</module>
+    <module>04-reactiveStream</module>
+    <module>05-webflux-common</module>
+    <module>06-webflux-router</module>
+    <module>07-webclient</module>
+  </modules>
+  <name>spring-webflux-demo</name>
+
+</project>

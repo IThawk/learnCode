@@ -22,6 +22,7 @@
     <module>spring-framework-custom-18</module>
     <module>spring-custom</module>
     <module>springmvc-custom18</module>
+    <module>spring-webflux-demo</module>
   </modules>
   <name>spring5</name>
 

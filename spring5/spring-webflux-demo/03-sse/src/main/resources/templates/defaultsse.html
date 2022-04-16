@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>default</title>
+</head>
+
+<script type="text/javascript">
+    // 创建EventSource对象
+    var es = new EventSource("sse/default");
+    // 当客户端接收到服务端发送的事件时会触发该方法的执行
+    es.onmessage = function (evt) {
+        console.log("my-msg", evt.data, evt);
+
+        // 停止接收服务端的事件
+        if(evt.data == 9) {
+            es.close();
+        }
+    }
+</script>
+
+<body>
+
+</body>
+</html>
