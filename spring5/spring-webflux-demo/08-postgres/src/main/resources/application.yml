@@ -1,0 +1,5 @@
+spring:
+  r2dbc:
+    url: r2dbc:postgresql://localhost:15432/web-flux
+    username: postgres
+    password: 123456

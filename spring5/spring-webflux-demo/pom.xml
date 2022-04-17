@@ -20,6 +20,7 @@
     <module>05-webflux-common</module>
     <module>06-webflux-router</module>
     <module>07-webclient</module>
+    <module>08-postgres</module>
   </modules>
   <name>spring-webflux-demo</name>
 
