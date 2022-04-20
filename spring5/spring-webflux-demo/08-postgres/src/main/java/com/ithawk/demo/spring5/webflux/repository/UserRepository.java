@@ -18,4 +18,7 @@ public interface UserRepository extends ReactiveCrudRepository<UserData, Long> {
 
     @Query("select * from user_data where id = :id")
     Mono<UserData> findById(long id);
+
+    @Query("select * from user_data where first_name = :firstName")
+    Mono<UserData> findByFirstName(String firstName);
 }
