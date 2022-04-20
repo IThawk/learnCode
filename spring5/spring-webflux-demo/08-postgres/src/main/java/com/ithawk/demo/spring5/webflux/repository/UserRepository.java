@@ -10,9 +10,6 @@ import reactor.core.publisher.Mono;
 
 @Repository
 public interface UserRepository extends ReactiveCrudRepository<UserData, Long> {
-    @Query("select * from user_data where email = :email")
-    Mono<UserData> findByEmail(String email);
-
     @Query("select * from user_data")
     Flux<UserData> getAllUser();
 
