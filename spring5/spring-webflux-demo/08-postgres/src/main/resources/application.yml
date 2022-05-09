@@ -1,5 +1,13 @@
 spring:
   r2dbc:
-    url: r2dbc:postgresql://localhost:15432/web-flux
+    url: r2dbc:postgresql://localhost:15432/web-flux?&profileSQL=true
     username: postgres
     password: 123456
+    properties:
+      hibernate:
+        farmat_sql: true
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        farmat_sql: true

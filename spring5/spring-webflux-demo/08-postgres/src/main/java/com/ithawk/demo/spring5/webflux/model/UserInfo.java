@@ -1,9 +1,10 @@
 package com.ithawk.demo.spring5.webflux.model;
 
-import lombok.Builder;
 import lombok.Data;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.data.relational.core.mapping.Table;
+
+import java.util.List;
 
 /**
  * @author ithawk
@@ -12,14 +13,17 @@ import org.springframework.data.relational.core.mapping.Table;
  * @date 2022/4/1717:10
  */
 @Data
-@Table("user_data")
-@Builder
-public class UserData {
+public class UserInfo {
     private Long id;
-
     @NotBlank(message = "Firstname should not be empty")
     private String firstName;
-
     @NotBlank(message = "Password should not be empty")
     private String password;
+
+    /**
+     * 部门实体
+     */
+    private UserDataEmail dept;
+
+    private List<UserDataEmail> emailList;
 }

@@ -39,5 +39,4 @@ public class SomeController {
             System.out.println("超时了");
         });
     }
-
 }
