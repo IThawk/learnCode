@@ -1,16 +1,15 @@
 package com.ithawk.demo.ejob.springboot.job;
 
-import com.dangdang.ddframe.job.api.ShardingContext;
-import com.dangdang.ddframe.job.api.simple.SimpleJob;
+
+import org.apache.shardingsphere.elasticjob.api.ShardingContext;
+import org.apache.shardingsphere.elasticjob.simple.job.SimpleJob;
 import org.springframework.stereotype.Component;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * @Author: qingshan
- * @Date: 2019/9/7 15:36
- * @Description: 咕泡学院，只为更好的你
+ * @Author: IThawk
  */
 @Component
 public class MySimpleJob implements SimpleJob {

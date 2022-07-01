@@ -1,7 +1,8 @@
 package com.ithawk.demo.ejob.springboot.job;
 
-import com.dangdang.ddframe.job.api.ShardingContext;
-import com.dangdang.ddframe.job.api.dataflow.DataflowJob;
+
+import org.apache.shardingsphere.elasticjob.api.ShardingContext;
+import org.apache.shardingsphere.elasticjob.dataflow.job.DataflowJob;
 import org.springframework.stereotype.Component;
 
 import java.text.SimpleDateFormat;
@@ -11,9 +12,7 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * @Author: qingshan
- * @Date: 2019/10/25 15:29
- * @Description: 咕泡学院，只为更好的你
+ * @Author: IThawk
  */
 @Component
 public class MyDataFlowJob implements DataflowJob<String> {

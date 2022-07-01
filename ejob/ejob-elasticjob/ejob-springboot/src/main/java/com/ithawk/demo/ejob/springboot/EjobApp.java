@@ -1,5 +1,6 @@
 package com.ithawk.demo.ejob.springboot;
 
+import com.ithawk.demo.ejob.springboot.config.EmbedZookeeperServer;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

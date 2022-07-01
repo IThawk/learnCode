@@ -1,22 +1,24 @@
 package com.ithawk.demo.ejob.springboot.config;
 
-import com.dangdang.ddframe.job.reg.zookeeper.ZookeeperConfiguration;
-import com.dangdang.ddframe.job.reg.zookeeper.ZookeeperRegistryCenter;
+import org.apache.shardingsphere.elasticjob.reg.base.RegistryCenter;
+import org.apache.shardingsphere.elasticjob.reg.zookeeper.ZookeeperConfiguration;
+import org.apache.shardingsphere.elasticjob.reg.zookeeper.ZookeeperRegistryCenter;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingClass;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.h2.Driver;
 
 /**
- * @Author: qingshan
- * @Date: 2019/9/7 15:35
- * @Description: 咕泡学院，只为更好的你
+ * @Author: IThawk
  */
 @Configuration
 public class ElasticRegCenterConfig {
     @Bean(initMethod = "init")
+    @ConditionalOnMissingClass("org.apache.shardingsphere.elasticjob.reg.base.RegistryCenter")
     public ZookeeperRegistryCenter regCenter(
-            @Value("${regCenter.serverList}") final String serverList,
-            @Value("${regCenter.namespace}") final String namespace) {
+            @Value("${elasticjob.reg-center.serverLists}") final String serverList,
+            @Value("${elasticjob.reg-center.namespace}") final String namespace) {
         return new ZookeeperRegistryCenter(new ZookeeperConfiguration(serverList, namespace));
     }
 }

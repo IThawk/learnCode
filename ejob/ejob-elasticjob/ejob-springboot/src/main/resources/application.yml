@@ -1,0 +1,22 @@
+server:
+  port: ${random.int[10000,19999]}
+elasticjob:
+  reg-center:
+    serverLists : localhost:12181
+    namespace : ejob-springboot
+
+myJob:
+  cron : 0/3 * * * * ?
+  shardingTotalCount : 4
+  shardingItemParameters : 0=qingshan,1=jack, 2=mic, 3=tom
+  jobParameter : gupao2673
+  dataflow :
+    cron : 0/10 * * * * ?
+    shardingTotalCount : 1
+    shardingItemParameters : 0=hunan
+    jobParameter : penyuyan
+  script :
+    cron : 0/5 * * * * ?
+    shardingTotalCount : 2
+    shardingItemParameters : 0=python,1=java
+    jobParameter : lueluelue

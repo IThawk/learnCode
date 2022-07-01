@@ -1,13 +1,12 @@
 package com.ithawk.demo.ejob.springboot.listener;
 
 import ch.qos.logback.core.util.TimeUtil;
-import com.dangdang.ddframe.job.executor.ShardingContexts;
-import com.dangdang.ddframe.job.lite.api.listener.ElasticJobListener;
+import org.apache.shardingsphere.elasticjob.infra.listener.ElasticJobListener;
+import org.apache.shardingsphere.elasticjob.infra.listener.ShardingContexts;
+
 
 /**
- * @Author: qingshan
- * @Date: 2019/9/7 15:52
- * @Description: 咕泡学院，只为更好的你
+ * @Author: IThawk
  */
 public class MyElasticJobListener implements ElasticJobListener {
 
@@ -23,5 +22,10 @@ public class MyElasticJobListener implements ElasticJobListener {
     public void afterJobExecuted(ShardingContexts shardingContexts) {
         long endTime = System.currentTimeMillis();
         System.out.println("===>{} JOB END TIME: {},TOTAL CAST: {} <===" + shardingContexts.getJobName() + endTime + (endTime - beginTime));
+    }
+
+    @Override
+    public String getType() {
+        return "MyElasticJobListener";
     }
 }

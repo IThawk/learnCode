@@ -1,5 +1,7 @@
 package com.ithawk.demo.quartz.standalone.misfire;
 
+import com.ithawk.demo.quartz.standalone.job.MyJob2;
+import com.ithawk.demo.quartz.standalone.job.MyJob3;
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
 
@@ -8,7 +10,7 @@ import org.quartz.impl.StdSchedulerFactory;
  */
 public class MisfireTest {
 	public static void main(String[] args) throws SchedulerException {
-/*
+
 		// JobDetail1
 		JobDetail jobDetail = JobBuilder.newJob(MyJob2.class).withIdentity("job1", "group1").build();
 
@@ -36,7 +38,7 @@ public class MisfireTest {
 
 		scheduler.scheduleJob(jobDetail, trigger);
 		scheduler.scheduleJob(jobDetail2, trigger2);
-		scheduler.start();*/
+		scheduler.start();
 		
 	}
 
