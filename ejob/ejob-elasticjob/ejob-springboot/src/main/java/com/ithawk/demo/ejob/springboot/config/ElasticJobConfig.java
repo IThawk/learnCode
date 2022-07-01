@@ -21,6 +21,7 @@ import com.ithawk.demo.ejob.springboot.job.MySimpleJob;
 import com.ithawk.demo.ejob.springboot.job.dataflow.JavaDataflowJob;
 import com.ithawk.demo.ejob.springboot.job.simple.JavaOccurErrorJob;
 import com.ithawk.demo.ejob.springboot.job.simple.JavaSimpleJob;
+import com.zaxxer.hikari.HikariDataSource;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.shardingsphere.elasticjob.api.JobConfiguration;
 import org.apache.shardingsphere.elasticjob.dataflow.props.DataflowJobProperties;
@@ -30,15 +31,23 @@ import org.apache.shardingsphere.elasticjob.error.handler.wechat.WechatPropertie
 import org.apache.shardingsphere.elasticjob.http.props.HttpJobProperties;
 import org.apache.shardingsphere.elasticjob.lite.api.bootstrap.impl.OneOffJobBootstrap;
 import org.apache.shardingsphere.elasticjob.lite.api.bootstrap.impl.ScheduleJobBootstrap;
+import org.apache.shardingsphere.elasticjob.lite.spring.boot.tracing.ElasticJobTracingConfiguration;
+import org.apache.shardingsphere.elasticjob.lite.spring.boot.tracing.TracingProperties;
 import org.apache.shardingsphere.elasticjob.reg.base.CoordinatorRegistryCenter;
 import org.apache.shardingsphere.elasticjob.reg.zookeeper.ZookeeperConfiguration;
 import org.apache.shardingsphere.elasticjob.reg.zookeeper.ZookeeperRegistryCenter;
 import org.apache.shardingsphere.elasticjob.script.props.ScriptJobProperties;
 import org.apache.shardingsphere.elasticjob.tracing.api.TracingConfiguration;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingClass;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
 
 import javax.sql.DataSource;
 import java.io.IOException;
@@ -48,8 +57,13 @@ import java.nio.file.Paths;
 import java.nio.file.attribute.PosixFilePermissions;
 
 @Configuration
-public class ElasticJobConfig implements CommandLineRunner {
+@EnableConfigurationProperties(DataSourceProperties.class)
+public class ElasticJobConfig {
 
+
+    @Autowired
+//    @Qualifier("setUpEventTraceDataSource")
+    DataSource dataSource;
     private static final int EMBED_ZOOKEEPER_PORT = 4181;
 
     private static final String ZOOKEEPER_CONNECTION_STRING = "localhost:" + EMBED_ZOOKEEPER_PORT;
@@ -69,37 +83,43 @@ public class ElasticJobConfig implements CommandLineRunner {
     private static final String EVENT_RDB_STORAGE_PASSWORD = "";
 
     // CHECKSTYLE:OFF
-    public static void main(final String[] args) throws IOException {
-        // CHECKSTYLE:ON
-//        EmbedZookeeperServer.start(EMBED_ZOOKEEPER_PORT);
-        CoordinatorRegistryCenter regCenter = setUpRegistryCenter();
-        TracingConfiguration<DataSource> tracingConfig = new TracingConfiguration<>("RDB", setUpEventTraceDataSource());
-        setUpHttpJob(regCenter, tracingConfig);
-        setUpSimpleJob(regCenter, tracingConfig);
-        setUpDataflowJob(regCenter, tracingConfig);
-        setUpScriptJob(regCenter, tracingConfig);
-        setUpOneOffJob(regCenter, tracingConfig);
-//        setUpOneOffJobWithEmail(regCenter, tracingConfig);
-//        setUpOneOffJobWithDingtalk(regCenter, tracingConfig);
-//        setUpOneOffJobWithWechat(regCenter, tracingConfig);
-    }
+//    public static void main(final String[] args) throws IOException {
+//        // CHECKSTYLE:ON
+////        EmbedZookeeperServer.start(EMBED_ZOOKEEPER_PORT);
+//        CoordinatorRegistryCenter regCenter = setUpRegistryCenter();
+//        TracingConfiguration<DataSource> tracingConfig = new TracingConfiguration<>("RDB", setUpEventTraceDataSource());
+//        setUpHttpJob(regCenter, tracingConfig);
+//        setUpSimpleJob(regCenter, tracingConfig);
+//        setUpDataflowJob(regCenter, tracingConfig);
+//        setUpScriptJob(regCenter, tracingConfig);
+//        setUpOneOffJob(regCenter, tracingConfig);
+////        setUpOneOffJobWithEmail(regCenter, tracingConfig);
+////        setUpOneOffJobWithDingtalk(regCenter, tracingConfig);
+////        setUpOneOffJobWithWechat(regCenter, tracingConfig);
+//    }
 
-    private static CoordinatorRegistryCenter setUpRegistryCenter() {
-        ZookeeperConfiguration zkConfig = new ZookeeperConfiguration(ZOOKEEPER_CONNECTION_STRING, JOB_NAMESPACE);
-        CoordinatorRegistryCenter result = new ZookeeperRegistryCenter(zkConfig);
-        result.init();
-        return result;
-    }
+//    private static CoordinatorRegistryCenter setUpRegistryCenter() {
+//        ZookeeperConfiguration zkConfig = new ZookeeperConfiguration(ZOOKEEPER_CONNECTION_STRING, JOB_NAMESPACE);
+//        CoordinatorRegistryCenter result = new ZookeeperRegistryCenter(zkConfig);
+//        result.init();
+//        return result;
+//    }
 
-    @Bean("setUpEventTraceDataSource")
-    public static DataSource setUpEventTraceDataSource() {
-        BasicDataSource result = new BasicDataSource();
-        result.setDriverClassName(EVENT_RDB_STORAGE_DRIVER);
-        result.setUrl(EVENT_RDB_STORAGE_URL);
-        result.setUsername(EVENT_RDB_STORAGE_USERNAME);
-        result.setPassword(EVENT_RDB_STORAGE_PASSWORD);
-        return result;
-    }
+//    @Bean("setUpEventTraceDataSource")
+//    @ConditionalOnMissingClass("org.apache.shardingsphere.elasticjob.lite.spring.boot.tracing.ElasticJobTracingConfiguration")
+//    public static DataSource setUpEventTraceDataSource(DataSourceProperties dataSourceProperties) {
+////        BasicDataSource result = new BasicDataSource();
+////        result.setDriverClassName(EVENT_RDB_STORAGE_DRIVER);
+////        result.setUrl(EVENT_RDB_STORAGE_URL);
+////        result.setUsername(EVENT_RDB_STORAGE_USERNAME);
+////        result.setPassword(EVENT_RDB_STORAGE_PASSWORD);
+////        return result;
+//
+//        HikariDataSource tracingDataSource = new HikariDataSource();
+//        tracingDataSource.setJdbcUrl(dataSourceProperties.getUrl());
+//        BeanUtils.copyProperties(dataSourceProperties, tracingDataSource);
+//        return tracingDataSource;
+//    }
 
     private static void setUpHttpJob(final CoordinatorRegistryCenter regCenter, final TracingConfiguration<DataSource> tracingConfig) {
         new ScheduleJobBootstrap(regCenter, "HTTP", JobConfiguration.newBuilder("javaHttpJob", 3)
@@ -178,17 +198,20 @@ public class ElasticJobConfig implements CommandLineRunner {
         Files.setPosixFilePermissions(result, PosixFilePermissions.fromString("rwxr-xr-x"));
         return result.toString();
     }
-
-    @Override
-    public void run(String... args) throws Exception {
+    @Autowired
+    ZookeeperRegistryCenter zookeeperRegistryCenter;
+    @Bean
+    @DependsOn("tracingDataSource")
+    public void run() {
         // CHECKSTYLE:ON
 
 
-        CoordinatorRegistryCenter regCenter = setUpRegistryCenter();
-        TracingConfiguration<DataSource> tracingConfig = new TracingConfiguration<>("RDB", setUpEventTraceDataSource());
+//        CoordinatorRegistryCenter regCenter = setUpRegistryCenter();
+//        TracingConfiguration<DataSource> tracingConfig = new TracingConfiguration<>("RDB", setUpEventTraceDataSource());
+        TracingConfiguration<DataSource> tracingConfig = new TracingConfiguration<>("RDB", dataSource);
 //        setUpHttpJob(regCenter, tracingConfig);
-        setUpSimpleJob(regCenter, tracingConfig);
-//        setUpDataflowJob(regCenter, tracingConfig);
+        setUpSimpleJob(zookeeperRegistryCenter, tracingConfig);
+        setUpDataflowJob(zookeeperRegistryCenter, tracingConfig);
 //        setUpScriptJob(regCenter, tracingConfig);
 //        setUpOneOffJob(regCenter, tracingConfig);
     }

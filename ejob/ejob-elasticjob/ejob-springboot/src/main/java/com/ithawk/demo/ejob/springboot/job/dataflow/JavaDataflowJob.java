@@ -20,6 +20,7 @@ package com.ithawk.demo.ejob.springboot.job.dataflow;
 import com.ithawk.demo.ejob.springboot.entity.Foo;
 import com.ithawk.demo.ejob.springboot.repository.FooRepository;
 import com.ithawk.demo.ejob.springboot.repository.FooRepositoryFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.shardingsphere.elasticjob.api.ShardingContext;
 import org.apache.shardingsphere.elasticjob.dataflow.job.DataflowJob;
 //import org.apache.shardingsphere.elasticjob.lite.example.fixture.entity.Foo;
@@ -30,13 +31,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+@Slf4j
 public class JavaDataflowJob implements DataflowJob<Foo> {
     
     private final FooRepository fooRepository = FooRepositoryFactory.getFooRepository();
     
     @Override
     public List<Foo> fetchData(final ShardingContext shardingContext) {
-        System.out.printf("Item: %s | Time: %s | Thread: %s | %s%n",
+        log.info("Item: {} | Time: {} | Thread: {} | {}",
                 shardingContext.getShardingItem(), new SimpleDateFormat("HH:mm:ss").format(new Date()), Thread.currentThread().getId(), "DATAFLOW FETCH");
         return fooRepository.findTodoData(shardingContext.getShardingParameter(), 10);
     }

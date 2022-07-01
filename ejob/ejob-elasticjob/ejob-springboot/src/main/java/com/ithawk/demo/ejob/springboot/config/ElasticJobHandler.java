@@ -10,16 +10,18 @@ import org.apache.shardingsphere.elasticjob.simple.job.SimpleJob;
 import org.apache.shardingsphere.elasticjob.tracing.api.TracingConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
 import java.util.Objects;
 
 @Component
+@DependsOn("tracingDataSource")
 public class ElasticJobHandler {
 
     @Autowired
-    @Qualifier("setUpEventTraceDataSource")
+//    @Qualifier("setUpEventTraceDataSource")
     DataSource dataSource;
 
     @Autowired

@@ -1,10 +1,12 @@
 server:
   port: ${random.int[10000,19999]}
+spring:
+  profiles:
+    active: dev
 elasticjob:
   reg-center:
     serverLists : localhost:4181
     namespace : ejob-springboot
-
 myJob:
   cron : 0/3 * * * * ?
   shardingTotalCount : 4
@@ -20,3 +22,5 @@ myJob:
     shardingTotalCount : 2
     shardingItemParameters : 0=python,1=java
     jobParameter : lueluelue
+
+

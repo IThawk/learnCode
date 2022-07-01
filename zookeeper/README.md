@@ -4,4 +4,4 @@
     zookeeper客户端   
 
 # docker 启动
-docker run --privileged=true -d --name zookeeper --publish 2181:2181  -d zookeeper:latest
+docker run --privileged=true -d --name zookeeper --publish 2181:12181  -d zookeeper:latest
