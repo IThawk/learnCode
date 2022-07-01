@@ -71,7 +71,7 @@ public class ElasticJobConfig implements CommandLineRunner {
     // CHECKSTYLE:OFF
     public static void main(final String[] args) throws IOException {
         // CHECKSTYLE:ON
-        EmbedZookeeperServer.start(EMBED_ZOOKEEPER_PORT);
+//        EmbedZookeeperServer.start(EMBED_ZOOKEEPER_PORT);
         CoordinatorRegistryCenter regCenter = setUpRegistryCenter();
         TracingConfiguration<DataSource> tracingConfig = new TracingConfiguration<>("RDB", setUpEventTraceDataSource());
         setUpHttpJob(regCenter, tracingConfig);
@@ -183,7 +183,7 @@ public class ElasticJobConfig implements CommandLineRunner {
     public void run(String... args) throws Exception {
         // CHECKSTYLE:ON
 
-        EmbedZookeeperServer.start(EMBED_ZOOKEEPER_PORT);
+
         CoordinatorRegistryCenter regCenter = setUpRegistryCenter();
         TracingConfiguration<DataSource> tracingConfig = new TracingConfiguration<>("RDB", setUpEventTraceDataSource());
 //        setUpHttpJob(regCenter, tracingConfig);

@@ -17,7 +17,11 @@
 
 package com.ithawk.demo.ejob.springboot.config;
 
+import com.ithawk.demo.ejob.springboot.utils.KillServerUtils;
 import org.apache.curator.test.TestingServer;
+import org.apache.zookeeper.Watcher;
+import org.apache.zookeeper.ZooKeeper;
+import org.apache.zookeeper.client.ZKClientConfig;
 
 import java.io.File;
 import java.io.IOException;
@@ -32,6 +36,14 @@ import java.io.IOException;
 public final class EmbedZookeeperServer {
     
     private static TestingServer testingServer;
+
+    public ZooKeeper newZooKeeper(String connectString, int sessionTimeout, Watcher watcher, boolean canBeReadOnly)
+            throws Exception {
+        ZKClientConfig config = new ZKClientConfig();
+        config.setProperty(ZKClientConfig.ENABLE_CLIENT_SASL_KEY, "false");
+
+        return new ZooKeeper(connectString, sessionTimeout, watcher, canBeReadOnly, config);
+    }
     
     /**
      * Embed ZooKeeper.
@@ -40,6 +52,7 @@ public final class EmbedZookeeperServer {
      */
     public static void start(final int port) {
         try {
+//            KillServerUtils.startKillPort(4181);
             testingServer = new TestingServer(port, new File(String.format("target/test_zk_data/%s/", System.nanoTime())));
         // CHECKSTYLE:OFF
         } catch (final Exception ex) {
