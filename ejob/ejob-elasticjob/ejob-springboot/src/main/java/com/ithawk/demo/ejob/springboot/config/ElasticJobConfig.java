@@ -60,43 +60,22 @@ import java.nio.file.attribute.PosixFilePermissions;
 @EnableConfigurationProperties(DataSourceProperties.class)
 public class ElasticJobConfig {
 
-
     @Autowired
 //    @Qualifier("setUpEventTraceDataSource")
     DataSource dataSource;
     private static final int EMBED_ZOOKEEPER_PORT = 4181;
 
-    private static final String ZOOKEEPER_CONNECTION_STRING = "localhost:" + EMBED_ZOOKEEPER_PORT;
+    @Autowired
+    ZookeeperRegistryCenter zookeeperRegistryCenter;
 
-    private static final String JOB_NAMESPACE = "elasticjob-example-lite-java";
+    @Bean
+    @DependsOn("tracingDataSource")
+    public TracingConfiguration TracingConfiguration(){
+        return new TracingConfiguration<>("RDB", dataSource);
+    }
 
-    // switch to MySQL by yourself
-//    private static final String EVENT_RDB_STORAGE_DRIVER = "com.mysql.cj.jdbc.Driver";
-//    private static final String EVENT_RDB_STORAGE_URL = "jdbc:mysql://localhost:3306/elastic_job_log";
-
-    private static final String EVENT_RDB_STORAGE_DRIVER = "org.h2.Driver";
-
-    private static final String EVENT_RDB_STORAGE_URL = "jdbc:h2:mem:job_event_storage";
-
-    private static final String EVENT_RDB_STORAGE_USERNAME = "sa";
-
-    private static final String EVENT_RDB_STORAGE_PASSWORD = "";
-
-    // CHECKSTYLE:OFF
-//    public static void main(final String[] args) throws IOException {
-//        // CHECKSTYLE:ON
-////        EmbedZookeeperServer.start(EMBED_ZOOKEEPER_PORT);
-//        CoordinatorRegistryCenter regCenter = setUpRegistryCenter();
-//        TracingConfiguration<DataSource> tracingConfig = new TracingConfiguration<>("RDB", setUpEventTraceDataSource());
-//        setUpHttpJob(regCenter, tracingConfig);
-//        setUpSimpleJob(regCenter, tracingConfig);
-//        setUpDataflowJob(regCenter, tracingConfig);
-//        setUpScriptJob(regCenter, tracingConfig);
-//        setUpOneOffJob(regCenter, tracingConfig);
-////        setUpOneOffJobWithEmail(regCenter, tracingConfig);
-////        setUpOneOffJobWithDingtalk(regCenter, tracingConfig);
-////        setUpOneOffJobWithWechat(regCenter, tracingConfig);
-//    }
+    @Autowired
+    TracingConfiguration tracingConfig;
 
 //    private static CoordinatorRegistryCenter setUpRegistryCenter() {
 //        ZookeeperConfiguration zkConfig = new ZookeeperConfiguration(ZOOKEEPER_CONNECTION_STRING, JOB_NAMESPACE);
@@ -198,22 +177,15 @@ public class ElasticJobConfig {
         Files.setPosixFilePermissions(result, PosixFilePermissions.fromString("rwxr-xr-x"));
         return result.toString();
     }
-    @Autowired
-    ZookeeperRegistryCenter zookeeperRegistryCenter;
+
     @Bean
     @DependsOn("tracingDataSource")
-    public void run() {
-        // CHECKSTYLE:ON
-
-
-//        CoordinatorRegistryCenter regCenter = setUpRegistryCenter();
-//        TracingConfiguration<DataSource> tracingConfig = new TracingConfiguration<>("RDB", setUpEventTraceDataSource());
-        TracingConfiguration<DataSource> tracingConfig = new TracingConfiguration<>("RDB", dataSource);
-//        setUpHttpJob(regCenter, tracingConfig);
+    public void run() throws IOException {
+        setUpHttpJob(zookeeperRegistryCenter, tracingConfig);
         setUpSimpleJob(zookeeperRegistryCenter, tracingConfig);
         setUpDataflowJob(zookeeperRegistryCenter, tracingConfig);
-//        setUpScriptJob(regCenter, tracingConfig);
-//        setUpOneOffJob(regCenter, tracingConfig);
+        setUpScriptJob(zookeeperRegistryCenter, tracingConfig);
+        setUpOneOffJob(zookeeperRegistryCenter, tracingConfig);
     }
 
     public void addSimpleJobScheduler(Class<? extends MySimpleJob> aClass, String s, int shardingTotalCount, String s1) {
