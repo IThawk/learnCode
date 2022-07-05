@@ -95,6 +95,29 @@ public class KillServerUtils {
         }
     }
 
+    public static boolean exPort(int port) {
+        Runtime runtime = Runtime.getRuntime();
+        try {
+            String os = System.getProperty("os.name");
+            if (os.toLowerCase().startsWith("win")) {
+                // 查找进程号
+                Process p = runtime.exec(String.format("cmd /c netstat -ano | findstr %d", port));
+                InputStream is = p.getInputStream();
+                List<String> read = read(is, "UTF-8");
+                if (read.size() == 0) {
+                    System.out.printf("找不到 %d 端口号的进程，继续执行...%n", port);
+                    return true;
+                } else {
+                    System.out.printf("找到 %d 个进程，准备清理...%n", read.size());
+                    return false;
+                }
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
     /**
      * 读取输入流的每一行代码
      *
