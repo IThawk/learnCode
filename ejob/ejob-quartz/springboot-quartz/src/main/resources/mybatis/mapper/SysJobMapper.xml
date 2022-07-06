@@ -36,9 +36,9 @@
 		<if test="jobClassPath != null">
 			and job_class_path = #{jobClassPath,jdbcType=VARCHAR}
 		</if>
-		<if test="jobStatus != null">
-			and job_status = #{jobStatus,jdbcType=VARCHAR}
-		</if>
+<!--		<if test="jobStatus != null">-->
+<!--			and job_status = #{jobStatus}-->
+<!--		</if>-->
 		<if test="jobCron != null">
 			and job_cron like concat('%',#{jobCron},'%')
 		</if>

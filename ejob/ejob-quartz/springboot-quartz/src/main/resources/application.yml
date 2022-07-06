@@ -1,0 +1,12 @@
+server:
+  port: 9096
+spring:
+  profiles:
+    active: pg
+propertiesspring:
+  thymeleaf:
+    cache: false
+
+mybatis:
+  typeAliasesPackage: com.ithawk.demo.quartz.springboot.demo.entity
+  mapper-locations: classpath:mybatis/mapper/*.xml

@@ -18,11 +18,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
-/**
- * @Author: qingshan
- * @Date: 2018/9/11 16:31
- * @Description: 咕泡学院，只为更好的你
- */
 public class TestTask3 implements BaseJob {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());

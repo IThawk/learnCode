@@ -1,4 +1,4 @@
-package com.ithawk.demo.quartz.springboot.demo.impl;
+package com.ithawk.demo.quartz.springboot.demo.service.impl;
 
 import com.ithawk.demo.quartz.springboot.demo.entity.SysJob;
 import com.ithawk.demo.quartz.springboot.demo.mapper.SysJobMapper;
