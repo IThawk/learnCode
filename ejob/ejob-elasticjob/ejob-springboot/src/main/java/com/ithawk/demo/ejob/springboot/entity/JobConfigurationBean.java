@@ -1,9 +1,12 @@
 package com.ithawk.demo.ejob.springboot.entity;
 
+import com.ithawk.demo.ejob.springboot.common.JobStatus;
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Data
-public class JobConfigurationBean {
+public class JobConfigurationBean implements Serializable, Comparable<JobConfigurationBean>  {
 
     private String jobName;
 
@@ -26,7 +29,7 @@ public class JobConfigurationBean {
     private int maxTimeDiffSeconds;
 
 
-    private final String description;
+    private  String description;
 
 
     private boolean disabled;
@@ -36,4 +39,16 @@ public class JobConfigurationBean {
     private String label;
 
     private boolean staticSharding;
+    private JobStatus status;
+    private int instanceCount;
+
+    public JobConfigurationBean() {
+
+    }
+
+    @Override
+    public int compareTo(final JobConfigurationBean o) {
+        return getJobName().compareTo(o.getJobName());
+    }
+
 }

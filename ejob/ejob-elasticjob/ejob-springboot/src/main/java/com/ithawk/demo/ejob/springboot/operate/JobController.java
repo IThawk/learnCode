@@ -1,10 +1,13 @@
 package com.ithawk.demo.ejob.springboot.operate;
 
 
+import com.ithawk.demo.ejob.springboot.common.JobStatus;
 import com.ithawk.demo.ejob.springboot.config.ElasticJobConfig;
 import com.ithawk.demo.ejob.springboot.entity.JobConfigurationBean;
 import com.ithawk.demo.ejob.springboot.job.MySimpleJob;
 import org.apache.shardingsphere.elasticjob.api.JobConfiguration;
+import org.apache.shardingsphere.elasticjob.infra.pojo.JobConfigurationPOJO;
+import org.apache.shardingsphere.elasticjob.infra.yaml.YamlEngine;
 import org.apache.shardingsphere.elasticjob.lite.api.bootstrap.impl.ScheduleJobBootstrap;
 import org.apache.shardingsphere.elasticjob.lite.internal.schedule.JobRegistry;
 import org.apache.shardingsphere.elasticjob.lite.internal.storage.JobNodePath;
@@ -14,9 +17,12 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.*;
+
 /**
  * @Author: IThawk
  */
+@RestController
 public class JobController {
 
 
@@ -25,11 +31,28 @@ public class JobController {
 
     @Autowired
     TracingConfiguration tracingConfig;
-    @PostMapping("/addJob")
+
+    @Autowired
+    JobStatisticsAPIImpl jobStatisticsAPI;
+
+
+    @GetMapping("/job/all")
+    public Collection<JobConfigurationBean> allJob() {
+        return jobStatisticsAPI.getAllJobsBriefInfo();
+
+    }
+
+    @GetMapping("/job/{jobName:.+}")
+    public JobConfigurationBean getJob(@PathVariable("jobName") final String jobName) {
+
+        return jobStatisticsAPI.getJobBriefInfo(jobName);
+    }
+
+    @PostMapping("/job")
     public String addJob(@RequestBody JobConfigurationBean jobConfiguration) {
 
 
-        JobConfiguration addJobConfiguration = JobConfiguration.newBuilder(jobConfiguration.getJobName(),jobConfiguration.getShardingTotalCount())
+        JobConfiguration addJobConfiguration = JobConfiguration.newBuilder(jobConfiguration.getJobName(), jobConfiguration.getShardingTotalCount())
                 .jobParameter(jobConfiguration.getJobParameter())
                 .shardingItemParameters(jobConfiguration.getShardingItemParameters())
                 .failover(jobConfiguration.isFailover())
@@ -38,52 +61,14 @@ public class JobController {
                 .addExtraConfigurations(tracingConfig)
                 .build();
 
-        new ScheduleJobBootstrap(zookeeperRegistryCenter,new MySimpleJob(), addJobConfiguration).schedule();
+        new ScheduleJobBootstrap(zookeeperRegistryCenter, new MySimpleJob(), addJobConfiguration).schedule();
         return "OK";
     }
 
-    @DeleteMapping("/{jobName:.+}")
+    @DeleteMapping("/job/{jobName:.+}")
     public String deleteJob(@PathVariable("jobName") final String jobName) {
-        disableOrEnableJobs(jobName,false);
-        // 去除定时任务
-        JobRegistry.getInstance().getJobScheduleController(jobName).shutdown();
-
-        zookeeperRegistryCenter.remove("/"+jobName);
+        jobStatisticsAPI.deleteJob(jobName);
         return "OK";
     }
-
-    private void disableOrEnableJobs(final String jobName,  final boolean disabled) {
-        JobNodePath jobNodePath = new JobNodePath(jobName);
-        String shardingDisabledNodePath = jobNodePath.getServerNodePath();
-
-        if (disabled) {
-            zookeeperRegistryCenter.persist(shardingDisabledNodePath, "");
-        } else {
-            zookeeperRegistryCenter.remove(shardingDisabledNodePath);
-        }
-    }
-
-    private void disableOrEnableJobs(final String jobName, final String item, final boolean disabled) {
-        JobNodePath jobNodePath = new JobNodePath(jobName);
-        String shardingDisabledNodePath = jobNodePath.getShardingNodePath(item, "disabled");
-
-        if (disabled) {
-            zookeeperRegistryCenter.persist(shardingDisabledNodePath, "");
-        } else {
-            zookeeperRegistryCenter.remove(shardingDisabledNodePath);
-        }
-    }
-//
-//    /**
-//     * Remove job configuration.
-//     *
-//     * @param jobName job name
-//     */
-//    @DeleteMapping("/{jobName:.+}")
-//    public ResponseResult<Boolean> removeJob(@PathVariable("jobName") final String jobName) {
-//        jobAPIService.getJobConfigurationAPI().removeJobConfiguration(jobName);
-//        return "OK";
-//    }
-
 
 }
