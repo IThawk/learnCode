@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<div th:fragment="sidebar" id="sidebar" class="sidebar responsive ace-save-state">
+    <script type="text/javascript">
+        try {
+            ace.settings.loadState('sidebar')
+        } catch (e) {
+        }
+    </script>
+    <ul class="nav nav-list">
+        <li class="active">
+            <a href="/user/list">
+                <i class="menu-icon fa fa-tachometer"></i>
+                <span class="menu-text"> 首页 </span>
+            </a>
+            <b class="arrow"></b>
+        </li>
+        <li class="">
+            <a href="/user/list">
+                <i class="menu-icon fa fa-desktop"></i>
+                <span class="menu-text">  用户管理 </span>
+            </a>
+        </li>
+        <li class="">
+            <a href="/project/list">
+                <i class="menu-icon fa fa-list-alt"></i>
+                <span class="menu-text">  項目管理 </span>
+            </a>
+
+        </li>
+
+        <li class="">
+            <a href="/category/list">
+                <i class="menu-icon fa fa-list-alt"></i>
+                <span class="menu-text">  分类管理 </span>
+            </a>
+
+        </li>
+
+        <li class="">
+            <a href="/route/list">
+                <i class="menu-icon fa fa-picture-o"></i>
+                <span class="menu-text">  旅游线路 </span>
+            </a>
+        </li>
+
+        <li class="">
+            <a href="/seller/list">
+                <i class="menu-icon fa fa-comment-o"></i>
+                <span class="menu-text">  旅游公司 </span>
+            </a>
+        </li>
+
+    </ul><!-- /.nav-list -->
+
+
+    <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
+        <i id="sidebar-toggle-icon" class="ace-icon fa fa-angle-double-left ace-save-state"
+           data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
+    </div>
+</div>

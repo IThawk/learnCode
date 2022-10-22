@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kaikeba.travel.mapper.ProjectMapper">
+    <resultMap id="BaseResultMap" type="com.kaikeba.travel.entity.pojo.Project">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+    </resultMap>
+
+    <select id="selectAllList" resultType="com.kaikeba.travel.entity.pojo.Project">
+        select * from tab_project
+    </select>
+
+    <sql id="Base_Column_List">
+      id, name
+    </sql>
+    <insert id="insert" parameterType="com.kaikeba.travel.entity.pojo.Project">
+        insert into tab_project values(#{id},#{name})
+    </insert>
+
+</mapper>

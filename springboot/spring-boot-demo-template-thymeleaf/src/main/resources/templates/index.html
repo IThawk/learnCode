@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<header th:replace="~{common/head :: header}"></header>
+<body>
+<div id="app" style="width:500px;">
+    <div id="hname" style="background-color:#666FFF;">
+        <h1 style="margin-bottom:0;text-align:center;">Div布局实例</h1>
+        <div>
+            欢迎登录，<span th:text="${user.name}"></span>！
+        </div>
+    </div>
+    <div id="menu" style="background-color:#FFFFFF;height:200px;width:100px;float:left;">
+        <a href="/demo/user/list">用户列表</a><br/>
+        <a href="/demo/user/add">添加</a><br/>
+    </div>
+    <div id="content" style="background-color:#FFFF00;height:200px;width:300px;float:left;">
+        <iframe loading="lazy" src="/demo/user/list" width="200" height="200"></iframe>
+    </div>
+    <div id="right" style="background-color:#000000;color:#FFFFFF;height:200px;width:100px;float:right;">
+        信息内容
+    </div>
+    <div id="bool" style="background-color:#F0F8FF;clear:both;text-align:center;">
+        作者：ithawk
+    </div>
+</div>
+</body>
+</html>

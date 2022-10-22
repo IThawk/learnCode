@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<header th:replace="~{common/head :: header}"></header>
+<body>
+<div id="app" style="margin: 20px 20%">
+    <table th:border="1px">
+        <tr>
+            <th>序号</th>
+            <th>姓名</th>
+            <th>密码</th>
+            <th>操作</th>
+        </tr>
+        <tr th:each="prod : ${list}">
+            <td th:text="${prod.id}"></td>
+            <td th:text="${prod.name}"></td>
+            <td th:text="${prod.password}"></td>
+            <td>
+                <a href="/demo/user/delete">删除</a>
+                <a href="/demo/user/edit">编辑</a>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>
