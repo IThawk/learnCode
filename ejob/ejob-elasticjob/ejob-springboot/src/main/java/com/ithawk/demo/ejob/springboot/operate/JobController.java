@@ -1,19 +1,12 @@
 package com.ithawk.demo.ejob.springboot.operate;
 
 
-import com.ithawk.demo.ejob.springboot.common.JobStatus;
-import com.ithawk.demo.ejob.springboot.config.ElasticJobConfig;
 import com.ithawk.demo.ejob.springboot.entity.JobConfigurationBean;
 import com.ithawk.demo.ejob.springboot.job.MySimpleJob;
 import org.apache.shardingsphere.elasticjob.api.JobConfiguration;
-import org.apache.shardingsphere.elasticjob.infra.pojo.JobConfigurationPOJO;
-import org.apache.shardingsphere.elasticjob.infra.yaml.YamlEngine;
 import org.apache.shardingsphere.elasticjob.lite.api.bootstrap.impl.ScheduleJobBootstrap;
-import org.apache.shardingsphere.elasticjob.lite.internal.schedule.JobRegistry;
-import org.apache.shardingsphere.elasticjob.lite.internal.storage.JobNodePath;
 import org.apache.shardingsphere.elasticjob.reg.zookeeper.ZookeeperRegistryCenter;
 import org.apache.shardingsphere.elasticjob.tracing.api.TracingConfiguration;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -59,6 +52,7 @@ public class JobController {
                 .misfire(jobConfiguration.isMisfire())
                 .overwrite(jobConfiguration.isOverwrite())
                 .addExtraConfigurations(tracingConfig)
+                .jobListenerTypes("myElasticJobListener")
                 .build();
 
         new ScheduleJobBootstrap(zookeeperRegistryCenter, new MySimpleJob(), addJobConfiguration).schedule();

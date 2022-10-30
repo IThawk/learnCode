@@ -3,29 +3,31 @@ package com.ithawk.demo.ejob.springboot.listener;
 import ch.qos.logback.core.util.TimeUtil;
 import org.apache.shardingsphere.elasticjob.infra.listener.ElasticJobListener;
 import org.apache.shardingsphere.elasticjob.infra.listener.ShardingContexts;
-
+import org.apache.shardingsphere.elasticjob.lite.api.listener.AbstractDistributeOnceElasticJobListener;
+import org.apache.shardingsphere.elasticjob.infra.listener.ElasticJobListenerFactory;
 
 /**
  * @Author: IThawk
  */
-public class MyElasticJobListener implements ElasticJobListener {
+public class MyElasticJobListener extends AbstractDistributeOnceElasticJobListener {
 
-    private long beginTime = 0;
-    @Override
-    public void beforeJobExecuted(ShardingContexts shardingContexts) {
-        beginTime = System.currentTimeMillis();
 
-        System.out.println("===>{} JOB BEGIN TIME: {} <=== " + shardingContexts.getJobName() + beginTime);
+    public MyElasticJobListener(long startedTimeoutMilliseconds, long completedTimeoutMilliseconds) {
+        super(startedTimeoutMilliseconds, completedTimeoutMilliseconds);
     }
 
     @Override
-    public void afterJobExecuted(ShardingContexts shardingContexts) {
-        long endTime = System.currentTimeMillis();
-        System.out.println("===>{} JOB END TIME: {},TOTAL CAST: {} <===" + shardingContexts.getJobName() + endTime + (endTime - beginTime));
+    public void doBeforeJobExecutedAtLastStarted(ShardingContexts shardingContexts) {
+
+    }
+
+    @Override
+    public void doAfterJobExecutedAtLastCompleted(ShardingContexts shardingContexts) {
+
     }
 
     @Override
     public String getType() {
-        return "MyElasticJobListener";
+        return "myElasticJobListener";
     }
 }
