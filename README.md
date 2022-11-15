@@ -75,5 +75,9 @@ git push github master
 git push gitee master
 ```
 
- 
 mongodb 客户端
+
+
+
+ git push -f github master
+
