@@ -42,6 +42,7 @@ import org.quartz.SchedulerException;
 import org.quartz.impl.StdSchedulerFactory;
 import org.quartz.simpl.SimpleThreadPool;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
 import java.util.Properties;
@@ -51,30 +52,30 @@ import java.util.stream.Collectors;
  * Job scheduler.
  */
 public final class JobScheduler {
-    
+
     static {
         ElasticJobServiceLoader.registerTypedService(JobErrorHandlerPropertiesValidator.class);
     }
-    
+
     private static final String JOB_EXECUTOR_DATA_MAP_KEY = "jobExecutor";
-    
+
     @Getter
     private final CoordinatorRegistryCenter regCenter;
-    
+
     @Getter
     private final JobConfiguration jobConfig;
-    
+
     private final SetUpFacade setUpFacade;
-    
+
     private final SchedulerFacade schedulerFacade;
-    
+
     private final LiteJobFacade jobFacade;
-    
+
     private final ElasticJobExecutor jobExecutor;
-    
+
     @Getter
     private final JobScheduleController jobScheduleController;
-    
+
     public JobScheduler(final CoordinatorRegistryCenter regCenter, final ElasticJob elasticJob, final JobConfiguration jobConfig) {
         Preconditions.checkArgument(null != elasticJob, "Elastic job cannot be null.");
         this.regCenter = regCenter;
@@ -89,7 +90,7 @@ public final class JobScheduler {
         setGuaranteeServiceForElasticJobListeners(regCenter, jobListeners);
         jobScheduleController = createJobScheduleController();
     }
-    
+
     public JobScheduler(final CoordinatorRegistryCenter regCenter, final String elasticJobType, final JobConfiguration jobConfig) {
         Preconditions.checkArgument(!Strings.isNullOrEmpty(elasticJobType), "Elastic job type cannot be null or empty.");
         this.regCenter = regCenter;
@@ -103,28 +104,39 @@ public final class JobScheduler {
         setGuaranteeServiceForElasticJobListeners(regCenter, jobListeners);
         jobScheduleController = createJobScheduleController();
     }
-    
+
     private Collection<ElasticJobListener> getElasticJobListeners(final JobConfiguration jobConfig) {
-        return jobConfig.getJobListenerTypes().stream()
-                .map(type -> ElasticJobListenerFactory.createListener(type).orElseThrow(() -> new IllegalArgumentException(String.format("Can not find job listener type '%s'.", type))))
-                .collect(Collectors.toList());
+        try {
+            Collection<ElasticJobListener> elasticJobListeners = jobConfig.getJobListenerTypes().stream()
+                    .map(type ->
+                            //todo
+                            ElasticJobListenerFactory.createListener(type).get()
+                                    //.orElseThrow(() -> new IllegalArgumentException(String.format("Can not find job listener type '%s'.", type)))
+                    )
+                    .collect(Collectors.toList());
+            return elasticJobListeners;
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+        return new ArrayList<>();
+
     }
-    
+
     private Optional<TracingConfiguration<?>> findTracingConfiguration() {
         return jobConfig.getExtraConfigurations().stream().filter(each -> each instanceof TracingConfiguration).findFirst().map(extraConfig -> (TracingConfiguration<?>) extraConfig);
     }
-    
+
     private void validateJobProperties() {
         validateJobErrorHandlerProperties();
     }
-    
+
     private void validateJobErrorHandlerProperties() {
         if (null != jobConfig.getJobErrorHandlerType()) {
             ElasticJobServiceLoader.newTypedServiceInstance(JobErrorHandlerPropertiesValidator.class, jobConfig.getJobErrorHandlerType(), jobConfig.getProps())
                     .ifPresent(validator -> validator.validate(jobConfig.getProps()));
         }
     }
-    
+
     private void setGuaranteeServiceForElasticJobListeners(final CoordinatorRegistryCenter regCenter, final Collection<ElasticJobListener> elasticJobListeners) {
         GuaranteeService guaranteeService = new GuaranteeService(regCenter, jobConfig.getJobName());
         for (ElasticJobListener each : elasticJobListeners) {
@@ -133,14 +145,14 @@ public final class JobScheduler {
             }
         }
     }
-    
+
     private JobScheduleController createJobScheduleController() {
         JobScheduleController result = new JobScheduleController(createScheduler(), createJobDetail(), getJobConfig().getJobName());
         JobRegistry.getInstance().registerJob(getJobConfig().getJobName(), result);
         registerStartUpInfo();
         return result;
     }
-    
+
     private Scheduler createScheduler() {
         Scheduler result;
         try {
@@ -153,7 +165,7 @@ public final class JobScheduler {
         }
         return result;
     }
-    
+
     private Properties getQuartzProps() {
         Properties result = new Properties();
         result.put("org.quartz.threadPool.class", SimpleThreadPool.class.getName());
@@ -164,20 +176,20 @@ public final class JobScheduler {
         result.put("org.quartz.plugin.shutdownhook.cleanShutdown", Boolean.TRUE.toString());
         return result;
     }
-    
+
     private JobDetail createJobDetail() {
         JobDetail result = JobBuilder.newJob(LiteJob.class).withIdentity(getJobConfig().getJobName()).build();
         result.getJobDataMap().put(JOB_EXECUTOR_DATA_MAP_KEY, jobExecutor);
         return result;
     }
-    
+
     private void registerStartUpInfo() {
         JobRegistry.getInstance().registerRegistryCenter(jobConfig.getJobName(), regCenter);
         JobRegistry.getInstance().addJobInstance(jobConfig.getJobName(), new JobInstance());
         JobRegistry.getInstance().setCurrentShardingTotalCount(jobConfig.getJobName(), jobConfig.getShardingTotalCount());
         setUpFacade.registerStartUpInfo(!jobConfig.isDisabled());
     }
-    
+
     /**
      * Shutdown job.
      */
