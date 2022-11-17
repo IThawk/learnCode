@@ -19,7 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class IpfsService {
     @Value("${ipfs.baseUrl}")
     private String baseUrl;
-	static IPFS ipfs = new IPFS("/ip4/127.0.0.1/tcp/5001");// ipfs的服务器地址和端口
+	static IPFS ipfs = new IPFS("127.0.0.1",8080);// ipfs的服务器地址和端口
 	
 	public String addRecode(String recode) throws IOException {
 		NamedStreamable.ByteArrayWrapper byteArray=new NamedStreamable.ByteArrayWrapper(recode.getBytes());
