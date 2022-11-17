@@ -1,0 +1,65 @@
+部署centos并启动容器
+
+setp1：获取镜像
+
+ docker pull centos
+#查看镜像
+docker images
+step2：启动镜像
+
+ docker run --privileged -itd -p 2222:22 --name centos7 centos:7 /usr/sbin/init
+启动命令详解：
+
+--privileged 启动后让docker容器具备超级特权。
+
+-itd 交互式、终端、后台运行
+
+--restart=always 开机自启动容器
+
+-p 把宿主机的2222端口映射到docker的22端口。
+
+※宿主机就是运行docker的机器，这样访问宿主机IP:2222端口，实际访问的是docker的22端口。
+
+--name 给启动的容器命名，方便后续操作
+
+注：--privileged 和/usr/sbin/init是必须的，否则会报错：Failed to get D-Bus connection: Operation not permitted。
+
+step3：网络配置及基础工具安装
+
+因为官方提供的Centos7镜像是最小化的，因此很多系统参数未配置，工具包也未安装。在网络参数未配置的情况下，容器是无法进行IP数据包转发，从而连接到互联网的，因此，接下里开始配合容器的路由转发参数，并安装常用的工具。
+
+配置路由转发参数，首先需要检查是否存在/etc/sysctl.conf文件，如果不存在就再创建一个，如果存在，则检查net.ipv4.ip_forward项。
+
+ ## 假设 sysctl.conf 文件不存在
+vi /etc/sysctl.conf
+## 在 sysctl.conf 中增加 net.ipv4.ip_forward = 1 , 表示允许进行路由转发
+net.ipv4.ip_forward = 1
+退出编辑，加载参数到内核
+
+ sysctl -p
+重启容器
+
+ docker restart c1
+测试网络
+
+ ping www.zx-test.xyz
+确认容器网路可用之后，就可以开始安装的工具。
+
+ yum install -y iproute vim openssh openssh-clients openssh-server epel-release systemd NetworkManager
+安装完成后，配置openssh能够每次启动容器自动加载。
+
+ systemctl daemon-reload systemctl start sshd systemctl enable sshd
+step4：进入容器进行必要设置
+
+ #进入容器
+docker exec -it centos7 /bin/bash
+#安装openssh
+yum install -y openssh-server openssh-clients
+#启动openssh
+systemctl start sshd
+#设置root密码
+passwd
+#这里根据提示输入两次一样的密码即可
+# 如果提示：bash: passwd: command not found 则安装passwd
+# yum install -y passwd
+2. docker下centos开启远程访问
