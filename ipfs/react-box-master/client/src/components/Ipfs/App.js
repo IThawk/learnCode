@@ -33,6 +33,7 @@ class MyIPFS extends Component {
             const artifact = require("../../contracts/SimpleStorage.json");
             const web3 = new Web3(Web3.givenProvider || "ws://localhost:9545");
             const accounts = await web3.eth.requestAccounts();
+            console.log(accounts);
             const networkID = await web3.eth.net.getId();
             const { abi } = artifact;
             let address, contract;

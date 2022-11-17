@@ -26,6 +26,11 @@ $ cd client
 $ npm start
   Starting the development server...
 ```
+## 报错error:0308010C:digital envelope routines::unsupported
+在 git bash 中执行
+export NODE_OPTIONS=--openssl-legacy-provider
+
+$ npm start
 
 From there, follow the instructions on the hosted React app. It will walk you through using Truffle and Ganache to deploy the `SimpleStorage` contract, making calls to it, and sending transactions to change the contract's state.
 
