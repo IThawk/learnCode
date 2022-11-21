@@ -1,4 +1,4 @@
 # ipfs-example
 
 #### 项目介绍
-通过Java连接IPFS主链，进行数据查询，数据新增操作。
+http://127.0.0.1:8081/ipfs/help

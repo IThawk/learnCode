@@ -1,9 +1,9 @@
-package modules;
+package com.ithawk.ipfs.demo.controller;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-import modules.common.Request;
+import com.ithawk.ipfs.demo.common.AddResult;
+import com.ithawk.ipfs.demo.common.Request;
+import com.ithawk.ipfs.demo.common.SelectResult;
+import com.ithawk.ipfs.demo.service.IpfsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
@@ -13,7 +13,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 
 @Controller
-@RequestMapping("ipfs")
 public class WebController {
 
     @Autowired
@@ -45,7 +44,7 @@ public class WebController {
 
     @ResponseBody
     @RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
-    public AddResult uploadFile(@RequestParam("file") MultipartFile file) {
+    public AddResult uploadFile(MultipartFile file) {
         // 上传
         try {
             String value = ipfsService.uploadFile(file);
@@ -75,21 +74,5 @@ public class WebController {
         return "help";
     }
 
-
-    @Getter
-    @Setter
-    @AllArgsConstructor
-    class AddResult {
-        private Integer status;
-        private String hash;
-    }
-
-    @Getter
-    @Setter
-    @AllArgsConstructor
-    class SelectResult {
-        private Integer status;
-        private String result;
-    }
 
 }

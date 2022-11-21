@@ -3,18 +3,18 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.1.1.RELEASE</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <groupId>com.ithawk.demo</groupId>
+        <artifactId>demo</artifactId>
+        <version>1.0-SNAPSHOT</version>
     </parent>
-    <groupId>ruoli.ink</groupId>
+    <groupId>com.ithawk.demo</groupId>
     <artifactId>ipfs</artifactId>
     <version>1.0.0</version>
     <name>ipfs-example</name>
     <packaging>pom</packaging>
 	<modules>
 		<module>ipfs-demo</module>
+        <module>ipfs-core</module>
 	</modules>
     <properties>
         <java.version>1.8</java.version>

@@ -1,4 +1,4 @@
-package modules.common;
+package com.ithawk.ipfs.demo.common;
 
 import lombok.Data;
 
