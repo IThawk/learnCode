@@ -9,7 +9,7 @@ public class MvcConfigController extends WebMvcConfigurationSupport {
 
     private static final String[] CLASSPATH_RESOURCE_LOCATIONS = {
             "classpath:/META-INF/resources/", "classpath:/resources/",
-            "classpath:/templates/", "classpath:/public/" };
+            "classpath:/templates/", "classpath:/public/","classpath:/static/" };
 
     @Override
     protected void addResourceHandlers(ResourceHandlerRegistry registry) {

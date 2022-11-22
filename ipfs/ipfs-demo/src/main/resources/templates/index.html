@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ruoli-API - Documentation</title>
+    <link href="/static/main.css" rel="stylesheet" type="text/css">
+</head>
+<body class="pm-main-body">
+<div id="app-mount-point">
+</div>
+
+<script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/web3.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/require.js}"></script>
+<script>
+    $(document).ready(function () {
+        useEffect()
+    })
+
+    async function init(artifact) {
+        if (artifact) {
+            const web3 = new Web3(Web3.givenProvider || "ws://localhost:9545");
+            const accounts = await web3.eth.requestAccounts();
+            const networkID = await web3.eth.net.getId();
+            const {abi} = artifact;
+            let address, contract;
+            try {
+                address = artifact.networks[networkID].address;
+                contract = new web3.eth.Contract(abi, address);
+            } catch (err) {
+                console.error(err);
+            }
+            // dispatch({
+            //     type: actions.init,
+            //     data: {artifact, web3, accounts, networkID, contract}
+            // });
+        }
+    }
+
+    function useEffect() {
+        const tryInit = async () => {
+            try {
+                // const artifact = require("../static/json/SimpleStorage.json");
+
+                var artifact = $.getJSON('/ipfs/json/SimpleStorage.json', function (data) {
+                    console.log(artifact)
+
+                    /*遍历JSON对象， 元素索引和内容*/
+                    $.each(data,function(i,n){
+                        console.log("index="+i+";"+"value="+n);
+                        artifact[i]=n
+                    })
+
+                });
+                // var obj = $.parseJSON(artifact);
+                console.log(artifact)
+                init(artifact);
+            } catch (err) {
+                console.error(err);
+            }
+        };
+
+        tryInit();
+    }
+
+
+</script>
+</body>
+
+
+</html>

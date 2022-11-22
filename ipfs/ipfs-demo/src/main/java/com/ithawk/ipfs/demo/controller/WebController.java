@@ -74,5 +74,8 @@ public class WebController {
         return "help";
     }
 
-
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public String index() {
+        return "index";
+    }
 }

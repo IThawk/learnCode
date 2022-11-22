@@ -40,3 +40,6 @@ ipfs:
   ipfsPort: 15001
 system:
   localPath: C:/mydata/
+#以太坊交互地址 如果以太坊环境搭建在本地就locallhost,否则使用对应的ip地址，端口默认使用8545
+web3j:
+  client-address: http://localhost:9545
