@@ -1,14 +1,13 @@
 package com.ithawk.demo.code.mgr.controller;
 
 import com.github.pagehelper.PageInfo;
+import com.ithawk.demo.code.mgr.bean.Result;
 import com.ithawk.demo.code.mgr.bean.User;
 import com.ithawk.demo.code.mgr.bean.vo.UserVO;
 import com.ithawk.demo.code.mgr.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -29,11 +28,33 @@ public class UserController {
     public String page(@RequestParam(defaultValue = "1") Integer pageNum,
                        @RequestParam(defaultValue = "10") Integer pageSize,
                        UserVO vo, Model model) {
-        PageInfo<User> page = userService.findByPage(pageNum, pageSize, vo);
-        model.addAttribute("page", page);
+//        PageInfo<User> page = userService.findByPage(pageNum, pageSize, vo);
+//        model.addAttribute("page", page);
         return "user/list";
     }
 
+    /**
+     * 分页查询
+     */
+    @GetMapping("/userList")
+    @ResponseBody
+    public Result<com.ithawk.demo.code.mgr.bean.PageInfo<User>> pageList(@RequestParam(defaultValue = "1") Integer pageNum,
+                                 @RequestParam(defaultValue = "10") Integer pageSize) {
+        PageInfo<User> page = userService.findByPage(pageNum, pageSize, null);
+        Result result = new Result();
+        com.ithawk.demo.code.mgr.bean.PageInfo<User> pageInfos = new com.ithawk.demo.code.mgr.bean.PageInfo<>();
+        pageInfos.setItems(page.getList());
+        result.setStatus(0);
+        result.setMsg("success");
+//        pageInfos.setHasNext(page.isHasNextPage());
+        pageInfos.setPage(pageNum);
+        pageInfos.setPerPage(page.getPageSize());
+        pageInfos.setTotal(page.getTotal());
+        pageInfos.setPage(page.getPageNum());
+        pageInfos.setPages(page.getPages());
+        result.setData(pageInfos);
+        return result;
+    }
     /**
      * 删除
      */

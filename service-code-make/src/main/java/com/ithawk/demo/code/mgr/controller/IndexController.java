@@ -35,4 +35,14 @@ public class IndexController {
 
 		return mv;
 	}
+
+	@GetMapping(value = {"", "/my"})
+	public ModelAndView indexmy(HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView();
+
+			mv.setViewName("myindex");
+
+
+		return mv;
+	}
 }
