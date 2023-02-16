@@ -11,7 +11,6 @@
     <name>elasticsearch</name>
     <description>elasticsearch</description>
     <packaging>pom</packaging>
-
     <modules>
         <module>elasticsearch-springboot</module>
         <module>supergo-logstash</module>
@@ -21,7 +20,4 @@
         <module>elasticsearch-analysis-ik</module>
         <module>lucene-demo</module>
     </modules>
-
-
-
 </project>
