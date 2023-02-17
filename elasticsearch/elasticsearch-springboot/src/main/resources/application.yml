@@ -5,7 +5,5 @@ server:
 spring:
   application:
     name: elasticsearch
-  elasticsearch:
-    rest:
-      uris:
-        - http://192.168.56.101:9200
+  profiles:
+    active: dev

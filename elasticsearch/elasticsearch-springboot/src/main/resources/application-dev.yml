@@ -1,0 +1,7 @@
+spring:
+  elasticsearch:
+    rest:
+      uris:
+        - http://127.0.0.1:9200
+      test: 122
+      urls: http://127.0.0.1:9200,http://127.0.0.1:9201
