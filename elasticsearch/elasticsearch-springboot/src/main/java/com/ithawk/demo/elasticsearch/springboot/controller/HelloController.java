@@ -3,6 +3,8 @@ package com.ithawk.demo.elasticsearch.springboot.controller;
 import com.alibaba.fastjson.JSON;
 import com.ithawk.demo.elasticsearch.springboot.pojo.Stu;
 import com.ithawk.demo.elasticsearch.springboot.utils.JsonUtils;
+import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
 import org.elasticsearch.search.sort.FieldSortBuilder;
@@ -19,6 +21,7 @@ import org.springframework.data.elasticsearch.core.SearchHits;
 import org.springframework.data.elasticsearch.core.document.Document;
 import org.springframework.data.elasticsearch.core.mapping.IndexCoordinates;
 import org.springframework.data.elasticsearch.core.query.*;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,20 +29,23 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.*;
 
 @RestController
+@Slf4j
 public class HelloController {
 
     @Autowired
     private ElasticsearchRestTemplate esTemplate;
 
-    @RequestMapping("hello")
+    @GetMapping("hello")
+    @ApiOperation(value = "结构化搜索")
     public Object hello() {
+        log.info("ok");
         return "OK";
     }
 
     /**
      * 创建索引
      */
-    @RequestMapping("createIndex")
+    @GetMapping("createIndex")
     public Object createIndex() {
         esTemplate.indexOps(Stu.class).create();
         return "OK";
@@ -48,7 +54,7 @@ public class HelloController {
     /**
      * 删除索引
      */
-    @RequestMapping("deleteIndex")
+    @GetMapping("deleteIndex")
     public Object deleteIndex() {
         esTemplate.indexOps(Stu.class).delete();
         return "OK";
@@ -57,7 +63,7 @@ public class HelloController {
     /**
      * 判断索引是否存在
      */
-    @RequestMapping("existIndex")
+    @GetMapping("existIndex")
     public Object existIndex() {
         return esTemplate.indexOps(Stu.class).exists();
     }
@@ -65,14 +71,14 @@ public class HelloController {
     /**
      * 新增文档数据
      */
-    @RequestMapping("addDoc")
+    @GetMapping("addDoc")
     public Object addDoc() {
 
-        Stu stu0 = new Stu(10010l, "imooc", 18, 100.5f, true);
+        Stu stu0 = new Stu(10010L, "imooc", 18, 100.5f, true);
         esTemplate.save(stu0);
 
-        Stu stu1 = new Stu(10011l, "风间影月", 20, 88.5f, true);
-        Stu stu2 = new Stu(10012l, "慕课网", 22, 108.5f, false);
+        Stu stu1 = new Stu(10011L, "风间影月", 20, 88.5f, true);
+        Stu stu2 = new Stu(10012L, "慕课网", 22, 108.5f, false);
 
         ArrayList<Stu> stuList = new ArrayList<>();
         stuList.add(stu1);
@@ -85,7 +91,7 @@ public class HelloController {
     /**
      * 根据文档id删除数据
      */
-    @RequestMapping("deleteDoc")
+    @GetMapping("deleteDoc")
     public Object deleteDoc(String docId) {
         esTemplate.delete(docId, Stu.class);
         return "OK";
@@ -95,7 +101,7 @@ public class HelloController {
      * 查询文档数据
      * http://localhost:18090/getDoc?docId=10010
      */
-    @RequestMapping("getDoc")
+    @GetMapping("getDoc")
     public Object getDoc(@RequestParam("docId") String docId) {
 
         Object o = esTemplate.get(docId, Stu.class);
@@ -106,7 +112,7 @@ public class HelloController {
     /**
      * 修改文档数据
      */
-    @RequestMapping("updateDoc")
+    @GetMapping("updateDoc")
     public Object updateDoc() {
 
         Map<String, Object> map = new HashMap<>();
@@ -130,19 +136,19 @@ public class HelloController {
     /**
      * 初始化数据
      */
-    @RequestMapping("init")
+    @GetMapping("init")
     public Object init() {
 
         esTemplate.indexOps(Stu.class).delete();
         esTemplate.indexOps(Stu.class).create();
 
-        Stu stu0 = new Stu(10010l, "imooc", 18, 100.5f, true);
-        Stu stu1 = new Stu(10011l, "风间影月", 20, 88.5f, true);
-        Stu stu2 = new Stu(10012l, "慕课网", 22, 96.5f, false);
-        Stu stu3 = new Stu(10013l, "可爱的漂亮的小哥哥", 26, 108.5f, false);
-        Stu stu4 = new Stu(10014l, "美丽的祖国", 28, 108.6f, true);
-        Stu stu5 = new Stu(10015l, "美丽的漂亮的小姐姐", 16, 18.5f, false);
-        Stu stu6 = new Stu(10016l, "完美的慕课网", 29, 100.5f, true);
+        Stu stu0 = new Stu(10010L, "imooc", 18, 100.5f, true);
+        Stu stu1 = new Stu(10011L, "风间影月", 20, 88.5f, true);
+        Stu stu2 = new Stu(10012L, "慕课网", 22, 96.5f, false);
+        Stu stu3 = new Stu(10013L, "可爱的漂亮的小哥哥", 26, 108.5f, false);
+        Stu stu4 = new Stu(10014L, "美丽的祖国", 28, 108.6f, true);
+        Stu stu5 = new Stu(10015L, "美丽的漂亮的小姐姐", 16, 18.5f, false);
+        Stu stu6 = new Stu(10016L, "完美的慕课网", 29, 100.5f, true);
 
         ArrayList<Stu> stuList = new ArrayList<>();
         stuList.add(stu0);
@@ -160,7 +166,7 @@ public class HelloController {
     /**
      * 搜索数据
      */
-    @RequestMapping("searchStu")
+    @GetMapping("searchStu")
     public Object searchStu(String name) {
         //分页查询数据
         Pageable pageable = PageRequest.of(0, 10);
@@ -181,7 +187,7 @@ public class HelloController {
     /**
      * 高亮搜索
      */
-    @RequestMapping("highlight")
+    @GetMapping("highlight")
     public Object highlight(String name) {
         String preTag = "<font color='red'>";
         String postTag = "</font>";

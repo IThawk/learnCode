@@ -61,11 +61,11 @@
             <scope>test</scope>
         </dependency>
         <!-- ES SQL驱动 -->
-        <dependency>
-            <groupId>org.elasticsearch.plugin</groupId>
-            <artifactId>x-pack-sql-jdbc</artifactId>
-            <version>7.6.1</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.elasticsearch.plugin</groupId>-->
+<!--            <artifactId>x-pack-sql-jdbc</artifactId>-->
+<!--            <version>7.6.1</version>-->
+<!--        </dependency>-->
     </dependencies>
 
     <build>

@@ -15,4 +15,4 @@
 # limitations under the License.
 #
 
-org.apache.shardingsphere.elasticjob.reg.zookeeper.exception.ZookeeperCuratorIgnoredExceptionProvider
+org.apache.shardingsphere.elasticjob.reg.redis.exception.ZookeeperCuratorIgnoredExceptionProvider

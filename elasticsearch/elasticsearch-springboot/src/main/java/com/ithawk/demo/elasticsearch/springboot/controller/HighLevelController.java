@@ -11,6 +11,7 @@ import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.common.xcontent.XContentType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,7 +25,7 @@ public class HighLevelController {
     @Autowired
     private RestHighLevelClient restHighLevelClient;
 
-    @RequestMapping("hello")
+    @GetMapping("hello")
     public Object hello() {
         return "OK";
     }
@@ -32,7 +33,7 @@ public class HighLevelController {
     /**
      * 创建索引
      */
-    @RequestMapping("createIndex")
+    @GetMapping("createIndex")
     public Object createIndex() throws IOException {
 
         IndexRequest indexRequest = new IndexRequest("car");
