@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.Date;
 
 @Data
 @Table(name = "job_info")
@@ -17,6 +18,6 @@ public class JobInfo {
     private String jobAddr;
     private String jobInfo;
     private String url;
-    private String time;
+    private Date time;
     private int salary;
 }

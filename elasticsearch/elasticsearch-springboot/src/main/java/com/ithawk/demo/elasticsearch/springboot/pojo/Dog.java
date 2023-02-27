@@ -15,14 +15,17 @@ public class Dog extends CommonEntity {
 
     @ApiModelProperty(value = "索引名称",example = "dog")
     //索引名称
-    private String indexName;
+    private String indexName ="dog";
 
     private Long id;
 
+    @ApiModelProperty(value = "名称",example = "泰迪")
     private String name;
 
+    @ApiModelProperty(value = "年龄",example ="1")
     private Integer age;
 
+    @ApiModelProperty(value = "价格",example = "1000.00")
     private Float money;
 
     private boolean isMarried;

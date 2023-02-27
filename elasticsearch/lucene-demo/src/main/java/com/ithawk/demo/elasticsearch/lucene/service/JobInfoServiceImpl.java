@@ -24,4 +24,22 @@ public class JobInfoServiceImpl {
         QueryWrapper<JobInfo> queryWrapper = new QueryWrapper<>();
         return jobInfoMapper.selectList(queryWrapper);
     }
+
+
+    public void insertList(List<JobInfo> jobInfoList) {
+        jobInfoList.stream().map(v -> {
+            return jobInfoMapper.insert(v);
+        }).count();
+
+    }
+
+    public void insert(JobInfo jobInfo) {
+         jobInfoMapper.insert(jobInfo);
+
+    }
+
+    public void delete() {
+        jobInfoMapper.deleteById(1);
+
+    }
 }

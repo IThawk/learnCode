@@ -5,6 +5,7 @@ import com.ithawk.demo.elasticsearch.springboot.pojo.CommonEntity;
 import com.ithawk.demo.elasticsearch.springboot.pojo.Dog;
 import com.ithawk.demo.elasticsearch.springboot.service.ElasticsearchDocumentService;
 import com.ithawk.demo.elasticsearch.springboot.service.ElasticsearchIndexService;
+import com.ithawk.demo.elasticsearch.springboot.utils.JsonUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
@@ -124,9 +125,7 @@ public class DogController {
             logger.info("本次获取数据量为>>>" + cSize);
             responseData.put("res", "success");
             responseData.put("data", searchResponse.getHits().getHits());
-            List<Dog> objects = Arrays.stream(searchResponse.getHits().getHits())
-                    .map(v-> JSON.parseObject(v.getSourceAsString(),Dog.class))
-                    .collect(Collectors.toList());
+            List<Dog> objects = JsonUtils.searchResponseHitsToList(searchResponse,Dog.class);
             responseData.put("objects", objects);
         } catch (Exception e) {
             logger.error("error :{}", ExceptionUtils.getStackTrace(e));

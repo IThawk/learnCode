@@ -32,6 +32,8 @@
         <Property name="backup_folder" value="$${date:yyyy-MM}"/>
         <!-- 备份文件的后缀，日志文件超过file_max_size会备份到filePattern指定的目录下 -->
         <Property name="backup_file_suffix" value="-%d{yyyy-MM-dd}-%i.log"/>
+
+        <property name="LOG_PATTERN">%d{yyyy-MM-dd HH:mm:ss.SSS} -%5p ${PID:-} [%15.15t] %-30.30C{1.} : %m%n</property>
     </Properties>
 
 
@@ -43,7 +45,8 @@
             <!-- 设置控制台只输出INFO及以上级别的信息(onMatch),其他的直接拒绝(onMismatch) -->
             <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
             <!-- 颜色打印 -->
-            <PatternLayout pattern="%d %highlight{%-5level}{ERROR=Bright RED, WARN=Bright Yellow, INFO=Bright Green, DEBUG=Bright Cyan, TRACE=Bright White} %style{[%t]}{bright,magenta} %style{%c{1.}.%M(%L)}{cyan}: %msg%n"/>
+            <PatternLayout
+                    pattern="%d %highlight{%-5level}{ERROR=Bright RED, WARN=Bright Yellow, INFO=Bright Green, DEBUG=Bright Cyan, TRACE=Bright White} %style{[%t]}{bright,magenta} %style{%c{1.}.%M(%L)}{cyan}: %msg%n"/>
             <!--输出日志的格式-->
             <PatternLayout pattern="${log_pattern}"/>
         </console>
@@ -92,6 +95,10 @@
             </Policies>
         </RollingFile>
 
+        <!-- 172.29.132.191为logstash主机外网IP，5044为logstash端口 -->
+        <Socket name="LOGSTASH" host="172.29.132.191" port="5044" protocol="TCP">
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+        </Socket>
     </appenders>
 
 
@@ -101,14 +108,19 @@
         <logger name="org.springframework" level="INFO"/>
         <logger name="org.mybatis" level="DEBUG">
             <!-- 添加如下设置，控制台会再打印一次 -->
-<!--            <AppenderRef ref="Console"/>-->
+            <!--            <AppenderRef ref="Console"/>-->
         </logger>
         <root level="INFO">
             <appender-ref ref="Console"/>
             <appender-ref ref="RollingFileInfo"/>
             <appender-ref ref="RollingFileWarn"/>
             <appender-ref ref="RollingFileError"/>
+            <!--            <appender-ref ref="LOGSTASH" />-->
         </root>
-    </loggers>
 
+        <AsyncLogger name="com" level="info" includeLocation="false">
+            <!--<appender-ref ref="Console"/>-->
+            <appender-ref ref="LOGSTASH"/>
+        </AsyncLogger>
+    </loggers>
 </configuration>

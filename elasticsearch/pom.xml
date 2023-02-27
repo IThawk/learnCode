@@ -13,11 +13,11 @@
     <packaging>pom</packaging>
     <modules>
         <module>elasticsearch-springboot</module>
-        <module>supergo-logstash</module>
+        <module>elasticsearch-springboot-logstash</module>
         <module>search-plantform</module>
-        <module>elasticsearch_app</module>
         <module>search-cloud-platform</module>
         <module>elasticsearch-analysis-ik</module>
+        <module>elasticsearch-demo</module>
         <module>lucene-demo</module>
     </modules>
 </project>
