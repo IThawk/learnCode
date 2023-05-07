@@ -1,0 +1,58 @@
+description = "Spring Demo"
+apply plugin: 'war'
+
+dependencies {
+    optional(project(":spring-beans"))
+    optional(project(":spring-core"))
+    optional(project(":spring-aop"))
+    optional(project(":spring-aspects"))
+    optional(project(":spring-context"))
+    optional(project(":spring-oxm"))
+    optional(project(":spring-jdbc"))
+    optional(project(":spring-orm"))
+    optional(project(":spring-tx"))
+    optional(project(":spring-web"))
+    optional(project(":spring-webmvc"))
+    optional(project(":spring-test"))
+    optional("com.alibaba:fastjson:1.2.70")
+    optional("com.alibaba:druid:1.0.9")
+    optional("org.postgresql:postgresql:42.2.11")
+
+    optional("com.fasterxml.jackson.core:jackson-core:2.9.7")
+    optional("com.fasterxml.jackson.core:jackson-databind:2.9.7")
+    optional("com.fasterxml.jackson.core:jackson-annotations:2.9.7")
+    optional("javax.validation:validation-api:1.1.0.Final")
+    optional("org.projectlombok:lombok:1.18.12")
+    optional("org.apache.logging.log4j:log4j-api")
+    optional("org.slf4j:slf4j-api")
+    // https://mvnrepository.com/artifact/junit/junit
+    testImplementation group: 'junit', name: 'junit', version: '4.13.2'
+
+    compileOnly("org.junit.jupiter:junit-jupiter")
+    compileOnly("org.junit.platform:junit-platform-engine")
+    compileOnly("org.junit.platform:junit-platform-launcher")
+    compileOnly("org.hamcrest:hamcrest")
+    // https://mvnrepository.com/artifact/com.github.pagehelper/pagehelper
+    implementation group: 'com.github.pagehelper', name: 'pagehelper', version: '5.3.2'
+// https://mvnrepository.com/artifact/com.alibaba/druid
+    implementation group: 'com.alibaba', name: 'druid', version: '1.2.17'
+// https://mvnrepository.com/artifact/com.alibaba.fastjson2/fastjson2
+    implementation group: 'com.alibaba.fastjson2', name: 'fastjson2', version: '2.0.29'
+    optional("jakarta.servlet:jakarta.servlet-api")
+    optional("jakarta.servlet.jsp:jakarta.servlet.jsp-api")
+    optional("jakarta.el:jakarta.el-api")
+    optional("jakarta.faces:jakarta.faces-api")
+    optional("jakarta.json.bind:jakarta.json.bind-api")
+    optional("jakarta.validation:jakarta.validation-api")
+    optional("jakarta.xml.bind:jakarta.xml.bind-api")
+// https://mvnrepository.com/artifact/org.mybatis/mybatis-spring
+    implementation group: 'org.mybatis', name: 'mybatis-spring', version: '3.0.1'
+// https://mvnrepository.com/artifact/org.mybatis/mybatis
+    implementation group: 'org.mybatis', name: 'mybatis', version: '3.5.13'
+// https://mvnrepository.com/artifact/jakarta.servlet.jsp.jstl/jakarta.servlet.jsp.jstl-api
+    implementation group: 'jakarta.servlet.jsp.jstl', name: 'jakarta.servlet.jsp.jstl-api', version: '3.0.0'
+// https://mvnrepository.com/artifact/org.glassfish.web/jakarta.servlet.jsp.jstl
+    implementation group: 'org.glassfish.web', name: 'jakarta.servlet.jsp.jstl', version: '3.0.1'
+
+
+}

@@ -19,6 +19,7 @@ package org.apache.shardingsphere.elasticjob.lite.spring.boot.reg;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.shardingsphere.elasticjob.reg.redis.RedisConfiguration;
 import org.apache.shardingsphere.elasticjob.reg.zookeeper.ZookeeperConfiguration;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
@@ -42,6 +43,8 @@ public class ZookeeperProperties {
      * Namespace.
      */
     private String namespace;
+
+    private String type;
     
     /**
      * Base sleep time milliseconds.
@@ -80,6 +83,17 @@ public class ZookeeperProperties {
      */
     public ZookeeperConfiguration toZookeeperConfiguration() {
         ZookeeperConfiguration result = new ZookeeperConfiguration(serverLists, namespace);
+        result.setBaseSleepTimeMilliseconds(baseSleepTimeMilliseconds);
+        result.setMaxSleepTimeMilliseconds(maxSleepTimeMilliseconds);
+        result.setMaxRetries(maxRetries);
+        result.setSessionTimeoutMilliseconds(sessionTimeoutMilliseconds);
+        result.setConnectionTimeoutMilliseconds(connectionTimeoutMilliseconds);
+        result.setDigest(digest);
+        return result;
+    }
+
+    public RedisConfiguration toRedisConfiguration() {
+        RedisConfiguration result = new RedisConfiguration(serverLists, namespace);
         result.setBaseSleepTimeMilliseconds(baseSleepTimeMilliseconds);
         result.setMaxSleepTimeMilliseconds(maxSleepTimeMilliseconds);
         result.setMaxRetries(maxRetries);

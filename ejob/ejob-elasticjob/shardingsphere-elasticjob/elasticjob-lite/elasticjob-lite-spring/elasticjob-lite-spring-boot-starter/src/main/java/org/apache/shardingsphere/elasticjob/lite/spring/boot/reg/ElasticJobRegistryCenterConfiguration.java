@@ -17,7 +17,11 @@
 
 package org.apache.shardingsphere.elasticjob.lite.spring.boot.reg;
 
+import org.apache.shardingsphere.elasticjob.reg.base.CoordinatorRegistryCenter;
+import org.apache.shardingsphere.elasticjob.reg.redis.RedisConfiguration;
+import org.apache.shardingsphere.elasticjob.reg.redis.RedisRegistryCenter;
 import org.apache.shardingsphere.elasticjob.reg.zookeeper.ZookeeperRegistryCenter;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingClass;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 
@@ -34,7 +38,10 @@ public class ElasticJobRegistryCenterConfiguration {
      * @return zookeeper registry center
      */
     @Bean(initMethod = "init")
-    public ZookeeperRegistryCenter zookeeperRegistryCenter(final ZookeeperProperties zookeeperProperties) {
+    public CoordinatorRegistryCenter zookeeperRegistryCenter(final ZookeeperProperties zookeeperProperties) {
+        if ("redis".equals(zookeeperProperties.getType())){
+            return new RedisRegistryCenter(zookeeperProperties.toRedisConfiguration());
+        }
         return new ZookeeperRegistryCenter(zookeeperProperties.toZookeeperConfiguration());
     }
 }

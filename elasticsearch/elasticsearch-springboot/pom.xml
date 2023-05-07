@@ -231,8 +231,22 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>2.3.4.RELEASE</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <includeSystemScope>true</includeSystemScope>
+                    <mainClass>com.ithawk.demo.elasticsearch.springboot.ElasticSearchApplication</mainClass>
+                </configuration>
             </plugin>
+
         </plugins>
+
     </build>
 
 

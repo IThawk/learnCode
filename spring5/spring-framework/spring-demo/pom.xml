@@ -58,21 +58,52 @@
 			<groupId>com.ithawk</groupId>
 			<artifactId>spring-context</artifactId>
 			<version>5.2.0-SNAPSHOT</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>spring-web</artifactId>
+					<groupId>org.springframework</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>spring-webmvc</artifactId>
+					<groupId>org.springframework</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
-		<dependency>
-			<groupId>com.ithawk</groupId>
-			<artifactId>spring-web</artifactId>
-			<version>5.2.0-SNAPSHOT</version>
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>com.ithawk</groupId>-->
+<!--			<artifactId>spring-web</artifactId>-->
+<!--			<version>5.2.0-SNAPSHOT</version>-->
+<!--			<exclusions>-->
+<!--				<exclusion>-->
+<!--					<artifactId>spring-web</artifactId>-->
+<!--					<groupId>org.springframework</groupId>-->
+<!--				</exclusion>-->
+<!--				<exclusion>-->
+<!--					<artifactId>spring-webmvc</artifactId>-->
+<!--					<groupId>org.springframework</groupId>-->
+<!--				</exclusion>-->
+<!--			</exclusions>-->
+<!--		</dependency>-->
 		<dependency>
 			<groupId>com.ithawk</groupId>
 			<artifactId>spring-webmvc</artifactId>
 			<version>5.2.0-SNAPSHOT</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>spring-webflux</artifactId>
+					<groupId>org.springframework</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>spring-webmvc</artifactId>
+					<groupId>org.springframework</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>com.ithawk</groupId>
 			<artifactId>spring-test</artifactId>
 			<version>5.2.0-SNAPSHOT</version>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.mybatis</groupId>

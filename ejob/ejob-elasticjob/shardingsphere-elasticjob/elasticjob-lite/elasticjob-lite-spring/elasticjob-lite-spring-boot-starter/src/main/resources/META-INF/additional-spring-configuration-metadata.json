@@ -45,6 +45,12 @@
       "sourceType": "org.apache.shardingsphere.elasticjob.lite.spring.boot.reg.ZookeeperProperties"
     },
     {
+      "name": "elasticjob.reg-center.type",
+      "type": "java.lang.String",
+      "description": "type.",
+      "sourceType": "org.apache.shardingsphere.elasticjob.lite.spring.boot.reg.ZookeeperProperties"
+    },
+    {
       "name": "elasticjob.reg-center.base-sleep-time-milliseconds",
       "type": "java.lang.Integer",
       "defaultValue": 1000,

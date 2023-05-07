@@ -79,7 +79,9 @@ public final class LeaderService {
      * @return current server is leader or not
      */
     public boolean isLeader() {
-        return !JobRegistry.getInstance().isShutdown(jobName) && JobRegistry.getInstance().getJobInstance(jobName).getJobInstanceId().equals(jobNodeStorage.getJobNodeData(LeaderNode.INSTANCE));
+        return !JobRegistry.getInstance().isShutdown(jobName)
+                && JobRegistry.getInstance().getJobInstance(jobName).getJobInstanceId()
+                .equals(jobNodeStorage.getJobNodeData(LeaderNode.INSTANCE));
     }
     
     /**

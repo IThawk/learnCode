@@ -20,11 +20,11 @@
 		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	  <parent>
-	    <groupId>com.ithawk</groupId>
-	    <artifactId>spring</artifactId>
-		  <version>5.2.0-SNAPSHOT</version>
-	  </parent>
+	<parent>
+		<groupId>com.ithawk</groupId>
+		<artifactId>spring-framework</artifactId>
+		<version>5.2.0-SNAPSHOT</version>
+	</parent>
 	<artifactId>spring-aspects</artifactId>
 	<name>spring-aspects</name>
 	<properties>

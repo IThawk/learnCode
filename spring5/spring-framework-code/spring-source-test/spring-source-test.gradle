@@ -1,0 +1,21 @@
+description = "Spring source test"
+
+dependencies {
+    optional(project(":spring-context"))
+    optional(project(":spring-aspects"))
+//    optional(project(":spring-context"))
+//    optional(project(":spring-aspects"))  //引入aop&切面模块
+//    compile(project(":spring-jdbc")) //引入事务
+//    // https://mvnrepository.com/artifact/mysql/mysql-connector-java
+//    implementation group: 'mysql', name: 'mysql-connector-java', version: '5.1.49'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
