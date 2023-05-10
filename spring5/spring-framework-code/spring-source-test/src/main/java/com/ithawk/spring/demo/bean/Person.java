@@ -2,10 +2,13 @@ package com.ithawk.spring.demo.bean;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Lookup;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.MessageSource;
 import org.springframework.context.MessageSourceAware;
+import org.springframework.context.annotation.DependsOn;
+import org.springframework.stereotype.Component;
 
 
 /**
@@ -18,11 +21,12 @@ import org.springframework.context.MessageSourceAware;
  * 	  - 通过实现接口的方式自动注入了 ApplicationContext、MessageSource。是由BeanPostProcessor（Bean的后置处理器完成的）
  *
  */
-//@Component
-public class Person implements ApplicationContextAware, MessageSourceAware {
+@Component
+public class Person implements ApplicationContextAware /*2 使用这种*/, MessageSourceAware/*3：国际化*/ {
 
-//	@Autowired
+//	@Autowired //这种方法也可以
 	ApplicationContext context;  //可以要到ioc容器
+
 	MessageSource messageSource;
 
 
@@ -39,7 +43,7 @@ public class Person implements ApplicationContextAware, MessageSourceAware {
 
 	private String name;
 
-//	@Autowired  依赖的组件是多实例就不能Autowired
+	@Autowired  //依赖的组件是多实例就不能Autowired
 	private Cat cat;
 
 
@@ -53,7 +57,7 @@ public class Person implements ApplicationContextAware, MessageSourceAware {
 
 
 
-	@Autowired  //去发现一下.....
+//	@Autowired  //去发现一下.....
 	public void setCat(Cat cat) {
 		this.cat = cat;
 	}
@@ -61,7 +65,7 @@ public class Person implements ApplicationContextAware, MessageSourceAware {
 
 
 	//
-//	@Lookup  //去容器中找。@Bean的这种方式注册的Person @Lookup不生效
+//	@Lookup  //去容器中找。  @Bean的这种方式注册的Person @Lookup不生效
 	public Cat getCat() {
 		return cat;
 	}
@@ -78,12 +82,15 @@ public class Person implements ApplicationContextAware, MessageSourceAware {
 		return context;
 	}
 
+	//2：第二种方法添加： applicationContext
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 		//利用回调机制，把ioc容器传入
+		System.out.println("person 执行 aware");
 		this.context = applicationContext;
 	}
 
+	//3：messageSource 国际化
 	@Override
 	public void setMessageSource(MessageSource messageSource) {
 		this.messageSource = messageSource;

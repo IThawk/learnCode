@@ -2,6 +2,8 @@ package com.ithawk.spring.demo;
 
 
 import com.ithawk.spring.demo.aop.HelloService;
+import com.ithawk.spring.demo.bean.Cat;
+import com.ithawk.spring.demo.bean.Person;
 import com.ithawk.spring.demo.circle.A;
 import com.ithawk.spring.demo.config.MainConfig;
 import com.ithawk.spring.demo.listener.AppEventPublisher;
@@ -11,6 +13,9 @@ import com.ithawk.spring.demo.listener.MessageEvent;
 //import org.springframework.context.ApplicationEvent;
 //import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 /**
  * 注解版Spring的用法
@@ -22,18 +27,29 @@ public class AnnotationMainTest {
 
 		AnnotationConfigApplicationContext applicationContext =
 				new AnnotationConfigApplicationContext(MainConfig.class);
+		// 1
+//		Person person =	applicationContext.getBean(Person.class);
+//		System.out.println(person);
+
+//2
+		String[] beans = applicationContext.getBeanDefinitionNames();
+		System.out.println("beans: \r\n"+Arrays.stream(beans).collect(Collectors.joining("\r\n,")).toString());
 
 
-//		Hello bean = applicationContext.getBean(Hello.class);
+
+//3
+		//		Hello bean = applicationContext.getBean(Hello.class);
 //		Hello bea2 = applicationContext.getBean(Hello.class);
 //		System.out.println(bean == bea2); //还是单例
 
+
+//3:
 		//循环引用,原理测试
 		//AOP,原理测试
-		HelloService helloService = applicationContext.getBean(HelloService.class);
-
-		//代理对象来调用方法
-		helloService.sayHello("zhangsan");
+//		HelloService helloService = applicationContext.getBean(HelloService.class);
+//
+//		//代理对象来调用方法
+//		helloService.sayHello("zhangsan");
 
 
 
@@ -45,11 +61,11 @@ public class AnnotationMainTest {
 //			}
 //		});
 
-		//测试事件
-		AppEventPublisher eventPublisher = applicationContext.getBean(AppEventPublisher.class);
-		eventPublisher.publish(new A());
-		eventPublisher.publish(new MessageEvent("hello，你好"));
-		eventPublisher.publish(new ChangeEvent(eventPublisher,"sending..."));
+//		//测试事件
+//		AppEventPublisher eventPublisher = applicationContext.getBean(AppEventPublisher.class);
+//		eventPublisher.publish(new A());
+//		eventPublisher.publish(new MessageEvent("hello，你好"));
+//		eventPublisher.publish(new ChangeEvent(eventPublisher,"sending..."));
 
 
 //		Person bean = applicationContext.getBean(Person.class);
@@ -63,21 +79,22 @@ public class AnnotationMainTest {
 //		}
 
 
-//		Cat bean1 = applicationContext.getBean(Cat.class);
-//
-//		Cat bean2 = applicationContext.getBean(Cat.class);
-//
-//		System.out.println(bean1 == bean2);  //false
+		// 原型类
+		Cat bean1 = applicationContext.getBean(Cat.class);
 
-//		Person bean1 = applicationContext.getBean(Person.class);
-//
-//		Cat cat = bean1.getCat();
-//
-//		Person bean2 = applicationContext.getBean(Person.class);
-//
-//		Cat cat1 = bean2.getCat();
-//		System.out.println(cat1 == cat);  //true
-//		System.out.println(cat1);
+		Cat bean2 = applicationContext.getBean(Cat.class);
+
+		System.out.println("1:" + (bean1 == bean2));  //false
+
+		Person bean3= applicationContext.getBean(Person.class);
+
+		Cat cat = bean3.getCat();
+
+		Person bean4 = applicationContext.getBean(Person.class);
+
+		Cat cat1 = bean4.getCat();
+		System.out.println(cat1 == cat);  //true
+		System.out.println(cat1);
 
 
 //		Person bean = applicationContext.getBean(Person.class);

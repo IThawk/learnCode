@@ -30,6 +30,10 @@ import org.springframework.lang.Nullable;
 import org.springframework.util.FileCopyUtils;
 
 /**
+ *
+ * 资源接口
+ *
+ * 查看实现接口  ctrl + h
  * Interface for a resource descriptor that abstracts from the actual
  * type of underlying resource, such as a file or class path resource.
  *

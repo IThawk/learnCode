@@ -2,6 +2,7 @@ package com.ithawk.spring.demo.config;
 
 
 import com.ithawk.spring.demo.bean.Cat;
+import com.ithawk.spring.demo.bean.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.support.RootBeanDefinition;
@@ -14,9 +15,9 @@ import org.springframework.core.type.AnnotationMetadata;
  * 这是一个配置类
  */
 
-//@Import({ MainConfig.MyImportRegistrar.class})
+//@Import({ Person.class,MainConfig.MyImportRegistrar.class}) // 2
 //@Import(AspectJAutoProxyRegistrar.class)
-@ComponentScan("com.ithawk.spring.demo")
+@ComponentScan("com.ithawk.spring.demo") //3 定义扫描地址 对应的bean 需要加入注解
 @Configuration
 public class MainConfig {
 
@@ -28,6 +29,7 @@ public class MainConfig {
 //		applicationEventPublisher.publishEvent();
 	}
 
+	// 1:直接创建对象
 //	@Bean(initMethod = "")
 //	public Person person(){
 //		Person person = new Person();
@@ -36,6 +38,7 @@ public class MainConfig {
 //	}
 
 
+	// 2
 	/**
 	 * 		BeanDefinitionRegistry：Bean定义信息注册中心：图纸中心;
 	 * 				它里面都是BeanDefinition
