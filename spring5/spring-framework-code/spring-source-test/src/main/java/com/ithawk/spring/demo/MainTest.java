@@ -13,7 +13,7 @@ import org.springframework.beans.factory.xml.DefaultBeanDefinitionDocumentReader
 import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.AbstractXmlApplicationContext;
-import org.springframework.context.support.ApplicationContextAwareProcessor;
+//import org.springframework.context.support.ApplicationContextAwareProcessor;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.EncodedResource;
