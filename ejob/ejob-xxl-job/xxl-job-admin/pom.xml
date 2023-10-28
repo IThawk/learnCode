@@ -12,6 +12,7 @@
 		<version>1.0-SNAPSHOT</version>
 	</parent>
 	<artifactId>xxl-job-admin</artifactId>
+	<name>xxl-job-admin-pg</name>
 	<packaging>jar</packaging>
 	<properties>
 		<xxl-job.core>2.2.0</xxl-job.core>
@@ -71,6 +72,13 @@
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>8.0.27</version>
+		</dependency>
+
+		<!-- pgsql -->
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>42.4.1</version>
 		</dependency>
 
 		<!-- xxl-job-core -->

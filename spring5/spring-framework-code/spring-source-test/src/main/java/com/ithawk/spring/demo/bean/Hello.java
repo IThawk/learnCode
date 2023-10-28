@@ -7,6 +7,9 @@ import org.springframework.core.env.Environment;
 import java.util.Map;
 
 public class Hello {
+	public Hello() {
+		System.out.println("Hello 被创建");
+	}
 
 	//下面的功能还可以使用xxxAware接口
 	@Autowired //为啥能进来，之前就保存到容器的实例缓存池了；底层组件先在 resolvableDependencies

@@ -10,7 +10,9 @@ public class MySmartInstantiationAwareBeanPostProcessor implements SmartInstanti
 
 	public MySmartInstantiationAwareBeanPostProcessor(){
 		System.out.println("MySmartInstantiationAwareBeanPostProcessor...");
-	}  //预测bean的类型，最后一次改变组件类型。
+	}
+
+	//预测bean的类型，最后一次改变组件类型。
 	public Class<?> predictBeanType(Class<?> beanClass, String beanName) throws BeansException {
 		System.out.println("MySmartInstantiationAwareBeanPostProcessor...predictBeanType=>"+beanClass+"--"+beanName);
 		return null;

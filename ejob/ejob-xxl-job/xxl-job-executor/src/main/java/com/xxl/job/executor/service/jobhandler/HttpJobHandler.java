@@ -8,7 +8,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.Arrays;
@@ -35,7 +37,7 @@ public class HttpJobHandler {
         // param parse
         if (param==null || param.trim().length()==0) {
             XxlJobLogger.log("param["+ param +"] invalid.");
-            return ReturnT.FAIL;
+            return new ReturnT(ReturnT.FAIL_CODE,"param["+ param +"] invalid.");
         }
         String[] httpParams = param.split("\n");
         String url = null;
@@ -56,62 +58,70 @@ public class HttpJobHandler {
         // param valid
         if (url==null || url.trim().length()==0) {
             XxlJobLogger.log("url["+ url +"] invalid.");
-            return ReturnT.FAIL;
+            return new ReturnT(ReturnT.FAIL_CODE,"url["+ url +"] invalid.");
         }
         if (method==null || !Arrays.asList("GET", "POST").contains(method)) {
             XxlJobLogger.log("method["+ method +"] invalid.");
-            return ReturnT.FAIL;
+            return new ReturnT(ReturnT.FAIL_CODE,"method["+ method +"] invalid.");
         }
 
         // request
-        URLConnection connection = null;
+        HttpURLConnection connection = null;
         BufferedReader bufferedReader = null;
         try {
             // connection
             URL realUrl = new URL(url);
-            JSONObject jsonObject = null;
-            String result = "";
-            BufferedReader in = null;
-            try {
-                String urlNameString = url + "?" + param;
-                // 打开和URL之间的连接
-                connection = realUrl.openConnection();
-                connection.connect();
-                // 定义 BufferedReader输入流来读取URL的响应
-                in = new BufferedReader(new InputStreamReader(
-                        connection.getInputStream()));
-                String line;
-                while ((line = in.readLine()) != null) {
-                    result += line;
-                }
-                jsonObject = JSONObject.fromObject(result);
-            } catch (Exception e) {
-                System.out.println("发送GET请求出现异常！" + e);
-                e.printStackTrace();
-            }
-            // 使用finally块来关闭输入流
-            finally {
-                try {
-                    if (in != null) {
-                        in.close();
-                    }
-                } catch (Exception e2) {
-                    e2.printStackTrace();
-                }
+            connection = (HttpURLConnection) realUrl.openConnection();
+
+            // connection setting
+            connection.setRequestMethod(method);
+            connection.setDoOutput(true);
+            connection.setDoInput(true);
+            connection.setUseCaches(false);
+            connection.setReadTimeout(5 * 1000);
+            connection.setConnectTimeout(3 * 1000);
+            connection.setRequestProperty("connection", "Keep-Alive");
+            connection.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
+            connection.setRequestProperty("Accept-Charset", "application/json;charset=UTF-8");
+
+            // do connection
+            connection.connect();
+
+            // data
+            if (data!=null && data.trim().length()>0) {
+                DataOutputStream dataOutputStream = new DataOutputStream(connection.getOutputStream());
+                dataOutputStream.write(data.getBytes("UTF-8"));
+                dataOutputStream.flush();
+                dataOutputStream.close();
             }
 
+            // valid StatusCode
+            int statusCode = connection.getResponseCode();
+            if (statusCode != 200) {
+                throw new RuntimeException("Http Request StatusCode(" + statusCode + ") Invalid.");
+            }
+
+            // result
+            bufferedReader = new BufferedReader(new InputStreamReader(connection.getInputStream(), "UTF-8"));
+            StringBuilder result = new StringBuilder();
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                result.append(line);
+            }
             String responseMsg = result.toString();
-            JSONObject jsonFile = JSONObject.fromObject(result);
-            String write = jsonFile.getString("datas");
-            XxlJobLogger.log(write);
-            return ReturnT.SUCCESS;
+
+            XxlJobLogger.log(responseMsg);
+            return new ReturnT(ReturnT.SUCCESS_CODE,responseMsg);
         } catch (Exception e) {
             XxlJobLogger.log(e);
-            return ReturnT.FAIL;
+            return new ReturnT(ReturnT.FAIL_CODE,e.getMessage());
         } finally {
             try {
                 if (bufferedReader != null) {
                     bufferedReader.close();
+                }
+                if (connection != null) {
+                    connection.disconnect();
                 }
             } catch (Exception e2) {
                 XxlJobLogger.log(e2);
