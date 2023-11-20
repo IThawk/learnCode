@@ -118,13 +118,6 @@
             <version>5.2.4.RELEASE</version>
             <scope>compile</scope>
         </dependency>
-        <dependency>
-            <groupId>com.dm</groupId>
-            <artifactId>Dm7JdbcDriver</artifactId>
-            <version>1.7</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/src/main/resources/lib/DmJdbcDriver18.jar</systemPath>
-        </dependency>
     </dependencies>
 
     <build>
