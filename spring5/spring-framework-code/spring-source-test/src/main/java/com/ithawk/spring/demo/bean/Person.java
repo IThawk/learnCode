@@ -8,6 +8,8 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.MessageSource;
 import org.springframework.context.MessageSourceAware;
 import org.springframework.context.annotation.DependsOn;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 
@@ -22,7 +24,8 @@ import org.springframework.stereotype.Component;
  *
  */
 @Component
-public class Person implements ApplicationContextAware /*2 使用这种*/, MessageSourceAware/*3：国际化*/ {
+@DependsOn("personD")
+public class Person implements ApplicationContextAware /*2 使用这种*/, MessageSourceAware/*3：国际化*/ ,Ordered{
 
 //	@Autowired //这种方法也可以
 	ApplicationContext context;  //可以要到ioc容器
@@ -65,7 +68,7 @@ public class Person implements ApplicationContextAware /*2 使用这种*/, Messa
 
 
 	//
-//	@Lookup  //去容器中找。  @Bean的这种方式注册的Person @Lookup不生效
+	@Lookup  //去容器中找。  @Bean的这种方式注册的Person @Lookup不生效
 	public Cat getCat() {
 		return cat;
 	}
@@ -94,5 +97,10 @@ public class Person implements ApplicationContextAware /*2 使用这种*/, Messa
 	@Override
 	public void setMessageSource(MessageSource messageSource) {
 		this.messageSource = messageSource;
+	}
+
+	@Override
+	public int getOrder() {
+		return 1;
 	}
 }

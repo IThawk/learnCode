@@ -21,6 +21,7 @@
         <module>arthas-web</module>
         <module>jvm</module>
         <module>thread-demo</module>
+        <module>springboot-thread-demo</module>
     </modules>
 
     <build>

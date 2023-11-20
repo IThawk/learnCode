@@ -1,7 +1,10 @@
 package com.xkcoding.orm.mybatis.plus;
 
+import com.ithawk.demo.springboot.starter.autoconfiguration.EnableXxlJobAutoConfiguration;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
 
 /**
  * <p>
@@ -16,6 +19,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @version: V1.0
  * @modified: yangkai.shen
  */
+@EnableXxlJobAutoConfiguration()
 @SpringBootApplication
 public class SpringBootDemoOrmMybatisPlusApplication {
 

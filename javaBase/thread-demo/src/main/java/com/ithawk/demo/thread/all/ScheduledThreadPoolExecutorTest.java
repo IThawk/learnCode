@@ -29,7 +29,7 @@ public class ScheduledThreadPoolExecutorTest {
     // 相对开始加入任务的时间点固定频率执行：从加入任务开始算2s后开始执行任务，2+5s开始执行，2+2*5s执行，2+n*5s开始执行；
     // 但是如果执行任务时间大于5s,则不会并发执行，后续任务将会延迟。
 
-    static void scheduleAtFixedRate() throws InterruptedException, ExecutionException {
+    static void scheduleAtFixedRate() throws InterruptedException, ExecutionException, TimeoutException {
         ScheduledExecutorService executorService = new ScheduledThreadPoolExecutor(10);
 
         ScheduledFuture<?> result = executorService.scheduleAtFixedRate(new Runnable() {
@@ -45,7 +45,7 @@ public class ScheduledThreadPoolExecutorTest {
         }, 2000, 5000, TimeUnit.MILLISECONDS);
 
         // 由于是定时任务，一直不会返回
-        result.get();
+        result.get(2000L,TimeUnit.MICROSECONDS);
         System.out.println("over");
     }
 

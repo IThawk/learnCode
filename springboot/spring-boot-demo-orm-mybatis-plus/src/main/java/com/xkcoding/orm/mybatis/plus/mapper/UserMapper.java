@@ -2,7 +2,7 @@ package com.xkcoding.orm.mybatis.plus.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.xkcoding.orm.mybatis.plus.entity.User;
-import org.springframework.stereotype.Component;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * <p>
@@ -17,6 +17,6 @@ import org.springframework.stereotype.Component;
  * @version: V1.0
  * @modified: yangkai.shen
  */
-@Component
+@Mapper
 public interface UserMapper extends BaseMapper<User> {
 }

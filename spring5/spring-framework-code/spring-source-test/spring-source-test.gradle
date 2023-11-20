@@ -8,6 +8,9 @@ dependencies {
 //    compile(project(":spring-jdbc")) //引入事务
 //    // https://mvnrepository.com/artifact/mysql/mysql-connector-java
 //    implementation group: 'mysql', name: 'mysql-connector-java', version: '5.1.49'
+    // https://mvnrepository.com/artifact/com.alibaba.fastjson2/fastjson2
+    implementation group: 'com.alibaba.fastjson2', name: 'fastjson2', version: '2.0.32'
+
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
 }

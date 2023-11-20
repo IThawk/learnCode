@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 
-@Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+//@Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 //容器就应该给Cat再创建一个对象
 @Component
 public class Cat implements InitializingBean, SmartInitializingSingleton {

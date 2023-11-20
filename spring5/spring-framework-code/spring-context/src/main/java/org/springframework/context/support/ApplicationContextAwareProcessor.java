@@ -74,6 +74,7 @@ class ApplicationContextAwareProcessor implements BeanPostProcessor {
 	}
 
 
+	//判断是否实现Aware 接口
 	@Override
 	@Nullable
 	public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {

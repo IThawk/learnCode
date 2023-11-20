@@ -15,7 +15,7 @@
     <module>springboot-demo-orm-mybatis</module>
     <module>springboot-starter</module>
     <module>springboot-ex</module>
-
+    <module>springboot-thread-demo</module>
 <!--    <module>spring-boot-demo-helloworld</module>-->
 <!--    <module>spring-boot-demo-properties</module>-->
 <!--    <module>spring-boot-demo-actuator</module>-->

@@ -62,6 +62,7 @@ public abstract class AnnotationConfigUtils {
 
 	/**
 	 * The bean name of the internally managed Configuration annotation processor.
+	 *
 	 */
 	public static final String CONFIGURATION_ANNOTATION_PROCESSOR_BEAN_NAME =
 			"org.springframework.context.annotation.internalConfigurationAnnotationProcessor";
@@ -139,6 +140,8 @@ public abstract class AnnotationConfigUtils {
 	}
 
 	/**
+	 *
+	 * 注册处理器
 	 * Register all relevant annotation post processors in the given registry.
 	 * @param registry the registry to operate on
 	 * @param source the configuration source element (already extracted)
@@ -167,12 +170,17 @@ public abstract class AnnotationConfigUtils {
 			beanDefs.add(registerPostProcessor(registry, def, CONFIGURATION_ANNOTATION_PROCESSOR_BEAN_NAME));
 		}
 
+		//设置注解 	this.autowiredAnnotationTypes.add(Autowired.class);
+		//		this.autowiredAnnotationTypes.add(Value.class);
 		if (!registry.containsBeanDefinition(AUTOWIRED_ANNOTATION_PROCESSOR_BEAN_NAME)) {
 			RootBeanDefinition def = new RootBeanDefinition(AutowiredAnnotationBeanPostProcessor.class);
 			def.setSource(source);
 			beanDefs.add(registerPostProcessor(registry, def, AUTOWIRED_ANNOTATION_PROCESSOR_BEAN_NAME));
 		}
 
+
+		//设置注解 	setInitAnnotationType(PostConstruct.class);
+		//		setDestroyAnnotationType(PreDestroy.class);
 		// Check for Jakarta Annotations support, and if present add the CommonAnnotationBeanPostProcessor.
 		if (jakartaAnnotationsPresent && !registry.containsBeanDefinition(COMMON_ANNOTATION_PROCESSOR_BEAN_NAME)) {
 			RootBeanDefinition def = new RootBeanDefinition(CommonAnnotationBeanPostProcessor.class);
@@ -250,6 +258,11 @@ public abstract class AnnotationConfigUtils {
 		processCommonDefinitionAnnotations(abd, abd.getMetadata());
 	}
 
+	/**
+	 * 完善主配置类
+	 * @param abd
+	 * @param metadata
+	 */
 	static void processCommonDefinitionAnnotations(AnnotatedBeanDefinition abd, AnnotatedTypeMetadata metadata) {
 		AnnotationAttributes lazy = attributesFor(metadata, Lazy.class);
 		if (lazy != null) {

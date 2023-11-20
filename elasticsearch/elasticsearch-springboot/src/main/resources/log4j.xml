@@ -96,9 +96,9 @@
         </RollingFile>
 
         <!-- 172.29.132.191为logstash主机外网IP，5044为logstash端口 -->
-        <Socket name="LOGSTASH" host="172.29.132.191" port="5044" protocol="TCP">
-            <PatternLayout pattern="${LOG_PATTERN}"/>
-        </Socket>
+<!--        <Socket name="LOGSTASH" host="172.29.132.191" port="5044" protocol="TCP">-->
+<!--            <PatternLayout pattern="${LOG_PATTERN}"/>-->
+<!--        </Socket>-->
     </appenders>
 
 
