@@ -10,15 +10,24 @@ public class MyProvider {
     @Autowired
     AmqpTemplate amqpTemplate;
 
-    public void send(){
+    public void send() {
         // 发送4条消息
 
-        amqpTemplate.convertAndSend("","FIRST_QUEUE","-------- a direct msg");
+        try {
+            for (int i = 0; i < 5; i++) {
+                amqpTemplate.convertAndSend("", "FIRST_QUEUE", "-------- a direct msg" + i);
 
-        amqpTemplate.convertAndSend("TOPIC_EXCHANGE","shanghai.gupao.teacher","-------- a topic msg : shanghai.gupao.teacher");
-        amqpTemplate.convertAndSend("TOPIC_EXCHANGE","changsha.gupao.student","-------- a topic msg : changsha.gupao.student");
+                amqpTemplate.convertAndSend("", "FIRST_QUEUE", "-------- a direct msg" + i);
+                amqpTemplate.convertAndSend("TOPIC_EXCHANGE", "shanghai.gupao.teacher", "-------- a topic msg : shanghai.gupao.teacher");
+                amqpTemplate.convertAndSend("TOPIC_EXCHANGE", "changsha.gupao.student", "-------- a topic msg : changsha.gupao.student");
 
-        amqpTemplate.convertAndSend("FANOUT_EXCHANGE","","-------- a fanout msg");
+                amqpTemplate.convertAndSend("FANOUT_EXCHANGE", "", "-------- a fanout msg");
+            }
+            Thread.sleep(10000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
 
     }
 

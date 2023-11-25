@@ -1,0 +1,9 @@
+### xxl-job executor appname
+xxl-job.admin.flag= true
+xxl-job.admin.addresses= http://127.0.0.1:9090/xxl-job-admin
+xxl-job.executor.appname= xxl-job-executor
+xxl-job.executor.address=
+xxl-job.executor.ip=
+xxl-job.executor.port= ${random.int[9000,10000]}
+xxl-job.executor.logpath  C:/dev_logs/xxl-job/jobhandler
+xxl-job.executor.logretentiondays  30

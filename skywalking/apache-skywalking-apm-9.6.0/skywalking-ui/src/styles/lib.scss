@@ -1,0 +1,245 @@
+/**
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+.flex-v {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-h {
+  display: flex;
+  flex-direction: row;
+}
+
+.ell {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.wba {
+  word-break: break-all;
+}
+
+.cp {
+  cursor: pointer;
+}
+
+.cm {
+  cursor: move;
+}
+
+.auto {
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.green {
+  color: #4caf50;
+}
+
+.red {
+  color: #e54c17;
+}
+
+.blue {
+  color: #448dfe;
+}
+
+.purple {
+  color: #6e40aa;
+}
+
+.yellow {
+  color: #fbb03b;
+}
+
+.grey {
+  color: #a7aebb;
+}
+
+.white {
+  color: #fff;
+}
+
+.bg-green {
+  background-color: #4caf50;
+}
+
+.bg-red {
+  background-color: #e54c17;
+}
+
+.bg-blue {
+  background-color: #448dfe;
+}
+
+.bg-purple {
+  background-color: #6e40aa;
+}
+
+.bg-yellow {
+  background-color: #fbb03b;
+}
+
+.bg-grey {
+  background-color: #a7aebb;
+}
+
+.mt-0 {
+  margin-top: 0;
+}
+.mt-10 {
+  margin-top: 10px;
+}
+
+.mt-20 {
+  margin-top: 20px;
+}
+
+.mb-5 {
+  margin-bottom: 5px;
+}
+
+.mt-5 {
+  margin-top: 5px;
+}
+
+.ml-5 {
+  margin-left: 5px;
+}
+
+.ml-10 {
+  margin-left: 10px;
+}
+
+.ml-15 {
+  margin-left: 15px;
+}
+
+.ml-20 {
+  margin-left: 20px;
+}
+
+.mb-10 {
+  margin-bottom: 10px;
+}
+
+.mr-5 {
+  margin-right: 5px;
+}
+
+.mr-10 {
+  margin-right: 10px;
+}
+
+.mr-15 {
+  margin-right: 15px;
+}
+
+.mr-20 {
+  margin-right: 20px;
+}
+
+.clear::after {
+  display: table;
+  content: "";
+  clear: both;
+}
+@keyframes loading {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+.dark-dialog {
+  background-color: #333840;
+  color: #ddd;
+
+  .el-loading-mask {
+    background-color: #333840;
+    color: #ddd;
+  }
+}
+
+.scroll_bar_style::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+  background-color: #eee;
+}
+
+.scroll_bar_style::-webkit-scrollbar-track {
+  background-color: #eee;
+  border-radius: 3px;
+  box-shadow: inset 0 0 6px $disabled-color;
+}
+
+.scroll_bar_style::-webkit-scrollbar-thumb {
+  border-radius: 3px;
+  box-shadow: inset 0 0 6px $disabled-color;
+  background-color: #aaa;
+}
+
+.scroll_bar_dark::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+  background-color: #666;
+}
+
+.scroll_bar_dark::-webkit-scrollbar-track {
+  background-color: #252a2f;
+  border-radius: 3px;
+  box-shadow: inset 0 0 6px #999;
+}
+
+.scroll_bar_dark::-webkit-scrollbar-thumb {
+  border-radius: 3px;
+  box-shadow: inset 0 0 6px #888;
+  background-color: #999;
+}
+.d3-tip {
+  line-height: 1;
+  padding: 8px;
+  color: #eee;
+  border-radius: 4px;
+  font-size: $font-size-smaller;
+}
+.d3-tip {
+  background: #252a2f;
+}
+
+.d3-tip:after {
+  box-sizing: border-box;
+  display: block;
+  font-size: 10px;
+  width: 100%;
+  line-height: 0.8;
+  color: #252a2f;
+  content: "\25BC";
+  position: absolute;
+  text-align: center;
+}
+
+.d3-tip.n:after {
+  margin: -2px 0 0 0;
+  top: 100%;
+  left: 0;
+}

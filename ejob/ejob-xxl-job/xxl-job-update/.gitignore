@@ -1,0 +1,13 @@
+/xxl-job-spring-boot-starter/target/
+/xxl-job-http/target/
+/xxl-job-core/target/
+/springboot-starter-xxl-job-demo/target/
+/.idea/
+/xxl-job-executor-demo/target/
+/xxl-job-executor/target/
+/springboot-starter-xxl-job-demo/*.iml
+/xxl-job-spring-boot-starter/*.iml
+/xxl-job-http/*.iml
+/xxl-job-core/*.iml
+/xxl-job-executor-demo/*.iml
+/xxl-job-executor/*.iml

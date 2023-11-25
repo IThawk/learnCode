@@ -1,0 +1,208 @@
+[
+  {
+    "id": "Mesh-Root",
+    "configuration": {
+      "children": [
+        {
+          "x": 0,
+          "y": 2,
+          "w": 24,
+          "h": 52,
+          "i": "1",
+          "type": "Tab",
+          "children": [
+            {
+              "name": "Services",
+              "children": [
+                {
+                  "x": 0,
+                  "y": 0,
+                  "w": 24,
+                  "h": 48,
+                  "i": "0",
+                  "type": "Widget",
+                  "graph": {
+                    "type": "ServiceList",
+                    "dashboardName": "Mesh-Service",
+                    "fontSize": 12,
+                    "showXAxis": false,
+                    "showYAxis": false,
+                    "showGroup": true
+                  },
+                  "metricConfig": [
+                    {
+                      "label": "Loads",
+                      "unit": "Calls Per Minutes"
+                    },
+                    {
+                      "label": "Success Rate",
+                      "unit": "%"
+                    },
+                    {
+                      "label": "Latency",
+                      "unit": "ms"
+                    },
+                    {
+                      "label": "Apdex"
+                    }
+                  ],
+                  "metricMode": "Expression",
+                  "expressions": [
+                    "avg(service_cpm)",
+                    "avg(service_sla)/100",
+                    "avg(service_resp_time)",
+                    "avg(service_apdex)/10000"
+                  ],
+                  "subExpressions": [
+                    "",
+                    "",
+                    "",
+                    ""
+                  ],
+                  "subTypesOfMQE": [
+                    "",
+                    "",
+                    "",
+                    ""
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Topology",
+              "children": [
+                {
+                  "x": 0,
+                  "y": 0,
+                  "w": 24,
+                  "h": 48,
+                  "i": "0",
+                  "type": "Topology",
+                  "graph": {
+                    "showDepth": true
+                  },
+                  "linkDashboard": "Mesh-Service-Relation",
+                  "nodeDashboard": [
+                    {
+                      "scope": "Service",
+                      "dashboard": "Mesh-Service"
+                    },
+                    {
+                      "scope": "ServiceInstance",
+                      "dashboard": "Mesh-Instance"
+                    },
+                    {
+                      "scope": "Endpoint",
+                      "dashboard": "Mesh-Endpoint"
+                    }
+                  ],
+                  "linkServerMetrics": [
+                    "service_relation_server_resp_time",
+                    "service_relation_server_cpm"
+                  ],
+                  "linkClientMetrics": [
+                    "service_relation_client_cpm",
+                    "service_relation_client_resp_time"
+                  ],
+                  "nodeMetrics": [
+                    "service_cpm",
+                    "service_sla",
+                    "service_resp_time"
+                  ],
+                  "legend": [
+                    {
+                      "name": "service_sla",
+                      "condition": "<",
+                      "value": "9500"
+                    },
+                    {
+                      "name": "service_cpm",
+                      "condition": ">",
+                      "value": "1"
+                    }
+                  ],
+                  "description": {
+                    "healthy": "Healthy",
+                    "unhealthy": "Success Rate < 95% and Traffic > 1 calls or packets / min"
+                  },
+                  "nodeMetricConfig": [
+                    {
+                      "unit": "calls or packets / min",
+                      "label": "Load"
+                    },
+                    {
+                      "calculation": "percentage",
+                      "unit": "%",
+                      "label": "Success Rate"
+                    },
+                    {
+                      "unit": "ms",
+                      "label": "Latency"
+                    }
+                  ],
+                  "linkServerMetricConfig": [
+                    {
+                      "unit": "ms",
+                      "label": "Server Latency"
+                    },
+                    {
+                      "unit": "calls or packets / min",
+                      "label": "Server Load"
+                    }
+                  ],
+                  "linkClientMetricConfig": [
+                    {
+                      "unit": "calls or packets / min",
+                      "label": "Client Load"
+                    },
+                    {
+                      "unit": "ms",
+                      "label": "Client Latency"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Zipkin Trace",
+              "children": [
+                {
+                  "x": 0,
+                  "y": 0,
+                  "w": 24,
+                  "h": 48,
+                  "i": "0",
+                  "type": "ThirdPartyApp",
+                  "widget": {
+                    "url": "/zipkin"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "x": 0,
+          "y": 0,
+          "w": 24,
+          "h": 2,
+          "i": "100",
+          "type": "Text",
+          "graph": {
+            "fontColor": "blue",
+            "backgroundColor": "white",
+            "content": "Observe Service Mesh through telemetry data collected from Envoy Access Log Service (ALS).",
+            "fontSize": 14,
+            "textAlign": "left",
+            "url": "https://skywalking.apache.org/docs/main/next/en/setup/envoy/als_setting/"
+          }
+        }
+      ],
+      "layer": "MESH",
+      "entity": "All",
+      "name": "Mesh-Root",
+      "id": "Mesh-Root",
+      "isRoot": true
+    }
+  }
+]

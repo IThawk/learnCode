@@ -1,0 +1,112 @@
+# Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# The list of logs
+type Logs {
+    # When this field is not empty, frontend should display it in UI
+    errorReason: String
+
+    logs: [Log!]!
+}
+
+# Log info
+type Log {
+    serviceName: String
+    serviceId: ID
+    serviceInstanceName: String
+    serviceInstanceId: ID
+    endpointName: String
+    endpointId: ID
+    traceId: String
+    timestamp: Long!
+    contentType: ContentType!
+    content: String
+    tags: [KeyValue!]
+}
+
+# Represent the conditions used for query logs
+input LogQueryCondition {
+    # The value of 0 means all services.
+    serviceId: ID
+    serviceInstanceId: ID
+    endpointId: ID
+    # Related trace condition.
+    # When use related trace condition, duration is not required.
+    relatedTrace: TraceScopeCondition
+    # The time range of log happened
+    # [Required] duration is required in most query, only exception is when use relatedTrace.
+    queryDuration: Duration
+    paging: Pagination!
+    tags: [LogTag!]
+    # Fuzzy query conditions for the log content.
+    # Use these 2 keyword related condition, when supportQueryLogsByKeywords returns TRUE.
+    keywordsOfContent: [String!]
+    excludingKeywordsOfContent: [String!]
+    # Order by timestamp, default desc
+    queryOrder: Order
+}
+
+# Trace related condition
+input TraceScopeCondition {
+    traceId: String!
+    segmentId: String
+    spanId: Int
+}
+
+input LogTag {
+    key: String!
+    value: String
+}
+
+enum ContentType {
+    TEXT
+    JSON
+    YAML
+}
+
+input LogTestRequest {
+    # The log data of protocol https://github.com/apache/skywalking-data-collect-protocol/blob/e626ee04850703c220f64b642d2893fa65572943/logging/Logging.proto#41
+    # in JSON format
+    log: String!
+    dsl: String!
+}
+
+type LogTestResponse {
+    # The final log if it will be persisted, this can be empty if the log is dropped.
+    log: Log
+    # The metrics generated during the LAL when testing a LogTestRequest
+    metrics: [LogTestMetrics!]
+}
+
+# The metrics generated during the LAL when testing a LogTestRequest
+type LogTestMetrics {
+    name: String!
+    tags: [KeyValue!]
+    value: Long!
+    timestamp: Long!
+}
+
+extend type Query {
+    # Return true if the current storage implementation supports fuzzy query for logs.
+    supportQueryLogsByKeywords: Boolean!
+    queryLogs(condition: LogQueryCondition): Logs
+
+    # Test the logs and get the results of the LAL output.
+    test(requests: LogTestRequest!): LogTestResponse!
+
+    queryLogTagAutocompleteKeys(duration: Duration!):[String!]
+    queryLogTagAutocompleteValues(tagKey: String! , duration: Duration!):[String!]
+}

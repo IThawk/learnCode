@@ -1,0 +1,363 @@
+/**
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+[
+   {
+      "id":"mysql-service",
+      "configuration":{
+         "children":[
+            {
+               "x":0,
+               "y":0,
+               "w":24,
+               "h":33,
+               "i":"0",
+               "type":"Tab",
+               "children":[
+                  {
+                     "name":"Inspections",
+                     "children":[
+                        {
+                           "x":0,
+                           "y":0,
+                           "w":6,
+                           "h":13,
+                           "i":"1",
+                           "type":"Widget",
+                           "graph":{
+                              "type":"Line",
+                              "step":false,
+                              "smooth":false,
+                              "showSymbol":false,
+                              "showXAxis":true,
+                              "showYAxis":true
+                           },
+                           "widget":{
+                              "title":"Current QPS"
+                           },
+                           "metricMode":"Expression",
+                           "metricConfig":[
+                              {
+                                 "label":"QPS"
+                              }
+                           ],
+                           "expressions":[
+                              "meter_mysql_qps"
+                           ],
+                           "typesOfMQE":[
+                              "TIME_SERIES_VALUES"
+                           ]
+                        },
+                        {
+                           "x":6,
+                           "y":0,
+                           "w":6,
+                           "h":13,
+                           "i":"5",
+                           "type":"Widget",
+                           "graph":{
+                              "type":"Line",
+                              "step":false,
+                              "smooth":false,
+                              "showSymbol":false,
+                              "showXAxis":true,
+                              "showYAxis":true
+                           },
+                           "widget":{
+                              "title":"Current TPS"
+                           },
+                           "metricMode":"Expression",
+                           "metricConfig":[
+                              {
+                                 "label":"TPS"
+                              }
+                           ],
+                           "expressions":[
+                              "meter_mysql_tps"
+                           ],
+                           "typesOfMQE":[
+                              "TIME_SERIES_VALUES"
+                           ]
+                        },
+                        {
+                           "x":12,
+                           "y":0,
+                           "w":6,
+                           "h":13,
+                           "i":"6",
+                           "type":"Widget",
+                           "graph":{
+                              "type":"Area",
+                              "opacity":0.4,
+                              "showXAxis":true,
+                              "showYAxis":true
+                           },
+                           "widget":{
+                              "title":"Commands Trend (rows per second)"
+                           },
+                           "metricMode":"Expression",
+                           "metricConfig":[
+                              {
+                                 "label":"Insert Rate"
+                              },
+                              {
+                                 "label":"Delete Rate"
+                              },
+                              {
+                                 "label":"Select Rate"
+                              },
+                              {
+                                 "label":"Update Rate"
+                              }
+                           ],
+                           "expressions":[
+                              "meter_mysql_commands_insert_rate",
+                              "meter_mysql_commands_delete_rate",
+                              "meter_mysql_commands_select_rate",
+                              "meter_mysql_commands_update_rate"
+                           ],
+                           "typesOfMQE":[
+                              "TIME_SERIES_VALUES",
+                              "TIME_SERIES_VALUES",
+                              "TIME_SERIES_VALUES",
+                              "TIME_SERIES_VALUES"
+                           ]
+                        },
+                        {
+                           "x":6,
+                           "y":13,
+                           "w":6,
+                           "h":14,
+                           "i":"7",
+                           "type":"Widget",
+                           "graph":{
+                              "type":"Area",
+                              "opacity":0.4,
+                              "showXAxis":true,
+                              "showYAxis":true
+                           },
+                           "widget":{
+                              "title":"Threads"
+                           },
+                           "metricMode":"Expression",
+                           "metricConfig":[
+                              {
+                                 "label":"Cached Threads"
+                              },
+                              {
+                                 "label":"Running Threads"
+                              },
+                              {
+                                 "label":"Created Threads"
+                              },
+                              {
+                                 "label":"Connected Threads"
+                              }
+                           ],
+                           "expressions":[
+                              "meter_mysql_threads_cached",
+                              "meter_mysql_threads_running",
+                              "meter_mysql_threads_created",
+                              "meter_mysql_threads_connected"
+                           ],
+                           "typesOfMQE":[
+                              "TIME_SERIES_VALUES",
+                              "TIME_SERIES_VALUES",
+                              "TIME_SERIES_VALUES",
+                              "TIME_SERIES_VALUES"
+                           ]
+                        },
+                        {
+                           "x":0,
+                           "y":13,
+                           "w":6,
+                           "h":14,
+                           "i":"8",
+                           "type":"Widget",
+                           "graph":{
+                              "type":"Line",
+                              "step":false,
+                              "smooth":false,
+                              "showSymbol":false,
+                              "showXAxis":true,
+                              "showYAxis":true
+                           },
+                           "widget":{
+                              "title":"Connects"
+                           },
+                           "metricMode":"Expression",
+                           "metricConfig":[
+                              {
+                                 "label":"Available Connects"
+                              },
+                              {
+                                 "label":"Abort Connects"
+                              }
+                           ],
+                           "expressions":[
+                              "meter_mysql_connects_available",
+                              "meter_mysql_connects_aborted"
+                           ],
+                           "typesOfMQE":[
+                              "TIME_SERIES_VALUES",
+                              "TIME_SERIES_VALUES"
+                           ]
+                        },
+                        {
+                           "x":18,
+                           "y":0,
+                           "w":6,
+                           "h":13,
+                           "i":"10",
+                           "type":"Widget",
+                           "graph":{
+                              "type":"Line",
+                              "step":false,
+                              "smooth":false,
+                              "showSymbol":false,
+                              "showXAxis":true,
+                              "showYAxis":true
+                           },
+                           "widget":{
+                              "title":"Slow Queries Trend (queries per second)"
+                           },
+                           "metricMode":"Expression",
+                           "metricConfig":[
+                              {
+                                 "label":"Slow Queries Rate"
+                              }
+                           ],
+                           "expressions":[
+                              "meter_mysql_slow_queries_rate"
+                           ],
+                           "typesOfMQE":[
+                              "TIME_SERIES_VALUES"
+                           ]
+                        },
+                        {
+                           "x":12,
+                           "y":13,
+                           "w":6,
+                           "h":14,
+                           "i":"11",
+                           "type":"Widget",
+                           "graph":{
+                              "type":"Line",
+                              "step":false,
+                              "smooth":false,
+                              "showSymbol":false,
+                              "showXAxis":true,
+                              "showYAxis":true
+                           },
+                           "widget":{
+                              "title":"Connection Errors"
+                           },
+                           "metricMode":"Expression",
+                           "metricConfig":[
+                              {
+                                 "label":"Internal Errors"
+                              },
+                              {
+                                 "label":"Max Connections Errors"
+                              }
+                           ],
+                           "expressions":[
+                              "meter_mysql_connection_errors_internal",
+                              "meter_mysql_connection_errors_max_connections"
+                           ],
+                           "typesOfMQE":[
+                              "TIME_SERIES_VALUES",
+                              "TIME_SERIES_VALUES"
+                           ]
+                        }
+                     ]
+                  },
+                  {
+                     "name":"Slow Statements",
+                     "children":[
+                        {
+                           "x":0,
+                           "y":0,
+                           "w":24,
+                           "h":29,
+                           "i":"0",
+                           "type":"Widget",
+                           "graph":{
+                              "type":"TopList",
+                              "color":"purple"
+                           },
+                           "widget":{
+                              "title":"Slow Statements (ms)"
+                           },
+                           "metricMode":"Expression",
+                           "expressions":[
+                              "top_n(top_n_database_statement,10,des)"
+                           ],
+                           "typesOfMQE":[
+                              "RECORD_LIST"
+                           ]
+                        }
+                     ]
+                  },
+                  {
+                     "name":"Instances",
+                     "children":[
+                        {
+                           "x":0,
+                           "y":0,
+                           "w":24,
+                           "h":29,
+                           "i":"0",
+                           "type":"Widget",
+                           "graph":{
+                              "type":"InstanceList",
+                              "dashboardName":"MySQL-Instance",
+                              "fontSize":12
+                           },
+                           "metricConfig":[
+                              {
+                                 "unit":"Day",
+                                 "label":"Uptime"
+                              }
+                           ],
+                           "metricMode":"Expression",
+                           "expressions":[
+                              "meter_mysql_instance_uptime/3600/24"
+                           ],
+                           "subExpressions":[
+                              ""
+                           ],
+                           "subTypesOfMQE":[
+                              ""
+                           ],
+                           "typesOfMQE":[
+
+                           ]
+                        }
+                     ]
+                  }
+               ]
+            }
+         ],
+         "layer":"MYSQL",
+         "entity":"Service",
+         "name":"MySQL-Service",
+         "id":"mysql-service",
+         "isRoot":false
+      }
+   }
+]

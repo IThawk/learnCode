@@ -1,0 +1,147 @@
+# Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# Metadata query v2 protocol provides the layer-based query to various services monitored by SkyWalking ecosystem.
+# It would adopt multiple-layer modern cloud native infrastructure.
+# In the v9 core, v1 protocol is provided on the top of the v2 implementation.
+# The v1's services, Databases, Browsers are all services with layer=general, layer=database, layer=browser.
+# Each service would have native definition about instance and endpoint.
+
+# Service is a logic concept, representing a collection of runnable context.
+type Service {
+    # Service ID = BASE64(name) + '.1' which keeps the most compatibility to 8.x data formats.
+    # All metrics of the service would refer to this ID.
+    # The layer ID would not be included in the service ID, as a service could have multidimensional monitoring, such as ALS + DP for the same service
+    # ----- Storage -----
+    # Row ID in service_traffic entity includes layer ID.
+    # Service ID = BASE64(name) + '.' + Layer ID
+    # -------------------
+    id: ID!
+    # The unqiue name gloablly. 
+    # Typically, name could be formated as `group::name` which would be recognized as a group and a short name.
+    name: String!
+    # The custom/logic group of the service
+    group: String!
+    # The unique name in the group. Mostly for visualization.
+    shortName: String!
+    # Layer represents an abstract framework in the computer science, such as operation system(VM layer), Kubernetes(k8s layer),
+    # Service Mesh(typical Istio+Envoy layer).
+    # The name of layer is a string, but we would reserve the following for visualization(UI)
+    # https://github.com/apache/skywalking/blob/master/oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/Layer.java
+    #
+    # UI uses this literal layer names to provide various layout for their services with metrics.
+    #
+    # The layer collection is from the instances of this service. So, one service could have multiple layer due to instance-level registration.
+    layers: [String!]!
+    # Normal service is the service having installed agent or metrics reported directly.
+    # Unnormal service is conjectural service, usually detected by the agent.
+    normal: Boolean
+}
+
+# The minimal runnable unit in the service. It provides consistent and fundamental capabilities in physical perspective.
+# A service, as a logic unit, have multiple instances in the runtime.
+# Such as, an OS-level processor, a pod in k8s, a running function in the FAAS engine.
+type ServiceInstance {
+    id: ID!
+    name: String!
+    attributes: [Attribute!]!
+    language: Language!
+    instanceUUID: String!
+}
+
+type Attribute {
+    name: String!
+    value: String!
+}
+
+# The endpoint is the minimal functional unit.
+# Typically, it presents a URI or gRPC service name in the service.
+# Different from instance, this is a logical functional unit.
+type Endpoint {
+    id: ID!
+    name: String!
+}
+
+type EndpointInfo {
+    id: ID!
+    name: String!
+    serviceId: ID!
+    serviceName: String!
+}
+
+# The process is an operating system process under service instance.
+type Process {
+    # Process entity
+    id: ID!
+    name: String!
+    serviceId: ID!
+    serviceName: String!
+    instanceId: ID!
+    instanceName: String!
+    # Which agent report this process.
+    agentId: String!
+    # The process found type.
+    detectType: String!
+    # The process attributes, different process detect type have different corresponding attributes.
+    attributes: [Attribute!]!
+    # The process labels.
+    labels: [String!]!
+}
+
+type TimeInfo {
+  # server current timezone, format: +0800
+  timezone: String
+  # server current timestamp, format: 1569124528392
+  currentTimestamp: Long
+}
+
+extend type Query {
+    # Read all available layers
+    # UI could use this list to determine available dashboards/panels
+    # The available layers would change with time in the runtime, because new service could be detected in any time.
+    # This list should be loaded periodically.
+    listLayers: [String!]!
+    
+    # Read the service list according to layer.
+    listServices(layer: String): [Service!]!
+    # Find service according to given ID. Return null if not existing.
+    getService(serviceId: String!): Service
+    # Search and find service according to given name. Return null if not existing.
+    findService(serviceName: String!): Service
+    
+    # Read service instance list.
+    listInstances(duration: Duration!, serviceId: ID!): [ServiceInstance!]!
+    # Search and find service instance according to given ID. Return null if not existing.
+    getInstance(instanceId: String!): ServiceInstance
+    
+    # Search and find matched endpoints according to given service and keyword(optional)
+    # If no keyword, randomly choose endpoint based on `limit` value.
+    findEndpoint(keyword: String, serviceId: ID!, limit: Int!): [Endpoint!]!
+    getEndpointInfo(endpointId: ID!): EndpointInfo
+
+    # Read process list.
+    listProcesses(duration: Duration!, instanceId: ID!): [Process!]!
+    # Find process according to given ID. Return null if not existing.
+    getProcess(processId: ID!): Process
+    # Get the number of matched processes through serviceId, labels
+    # Labels: the matched process should contain all labels
+    #
+    # The return is not a precise number, the process has its lifecycle, as it reboots and shutdowns with time.
+    # The return number just gives an abstract of the scale of profiling that would be applied.
+    estimateProcessScale(serviceId: ID!, labels: [String!]!): Long!
+    
+    getTimeInfo: TimeInfo
+}

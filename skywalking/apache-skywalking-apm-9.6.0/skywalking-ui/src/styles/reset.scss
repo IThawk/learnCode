@@ -1,0 +1,218 @@
+/**
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+body {
+  margin: 0;
+  line-height: 1.5;
+  font-size: $font-size-normal;
+  color: $font-color;
+  font-family: Helvetica, Arial, "Source Han Sans CN", "Microsoft YaHei", sans-serif;
+  text-rendering: optimizelegibility;
+  text-size-adjust: 100%;
+}
+
+html,
+body {
+  height: 100%;
+  overflow-y: hidden;
+}
+
+div,
+header,
+footer,
+nav,
+article,
+section,
+aside,
+label,
+input,
+textarea,
+select,
+button,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+a,
+img {
+  box-sizing: border-box;
+}
+
+input,
+textarea,
+select,
+button {
+  font-size: 100%;
+  font-family: inherit;
+}
+
+h1 {
+  font-size: 26px;
+}
+
+h2 {
+  font-size: 24px;
+}
+
+h3 {
+  font-size: 21px;
+}
+
+h4 {
+  font-size: 18px;
+}
+
+h5 {
+  font-size: $font-size-normal;
+}
+
+h6 {
+  font-size: 1em;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding-left: 0;
+  list-style-type: none;
+}
+
+a {
+  text-decoration: none;
+  cursor: pointer;
+  color: inherit;
+  -webkit-tap-highlight-color: transparent;
+  appearance: none;
+}
+
+hr {
+  border-width: 0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+blockquote {
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: 1.2em;
+  border-left: 4px solid #cacaca;
+}
+
+.el-dialog__body {
+  padding: 10px 20px;
+}
+
+code,
+pre {
+  font-family: Consolas, Menlo, Courier, monospace;
+}
+
+.el-menu {
+  --el-menu-item-height: 50px;
+}
+
+.el-menu-item-group__title {
+  display: none;
+}
+
+.el-sub-menu .el-menu-item {
+  height: 40px;
+  line-height: 40px;
+  padding: 0 0 0 56px !important;
+}
+
+.el-sub-menu__title {
+  .el-icon.menu-icons {
+    margin-top: -5px !important;
+  }
+}
+
+.el-switch__label--left {
+  margin-right: 5px;
+}
+
+.el-switch__label--right {
+  margin-left: 5px;
+}
+
+.el-switch__label * {
+  font-size: $font-size-smaller;
+}
+
+.el-drawer__header {
+  margin-bottom: 0;
+  padding-left: 10px;
+  font-size: 16px;
+}
+
+.el-drawer__body {
+  padding: 0;
+}
+
+.switch {
+  margin: 0 5px;
+}
+
+div.vis-tooltip {
+  max-width: 600px;
+  overflow: hidden;
+  background-color: $theme-background !important;
+  white-space: normal !important;
+  font-size: $font-size-smaller !important;
+}
+
+.vis-item {
+  cursor: pointer;
+  height: 20px;
+}
+
+.vis-item.Error {
+  background-color: #e66;
+  opacity: 0.8;
+  border-color: #e66;
+  color: $text-color !important;
+}
+
+.vis-item.Normal {
+  background-color: #fac858;
+  border-color: #fac858;
+  color: #666 !important;
+}
+
+.vis-item .vis-item-content {
+  padding: 0 3px !important;
+}
+
+.vis-item.vis-selected.Error,
+.vis-item.vis-selected.Normal {
+  color: #1a1a1a !important;
+}
+
+.el-menu--vertical.sub-list {
+  display: none;
+}
+
+div:has(> a.menu-title) {
+  display: none;
+}
+
+.el-input-number .el-input__inner {
+  text-align: left !important;
+}

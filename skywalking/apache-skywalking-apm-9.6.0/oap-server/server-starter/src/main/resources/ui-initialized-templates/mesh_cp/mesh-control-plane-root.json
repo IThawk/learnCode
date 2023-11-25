@@ -1,0 +1,93 @@
+[
+  {
+    "id": "Mesh-Control-Plane-Root",
+    "configuration": {
+      "children": [
+        {
+          "x": 0,
+          "y": 2,
+          "w": 24,
+          "h": 51,
+          "i": "0",
+          "type": "Widget",
+          "widget": {
+            "title": ""
+          },
+          "graph": {
+            "type": "ServiceList",
+            "dashboardName": "Mesh-Control-Plane-Service",
+            "fontSize": 12,
+            "showXAxis": false,
+            "showYAxis": false,
+            "showGroup": true
+          },
+          "metrics": [
+            "meter_istio_cpu",
+            "meter_istio_go_goroutines",
+            "meter_istio_pilot_xds",
+            "meter_istio_pilot_services",
+            "meter_istio_pilot_virt_services"
+          ],
+          "metricTypes": [
+            "readMetricsValues",
+            "readMetricsValues",
+            "readMetricsValues",
+            "readMetricsValues",
+            "readMetricsValues"
+          ],
+          "moved": false,
+          "metricConfig": [
+            {
+              "label": "CPU",
+              "calculation": "average"
+            },
+            {
+              "calculation": "average",
+              "label": "Goroutines"
+            },
+            {
+              "calculation": "average",
+              "label": "Pilot xDS"
+            },
+            {
+              "calculation": "average",
+              "label": "Pilot Services"
+            },
+            {
+              "calculation": "average",
+              "label": "Pilot Virt Services"
+            }
+          ]
+        },
+        {
+          "x": 0,
+          "y": 0,
+          "w": 24,
+          "h": 2,
+          "i": "100",
+          "type": "Text",
+          "metricTypes": [
+            ""
+          ],
+          "metrics": [
+            ""
+          ],
+          "graph": {
+            "fontColor": "blue",
+            "backgroundColor": "white",
+            "content": "Provide monitoring of the behavior of Istio through its self-monitoring metrics.",
+            "fontSize": 14,
+            "textAlign": "left",
+            "url": "https://skywalking.apache.org/docs/main/next/en/setup/istio/readme/"
+          },
+          "moved": false
+        }
+      ],
+      "id": "Mesh-Control-Plane-Root",
+      "layer": "MESH_CP",
+      "entity": "All",
+      "name": "Mesh-Control-Plane-Root",
+      "isRoot": true
+    }
+  }
+]

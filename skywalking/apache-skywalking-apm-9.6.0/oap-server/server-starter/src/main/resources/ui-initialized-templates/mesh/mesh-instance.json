@@ -1,0 +1,581 @@
+[
+  {
+    "id": "Mesh-Instance",
+    "configuration": {
+      "children": [
+        {
+          "x": 0,
+          "y": 12,
+          "w": 24,
+          "h": 52,
+          "i": "1",
+          "type": "Tab",
+          "children": [
+            {
+              "name": "Overview",
+              "children": [
+                {
+                  "x": 11,
+                  "y": 14,
+                  "w": 13,
+                  "h": 14,
+                  "i": "0",
+                  "type": "Widget",
+                  "widget": {
+                    "title": "Service Instance Latency (ms)",
+                    "name": "Instance_Latency"
+                  },
+                  "graph": {
+                    "type": "Line",
+                    "step": false,
+                    "smooth": false,
+                    "showSymbol": true,
+                    "showXAxis": true,
+                    "showYAxis": true
+                  },
+                  "associate": [
+                    {
+                      "widgetId": "1-0-2"
+                    },
+                    {
+                      "widgetId": "1-0-1"
+                    },
+                    {
+                      "widgetId": "1-0-3"
+                    }
+                  ],
+                  "metricMode": "Expression",
+                  "expressions": [
+                    "service_instance_resp_time"
+                  ],
+                  "typesOfMQE": [
+                    "TIME_SERIES_VALUES"
+                  ]
+                },
+                {
+                  "x": 0,
+                  "y": 14,
+                  "w": 11,
+                  "h": 14,
+                  "i": "1",
+                  "type": "Widget",
+                  "widget": {
+                    "title": "Service Instance Successful Rate (%)",
+                    "name": "Instance_Successful_Rate"
+                  },
+                  "graph": {
+                    "type": "Line",
+                    "step": false,
+                    "smooth": false,
+                    "showSymbol": true,
+                    "showXAxis": true,
+                    "showYAxis": true
+                  },
+                  "associate": [
+                    {
+                      "widgetId": "1-0-0"
+                    },
+                    {
+                      "widgetId": "1-0-2"
+                    },
+                    {
+                      "widgetId": "1-0-3"
+                    }
+                  ],
+                  "metricMode": "Expression",
+                  "expressions": [
+                    "service_instance_sla/100"
+                  ],
+                  "typesOfMQE": [
+                    "TIME_SERIES_VALUES"
+                  ]
+                },
+                {
+                  "x": 11,
+                  "y": 0,
+                  "w": 13,
+                  "h": 14,
+                  "i": "2",
+                  "type": "Widget",
+                  "widget": {
+                    "title": "Service Instance Throughput (Bytes)",
+                    "name": "Instance_Throughput",
+                    "tips": "This metrics is only available for TCP services"
+                  },
+                  "graph": {
+                    "type": "Line",
+                    "step": false,
+                    "smooth": false,
+                    "showSymbol": true,
+                    "showXAxis": true,
+                    "showYAxis": true
+                  },
+                  "associate": [
+                    {
+                      "widgetId": "1-0-0"
+                    },
+                    {
+                      "widgetId": "1-0-1"
+                    },
+                    {
+                      "widgetId": "1-0-3"
+                    }
+                  ],
+                  "metricMode": "Expression",
+                  "expressions": [
+                    "service_instance_throughput_received",
+                    "service_instance_throughput_sent"
+                  ],
+                  "typesOfMQE": [
+                    "TIME_SERIES_VALUES",
+                    "TIME_SERIES_VALUES"
+                  ]
+                },
+                {
+                  "x": 0,
+                  "y": 0,
+                  "w": 11,
+                  "h": 14,
+                  "i": "3",
+                  "type": "Widget",
+                  "widget": {
+                    "title": "Service Instance Load (calls or packets / min)",
+                    "name": "Instance_Load"
+                  },
+                  "graph": {
+                    "type": "Line",
+                    "step": false,
+                    "smooth": false,
+                    "showSymbol": true,
+                    "showXAxis": true,
+                    "showYAxis": true
+                  },
+                  "associate": [
+                    {
+                      "widgetId": "1-0-0"
+                    },
+                    {
+                      "widgetId": "1-0-1"
+                    },
+                    {
+                      "widgetId": "1-0-2"
+                    }
+                  ],
+                  "metricMode": "Expression",
+                  "expressions": [
+                    "service_instance_cpm"
+                  ],
+                  "typesOfMQE": [
+                    "TIME_SERIES_VALUES"
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Envoy Proxy",
+              "children": [
+                {
+                  "x": 18,
+                  "y": 13,
+                  "w": 6,
+                  "h": 13,
+                  "i": "10",
+                  "type": "Widget",
+                  "widget": {
+                    "title": "Upstream Request Active"
+                  },
+                  "graph": {
+                    "type": "Line",
+                    "step": false,
+                    "smooth": false,
+                    "showSymbol": true,
+                    "showXAxis": true,
+                    "showYAxis": true
+                  },
+                  "metrics": [
+                    "envoy_cluster_up_rq_active"
+                  ],
+                  "metricTypes": [
+                    "readLabeledMetricsValues"
+                  ]
+                },
+                {
+                  "x": 6,
+                  "y": 0,
+                  "w": 6,
+                  "h": 13,
+                  "i": "11",
+                  "type": "Widget",
+                  "widget": {
+                    "title": "Connections Used"
+                  },
+                  "graph": {
+                    "type": "Line",
+                    "step": false,
+                    "smooth": false,
+                    "showSymbol": true,
+                    "showXAxis": true,
+                    "showYAxis": true
+                  },
+                  "metrics": [
+                    "envoy_total_connections_used",
+                    "envoy_parent_connections_used"
+                  ],
+                  "metricTypes": [
+                    "readMetricsValues",
+                    "readMetricsValues"
+                  ],
+                  "metricConfig": [
+                    {
+                      "label": "total"
+                    },
+                    {
+                      "label": "parent"
+                    }
+                  ]
+                },
+                {
+                  "x": 0,
+                  "y": 13,
+                  "w": 6,
+                  "h": 13,
+                  "i": "12",
+                  "type": "Widget",
+                  "widget": {
+                    "title": "Membership Healthy"
+                  },
+                  "graph": {
+                    "type": "Line",
+                    "step": false,
+                    "smooth": false,
+                    "showSymbol": true,
+                    "showXAxis": true,
+                    "showYAxis": true
+                  },
+                  "metrics": [
+                    "envoy_cluster_membership_healthy"
+                  ],
+                  "metricTypes": [
+                    "readLabeledMetricsValues"
+                  ]
+                },
+                {
+                  "x": 12,
+                  "y": 13,
+                  "w": 6,
+                  "h": 13,
+                  "i": "13",
+                  "type": "Widget",
+                  "widget": {
+                    "title": "Upstream Connection Increase (Per Minute)"
+                  },
+                  "graph": {
+                    "type": "Line",
+                    "step": false,
+                    "smooth": false,
+                    "showSymbol": true,
+                    "showXAxis": true,
+                    "showYAxis": true
+                  },
+                  "metrics": [
+                    "envoy_cluster_up_cx_incr"
+                  ],
+                  "metricTypes": [
+                    "readLabeledMetricsValues"
+                  ]
+                },
+                {
+                  "x": 6,
+                  "y": 26,
+                  "w": 6,
+                  "h": 13,
+                  "i": "14",
+                  "type": "Widget",
+                  "widget": {
+                    "title": "Upstream Request Pending Active"
+                  },
+                  "graph": {
+                    "type": "Line",
+                    "step": false,
+                    "smooth": false,
+                    "showSymbol": true,
+                    "showXAxis": true,
+                    "showYAxis": true
+                  },
+                  "metrics": [
+                    "envoy_cluster_up_rq_pending_active"
+                  ],
+                  "metricTypes": [
+                    "readLabeledMetricsValues"
+                  ]
+                },
+                {
+                  "x": 0,
+                  "y": 0,
+                  "w": 6,
+                  "h": 13,
+                  "i": "15",
+                  "type": "Widget",
+                  "widget": {
+                    "title": "Heap Memory Used (MB)"
+                  },
+                  "graph": {
+                    "type": "Line",
+                    "step": false,
+                    "smooth": false,
+                    "showSymbol": true,
+                    "showXAxis": true,
+                    "showYAxis": true
+                  },
+                  "metrics": [
+                    "envoy_memory_allocated_max",
+                    "envoy_heap_memory_used",
+                    "envoy_memory_allocated",
+                    "envoy_memory_physical_size",
+                    "envoy_memory_physical_size_max",
+                    "envoy_heap_memory_max_used"
+                  ],
+                  "metricTypes": [
+                    "readMetricsValues",
+                    "readMetricsValues",
+                    "readMetricsValues",
+                    "readMetricsValues",
+                    "readMetricsValues",
+                    "readMetricsValues"
+                  ],
+                  "metricConfig": [
+                    {
+                      "calculation": "byteToMB",
+                      "label": "allocated_max"
+                    },
+                    {
+                      "calculation": "byteToMB",
+                      "label": "heap_memory_used"
+                    },
+                    {
+                      "calculation": "byteToMB",
+                      "label": "allocated"
+                    },
+                    {
+                      "calculation": "byteToMB",
+                      "label": "physical_size"
+                    },
+                    {
+                      "calculation": "byteToMB",
+                      "label": "physical_size_max"
+                    },
+                    {
+                      "calculation": "byteToMB",
+                      "label": "max_used"
+                    }
+                  ]
+                },
+                {
+                  "x": 18,
+                  "y": 0,
+                  "w": 6,
+                  "h": 13,
+                  "i": "16",
+                  "type": "Widget",
+                  "widget": {
+                    "title": "Envoy Bug Failure"
+                  },
+                  "graph": {
+                    "type": "Line",
+                    "step": false,
+                    "smooth": false,
+                    "showSymbol": true,
+                    "showXAxis": true,
+                    "showYAxis": true
+                  },
+                  "metrics": [
+                    "envoy_bug_failures"
+                  ],
+                  "metricTypes": [
+                    "readMetricsValues"
+                  ]
+                },
+                {
+                  "x": 12,
+                  "y": 0,
+                  "w": 6,
+                  "h": 13,
+                  "i": "17",
+                  "type": "Widget",
+                  "widget": {
+                    "title": "Concurrency"
+                  },
+                  "graph": {
+                    "type": "Line",
+                    "step": false,
+                    "smooth": false,
+                    "showSymbol": true,
+                    "showXAxis": true,
+                    "showYAxis": true
+                  },
+                  "metrics": [
+                    "envoy_worker_threads_max",
+                    "envoy_worker_threads"
+                  ],
+                  "metricTypes": [
+                    "readMetricsValues",
+                    "readMetricsValues"
+                  ],
+                  "metricConfig": [
+                    {
+                      "label": "threads_max"
+                    },
+                    {
+                      "label": "threads"
+                    }
+                  ]
+                },
+                {
+                  "x": 6,
+                  "y": 13,
+                  "w": 6,
+                  "h": 13,
+                  "i": "18",
+                  "type": "Widget",
+                  "widget": {
+                    "title": "Upstream Connection Active"
+                  },
+                  "graph": {
+                    "type": "Line",
+                    "step": false,
+                    "smooth": false,
+                    "showSymbol": true,
+                    "showXAxis": true,
+                    "showYAxis": true
+                  },
+                  "metrics": [
+                    "envoy_cluster_up_cx_active"
+                  ],
+                  "metricTypes": [
+                    "readLabeledMetricsValues"
+                  ]
+                },
+                {
+                  "x": 0,
+                  "y": 26,
+                  "w": 6,
+                  "h": 13,
+                  "i": "19",
+                  "type": "Widget",
+                  "widget": {
+                    "title": "Upstream Request Increase (Per Minute)"
+                  },
+                  "graph": {
+                    "type": "Line",
+                    "step": false,
+                    "smooth": false,
+                    "showSymbol": true,
+                    "showXAxis": true,
+                    "showYAxis": true
+                  },
+                  "metrics": [
+                    "envoy_cluster_up_rq_incr"
+                  ],
+                  "metricTypes": [
+                    "readLabeledMetricsValues"
+                  ]
+                },
+                {
+                  "x": 12,
+                  "y": 26,
+                  "w": 6,
+                  "h": 13,
+                  "i": "20",
+                  "type": "Widget",
+                  "metricTypes": [
+                    "readMetricsValues"
+                  ],
+                  "metrics": [
+                    "service_instance_sidecar_internal_req_latency_nanos"
+                  ],
+                  "widget": {
+                    "title": "Proxy Sidecar Internal Latency in Nanoseconds (Request)",
+                    "tips": "For more details to understand this metrics, refer to https://www.envoyproxy.io/docs/envoy/v1.22.0/api-v3/data/accesslog/v3/accesslog.proto.html#data-accesslog-v3-accesslogcommon"
+                  },
+                  "graph": {
+                    "type": "Line",
+                    "step": false,
+                    "smooth": false,
+                    "showSymbol": true,
+                    "showXAxis": true,
+                    "showYAxis": true
+                  }
+                },
+                {
+                  "x": 18,
+                  "y": 26,
+                  "w": 6,
+                  "h": 13,
+                  "i": "21",
+                  "type": "Widget",
+                  "metricTypes": [
+                    "readMetricsValues"
+                  ],
+                  "metrics": [
+                    "service_instance_sidecar_internal_resp_latency_nanos"
+                  ],
+                  "widget": {
+                    "tips": "For more details to understand this metrics, refer to https://www.envoyproxy.io/docs/envoy/v1.22.0/api-v3/data/accesslog/v3/accesslog.proto.html#data-accesslog-v3-accesslogcommon",
+                    "title": "Proxy Sidecar Internal Latency in Nanoseconds (Response)"
+                  },
+                  "graph": {
+                    "type": "Line",
+                    "step": false,
+                    "smooth": false,
+                    "showSymbol": true,
+                    "showXAxis": true,
+                    "showYAxis": true
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Envoy Log",
+              "children": [
+                {
+                  "x": 0,
+                  "y": 0,
+                  "w": 24,
+                  "h": 48,
+                  "i": "0",
+                  "type": "Log"
+                }
+              ]
+            },
+            {
+              "name": "Pod Log",
+              "children": [
+                {
+                  "x": 0,
+                  "y": 0,
+                  "w": 24,
+                  "h": 44,
+                  "i": "0",
+                  "type": "DemandLog"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "x": 0,
+          "y": 0,
+          "w": 24,
+          "h": 12,
+          "i": "2",
+          "type": "Event",
+          "eventAssociate": true
+        }
+      ],
+      "layer": "MESH",
+      "entity": "ServiceInstance",
+      "name": "Mesh-Instance",
+      "id": "Mesh-Instance"
+    }
+  }
+]

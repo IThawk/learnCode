@@ -7,7 +7,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
     <artifactId>spring-quartz</artifactId>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
     <version>0.0.1-SNAPSHOT</version>
     <name>spring-quartz </name>
     <url>http://maven.apache.org</url>

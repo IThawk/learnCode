@@ -1,0 +1,20 @@
+logging:
+  level:
+    com.xkcoding: debug
+    com.xkcoding.orm.mybatis.plus.mapper: trace
+xxl:
+  job:
+    ###web端启动调度器
+    admin:
+      flag: true
+      addresses: http://127.0.0.1:9090/xxl-job-admin
+    ### xxl-job executor appname
+    executor:
+      appname:  xxl-job-executor-test
+      address:
+      ip:
+      port: ${random.int[9000,10000]}
+      logpath:  C:/dev_logs/xxl-job1/jobhandler
+      logretentiondays:  30
+server:
+  port: 9091

@@ -1,0 +1,78 @@
+
+[
+  {
+    "id": "Windows-Root",
+    "configuration": {
+      "children": [
+        {
+          "x": 0,
+          "y": 2,
+          "w": 24,
+          "h": 51,
+          "i": "0",
+          "type": "Widget",
+          "widget": {
+            "title": ""
+          },
+          "graph": {
+            "type": "ServiceList",
+            "dashboardName": "Windows-Service",
+            "fontSize": 12,
+            "showXAxis": false,
+            "showYAxis": false,
+            "showGroup": false
+          },
+          "expressions": [
+            "avg(meter_win_cpu_total_percentage)"
+          ],
+          "metricMode": "Expression",
+          "typesOfMQE": [
+            "TIME_SERIES_VALUES"
+          ],
+          "subExpressions": [
+            "meter_win_cpu_total_percentage"
+          ],
+          "subTypesOfMQE": [
+            "TIME_SERIES_VALUES"
+          ],
+          "moved": false,
+          "metricConfig": [
+            {
+              "label": "CPU Usage",
+              "unit": "%"
+            }
+          ]
+        },
+        {
+          "x": 0,
+          "y": 0,
+          "w": 24,
+          "h": 2,
+          "i": "100",
+          "type": "Text",
+          "metricTypes": [
+            ""
+          ],
+          "metrics": [
+            ""
+          ],
+          "graph": {
+            "fontColor": "blue",
+            "backgroundColor": "white",
+            "content": "Provide Windows OS monitoring.",
+            "fontSize": 14,
+            "textAlign": "left",
+            "url": "https://skywalking.apache.org/docs/main/next/en/setup/backend/backend-win-monitoring/"
+          },
+          "moved": false
+        }
+      ],
+      "id": "Windows-Root",
+      "layer": "OS_WINDOWS",
+      "entity": "All",
+      "name": "Windows-Root",
+      "isRoot": true
+    }
+  }
+]
+

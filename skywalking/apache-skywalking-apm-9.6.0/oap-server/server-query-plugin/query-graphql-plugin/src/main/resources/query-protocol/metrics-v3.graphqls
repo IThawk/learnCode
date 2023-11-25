@@ -1,0 +1,103 @@
+# Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# SkyWalking Metrics Query Expression(MQE) is an extension query mechanism.
+# MQE allows users to do simple query-stage calculation like well known PromQL.
+
+input Entity {
+    # Deprecated from 9.4.0
+    # Scope could be sensed automatically through given metric name.
+    scope: Scope
+    # 1. metrics Scope=Service, ServiceInstance and Endpoint, set necessary serviceName/serviceInstanceName/endpointName
+    # 2. metrics Scope=ServiceRelation, ServiceInstanceRelation, EndpointRelation and ProcessRelation
+    #    serviceName/serviceInstanceName/endpointName/processName is/are the source(s)
+    #    destServiceName/destServiceInstanceName/destEndpointName/destProcessName is/are destination(s)
+    #    set necessary names of sources and destinations.
+    serviceName: String
+    # Normal service is the service having installed agent or metrics reported directly.
+    # Unnormal service is conjectural service, usually detected by the agent.
+    normal: Boolean
+    serviceInstanceName: String
+    endpointName: String
+    processName: String
+    destServiceName: String
+    # Normal service is the service having installed agent or metrics reported directly.
+    # Unnormal service is conjectural service, usually detected by the agent.
+    destNormal: Boolean
+    destServiceInstanceName: String
+    destEndpointName: String
+    destProcessName: String
+}
+
+enum ExpressionResultType {
+    # Can't resolve the type of the given expression.
+    UNKNOWN
+    # A single value
+    SINGLE_VALUE
+    # A collection of time-series values.
+    # The value could have labels or not.
+    TIME_SERIES_VALUES
+    # A collection of aggregated values through metric sort function
+    SORTED_LIST
+    # A collection of sampled records.
+    # When the original metric type is sampled records
+    RECORD_LIST
+}
+
+type MQEValue {
+    # Timestamp or name of the entity or record. It could be NULL if it is the result of an aggregate calculation.
+    id: ID
+    # Value is formatted double/int or NULL if the value is absent.
+    value: String
+    # Sampled record could associate with a trace.
+    # This would be a trace ID only.
+    traceID: ID
+}
+
+type MQEValues {
+    # The metadata description of this value series. It could be NULL if it is the result of the different metrics calculation.
+    metric: Metadata
+    # 1. When the type == SINGLE_VALUE, values only have one value.
+    # 2. When the type == TIME_SERIES_VALUES, values would match the given elements in the duration range.
+    # 3. When the type == SORTED_LIST, values could be results of `sort(metric)`
+    # 4. When the type == RECORD_LIST, values could be sampled records
+    values: [MQEValue!]!
+}
+
+type Metadata {
+    # Key-value pairs to describe the metric
+    labels: [KeyValue!]!
+}
+
+type ExpressionResult {
+    type: ExpressionResultType!
+    # When the type == TIME_SERIES_VALUES or SINGLE_VALUE, the results would be a collection of MQEValues according to the metric labels.
+    # In other legal type cases, only one MQEValues is expected in the array.
+    results: [MQEValues!]!
+    # When type == ExpressionResultType.UNKNOWN,
+    # the error message includes the expression resolving errors.
+    error: String
+}
+
+
+extend type Query {
+    # Metrics definition metadata query. Response the metrics type which determines the suitable query methods.
+    typeOfMetrics(name: String!): MetricsType!
+    # Get the list of all available metrics in the current OAP server.
+    # Param, regex, could be used to filter the metrics by name.
+    listMetrics(regex: String): [MetricDefinition!]!
+    execExpression(expression: String!, entity: Entity!, duration: Duration!): ExpressionResult!
+}

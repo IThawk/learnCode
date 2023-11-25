@@ -1,0 +1,102 @@
+/**
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+[
+  {
+    "id": "Virtual-MQ-Root",
+    "configuration": {
+      "children": [
+        {
+          "x": 0,
+          "y": 2,
+          "w": 24,
+          "h": 52,
+          "i": "0",
+          "type": "Widget",
+          "widget": {
+            "title": "Virtual MQ"
+          },
+          "graph": {
+            "type": "ServiceList",
+            "dashboardName": "Virtual-MQ-Service",
+            "fontSize": 12,
+            "showXAxis": false,
+            "showYAxis": false,
+            "showGroup": false
+          },
+          "expressions": [
+            "avg(mq_service_consume_latency)",
+            "avg(mq_service_consume_sla)/100",
+            "avg(mq_service_consume_cpm)",
+            "avg(mq_service_produce_sla)/100",
+            "avg(mq_service_produce_cpm)"
+          ],
+          "metricMode": "Expression",
+          "typesOfMQE": [
+            "TIME_SERIES_VALUES",
+            "TIME_SERIES_VALUES",
+            "TIME_SERIES_VALUES",
+            "TIME_SERIES_VALUES",
+            "TIME_SERIES_VALUES"
+          ],
+          "subExpressions": [
+            "mq_service_consume_latency",
+            "mq_service_consume_sla/100",
+            "mq_service_consume_cpm",
+            "mq_service_produce_sla/100",
+            "mq_service_produce_cpm"
+          ],
+          "subTypesOfMQE": [
+            "TIME_SERIES_VALUES",
+            "TIME_SERIES_VALUES",
+            "TIME_SERIES_VALUES",
+            "TIME_SERIES_VALUES",
+            "TIME_SERIES_VALUES"
+          ],
+          "moved": false,
+          "metricConfig": [
+            {
+              "unit": "ms",
+              "label": "Transmission Latency"
+            },
+            {
+              "label": "Consume Successful Rate",
+              "unit": "%"
+            },
+            {
+              "label": "Consume Traffic",
+              "unit": "calls / min"
+            },
+            {
+              "label": "Produce Successful Rate",
+              "unit": "%"
+            },
+            {
+              "label": "Produce Traffic",
+              "unit": "calls / min"
+            }
+          ]
+        }
+      ],
+      "id": "Virtual-MQ-Root",
+      "layer": "VIRTUAL_MQ",
+      "entity": "All",
+      "name": "Virtual-MQ-Root",
+      "isRoot": true
+    }
+  }
+]

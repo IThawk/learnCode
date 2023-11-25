@@ -1,0 +1,936 @@
+/**
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+[
+  {
+    "id": "General-Service",
+    "configuration": {
+      "children": [
+        {
+          "x": 0,
+          "y": 12,
+          "w": 24,
+          "h": 52,
+          "i": "4",
+          "type": "Tab",
+          "children": [
+            {
+              "name": "Overview",
+              "children": [
+                {
+                  "x": 0,
+                  "y": 0,
+                  "w": 8,
+                  "h": 5,
+                  "i": "0",
+                  "type": "Widget",
+                  "widget": {
+                    "title": "Service Apdex"
+                  },
+                  "graph": {
+                    "type": "Card",
+                    "fontSize": 14,
+                    "textAlign": "center"
+                  },
+                  "metricMode": "Expression",
+                  "expressions": [
+                    "avg(service_apdex)/10000"
+                  ],
+                  "typesOfMQE": [
+                    "SINGLE_VALUE"
+                  ]
+                },
+                {
+                  "x": 8,
+                  "y": 0,
+                  "w": 8,
+                  "h": 5,
+                  "i": "1",
+                  "type": "Widget",
+                  "widget": {
+                    "title": "Success Rate"
+                  },
+                  "graph": {
+                    "type": "Card",
+                    "fontSize": 14,
+                    "textAlign": "center",
+                    "showUnit": true
+                  },
+                  "metricConfig": [
+                    {
+                      "unit": "%"
+                    }
+                  ],
+                  "metricMode": "Expression",
+                  "expressions": [
+                    "avg(service_sla)/100"
+                  ],
+                  "typesOfMQE": [
+                    "SINGLE_VALUE"
+                  ]
+                },
+                {
+                  "x": 16,
+                  "y": 0,
+                  "w": 8,
+                  "h": 5,
+                  "i": "2",
+                  "type": "Widget",
+                  "widget": {
+                    "title": "Service Load",
+                    "tips": "For HTTP 1/2, gRPC, RPC services, this means Calls Per Minute (calls / min)"
+                  },
+                  "graph": {
+                    "type": "Card",
+                    "fontSize": 14,
+                    "textAlign": "center",
+                    "showUnit": true
+                  },
+                  "metricConfig": [
+                    {
+                      "unit": "calls / min"
+                    }
+                  ],
+                  "metricMode": "Expression",
+                  "expressions": [
+                    "avg(service_cpm)"
+                  ],
+                  "typesOfMQE": [
+                    "SINGLE_VALUE"
+                  ]
+                },
+                {
+                  "x": 0,
+                  "y": 5,
+                  "w": 6,
+                  "h": 11,
+                  "i": "3",
+                  "type": "Widget",
+                  "widget": {
+                    "title": "Service Avg Response Time (ms)",
+                    "name": "Service_Avg_Response"
+                  },
+                  "graph": {
+                    "type": "Line",
+                    "step": false,
+                    "smooth": false,
+                    "showSymbol": true,
+                    "showXAxis": true,
+                    "showYAxis": true
+                  },
+                  "associate": [
+                    {
+                      "widgetId": "4-0-10"
+                    },
+                    {
+                      "widgetId": "4-0-4"
+                    },
+                    {
+                      "widgetId": "4-0-5"
+                    },
+                    {
+                      "widgetId": "4-0-6"
+                    },
+                    {
+                      "widgetId": "4-0-7"
+                    },
+                    {
+                      "widgetId": "4-0-9"
+                    }
+                  ],
+                  "relatedTrace": {
+                    "enableRelate": true,
+                    "latency": true
+                  },
+                  "metricMode": "Expression",
+                  "metricConfig": [
+                    {
+                      "unit": "ms",
+                      "label": "latency"
+                    }
+                  ],
+                  "expressions": [
+                    "service_resp_time"
+                  ],
+                  "typesOfMQE": [
+                    "TIME_SERIES_VALUES"
+                  ]
+                },
+                {
+                  "x": 6,
+                  "y": 5,
+                  "w": 6,
+                  "h": 11,
+                  "i": "4",
+                  "type": "Widget",
+                  "widget": {
+                    "title": "Service Apdex",
+                    "name": "Service_Apdex"
+                  },
+                  "graph": {
+                    "type": "Line",
+                    "step": false,
+                    "smooth": false,
+                    "showSymbol": true,
+                    "showXAxis": true,
+                    "showYAxis": true
+                  },
+                  "metricConfig": [
+                    {
+                      "label": "apdex"
+                    }
+                  ],
+                  "associate": [
+                    {
+                      "widgetId": "4-0-3"
+                    },
+                    {
+                      "widgetId": "4-0-10"
+                    },
+                    {
+                      "widgetId": "4-0-5"
+                    },
+                    {
+                      "widgetId": "4-0-6"
+                    },
+                    {
+                      "widgetId": "4-0-7"
+                    },
+                    {
+                      "widgetId": "4-0-9"
+                    }
+                  ],
+                  "relatedTrace": {
+                    "enableRelate": true,
+                    "queryOrder": "BY_DURATION",
+                    "status": "ERROR"
+                  },
+                  "metricMode": "Expression",
+                  "expressions": [
+                    "service_apdex/10000"
+                  ],
+                  "typesOfMQE": [
+                    "TIME_SERIES_VALUES"
+                  ]
+                },
+                {
+                  "x": 12,
+                  "y": 5,
+                  "w": 6,
+                  "h": 11,
+                  "i": "5",
+                  "type": "Widget",
+                  "widget": {
+                    "title": "Service Response Time Percentile (ms)",
+                    "name": "Service_Response_Percentile"
+                  },
+                  "graph": {
+                    "type": "Line",
+                    "step": false,
+                    "smooth": false,
+                    "showSymbol": true,
+                    "showXAxis": true,
+                    "showYAxis": true
+                  },
+                  "associate": [
+                    {
+                      "widgetId": "4-0-3"
+                    },
+                    {
+                      "widgetId": "4-0-4"
+                    },
+                    {
+                      "widgetId": "4-0-10"
+                    },
+                    {
+                      "widgetId": "4-0-6"
+                    },
+                    {
+                      "widgetId": "4-0-7"
+                    },
+                    {
+                      "widgetId": "4-0-9"
+                    }
+                  ],
+                  "relatedTrace": {
+                    "enableRelate": true,
+                    "latency": true
+                  },
+                  "metricMode": "Expression",
+                  "expressions": [
+                    "relabels(service_percentile{_=\"0,1,2,3,4\"},_=\"P50,P75,P90,P95,P99\")"
+                  ],
+                  "typesOfMQE": [
+                    "TIME_SERIES_VALUES"
+                  ]
+                },
+                {
+                  "x": 0,
+                  "y": 16,
+                  "w": 8,
+                  "h": 11,
+                  "i": "6",
+                  "type": "Widget",
+                  "widget": {
+                    "title": "Success Rate (%)",
+                    "name": "Success_Rate"
+                  },
+                  "graph": {
+                    "type": "Line",
+                    "step": false,
+                    "smooth": false,
+                    "showSymbol": true,
+                    "showXAxis": true,
+                    "showYAxis": true
+                  },
+                  "metricConfig": [
+                    {
+                      "label": "success_rate"
+                    }
+                  ],
+                  "associate": [
+                    {
+                      "widgetId": "4-0-3"
+                    },
+                    {
+                      "widgetId": "4-0-4"
+                    },
+                    {
+                      "widgetId": "4-0-5"
+                    },
+                    {
+                      "widgetId": "4-0-10"
+                    },
+                    {
+                      "widgetId": "4-0-7"
+                    },
+                    {
+                      "widgetId": "4-0-9"
+                    }
+                  ],
+                  "relatedTrace": {
+                    "enableRelate": true,
+                    "status": "ERROR"
+                  },
+                  "metricMode": "Expression",
+                  "expressions": [
+                    "service_sla/100"
+                  ],
+                  "typesOfMQE": [
+                    "TIME_SERIES_VALUES"
+                  ]
+                },
+                {
+                  "x": 18,
+                  "y": 5,
+                  "w": 6,
+                  "h": 11,
+                  "i": "7",
+                  "type": "Widget",
+                  "widget": {
+                    "title": "Service Load (calls / min)",
+                    "tips": "For HTTP 1/2, gRPC, RPC services, this means Calls Per Minute (calls / min)",
+                    "name": "Service_Load"
+                  },
+                  "graph": {
+                    "type": "Line",
+                    "step": false,
+                    "smooth": false,
+                    "showSymbol": true,
+                    "showXAxis": true,
+                    "showYAxis": true
+                  },
+                  "associate": [
+                    {
+                      "widgetId": "4-0-3"
+                    },
+                    {
+                      "widgetId": "4-0-4"
+                    },
+                    {
+                      "widgetId": "4-0-5"
+                    },
+                    {
+                      "widgetId": "4-0-6"
+                    },
+                    {
+                      "widgetId": "4-0-10"
+                    },
+                    {
+                      "widgetId": "4-0-9"
+                    }
+                  ],
+                  "metricMode": "Expression",
+                  "metricConfig": [
+                    {
+                      "label": "load"
+                    }
+                  ],
+                  "expressions": [
+                    "service_cpm"
+                  ],
+                  "typesOfMQE": [
+                    "TIME_SERIES_VALUES"
+                  ]
+                },
+                {
+                  "x": 8,
+                  "y": 16,
+                  "w": 8,
+                  "h": 11,
+                  "i": "9",
+                  "type": "Widget",
+                  "widget": {
+                    "title": "Message Queue Consuming Count",
+                    "name": "Message_Consuming_Count"
+                  },
+                  "graph": {
+                    "type": "Line",
+                    "step": false,
+                    "smooth": false,
+                    "showSymbol": true,
+                    "showXAxis": true,
+                    "showYAxis": true
+                  },
+                  "associate": [
+                    {
+                      "widgetId": "4-0-3"
+                    },
+                    {
+                      "widgetId": "4-0-4"
+                    },
+                    {
+                      "widgetId": "4-0-5"
+                    },
+                    {
+                      "widgetId": "4-0-6"
+                    },
+                    {
+                      "widgetId": "4-0-7"
+                    },
+                    {
+                      "widgetId": "4-0-10"
+                    }
+                  ],
+                  "metricMode": "Expression",
+                  "metricConfig": [
+                    {
+                      "label": "consuming_count"
+                    }
+                  ],
+                  "expressions": [
+                    "service_mq_consume_count"
+                  ],
+                  "typesOfMQE": [
+                    "TIME_SERIES_VALUES"
+                  ]
+                },
+                {
+                  "x": 16,
+                  "y": 16,
+                  "w": 8,
+                  "h": 11,
+                  "i": "10",
+                  "type": "Widget",
+                  "widget": {
+                    "title": "Message Queue Avg Consuming Latency (ms)",
+                    "tips": "The avg latency of message consuming. Latency = timestamp(received) - timestamp(producing)",
+                    "name": "Message_Consuming_Latency"
+                  },
+                  "graph": {
+                    "type": "Line",
+                    "step": false,
+                    "smooth": false,
+                    "showSymbol": true,
+                    "showXAxis": true,
+                    "showYAxis": true
+                  },
+                  "associate": [
+                    {
+                      "widgetId": "4-0-3"
+                    },
+                    {
+                      "widgetId": "4-0-4"
+                    },
+                    {
+                      "widgetId": "4-0-5"
+                    },
+                    {
+                      "widgetId": "4-0-6"
+                    },
+                    {
+                      "widgetId": "4-0-7"
+                    },
+                    {
+                      "widgetId": "4-0-9"
+                    }
+                  ],
+                  "metricMode": "Expression",
+                  "metricConfig": [
+                    {
+                      "label": "avg_consuming_latency"
+                    }
+                  ],
+                  "expressions": [
+                    "service_mq_consume_latency"
+                  ],
+                  "typesOfMQE": [
+                    "TIME_SERIES_VALUES"
+                  ]
+                },
+                {
+                  "x": 0,
+                  "y": 27,
+                  "w": 8,
+                  "h": 14,
+                  "i": "11",
+                  "type": "Widget",
+                  "widget": {
+                    "title": "Service Instances Load (calls / min)",
+                    "tips": "For HTTP 1/2, gRPC, RPC services, this means Calls Per Minute (calls / min),"
+                  },
+                  "graph": {
+                    "type": "TopList"
+                  },
+                  "metricMode": "Expression",
+                  "expressions": [
+                    "top_n(service_instance_cpm,10,des)"
+                  ],
+                  "typesOfMQE": [
+                    "SORTED_LIST"
+                  ]
+                },
+                {
+                  "x": 8,
+                  "y": 27,
+                  "w": 8,
+                  "h": 14,
+                  "i": "12",
+                  "type": "Widget",
+                  "widget": {
+                    "title": "Slow Service Instance (ms)"
+                  },
+                  "graph": {
+                    "type": "TopList",
+                    "topN": "10"
+                  },
+                  "metricMode": "Expression",
+                  "expressions": [
+                    "top_n(service_instance_resp_time,10,des)"
+                  ],
+                  "typesOfMQE": [
+                    "SORTED_LIST"
+                  ]
+                },
+                {
+                  "x": 16,
+                  "y": 27,
+                  "w": 8,
+                  "h": 14,
+                  "i": "13",
+                  "type": "Widget",
+                  "widget": {
+                    "title": "Service Instance Success Rate (%)"
+                  },
+                  "graph": {
+                    "type": "TopList",
+                    "topN": "10"
+                  },
+                  "metricMode": "Expression",
+                  "expressions": [
+                    "top_n(service_instance_sla,10,asc)/100"
+                  ],
+                  "typesOfMQE": [
+                    "SORTED_LIST"
+                  ]
+                },
+                {
+                  "x": 16,
+                  "y": 41,
+                  "w": 8,
+                  "h": 13,
+                  "i": "20",
+                  "type": "Widget",
+                  "widget": {
+                    "title": "Endpoint Success Rate in Current Service (%)"
+                  },
+                  "graph": {
+                    "type": "TopList",
+                    "topN": "10"
+                  },
+                  "metricMode": "Expression",
+                  "expressions": [
+                    "top_n(endpoint_sla,10,asc)/100"
+                  ],
+                  "typesOfMQE": [
+                    "SORTED_LIST"
+                  ]
+                },
+                {
+                  "x": 8,
+                  "y": 41,
+                  "w": 8,
+                  "h": 13,
+                  "i": "21",
+                  "type": "Widget",
+                  "widget": {
+                    "title": "Slow Endpoints in Current Service (ms)"
+                  },
+                  "graph": {
+                    "type": "TopList",
+                    "topN": "10"
+                  },
+                  "metricMode": "Expression",
+                  "expressions": [
+                    "top_n(endpoint_resp_time,10,des)"
+                  ],
+                  "typesOfMQE": [
+                    "SORTED_LIST"
+                  ]
+                },
+                {
+                  "x": 0,
+                  "y": 41,
+                  "w": 8,
+                  "h": 13,
+                  "i": "22",
+                  "type": "Widget",
+                  "widget": {
+                    "title": "Endpoint Load in Current Service (calls / min)",
+                    "tips": "For HTTP 1/2, gRPC, RPC services, this means Calls Per Minute (calls / min), for TCP services"
+                  },
+                  "graph": {
+                    "type": "TopList",
+                    "topN": "10"
+                  },
+                  "metricMode": "Expression",
+                  "expressions": [
+                    "top_n(endpoint_cpm,10,des)"
+                  ],
+                  "typesOfMQE": [
+                    "SORTED_LIST"
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Instance",
+              "children": [
+                {
+                  "x": 0,
+                  "y": 0,
+                  "w": 24,
+                  "h": 49,
+                  "i": "0",
+                  "type": "Widget",
+                  "graph": {
+                    "type": "InstanceList",
+                    "dashboardName": "General-Instance",
+                    "fontSize": 12
+                  },
+                  "metricConfig": [
+                    {
+                      "label": "Load",
+                      "detailLabel": "load",
+                      "unit": "calls / min"
+                    },
+                    {
+                      "detailLabel": "success_rate",
+                      "label": "Success Rate",
+                      "unit": "%"
+                    },
+                    {
+                      "label": "Latency",
+                      "detailLabel": "latency",
+                      "unit": "ms"
+                    }
+                  ],
+                  "metricMode": "Expression",
+                  "expressions": [
+                    "avg(service_instance_cpm)",
+                    "avg(service_instance_sla)/100",
+                    "avg(service_instance_resp_time)"
+                  ],
+                  "subExpressions": [
+                    "service_instance_cpm",
+                    "service_instance_sla/100",
+                    "service_instance_resp_time"
+                  ],
+                  "subTypesOfMQE": [
+                    "",
+                    "",
+                    ""
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Endpoint",
+              "children": [
+                {
+                  "x": 0,
+                  "y": 0,
+                  "w": 24,
+                  "h": 49,
+                  "i": "0",
+                  "type": "Widget",
+                  "graph": {
+                    "type": "EndpointList",
+                    "dashboardName": "General-Endpoint",
+                    "fontSize": 12,
+                    "showXAxis": false,
+                    "showYAxis": false
+                  },
+                  "metricConfig": [
+                    {
+                      "label": "Load",
+                      "detailLabel": "load",
+                      "unit": "calls / min"
+                    },
+                    {
+                      "label": "Success Rate",
+                      "detailLabel": "success_rate",
+                      "unit": "%"
+                    },
+                    {
+                      "label": "Latency",
+                      "detailLabel": "latency",
+                      "unit": "ms"
+                    }
+                  ],
+                  "metricMode": "Expression",
+                  "expressions": [
+                    "avg(endpoint_cpm)",
+                    "avg(endpoint_sla)/100",
+                    "avg(endpoint_resp_time)"
+                  ],
+                  "subExpressions": [
+                    "endpoint_cpm",
+                    "endpoint_sla/100",
+                    "endpoint_resp_time"
+                  ],
+                  "subTypesOfMQE": [
+                    "",
+                    "",
+                    ""
+                  ],
+                  "typesOfMQE": [
+                    "",
+                    "",
+                    ""
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Topology",
+              "children": [
+                {
+                  "x": 0,
+                  "y": 0,
+                  "w": 24,
+                  "h": 48,
+                  "i": "0",
+                  "type": "Topology",
+                  "graph": {
+                    "showDepth": true
+                  },
+                  "linkDashboard": "General-Service-Relation",
+                  "nodeDashboard": [
+                    {
+                      "scope": "Service",
+                      "dashboard": "General-Service"
+                    },
+                    {
+                      "scope": "ServiceInstance",
+                      "dashboard": "General-Instance"
+                    },
+                    {
+                      "scope": "Endpoint",
+                      "dashboard": "General-Endpoint"
+                    }
+                  ],
+                  "linkServerMetrics": [
+                    "service_relation_server_resp_time",
+                    "service_relation_server_cpm"
+                  ],
+                  "linkClientMetrics": [
+                    "service_relation_client_cpm",
+                    "service_relation_client_resp_time"
+                  ],
+                  "nodeMetrics": [
+                    "service_cpm",
+                    "service_sla",
+                    "service_resp_time"
+                  ],
+                  "legend": [
+                    {
+                      "name": "service_sla",
+                      "condition": "<",
+                      "value": "9500"
+                    },
+                    {
+                      "name": "service_cpm",
+                      "condition": ">",
+                      "value": "1"
+                    }
+                  ],
+                  "description": {
+                    "healthy": "Healthy",
+                    "unhealthy": "Success Rate < 95% and Traffic > 1 call/min"
+                  },
+                  "nodeMetricConfig": [
+                    {
+                      "unit": "calls / min",
+                      "label": "Load"
+                    },
+                    {
+                      "calculation": "percentage",
+                      "unit": "%",
+                      "label": "Success Rate"
+                    },
+                    {
+                      "unit": "ms",
+                      "label": "Latency"
+                    }
+                  ],
+                  "linkServerMetricConfig": [
+                    {
+                      "unit": "ms",
+                      "label": "Server Latency"
+                    },
+                    {
+                      "unit": "calls / min",
+                      "label": "Server Load"
+                    }
+                  ],
+                  "linkClientMetricConfig": [
+                    {
+                      "unit": "calls / min",
+                      "label": "Client Load"
+                    },
+                    {
+                      "unit": "ms",
+                      "label": "Client Latency"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Trace",
+              "children": [
+                {
+                  "x": 0,
+                  "y": 0,
+                  "w": 24,
+                  "h": 48,
+                  "i": "0",
+                  "type": "Trace"
+                }
+              ]
+            },
+            {
+              "name": "Trace Profiling",
+              "children": [
+                {
+                  "x": 0,
+                  "y": 2,
+                  "w": 24,
+                  "h": 46,
+                  "i": "0",
+                  "type": "Profile"
+                },
+                {
+                  "x": 0,
+                  "y": 0,
+                  "w": 24,
+                  "h": 2,
+                  "i": "2",
+                  "type": "Text",
+                  "graph": {
+                    "fontColor": "white",
+                    "backgroundColor": "blue",
+                    "content": "Trace Profiling supported services written in Java or Python with SkyWalking native agents installed.",
+                    "fontSize": 14,
+                    "textAlign": "left",
+                    "url": ""
+                  }
+                }
+              ]
+            },
+            {
+              "name": "eBPF Profiling",
+              "children": [
+                {
+                  "x": 0,
+                  "y": 0,
+                  "w": 24,
+                  "h": 2,
+                  "i": "3",
+                  "type": "Text",
+                  "graph": {
+                    "fontColor": "white",
+                    "backgroundColor": "blue",
+                    "content": "eBPF Profiling support services written in C, C++, Golang, and Rust. SkyWalking Rover provides this profiling capability. ",
+                    "fontSize": 14,
+                    "textAlign": "left",
+                    "url": "https://skywalking.apache.org/docs/skywalking-rover/next/readme/"
+                  }
+                },
+                {
+                  "x": 0,
+                  "y": 2,
+                  "w": 24,
+                  "h": 46,
+                  "i": "5",
+                  "type": "Ebpf"
+                }
+              ]
+            },
+            {
+              "name": "Log",
+              "children": [
+                {
+                  "x": 0,
+                  "y": 0,
+                  "w": 24,
+                  "h": 48,
+                  "i": "0",
+                  "type": "Log"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "x": 0,
+          "y": 0,
+          "w": 24,
+          "h": 12,
+          "i": "5",
+          "type": "Event",
+          "eventAssociate": true
+        }
+      ],
+      "layer": "GENERAL",
+      "entity": "Service",
+      "name": "General-Service",
+      "id": "General-Service"
+    }
+  }
+]

@@ -1,0 +1,2 @@
+### web
+spring.profiles.active=pg

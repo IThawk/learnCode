@@ -1,0 +1,94 @@
+/**
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+.show-xs {
+  display: none !important;
+}
+@media (max-width: 767px) {
+  .show-xs {
+    display: block !important;
+  }
+
+  .hide-xs {
+    display: none !important;
+  }
+}
+@media (min-width: 768px) {
+  .g-sm-1,
+  .g-sm-2,
+  .g-sm-3,
+  .g-sm-4,
+  .g-sm-5,
+  .g-sm-6,
+  .g-sm-7,
+  .g-sm-8,
+  .g-sm-9,
+  .g-sm-10,
+  .g-sm-11,
+  .g-sm-12 {
+    float: left;
+    min-height: 1px;
+  }
+
+  .g-sm-12 {
+    width: 100%;
+  }
+
+  .g-sm-11 {
+    width: 91.666%;
+  }
+
+  .g-sm-10 {
+    width: 83.333%;
+  }
+
+  .g-sm-9 {
+    width: 75%;
+  }
+
+  .g-sm-8 {
+    width: 66.666%;
+  }
+
+  .g-sm-7 {
+    width: 58.333%;
+  }
+
+  .g-sm-6 {
+    width: 50%;
+  }
+
+  .g-sm-5 {
+    width: 41.666%;
+  }
+
+  .g-sm-4 {
+    width: 33.333%;
+  }
+
+  .g-sm-3 {
+    width: 25%;
+  }
+
+  .g-sm-2 {
+    width: 16.666%;
+  }
+
+  .g-sm-1 {
+    width: 8.333%;
+  }
+}

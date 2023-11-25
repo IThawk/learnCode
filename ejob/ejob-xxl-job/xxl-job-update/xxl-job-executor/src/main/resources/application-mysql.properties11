@@ -1,0 +1,8 @@
+xxl.job.logretentiondays=30
+### xxl-job executor appname
+xxl-job.executor.appname= xxl-job-executor
+xxl-job.executor.address=
+xxl-job.executor.ip=
+xxl-job.executor.port= ${random.int[9000,10000]}
+xxl-job.executor.logpath  C:/dev_logs/xxl-job/jobhandler
+xxl-job.executor.logretentiondays  30

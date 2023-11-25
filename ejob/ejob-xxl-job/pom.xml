@@ -17,10 +17,8 @@
     </properties>
 
     <modules>
-        <module>xxl-job-admin</module>
-        <module>xxl-job-executor</module>
         <module>xxl-job-2.2.0</module>
-        <module>xxl-job-spring-boot-starter</module>
-        <module>springboot-starter-xxl-job-demo</module>
+        <module>xxl-job-admin</module>
+        <module>xxl-job-update</module>
     </modules>
 </project>

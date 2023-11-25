@@ -1,0 +1,485 @@
+/**
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+[
+  {
+    "id": "General-Instance-Relation",
+    "configuration": {
+      "children": [
+        {
+          "x": 0,
+          "y": 12,
+          "w": 12,
+          "h": 12,
+          "i": "1",
+          "type": "Widget",
+          "widget": {
+            "title": "Response Time Percentile (Client) (ms)",
+            "name": "Response_Percentile_Client"
+          },
+          "graph": {
+            "type": "Line",
+            "step": false,
+            "smooth": false,
+            "showSymbol": true,
+            "showXAxis": true,
+            "showYAxis": true
+          },
+          "associate": [
+            {
+              "widgetId": "8"
+            },
+            {
+              "widgetId": "2"
+            },
+            {
+              "widgetId": "3"
+            },
+            {
+              "widgetId": "4"
+            },
+            {
+              "widgetId": "5"
+            },
+            {
+              "widgetId": "6"
+            },
+            {
+              "widgetId": "7"
+            }
+          ],
+          "relatedTrace": {
+            "enableRelate": true,
+            "latency": true
+          },
+          "metricMode": "Expression",
+          "expressions": [
+            "relabels(service_instance_relation_client_percentile,_='P50,P75,P90,P95,P99')"
+          ],
+          "typesOfMQE": [
+            "TIME_SERIES_VALUES"
+          ]
+        },
+        {
+          "x": 0,
+          "y": 24,
+          "w": 12,
+          "h": 12,
+          "i": "2",
+          "type": "Widget",
+          "widget": {
+            "title": "Success Rate (Client) (%)",
+            "name": "Success_Rate_Client"
+          },
+          "graph": {
+            "type": "Line",
+            "step": false,
+            "smooth": false,
+            "showSymbol": true,
+            "showXAxis": true,
+            "showYAxis": true
+          },
+          "metricConfig": [
+            {
+              "label": "success_rate"
+            }
+          ],
+          "associate": [
+            {
+              "widgetId": "1"
+            },
+            {
+              "widgetId": "8"
+            },
+            {
+              "widgetId": "3"
+            },
+            {
+              "widgetId": "4"
+            },
+            {
+              "widgetId": "5"
+            },
+            {
+              "widgetId": "6"
+            },
+            {
+              "widgetId": "7"
+            }
+          ],
+          "relatedTrace": {
+            "enableRelate": true,
+            "status": "ERROR"
+          },
+          "metricMode": "Expression",
+          "expressions": [
+            "service_instance_relation_client_call_sla/100"
+          ],
+          "typesOfMQE": [
+            "TIME_SERIES_VALUES"
+          ]
+        },
+        {
+          "x": 0,
+          "y": 36,
+          "w": 12,
+          "h": 12,
+          "i": "3",
+          "type": "Widget",
+          "widget": {
+            "title": "Load (Client) (calls / min)",
+            "name": "Load_Client"
+          },
+          "graph": {
+            "type": "Line",
+            "step": false,
+            "smooth": false,
+            "showSymbol": true,
+            "showXAxis": true,
+            "showYAxis": true
+          },
+          "associate": [
+            {
+              "widgetId": "1"
+            },
+            {
+              "widgetId": "2"
+            },
+            {
+              "widgetId": "8"
+            },
+            {
+              "widgetId": "4"
+            },
+            {
+              "widgetId": "5"
+            },
+            {
+              "widgetId": "6"
+            },
+            {
+              "widgetId": "7"
+            }
+          ],
+          "metricMode": "Expression",
+          "metricConfig": [
+            {
+              "label": "load"
+            }
+          ],
+          "expressions": [
+            "service_instance_relation_client_cpm"
+          ],
+          "typesOfMQE": [
+            "TIME_SERIES_VALUES"
+          ]
+        },
+        {
+          "x": 0,
+          "y": 0,
+          "w": 12,
+          "h": 12,
+          "i": "4",
+          "type": "Widget",
+          "widget": {
+            "title": "Response Time (Client) (ms)",
+            "name": "Response_Time_Client"
+          },
+          "graph": {
+            "type": "Line",
+            "step": false,
+            "smooth": false,
+            "showSymbol": true,
+            "showXAxis": true,
+            "showYAxis": true
+          },
+          "associate": [
+            {
+              "widgetId": "1"
+            },
+            {
+              "widgetId": "2"
+            },
+            {
+              "widgetId": "3"
+            },
+            {
+              "widgetId": "8"
+            },
+            {
+              "widgetId": "5"
+            },
+            {
+              "widgetId": "6"
+            },
+            {
+              "widgetId": "7"
+            }
+          ],
+          "relatedTrace": {
+            "enableRelate": true,
+            "latency": true
+          },
+          "metricMode": "Expression",
+          "metricConfig": [
+            {
+              "label": "latency"
+            }
+          ],
+          "expressions": [
+            "service_instance_relation_client_resp_time"
+          ],
+          "typesOfMQE": [
+            "TIME_SERIES_VALUES"
+          ]
+        },
+        {
+          "x": 12,
+          "y": 12,
+          "w": 12,
+          "h": 12,
+          "i": "5",
+          "type": "Widget",
+          "widget": {
+            "title": "Response Time Percentile (Server) (ms)",
+            "name": "Response_Percentile_Server"
+          },
+          "graph": {
+            "type": "Line",
+            "step": false,
+            "smooth": false,
+            "showSymbol": true,
+            "showXAxis": true,
+            "showYAxis": true
+          },
+          "associate": [
+            {
+              "widgetId": "1"
+            },
+            {
+              "widgetId": "2"
+            },
+            {
+              "widgetId": "3"
+            },
+            {
+              "widgetId": "4"
+            },
+            {
+              "widgetId": "8"
+            },
+            {
+              "widgetId": "6"
+            },
+            {
+              "widgetId": "7"
+            }
+          ],
+          "relatedTrace": {
+            "enableRelate": true,
+            "latency": true
+          },
+          "metricMode": "Expression",
+          "expressions": [
+            "relabels(service_instance_relation_server_percentile,_='P50,P75,P90,P95,P99')"
+          ],
+          "typesOfMQE": [
+            "TIME_SERIES_VALUES"
+          ]
+        },
+        {
+          "x": 12,
+          "y": 24,
+          "w": 12,
+          "h": 12,
+          "i": "6",
+          "type": "Widget",
+          "widget": {
+            "title": "Success Rate (Server) (%)",
+            "name": "Success_Rate_Server"
+          },
+          "graph": {
+            "type": "Line",
+            "step": false,
+            "smooth": false,
+            "showSymbol": true,
+            "showXAxis": true,
+            "showYAxis": true
+          },
+          "metricConfig": [
+            {
+              "label": "success_rate"
+            }
+          ],
+          "associate": [
+            {
+              "widgetId": "1"
+            },
+            {
+              "widgetId": "2"
+            },
+            {
+              "widgetId": "3"
+            },
+            {
+              "widgetId": "4"
+            },
+            {
+              "widgetId": "5"
+            },
+            {
+              "widgetId": "8"
+            },
+            {
+              "widgetId": "7"
+            }
+          ],
+          "relatedTrace": {
+            "enableRelate": true,
+            "status": "ERROR"
+          },
+          "metricMode": "Expression",
+          "expressions": [
+            "service_instance_relation_server_call_sla/100"
+          ],
+          "typesOfMQE": [
+            "TIME_SERIES_VALUES"
+          ]
+        },
+        {
+          "x": 12,
+          "y": 36,
+          "w": 12,
+          "h": 12,
+          "i": "7",
+          "type": "Widget",
+          "widget": {
+            "title": "Load (Server) (calls / min)",
+            "name": "Load_Server"
+          },
+          "graph": {
+            "type": "Line",
+            "step": false,
+            "smooth": false,
+            "showSymbol": true,
+            "showXAxis": true,
+            "showYAxis": true
+          },
+          "associate": [
+            {
+              "widgetId": "1"
+            },
+            {
+              "widgetId": "2"
+            },
+            {
+              "widgetId": "3"
+            },
+            {
+              "widgetId": "4"
+            },
+            {
+              "widgetId": "5"
+            },
+            {
+              "widgetId": "6"
+            },
+            {
+              "widgetId": "8"
+            }
+          ],
+          "metricMode": "Expression",
+          "metricConfig": [
+            {
+              "label": "load"
+            }
+          ],
+          "expressions": [
+            "service_instance_relation_server_cpm"
+          ],
+          "typesOfMQE": [
+            "TIME_SERIES_VALUES"
+          ]
+        },
+        {
+          "x": 12,
+          "y": 0,
+          "w": 12,
+          "h": 12,
+          "i": "8",
+          "type": "Widget",
+          "widget": {
+            "title": "Response Time (Server) (ms)",
+            "name": "Response_Time_Server"
+          },
+          "graph": {
+            "type": "Line",
+            "step": false,
+            "smooth": false,
+            "showSymbol": true,
+            "showXAxis": true,
+            "showYAxis": true
+          },
+          "associate": [
+            {
+              "widgetId": "1"
+            },
+            {
+              "widgetId": "2"
+            },
+            {
+              "widgetId": "3"
+            },
+            {
+              "widgetId": "4"
+            },
+            {
+              "widgetId": "5"
+            },
+            {
+              "widgetId": "6"
+            },
+            {
+              "widgetId": "7"
+            }
+          ],
+          "relatedTrace": {
+            "enableRelate": true,
+            "latency": true
+          },
+          "metricMode": "Expression",
+          "metricConfig": [
+            {
+              "label": "latency"
+            }
+          ],
+          "expressions": [
+            "service_instance_relation_server_resp_time"
+          ],
+          "typesOfMQE": [
+            "TIME_SERIES_VALUES"
+          ]
+        }
+      ],
+      "layer": "GENERAL",
+      "entity": "ServiceInstanceRelation",
+      "name": "General-Instance-Relation",
+      "id": "General-Instance-Relation",
+      "isRoot": false
+    }
+  }
+]
